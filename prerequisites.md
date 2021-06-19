@@ -1,20 +1,20 @@
-# Getting started with OpenCore
+# Começando com o OpenCore
 
-Before we can jump head first into making an OpenCore based system, we need to go over a few things.
+Antes de pularmos de cabeça na criação de um sistema baseado no OpenCore, precisamos revisar algumas coisas.
 
-## Prerequisites
+## Pré-requisitos
 
-1. <span style="color:red">_**[CRUCIAL]**_</span> Time and patience.
-   * Don't start working on this if you have deadlines or important work. Hackintoshes are not something you should be relying on as a work machine.
-2. <span style="color:red">_**[CRUCIAL]**_</span> **KNOW YOUR HARDWARE**
-   * Your CPU name and its generation
-   * Your GPUs
-   * Your storage devices (HDD/SSD, NVMe/AHCI/RAID/IDE configuration)
-   * Your laptop/desktop model if from an OEM
-   * Your **Ethernet chipset**
-   * Your WLAN/Bluetooth chipset
-3. <span style="color:red">_**[CRUCIAL]**_</span> **A BASIC KNOWLEDGE OF COMMAND LINES AND HOW TO USE A TERMINAL/COMMAND PROMPT**
-   * This is not just [CRUCIAL], this is the basis of this whole guide. We can't help you if you don't know how to `cd` to a directory or delete a file.
+1. <span style="color:red">_**[CRUCIAL]**_</span> Tempo e paciência.
+   * Não comece esse tutorial se tiver prazos ou trabalhos importantes a fazer. Hackintoshes não são computadores de trabalho nos quais você deva confiar.
+2. <span style="color:red">_**[CRUCIAL]**_</span> **CONHEÇA SEU HARDWARE**
+   * O modelo e a geração do seu processador.
+   * A marca e o modelo da sua placa de vídeo.
+   * O tipo e o modelo dos seus dispositivos de armazenamento (HDD/SSD, NVMe/AHCI/RAID/IDE).
+   * O modelo do seu desktop/laptop se for OEM.
+   * O modelo do seu **chipset de Ethernet**.
+   * O modelo do chipset do seu Wi-Fi/Bluetooth.
+3. <span style="color:red">_**[CRUCIAL]**_</span> **CONHECIMENTO BÁSICO DE LINHA DE COMANDO E DE COMO USAR UM TERMINAL/PROMPT DE COMANDO**
+   * Não só é [CRUCIAL] como é a base de todo este guia. Não poderemos ajudá-lo se não souber como usar o comando `cd` para abrir um diretório ou deletar um arquivo.
 4. <span style="color:red">_**[CRUCIAL]**_</span> A machine that is compatible as seen in the _**Compatibility**_ section.
    * [Hardware Limitations page](macos-limits.md)
 5. <span style="color:red">_**[CRUCIAL]**_</span> A minimum of:
