@@ -55,46 +55,46 @@ module.exports = {
 
     themeConfig: {
         lastUpdated: true,
-        repo: 'https://github.com/dortania/OpenCore-Install-Guide',
+        repo: 'https://github.com/deomkds/OpenCore-Install-Guide',
 		editLinks: true,
-		editLinkText: 'Help us improve this page!',
+		editLinkText: 'Ajude-nos a melhorar esta página!',
         logo: 'homepage.png',
         nav: [{
-            text: 'Dortania Guides',
+            text: 'Outros Guias',
             ariaLabel: 'Language Menu',
             items: [{
-                text: 'Home Site',
+                text: 'Site Original (em inglês)',
                 link: 'https://dortania.github.io/'
             },
             {
-                text: 'Getting Started With ACPI',
+                text: 'Primeiros Passos com a ACPI',
                 link: 'https://dortania.github.io/Getting-Started-With-ACPI/'
             },
             {
-                text: 'OpenCore Post-Install',
+                text: 'Pós-instalação do OpenCore',
                 link: 'https://dortania.github.io/OpenCore-Post-Install/'
             },
             {
-                text: 'OpenCore Multiboot',
+                text: 'Multiboot com o OpenCore',
                 link: 'https://dortania.github.io/OpenCore-Multiboot/'
             },
             {
-                text: 'GPU Buyers Guide',
+                text: 'Guia de Compra de GPUs',
                 link: 'https://dortania.github.io/GPU-Buyers-Guide/'
             },
             {
-                text: 'Wireless Buyers Guide',
+                text: 'Guia de Compra de Wi-Fi',
                 link: 'https://dortania.github.io/Wireless-Buyers-Guide/'
             },
             {
-                text: 'Anti Buyers Guide',
+                text: 'Guia de Compra Anti-Hackintosh',
                 link: 'https://dortania.github.io/Anti-Hackintosh-Buyers-Guide/'
             },
             ]
         },
         ],
         sidebar: [{
-            title: 'Introduction',
+            title: 'Introdução',
             collapsable: false,
             sidebarDepth: 1,
             children: [
@@ -107,11 +107,11 @@ module.exports = {
 
         },
         {
-            title: 'USB Creation',
+            title: 'Pendrive de Boot',
             collapsable: false,
             sidebarDepth: 2,
             children: [{
-                title: 'Creating the USB',
+                title: 'Criando Pendrive',
                 collapsable: true,
                 path: '/installer-guide/',
                 sidebarDepth: 1,
@@ -123,15 +123,15 @@ module.exports = {
             },
                 '/installer-guide/opencore-efi',
                 'ktext',
-            ['https://dortania.github.io/Getting-Started-With-ACPI/', 'Getting started with ACPI'],
+            ['https://dortania.github.io/Getting-Started-With-ACPI/', 'Primeiros Passos com a ACPI'],
                 '/config.plist/',
             ]
         },
         {
-            title: 'Configs',
+            title: 'Configuração',
             collapsable: false,
             children: [{
-                title: 'Intel Desktop config.plist',
+                title: 'Desktop com Intel',
                 collapsable: true,
 				sidebarDepth: 1,
                 children: [
@@ -147,7 +147,7 @@ module.exports = {
                 ]
             },
             {
-                title: 'Intel Laptop config.plist',
+                title: 'Laptop com Intel',
                 collapsable: true,
 				sidebarDepth: 1,
                 children: [
@@ -158,13 +158,13 @@ module.exports = {
 					['/config-laptop.plist/broadwell', 'Broadwell'],
                     ['/config-laptop.plist/skylake', 'Skylake'],
                     ['/config-laptop.plist/kaby-lake', 'Kaby Lake'],
-                    ['/config-laptop.plist/coffee-lake', 'Coffee Lake and Whiskey Lake'],
-					['/config-laptop.plist/coffee-lake-plus', 'Coffee Lake Plus and Comet Lake'],
+                    ['/config-laptop.plist/coffee-lake', 'Coffee Lake e Whiskey Lake'],
+					['/config-laptop.plist/coffee-lake-plus', 'Coffee Lake Plus e Comet Lake'],
                     ['/config-laptop.plist/icelake', 'Ice Lake'],
                 ]
             },
             {
-                title: 'Intel HEDT config.plist',
+                title: 'Intel HEDT',
                 collapsable: true,
 				sidebarDepth: 1,
                 children: [
@@ -176,7 +176,7 @@ module.exports = {
                 ]
             },
             {
-                title: 'AMD Desktop config.plist',
+                title: 'Desktop com AMD',
                 collapsable: true,
 				sidebarDepth: 1,
                 children: [
@@ -187,7 +187,7 @@ module.exports = {
             ]
         },
         {
-            title: 'Installation',
+            title: 'Instalação',
             collapsable: false,
             children: [
                 '/installation/installation-process',
@@ -195,7 +195,7 @@ module.exports = {
             ]
         },
         {
-            title: 'Troubleshooting',
+            title: 'Solução de Problemas',
             collapsable: false,
             children: [
                 '/troubleshooting/troubleshooting',
@@ -217,58 +217,58 @@ module.exports = {
             ]
         },
         {
-            title: 'Post Install',
+            title: 'Pós-instalação',
             collapsable: false,
             children: [
-                ['https://dortania.github.io/OpenCore-Post-Install/', 'Post-Install'],
+                ['https://dortania.github.io/OpenCore-Post-Install/', 'Pós-Instalação'],
                 {
                     title: 'Universal',
                     collapsable: true,
                     sidebarDepth: 1,
                     children: [
-                        ['https://dortania.github.io/OpenCore-Post-Install/universal/security', 'Security and FileVault'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/universal/audio', 'Fixing Audio'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/universal/oc2hdd', 'Booting without USB'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/universal/update', 'Updating OpenCore, kexts and macOS'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/universal/drm', 'Fixing DRM'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/universal/iservices', 'Fixing iServices'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/universal/pm', 'Fixing Power Management'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/universal/sleep', 'Fixing Sleep'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/usb/', 'Fixing USB'],
+                        ['https://dortania.github.io/OpenCore-Post-Install/universal/security', 'Segurança e FileVault'],
+                        ['https://dortania.github.io/OpenCore-Post-Install/universal/audio', 'Consertando o Áudio'],
+                        ['https://dortania.github.io/OpenCore-Post-Install/universal/oc2hdd', 'Iniciando sem Pendrive'],
+                        ['https://dortania.github.io/OpenCore-Post-Install/universal/update', 'Atualizando o OpenCore, as kexts e o macOS'],
+                        ['https://dortania.github.io/OpenCore-Post-Install/universal/drm', 'Consertando a DRM'],
+                        ['https://dortania.github.io/OpenCore-Post-Install/universal/iservices', 'Consertando os iServiços'],
+                        ['https://dortania.github.io/OpenCore-Post-Install/universal/pm', 'Consertanto o Gerenciamento de Energia'],
+                        ['https://dortania.github.io/OpenCore-Post-Install/universal/sleep', 'Consertando a Suspensão'],
+                        ['https://dortania.github.io/OpenCore-Post-Install/usb/', 'Consertando a USB'],
                     ]
                 },
                 {
-                    title: 'Laptop Specifics',
+                    title: 'Problemas de Laptops',
                     collapsable: true,
                     children: [
-                        ['https://dortania.github.io/OpenCore-Post-Install/laptop-specific/battery', 'Fixing Battery Read-outs'],
+                        ['https://dortania.github.io/OpenCore-Post-Install/laptop-specific/battery', 'Consertando Níveis de Bateria'],
 
                     ]
                 },
                 {
-                    title: 'Cosmetics',
+                    title: 'Cosméticos',
                     collapsable: true,
                     children: [
-                        ['https://dortania.github.io/OpenCore-Post-Install/cosmetic/verbose', 'Fixing Resolution and Verbose'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/cosmetic/gui', 'Add GUI and Boot-chime'],
+                        ['https://dortania.github.io/OpenCore-Post-Install/cosmetic/verbose', 'Consertando a Resolução e o modo Verbose'],
+                        ['https://dortania.github.io/OpenCore-Post-Install/cosmetic/gui', 'Adicionando GUI e som de boot'],
                     ]
                 },
                 {
                     title: 'Multiboot',
                     collapsable: true,
                     children: [
-						['https://dortania.github.io/OpenCore-Multiboot/', 'OpenCore Multiboot'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/multiboot/bootstrap', 'Setting up LauncherOption'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/multiboot/bootcamp', 'Installing BootCamp'],
+						['https://dortania.github.io/OpenCore-Multiboot/', 'Multiboot no OpenCore'],
+                        ['https://dortania.github.io/OpenCore-Post-Install/multiboot/bootstrap', 'Configurando o LauncherOption'],
+                        ['https://dortania.github.io/OpenCore-Post-Install/multiboot/bootcamp', 'Instalando o BootCamp'],
                     ]
                 },
                 {
-                    title: 'Miscellaneous',
+                    title: 'Diversos',
                     collapsable: true,
                     children: [
-                        ['https://dortania.github.io/OpenCore-Post-Install/misc/rtc', 'Fixing RTC'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/misc/msr-lock', 'Fixing CFG Lock'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/misc/nvram', 'Emulated NVRAM'],
+                        ['https://dortania.github.io/OpenCore-Post-Install/misc/rtc', 'Consertando o RTC'],
+                        ['https://dortania.github.io/OpenCore-Post-Install/misc/msr-lock', 'Consertando o CFG Lock'],
+                        ['https://dortania.github.io/OpenCore-Post-Install/misc/nvram', 'NVRAM Emulada'],
                     ]
                 },
             ]
@@ -281,15 +281,15 @@ module.exports = {
                 '/extras/kaslr-fix',
                 '/extras/spoof',
                 '/extras/big-sur/',
-                ['https://github.com/dortania/OpenCore-Install-Guide/tree/master/clover-conversion', 'Clover Conversion'],
+                ['https://github.com/dortania/OpenCore-Install-Guide/tree/master/clover-conversion', 'Convertendo do Clover'],
                 '/extras/smbios-support.md',
             ]
         },
         {
-            title: 'Misc',
+            title: 'Outros',
             collapsable: false,
             children: [
-                'CONTRIBUTING',
+                'Contribuições',
                 '/misc/credit',
             ]
         },
