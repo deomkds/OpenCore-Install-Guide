@@ -1,26 +1,26 @@
 ---
 home: true
 heroImage: /dortania-logo-clear.png
-heroText: Dortania's OpenCore Install Guide
-actionText: Getting Started→
+heroText: Guia de Instalação do OpenCore (Não Oficial) 
+actionText: Primeiros Passos→
 actionLink: prerequisites.md
 
 meta:
 - name: description
-  content: Current supported version 0.7.0
+  content: Versão suportada 0.7.0
 ---
 
-# What is OpenCore and who is this guide for
+# O qu é o OpenCore e para quem é este guia?
 
-OpenCore is what we refer to as a "boot loader" – it is a complex piece of software that we use to prepare our systems for macOS – specifically by injecting new data for macOS such as SMBIOS, ACPI tables and kexts. How this tool differs from others like Clover is that it has been designed with security and quality in mind, allowing us to use many security features found on real Macs, such as [System Integrity Protection](https://support.apple.com/en-ca/HT204899) and [FileVault](https://support.apple.com/en-ca/HT204837). A more in-depth look can be found here: [Why OpenCore over Clover and others](why-oc.md)
+O OpenCore consiste naquilo que é conhecido como *bootloader*; é um *software* complexo usado na preparação do sistema para executar o macOS. Mais especificamente, é o responsável por injetar dados para o sistema operacional, como o SMBIOS, as tabelas da ACPI e as kexts. Ele difere de outras ferramentas como o Clover pois foi criado com a segurança e qualidade em mente, permitindo a utilização de muitos recursos encontrados nos Macs reais, como a [Proteção da Integridade do Sistema](https://support.apple.com/pt-br/HT204899) (ou SIP, na sigla em inglês) e o [FileVault](https://support.apple.com/pt-br/HT204837). Uma explicação mais profunda pode ser encontrada aqui: [Por que OpenCore em vez do Clover e outros?](why-oc.md).
 
-This guide specifically focuses on two main things:
+Este guia (não oficial) foca especificamente em dois aspectos principais:
 
-* Installing macOS on an X86-based PC
-* Teaching you what makes your Hack work
+* Instalar o macOS em um PC baseado em x86
+* Ensinar o que faz um *hackintosh* funcionar
 
-Because of this, you will be expected to read, learn and even use Google. This is not a simple one-click install setup.
+Por este motivo, espera-se que o leitor seja capaz de ler, aprender e até mesmo utilizar o Google. Este guia não é um simples "Instale macOS com apenas 1 clique!".
 
-Please remember that OpenCore is still new and currently in beta. While quite stable, and arguably much more stable than Clover in pretty much every way, it is still being frequently updated, so chunks of configuration change quite often (i.e. new quirks replacing old ones).
+Por favor, lembre-se de que o OpenCore ainda é novo e está em fase de testes. Embora estável (e provavelmente muito mais estável do que o Clover em praticamente todos os aspectos), ele ainda recebe atualizações constantes, o que significa que partes da configuração são alteradas com bastante frequência (ex.: novos *quirks* substituindo antigos).
 
-Lastly, those having issues can visit both the [r/Hackintosh subreddit](https://www.reddit.com/r/hackintosh/) and [r/Hackintosh Discord](https://discord.gg/u8V7N5C) for more help.
+Por fim, aqueles que estejam tendo dificuldades podem acessar tanto o [subreddit r/Hackintosh](https://www.reddit.com/r/hackintosh/) quanto o [Discord do r/Hackintosh](https://discord.gg/u8V7N5C) (em inglês) para obter ajuda.
