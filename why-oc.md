@@ -1,77 +1,80 @@
-# Why OpenCore over Clover and others
+# Por que o OpenCore em vez do Clover e outros?
 
-This section contains a brief rundown as to why the community has been transitioning over to OpenCore, and aims to dispel a few common myths in the community. Those who just want a macOS machine can skip this page.
+Esta seção contém uma breve descrição dos motivos pelos quais a comunidade tem transicionado para o OpenCore e busca derrubar alguns mitos comuns da comunidade. Aqueles que só querem instalar o macOS podem pular esta página.
 
-* [Why OpenCore over Clover and others](#why-opencore-over-clover-and-others)
-  * OpenCore features
-  * Software support
-  * Kext injection
-* [OpenCore's shortcomings](#opencore-s-shortcomings)
-* [Common Myths](#common-myths)
-  * Is OpenCore unstable as it's a beta?
-  * Does OpenCore always inject SMBIOS and ACPI data into other OSes?
-  * Does OpenCore require a fresh install?
-  * Does OpenCore only support limited versions of macOS?
+* [Por que o OpenCore em vez do Clover?](#por-que-o-opencore-em-vez-do-clover?)
+  * Recursos do OpenCore
+  * Suporte de Software
+  * Injeção de Kexts
+* [Fraquezas do OpenCore](#fraquezas-do-opencore)
+* [Mitos Comuns](#mitos-comuns)
+  * O OpenCore é instável por ser beta?
+  * O OpenCore sempre injeta dados de SMBIOS e ACPI em outros SOs?
+  * O OpenCore requer uma instalação limpa?
+  * O OpenCore não suporta todas as versões do macOS?
 
-## OpenCore features
+## Recursos do OpenCore
 
-* More OS Support!
-  * OpenCore now supports more versions of OS X and macOS natively without painful hacks Clover and Chameleon had to implement
-  * This includes OSes as far back as 10.4, Tiger, and even the latest builds of 11, Big Sur!
-* On average, OpenCore systems boot faster than those using Clover as less unnecessary patching is done
-* Better overall stability as patches can be much more precise:
-  * [macOS 10.15.4 update](https://www.reddit.com/r/hackintosh/comments/fo9bfv/macos_10154_update/)
-  * AMD OSX patches not needing to update with every minor security update
-* Better overall security in many forms:
-  * No need to disable System Integrity Protection (SIP)
-  * Built-in FileVault 2 support
-  * [Vaulting](https://dortania.github.io/OpenCore-Post-Install/universal/security.html#Vault) allowing to create EFI snapshots preventing unwanted modifications
-  * True secure-boot support
-    * Both UEFI and Apple's variant
-* BootCamp switching and boot device selection are supported by reading NVRAM variables set by Startup Disk, just like a real Mac.
-* Supports boot hotkey via `boot.efi` - hold `Option` or `ESC` at startup to choose a boot device, `Cmd+R` to enter Recovery or `Cmd+Opt+P+R` to reset NVRAM.
+* Suporte a mais sistemas!
+  * O OpenCore agora suporta mais versões do OS X e macOS nativamente, sem os hacks dolorosos que o Clover e o Chameleon precisavam implementar.
+  * Inclui versões desde o antigo Mac OS X 10.4 Tiger às últimas builds do macOS Big Sur!
+* Em média, sistemas com o OpenCore iniciam mais rapidamente do que aqueles usando Clover, pois menos patches desnecessários precisam ser feitos.
+* Maior estabilidade geral pois os patches podem ser muito mais precisos:
+  * [Atualização do macOS 10.15.4](https://www.reddit.com/r/hackintosh/comments/fo9bfv/macos_10154_update/) (em inglês).
+  * Sem necessidade de atualizar os patches de AMD a cada nova pequena atualização de segurança. 
+* Maior segurança geral em vários aspectos:
+  * Sem necessidade de desativar a Proteção de Integridade do Sistema (SIP);
+  * Suporte integrado ao FileVault 2;
+  * [Cofres](https://deomkds.github.io/OpenCore-Post-Install/universal/security.html#Vault) permitindo a criação de snapshots da EFI para evitar modificações indesejadas.
+  * Suporte à inicialização segura real.
+    * Tanto a UEFI quando a da Apple.
+* Suporte a troca pelo Bootcamp e a seleção de discos de inicialização por meio da leitura de variáveis de NVRAM criadas pelo painel de preferência Disco de Inicialização, assim como nos Macs de verdade.
+* Suporte a atalhos de teclado na inicialização via `boot.efi`:
+  * Segure `Option` ou `Esc` durante a inicialização para escolher outra unidade;
+  * Segure `Command + R` para acessar o modo de recuperação;
+  * Segure `Command + Option + P + R` para redefinir a NVRAM.
+    
+## Suporte de Software
 
-## Software Support
+Suporte a softwares é o maior motivo para deixar de usar outros bootloaders. 
 
-The biggest reason someone may want to switch from other boot loaders is actually software support:
+* Kexts deixam de ser testadas no Clover:
+  * Encontrou um bug em uma kext? Muitos desenvolvedores, incluindo a organização [Acidanthera](https://github.com/acidanthera), criadores de várias kexts famosas, não oferecem suporte para não usuários do OpenCore.
+* Muitos drivers de firmware estão sendo integrados ao OpenCore:
+  * [Suporte ao APFS](https://github.com/acidanthera/AppleSupportPkg)
+  * [Suporte ao FileVault](https://github.com/acidanthera/AppleSupportPkg)
+  * [Patches de Firmware](https://github.com/acidanthera/AptioFixPkg)
+* [Patches para AMD](https://github.com/AMD-OSX/AMD_Vanilla/tree/opencore):
+  * Possui um computador AMD? Os patches de kernel necessários para iniciar o macOS não mais suportam o Clover, apenas o OpenCore.
 
-* Kexts no longer testing for Clover:
-  * Got a bug with a kext? Many developers including the organization [Acidanthera](https://github.com/acidanthera) (maker of most of your favorite kexts) won't provide support unless on OpenCore
-* Many firmware drivers being merged into OpenCore:
-  * [APFS Support](https://github.com/acidanthera/AppleSupportPkg)
-  * [FileVault support](https://github.com/acidanthera/AppleSupportPkg)
-  * [Firmware patches](https://github.com/acidanthera/AptioFixPkg)
-* [AMD OSX patches](https://github.com/AMD-OSX/AMD_Vanilla/tree/opencore):
-  * Have AMD-based hardware? The kernel patches required to boot macOS no longer support Clover – they now only support OpenCore.
+## Injeção de Kexts
 
-## Kext Injection
+Para entender melhor o sistema de injeção de kexts do OpenCore, primeiro é preciso ver como o Clover funciona:
 
-To better understand OpenCore's kext injection system, we should first look at how Clover works:
+1. Aplica um patch para violar o SIP.
+2. Aplica um patch para ativar o código zumbi do XNU responsável pela injeção de kexts.
+3. Aplica patches para resolver condições de corrida na injeção de kexts.
+4. Injeta as kexts.
+5. Aplica um patch para retomar a integridade do SIP.
 
-1. Patches SIP open
-2. Patches to enable XNU's zombie code for kext injection
-3. Patches race condition with kext injection
-4. Injects kexts
-5. Patches SIP back in
+Aspectos interessantes do método do Clover:
 
-Things to note with Clover's method:
+* Utilizar código zumbi do XNU que não é usado desde o OS X 10.7 Lion (impressionante como a Apple não removeu este código ainda).
+  * Atualizações do sistema geralmente quebram este patch, como ocorreu recentemente na 10.14.4 e na 10.15.
+* Desativa o SIP e tenta reativá-lo (não é preciso dizer muito).
+* É provável que quebre com o macOS 11.0 (Big Sur). 
+* Suporta versões do OS X anteriores, até o 10.5.
 
-* Calling XNU's zombie code that hasn't been used since 10.7, it's seriously impressive Apple hasn't removed this code yet
-  * OS updates commonly break this patch, like recently with 10.14.4 and 10.15
-* Disables SIP and attempts to re-enable it, don't think much needs to be said
-* Likely to break with macOS 11.0 (Big Sur)
-* Supports OS X all the way back to 10.5
+Agora, observe o método do OpenCore:
 
-Now let's take a look at OpenCore's method:
+1. Pega o prelinked kernel e as kexts prontas para serem injetadas 
+2. Reconstrói o cache com as novas kexts ainda no ambiente EFI
+3. Adiciona esse novo cache no sistema
 
-1. Takes existing prelinked kernel and kexts ready to inject
-2. Rebuilds the cache in the EFI environment with the new kexts
-3. Adds this new cache in
+Aspectos interessantes do método do OpenCore:
 
-Things to note with OpenCore's method:
-
-* OS agnostic as the prelinked kernel format has stayed the same since 10.6 (v2), far harder to break support.
-  * OpenCore also supports prelinked kernel (v1, found in 10.4 and 10.5), cacheless, Mkext and KernelCollections, meaning it also has proper support for all Intel versions of OS X/macOS
+* Independe do sistema, pois o formato do prelinked kernel é o mesmo desde o 10.6 (v2), muito mais difícil de perder suporte.
+  * O OpenCore também suporta prelinked kernel v1 (encontrado no 10.4 e no 10.5), cacheless, Mkext e KernelCollections, o que significa que possui suporte apropriado para todos as versões do OS X/macOS para Intel.
 * Far better stability as there is far less patching involved
 
 # OpenCore's shortcomings
