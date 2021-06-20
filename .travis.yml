@@ -11,7 +11,7 @@ deploy:
   local_dir: .vuepress/dist
   github_token: $GITHUB_TOKEN
   keep_history: true
+  target_branch: gh-pages
   on:
-    branch: gh-pages
-  email: mv.cunha2009@gmail.com
-  name: Marcus Vinícius
+    branch: main
+
