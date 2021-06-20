@@ -289,7 +289,7 @@ module.exports = {
             title: 'Outros',
             collapsable: false,
             children: [
-                'Contribuições',
+                'CONTRIBUTING',
                 '/misc/credit',
             ]
         },
