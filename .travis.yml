@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - lts/*
+install:
+  - yarn install
+script:
+  - yarn build
+deploy:
+  provider: pages
+  skip_cleanup: true
+  local_dir: .vuepress/dist
+  github_token: $GITHUB_TOKEN
+  keep_history: true
+  on:
+    branch: gh-pages
+  email: mv.cunha2009@gmail.com
+  name: Marcus Vinícius
