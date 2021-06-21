@@ -1,8 +1,8 @@
-# Por que o OpenCore em vez do Clover e outros?
+# Por que o OpenCore em vez do Clover e outros
 
 Esta seção contém uma breve descrição dos motivos pelos quais a comunidade tem transicionado para o OpenCore e busca derrubar alguns mitos comuns da comunidade. Aqueles que só querem instalar o macOS podem pular esta página.
 
-* [Por que o OpenCore em vez do Clover?](#por-que-o-opencore-em-vez-do-clover?)
+* [Por que o OpenCore em vez do Clover e outros](#por-que-o-opencore-em-vez-do-clover-e-outros)
   * Recursos do OpenCore
   * Suporte de Software
   * Injeção de Kexts
@@ -75,7 +75,7 @@ Aspectos interessantes do método do OpenCore:
 
 * Independe do sistema, pois o formato do prelinked kernel é o mesmo desde o 10.6 (v2), muito mais difícil de perder suporte.
   * O OpenCore também suporta prelinked kernel v1 (encontrado no 10.4 e no 10.5), cacheless, Mkext e KernelCollections, o que significa que possui suporte apropriado para todos as versões do OS X/macOS para Intel.
-* Far better stability as there is far less patching involved
+* Muito mais estabilidade pois envolve bem menos pacthes.
 
 # OpenCore's shortcomings
 
