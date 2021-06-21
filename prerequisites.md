@@ -32,7 +32,3 @@ Antes de pularmos de cabeça na criação de um sistema baseado no OpenCore, pre
    * Para usuários de Windows ou Linux, é preciso ter **15GB** de espaço livre no disco onde se está trabalhando. No Windows, a unidade do sistema (C:) deve possuir pelo menos **15GB** de espaço livre.
    * Para usuários do macOS, é preciso ter **30GB** de espaço livre na unidade do sistema.
    * A maioria das ferramentas utilizadas neste guia necessitarão ter uma [instalação do Python](https://www.python.org/downloads/)
-   
-   
-   
-   
