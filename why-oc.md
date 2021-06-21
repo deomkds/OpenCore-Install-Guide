@@ -94,7 +94,7 @@ O OpenCore possui suporte à maior parte das funcionalidades do Clover por meio 
   * No entanto, pode ser feito manualmente: [Patching de GPU](https://deomkds.github.io/OpenCore-Post-Install/gpu-patching/)
 * Não suporta correção de conflitos de IRQ.
   * Pode ser resolvido com o [SSDTTime](https://github.com/corpnewt/SSDTTime).
-* Não suporta a geração de P-State e C-State em CPUs mais antigas. 
+* Não suporta a geração de P-State e C-State em CPUs mais antigas.
 * Não suporta correção de Target Bridge da ACPI.
 * Não suporta a injeção de UUID de hardware.
 * Não detecta automaticamente a maioria dos bootloaders de Linux.
