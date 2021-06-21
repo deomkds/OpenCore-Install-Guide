@@ -3,8 +3,8 @@
    "version": "0.6.8",
    "description": "Guide to put macOS on unsupported devices",
    "main": "index.js",
-   "author": "Dortania (https://github.com/dortania)",
-   "repository": "git+https://github.com/dortania/OpenCore-Install-Guide.git",
+   "author": "Deomkds (https://github.com/deomkds)",
+   "repository": "git+https://github.com/deomkds/OpenCore-Install-Guide.git",
    "scripts": {
       "dev": "vuepress dev",
       "build": "vuepress build",

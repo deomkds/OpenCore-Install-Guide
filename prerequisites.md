@@ -15,20 +15,24 @@ Antes de pularmos de cabeça na criação de um sistema baseado no OpenCore, pre
    * O modelo do chipset do seu Wi-Fi/Bluetooth.
 3. <span style="color:red">_**[CRUCIAL]**_</span> **CONHECIMENTO BÁSICO DE LINHA DE COMANDO E DE COMO USAR UM TERMINAL/PROMPT DE COMANDO**
    * Não só é [CRUCIAL] como é a base de todo este guia. Não poderemos ajudá-lo se não souber como usar o comando `cd` para abrir um diretório ou deletar um arquivo.
-4. <span style="color:red">_**[CRUCIAL]**_</span> A machine that is compatible as seen in the _**Compatibility**_ section.
-   * [Hardware Limitations page](macos-limits.md)
-5. <span style="color:red">_**[CRUCIAL]**_</span> A minimum of:
-   * 16GB USB if you're going to use macOS to create the USB
-   * 4GB USB if you're going to use Windows or Linux for USB creation
-6. <span style="color:red">_**[CRUCIAL]**_</span> An **Ethernet connection** (no WiFi dongles, Ethernet USB adapter may work depending on macOS support) and you must know your LAN card's model
-   * You must either have a physical Ethernet port, or a compatible macOS Ethernet dongle/adapter. In case you have a [compatible WiFi card](https://dortania.github.io/Wireless-Buyers-Guide/), you can also use that.
-     * Note the majority of WiFi cards are not supported by macOS
-   * For people who can't use ethernet but have an Android phone, you can connect your Android phone to WiFi and then tether it using USB with [HoRNDIS](https://joshuawise.com/horndis#available_versions).
-7. <span style="color:red">_**[CRUCIAL]**_</span> **Proper OS Installation:**
-   * Be it:
-     * macOS (a fairly recent one would be better)
-     * Windows (Windows 10, 1703 or newer)
-     * Linux (Clean and properly functioning, with Python 2.7 or later)
-   * For Windows or Linux users, **15GB** of free space on the drive you're working on. On Windows, your OS disk (C:) must have at least **15GB** of free space.
-   * For macOS users, **30GB** of free space on the system's drive.
-   * Most tools used in this guide will also require [Python installed](https://www.python.org/downloads/)
+4. <span style="color:red">_**[CRUCIAL]**_</span> Um computador que seja compatível, de acordo com a seção de  _**Compatibilidade**_.
+   * [Limitações de Hardware](macos-limits.md)
+5. <span style="color:red">_**[CRUCIAL]**_</span> Ter no mínimo:
+   * Um pendrive de 16GB se for usar o macOS para criar o pendrive de boot.
+   * Um pendrive de 4GB se for usar o Windows ou um Linux para criar o pendrive de boot.
+6. <span style="color:red">_**[CRUCIAL]**_</span> Uma **conexão Ethernet** (nada de adaptadores Wi-Fi USB, adaptadores de Ethernet USB talvez funcionem dependendo do suporte que ela tiver ao macOS) e é preciso saber o modelo da placa Ethernet (LAN).
+   * É preciso ter uma porta Ethernet física ou um adaptador USB compatível com o macOS. Caso possua uma [placa Wi-Fi compatível](https://deomkds.github.io/Wireless-Buyers-Guide/), também é possível utilizá-la.
+     * Note que a maioria das placas Wi-Fi não são suportadas pelo macOS.
+   * Para aqueles que não possam usar a ethernet, mas possuem um smartphone Android, é possível conectá-lo ao Wi-Fi e então compartilhar a internet usando o [HoRNDIS](https://joshuawise.com/horndis#available_versions).
+7. <span style="color:red">_**[CRUCIAL]**_</span> **Sistema Operacional instalado e funcional:**
+   * Seja:
+     * macOS (quanto mais recente, melhor)
+     * Windows (Windows 10, 1703 ou mais novo)
+     * Linux (limpo e funcionando corretamente, com Python 2.7 ou posterior)
+   * Para usuários de Windows ou Linux, é preciso ter **15GB** de espaço livre no disco onde se está trabalhando. No Windows, a unidade do sistema (C:) deve possuir pelo menos **15GB** de espaço livre.
+   * Para usuários do macOS, é preciso ter **30GB** de espaço livre na unidade do sistema.
+   * A maioria das ferramentas utilizadas neste guia necessitarão ter uma [instalação do Python](https://www.python.org/downloads/)
+   
+   
+   
+   
