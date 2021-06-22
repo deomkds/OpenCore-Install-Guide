@@ -1,151 +1,154 @@
-# Hardware Limitations
+# Limitações de Hardware
 
-With macOS, there are numerous hardware limitations you need to be aware of before stepping foot into an installation. This is due to the limited amount of hardware Apple supports, so we're either limited by Apple or what patches the community has created.
+Com o macOS, é preciso estar ciente de que existem muitas limitações de hardware antes de dar o primeiro passo com a instalação. Isso acontece por causa da quantidade limitada de hardware suportado pela Apple, o que nos limita ao que ela vende ou aos patches que a comunidade tenha criado.
 
-The main hardware sections to verify are:
+As seções sobre hardware a serem verificadas são:
 
-* [CPU](#cpu-support)
-* [GPU](#gpu-support)
-* [Motherboard](#motherboard-support)
-* [Storage](#storage-support)
-* [Wired Networking](#wired-networking)
-* [Wireless Networking](#wireless-networking)
-* [Miscellaneous](#miscellaneous)
+* [CPU](#suporte-de-cpu)
+* [GPU](#suporte-de-gpu)
+* [Placa-mãe](#suporte-de-placa-mãe)
+* [Armazenamento](#suporte-de-armazenamento)
+* [Rede Cabeada](#rede-cabeada)
+* [Rede Sem Fio](#rede-sem-fio)
+* [Diversos](#diversos)
 
-And for more detailed guides on the subject, see here:
+E para guias mais detalhados sobre o assunto, acesse:
 
-* [GPU Buyers Guide](https://dortania.github.io/GPU-Buyers-Guide/)
-  * Check if your GPU is supported and which macOS version you can run.
-* [Wireless Buyers Guide](https://dortania.github.io/Wireless-Buyers-Guide/)
-  * Check if your WiFi card is supported.
-* [Anti-Hardware Buyers Guide](https://dortania.github.io/Anti-Hackintosh-Buyers-Guide/)
-  * Overall guide on what to avoid and what pitfalls your hardware may hit.
+* [Guia de Compra de GPUs](https://deomkds.github.io/GPU-Buyers-Guide/)
+  * Verifique se sua GPU é suportada e qual versão do macOS está apto a executar.
+* [Guia de Compra de Wi-Fi](https://deomkds.github.io/Wireless-Buyers-Guide/)
+  * Verifique se sua placa Wi-Fi é suportada.
+* [Guia de Compra Anti-Hackintosh](https://deomkds.github.io/Anti-Hackintosh-Buyers-Guide/)
+  * Guia geral sobre o que evitar e quais problemas podem ocorrer.
 
-## CPU Support
+## Suporte de CPU
 
-For CPU support, we have the following breakdown:
+No quesito CPU, as seguintes características são suportadas:
 
-* Both 32 and 64-bit CPUs are supported
-  * This however requires the OS to support your architecture, see CPU Requirements section below
-* Intel's Desktop CPUs are supported.
-  * Yonah through Comet Lake are supported by this guide.
-* Intel's High-End Desktops and Server CPUs.
-  * Nehalem through Cascade Lake X are supported by this guide.
+* CPUs de ambas as arquiteturas, 32 e 64 bits.
+  * Isso, no entanto, requer que o sistema ofereça suporte à arquitetura. Veja mais na seção Exigências de CPU abaixo.
+* CPUs Intel para desktops.
+  * Este guia oferece suporte para processadores Yonah até Comet Lake.
+* CPUs Intel de alta performance e para servidores.
+  * Este guia oferece suporte para processadores Nehalem até Cascade Lake X.
 * Intel's Core "i" and Xeon series laptop CPUs
-  * Arrendale through Ice Lake are supported by this guide.
-  * Note that Mobile Atoms, Celeron and Pentium CPUs are not supported
-* AMD's Desktop Bulldozer (15h), Jaguar (16h) and Ryzen (17h) CPUs
-  * Laptop CPUs are **not** supported
-  * Note not all features of macOS are supported with AMD, see below
+* CPUs Intel Core "i" e série Xeon para notebooks.
+  * Este guia oferece suporte para processadores Arrendale até Ice Lake.
+  * Observe que processadores Atom, Celeron e Pentium para notebooks não são suportados.
+* CPUs AMD Bulldozer (15h), Jaguar (16h) e Ryzen (17h) para desktops.
+  * Processadores AMD para notebooks **não** são suportados.
+  * Observe que nem todos os recursos do macOS são suportados em plataformas AMD. Saiba mais a seguir.
 
-**For more in-depth information, see here: [Anti-Hardware Buyers Guide](https://dortania.github.io/Anti-Hackintosh-Buyers-Guide/)**
+**Para informações mais detalhadas, acesse o [Guia de Compra Anti-Hackintosh](https://deomkds.github.io/Anti-Hackintosh-Buyers-Guide/).**
 
-::: details CPU Requirements
+::: details Exigências de CPU
 
-Architecture Requirements
+Arquitetura
 
-* 32-bit CPUs are supported from 10.4.1 to 10.6.8
-  * Note that 10.7.x requires 64-bit userspace, limiting 32-bit CPUs to 10.6
-* 64-bit CPUs are supported from 10.4.1 to current
+* CPUs de 32 bits são suportadas do Mac OS X 10.4.1 Tiger ao Mac OS X 10.6.8 Snow Leopard.
+  * Observe que o OS X 10.7 Lion exige a execução do espaço de usuário em 64 bits, limitando CPUs de 32 bits ao Mac OS X 10.6 Snow Leopard.
+* CPUs de 64 bits são suportadas a partir do Mac OS X 10.4.1 Tiger.
 
-SEE Requirements:
+Instruções SSE
 
-* SSE3 is required for all Intel versions of OS X/macOS
-* SSSE3 is required for all 64-bit versions of OS X/macOS
-  * For CPUs missing SSSE3 (i.e. certain 64-bit Pentiums), we recommend running 32-bit userspace (`i386-user32`)
-* SSE4 is required for macOS 10.12 and newer
-* SSE4.2 is required for macOS 10.14 and newer
-  * SSE4.1 CPUs are supported with [telemetrap.kext](https://forums.macrumors.com/threads/mp3-1-others-sse-4-2-emulation-to-enable-amd-metal-driver.2206682/post-28447707)
-  * Newer AMD drivers also require SSE4.2 for Metal support. To resolve this, see here: [MouSSE: SSE4.2 emulation](https://forums.macrumors.com/threads/mp3-1-others-sse-4-2-emulation-to-enable-amd-metal-driver.2206682/)
+* SSE3 é exigido para todas as versões do OS X/macOS para Intel.
+* SSSE3 é exigido para todas as versões de 64 bits do OS X/macOS para Intel.
+  * Para CPUs que não possuem SSSE3 (ex.: certos Pentiums de 64 bits), é recomendado executar o espaço de usuário em 32 bits por meio do argumento de boot `i386-user32`.
+* SSE4 é exigido a partir do macOS 10.12 Sierra.
+* SSE4.2 é exigido a partir do macOS 10.14 Mojave.
+  * CPUs com SSE4.1 são suportadas com a kext [telemetrap.kext](https://forums.macrumors.com/threads/mp3-1-others-sse-4-2-emulation-to-enable-amd-metal-driver.2206682/post-28447707).
+  * Drivers AMD mais novos também exigem SSE4.2 para habilitar o suporte ao Metal. Para resolver isso, veja: [MouSSE: emulação de SSE4.2](https://forums.macrumors.com/threads/mp3-1-others-sse-4-2-emulation-to-enable-amd-metal-driver.2206682/).
 
-Firmware Requirements:
+Firmware
 
-* OS X 10.4.1 through 10.4.7 require EFI32 (i.e. IA32 (32-bit) version of OpenCore)
-  * OS X 10.4.8 through 10.7.5 support both EFI32 and EFI64
-* OS X 10.8 and newer require EFI64 (i.e. x64 (64-bit) version of OpenCore)
-* OS X 10.7 through 10.9 require OpenPartitionDxe.efi to boot the Recovery partition
+* Mac OS X 10.4.1 Tiger ao 10.4.7 exigem EFI32 (isto é, vesão do OpenCore IA32 (32 bits)).
+  * Mac OS X 10.4.8 Tiger ao OS X 10.7.5 Lion suportam tanto EFI32 quanto EFI64.
+* A partir do OS X 10.8 Mountain Lion, é exigido EFI64 (isto é, vesão do OpenCore x64 (64 bits))
+* OS X 10.7 Lion ao 10.9 Mavericks exigem o driver OpenPartitionDxe.efi para que possam iniciar a partição de recuperação.
 
-Kernel Requirements:
+Kernel
 
-* OS X 10.4 and 10.5 require 32-bit kexts due to only supporting 32-bit kernelspace
-  * OS X 10.6 and 10.7 support both 32 and 64-bit kernelspace
-* OS X 10.8 and newer require 64-bit kexts due to only supporting 64-bit kernelspace
-  * Run `lipo -archs` to know what architectures your kext supports (remember to run this on the binary itself and not the .kext bundle)
+* OS X 10.4 Tiger e 10.5 Leopard exigem kexts de 32 bits, pois executam o espaço do kernel somente em 32 bits.
+  * Mac OS X 10.6 Snow Leopard e OS X 10.7 Lion suportam executar o espaço do kernel tanto em 32 quanto em 64 bits.
+* A partir do OS X 10.8 Mountain Lion, são exigidas kexts de 64 bits, pois executam o espaço do kernel somente em 64 bits.
+  * Execute o comando `lipo -archs` para saber quais arquiteturas suas kexts suportam (lembre-se de executar este comando diretamente no executável binário e não no pacote .kext).
 
-Core/Thread Count Limits:
+Limites de Contagem de Núcleos/Threads
 
-* OS X 10.10 and below may not boot with more than 24 threads (evident by a `mp_cpus_call_wait() timeout` panic)
-* OS X 10.11 and newer have a 64 thread limit
-* `cpus=` boot argument can be used as a workaround, or disabling hyperthreading
+* Versões do OS X 10.10 Yosemite e anteriores podem não iniciar caso a CPU possua mais de 24 threads (como evidenciado pelo Kernel Panic `mp_cpus_call_wait() timeout`).
+* Versões a partir do OS X 10.11 El Capitan possuem um limite de 64 threads.
+* O argumento de boot `cpus=` pode ser usado para contornar o problema, bem como desabilitar o HyperThreading.
 
-Special Notes:
+Observações Especiais
 
-* Lilu and plugins require 10.8 or newer to operate
-  * We recommend running FakeSMC for older versions of OS X
-* OS X 10.6 and older require RebuildAppleMemoryMap enabled
-  * This is to resolve an early kernel
+* A Lilu e seus plug-ins exigem o Mac OS 10.8 Mountain Lion ou superior para funcionar.
+  * Recomenda-se utilizar o FakeSMC em versões antigas do OS X.
+* Versões do Mac OS X 10.6 Snow Leopard e anteriores exigem que a opção RebuildAppleMemoryMap esteja ativada.
+  * Isto serve para resolver um Kernel Panic.
 
 :::
 
-::: details Intel CPU Support Chart
+::: details Tabela de CPUs Intel Suportadas
 
-Support based off of Vanilla Kernels (i.e. no modifications):
+Suporte baseado em kernel (kérneis?) não modificados (vanilla):
 
-| CPU Generation | Initial support | Last supported version | Notes | CPUID |
+| Geração | Suporte Inicial | Suporte Final | Observações | CPUID |
 | :--- | :--- | :--- | :--- | :--- |
-| [Pentium 4](https://en.wikipedia.org/wiki/Pentium_4) | 10.4.1 | 10.5.8 | Only used in dev kits | 0x0F41 |
-| [Yonah](https://en.wikipedia.org/wiki/Yonah_(microprocessor)) | 10.4.4 | 10.6.8 | 32-Bit | 0x0006E6 |
-| [Conroe](https://en.wikipedia.org/wiki/Conroe_(microprocessor)), [Merom](https://en.wikipedia.org/wiki/Merom_(microprocessor)) | 10.4.7 | 10.11.6 | No SSE4 | 0x0006F2 |
-| [Penryn](https://en.wikipedia.org/wiki/Penryn_(microarchitecture)) | 10.4.10 | 10.13.6 | No SSE4.2 | 0x010676 |
-| [Nehalem](https://en.wikipedia.org/wiki/Nehalem_(microarchitecture)) | 10.5.6 | <span style="color:green"> Current </span> | N/A | 0x0106A2 |
-| [Lynnfield](https://en.wikipedia.org/wiki/Lynnfield_(microprocessor)), [Clarksfield](https://en.wikipedia.org/wiki/Clarksfield_(microprocessor)) | 10.6.3 | ^^ | No iGPU support 10.14+ | 0x0106E0 |
-| [Westmere, Clarkdale, Arrandale](https://en.wikipedia.org/wiki/Westmere_(microarchitecture)) | 10.6.4 | ^^ | ^^ | 0x0206C0 |
-| [Sandy Bridge](https://en.wikipedia.org/wiki/Sandy_Bridge) | 10.6.7 | ^^ | ^^ | 0x0206A0(M/H) |
-| [Ivy Bridge](https://en.wikipedia.org/wiki/Ivy_Bridge_(microarchitecture)) | 10.7.3 | ^^ | No iGPU support 11+ | 0x0306A0(M/H/G) |
-| [Ivy Bridge-E5](https://en.wikipedia.org/wiki/Ivy_Bridge_(microarchitecture)) | 10.9.2 | ^^ | N/A | 0x0306E0 |
-| [Haswell](https://en.wikipedia.org/wiki/Haswell_(microarchitecture)) | 10.8.5 | ^^ | ^^ | 0x0306C0(S) |
-| [Broadwell](https://en.wikipedia.org/wiki/Broadwell_(microarchitecture)) | 10.10.0 | ^^ | ^^ | 0x0306D4(U/Y) |
-| [Skylake](https://en.wikipedia.org/wiki/Skylake_(microarchitecture)) | 10.11.0 | ^^ | ^^ | 0x0506e3(H/S) 0x0406E3(U/Y) |
-| [Kaby Lake](https://en.wikipedia.org/wiki/Kaby_Lake) | 10.12.4 | ^^ | ^^ | 0x0906E9(H/S/G) 0x0806E9(U/Y) |
-| [Coffee Lake](https://en.wikipedia.org/wiki/Coffee_Lake) | 10.12.6 | ^^ | ^^ | 0x0906EA(S/H/E) 0x0806EA(U)|
-| [Amber](https://en.wikipedia.org/wiki/Kaby_Lake#List_of_8th_generation_Amber_Lake_Y_processors), [Whiskey](https://en.wikipedia.org/wiki/Whiskey_Lake_(microarchitecture)), [Comet Lake](https://en.wikipedia.org/wiki/Comet_Lake_(microprocessor)) | 10.14.1 | ^^ | ^^ | 0x0806E0(U/Y) |
-| [Comet Lake](https://en.wikipedia.org/wiki/Comet_Lake_(microprocessor)) | 10.15.4 | ^^ | ^^ | 0x0906E0(S/H)|
-| [Ice Lake](https://en.wikipedia.org/wiki/Ice_Lake_(microprocessor)) | ^^ | ^^ | ^^ | 0x0706E5(U) |
-| [Rocket Lake](https://en.wikipedia.org/wiki/Rocket_Lake) | ^^ | ^^ | Requires Comet Lake CPUID | 0x0A0671 |
-| [Tiger Lake](https://en.wikipedia.org/wiki/Tiger_Lake_(microprocessor)) | <span style="color:red"> N/A </span> | <span style="color:red"> N/A </span> | <span style="color:red"> Untested </span> | 0x0806C0(U) |
+| [Pentium 4](https://pt.wikipedia.org/wiki/Pentium_4) | 10.4.1 | 10.5.8 | Usado somente em dev-kits. | 0x0F41 |
+| [Yonah](https://pt.wikipedia.org/wiki/Pentium_M#Yonah_e_Merom) | 10.4.4 | 10.6.8 | 32 bits | 0x0006E6 |
+| [Conroe¹](https://en.wikipedia.org/wiki/Conroe_(microprocessor)), [Merom](https://pt.wikipedia.org/wiki/Pentium_M#Yonah_e_Merom) | 10.4.7 | 10.11.6 | Sem SSE4. | 0x0006F2 |
+| [Penryn¹](https://en.wikipedia.org/wiki/Penryn_(microarchitecture)) | 10.4.10 | 10.13.6 | Sem SSE4.2. | 0x010676 |
+| [Nehalem](https://pt.wikipedia.org/wiki/Nehalem_(microarquitetura)) | 10.5.6 | <span style="color:green"> Atual </span> | N/A | 0x0106A2 |
+| [Lynnfield¹](https://en.wikipedia.org/wiki/Lynnfield_(microprocessor)), [Clarksfield¹](https://en.wikipedia.org/wiki/Clarksfield_(microprocessor)) | 10.6.3 | ^^ | Sem suporte a GPU integrada da Intel em versões a partir do macOS 10.14 Mojave. | 0x0106E0 |
+| [Westmere, Clarkdale, Arrandale¹](https://en.wikipedia.org/wiki/Westmere_(microarchitecture)) | 10.6.4 | ^^ | ^^ | 0x0206C0 |
+| [Sandy Bridge](https://pt.wikipedia.org/wiki/Sandy_Bridge) | 10.6.7 | ^^ | ^^ | 0x0206A0(M/H) |
+| [Ivy Bridge](https://pt.wikipedia.org/wiki/Ivy_Bridge) | 10.7.3 | ^^ | Sem suporte a GPU integrada da Intel em versões a partir do macOS 11 Big Sur. | 0x0306A0(M/H/G) |
+| [Ivy Bridge-E5](https://pt.wikipedia.org/wiki/Ivy_Bridge) | 10.9.2 | ^^ | N/A | 0x0306E0 |
+| [Haswell](https://pt.wikipedia.org/wiki/Haswell_(microarquitetura)) | 10.8.5 | ^^ | ^^ | 0x0306C0(S) |
+| [Broadwell](https://pt.wikipedia.org/wiki/Broadwell_(microarquitetura)) | 10.10.0 | ^^ | ^^ | 0x0306D4(U/Y) |
+| [Skylake](https://pt.wikipedia.org/wiki/Skylake_(microarquitetura)) | 10.11.0 | ^^ | ^^ | 0x0506e3(H/S) 0x0406E3(U/Y) |
+| [Kaby Lake¹](https://en.wikipedia.org/wiki/Kaby_Lake) | 10.12.4 | ^^ | ^^ | 0x0906E9(H/S/G) 0x0806E9(U/Y) |
+| [Coffee Lake¹](https://en.wikipedia.org/wiki/Coffee_Lake) | 10.12.6 | ^^ | ^^ | 0x0906EA(S/H/E) 0x0806EA(U)|
+| [Amber¹](https://en.wikipedia.org/wiki/Kaby_Lake#List_of_8th_generation_Amber_Lake_Y_processors), [Whiskey¹](https://en.wikipedia.org/wiki/Whiskey_Lake_(microarchitecture)), [Comet Lake¹](https://en.wikipedia.org/wiki/Comet_Lake_(microprocessor)) | 10.14.1 | ^^ | ^^ | 0x0806E0(U/Y) |
+| [Comet Lake¹](https://en.wikipedia.org/wiki/Comet_Lake_(microprocessor)) | 10.15.4 | ^^ | ^^ | 0x0906E0(S/H)|
+| [Ice Lake¹](https://en.wikipedia.org/wiki/Ice_Lake_(microprocessor)) | ^^ | ^^ | ^^ | 0x0706E5(U) |
+| [Rocket Lake¹](https://en.wikipedia.org/wiki/Rocket_Lake) | ^^ | ^^ | Exige CPUID de Comet Lake. | 0x0A0671 |
+| [Tiger Lake¹](https://en.wikipedia.org/wiki/Tiger_Lake_(microprocessor)) | <span style="color:red"> N/A </span> | <span style="color:red"> N/A </span> | <span style="color:red"> Não testado. </span> | 0x0806C0(U) |
+
+¹Links em inglês devido à falta de tradução.
+:::
+
+::: details Limitações de CPUs AMD no macOS
+
+
+Infelizmente, muitos recursos do macOS são instáveis ou simplesmente não funcionam em processadores AMD. Alguns deles incluem:
+
+* Máquinas virtuais que dependem do AppleHV.
+  * Inclui o VMWare, o Parallels, o Docker, o Android Studio, entre outros.
+  * O VirtualBox é a única exceção, pelo fato de possuir hypervisor próprio.
+  * O VMWare 10 e o Parallels 13.1.0 possuem hypervisor próprio, no entanto, utilizar versões tão desatualizadas desses softwares representa uma grande ameaça à segurança.
+* Softwares da Adobe.
+  * A maior parte da coleção de aplicativos da Adobe depende do conjunto de instruções Memfast, da Intel, o que resulta em travamentos nas CPUs AMD.
+  * É possível desativar certas funcionalidades, como suporte a RAW, para evitar tais travamentos: [Correções para Adobe](https://gist.github.com/naveenkrdy/26760ac5135deed6d0bb8902f6ceb6bd).
+* Suporte a arquitetura de 32 bits.
+  * Para aqueles que ainda dependem de softwares em 32 bits em versões do macOS 10.14 Mojave e anteriores, observe que os patches vanilla não suportam instruções 32 bits.
+  * Uma alternativa é a instalação de um [kernel modificado](https://amd-osx.com/download/kernel.html), no entanto, perde-se o suporte ao iMessage.
+* Problemas de estabilidade em muitos aplicativos.
+  * Aplicativos de áudio, como o Logic Pro, são os mais vulneráveis a problemas.
+  * É sabido que o DaVinci Resolve também apresenta problemas esporádicos.
 
 :::
 
-::: details AMD CPU Limitations in macOS
+## Suporte de GPU
 
-Unfortunately many features in macOS are outright unsupported with AMD and many others being partially broken. These include:
+Suporte de GPU se torna muito mais complicado devido à existência de uma quantidade quase infinita de placs de vídeo à venda no mercado, mas a regra geral é o que se segue:
 
-* Virtual Machines relying on AppleHV
-  * This includes VMWare, Parallels, Docker, Android Studios, etc
-  * VirtualBox is the sole exception as they have their own hypervisor
-  * VMware 10 and Parallels 13.1.0 do support their own hypervisor, however using such outdated VM software poses a large security threat
-* Adobe Support
-  * Most of Adobe's suite relies on Intel's Memfast instruction set, resulting in crashes with AMD CPUs
-  * You can disable functionality like RAW support to avoid the crashing: [Adobe Fixes](https://gist.github.com/naveenkrdy/26760ac5135deed6d0bb8902f6ceb6bd)
-* 32-Bit support
-  * For those still relying on 32-Bit software in Mojave and below, note that the Vanilla patches do not support 32-bit instructions
-  * A work-around is to install a [custom kernel](https://amd-osx.com/download/kernel.html), however you lose iMessage support
-* Stability issues on many apps
-  * Audio-based apps are the most prone to issues, ie. Logic Pro
-  * DaVinci Resolve has been known to have sporadic issues as well
-
-:::
-
-## GPU Support
-
-GPU support becomes much more complicated due to the near-infinite amount of GPUs on the market, but the general breakdown is as follows:
-
-* AMD's GCN based GPUs are supported in the latest versions of macOS
-  * AMD APUs are not supported however
-  * AMD's [Lexa based cores](https://www.techpowerup.com/gpu-specs/amd-lexa.g806) from the Polaris series are also not supported
-  * Special note for MSI Navi users: [Installer not working with 5700XT #901](https://github.com/acidanthera/bugtracker/issues/901)
-    * This issue is no longer present in macOS 11 (Big Sur).
-* Nvidia's GPU support is complicated:
+* GPUs AMD baseadas em GCN são suportadas na versão mais recente do macOS.
+  * APUs da AMD não são suportadas, no entanto.
+  * Núcleos AMD baseados em [Lexa](https://www.techpowerup.com/gpu-specs/amd-lexa.g806) da série Polaris também não são suportados.
+  * Observação especial para usuários de placas Navi da MSI: [Instalador não funcionando com 5700XT #901](https://github.com/acidanthera/bugtracker/issues/901) (em inglês).
+    * Este problema não está mais presente no macOS 11 Big Sur.
+* Suporte a GPUs Nvidia é... *complicado*.
   * [Maxwell(9XX)](https://en.wikipedia.org/wiki/GeForce_900_series) and [Pascal(10XX)](https://en.wikipedia.org/wiki/GeForce_10_series) GPUs are limited to macOS 10.13: High Sierra
   * [Nvidia's Turing(20XX,](https://en.wikipedia.org/wiki/GeForce_20_series)[16XX)](https://en.wikipedia.org/wiki/GeForce_16_series) GPUs are **not supported in any version of macOS**
   * [Nvidia's Ampere(30XX)](https://en.wikipedia.org/wiki/GeForce_30_series) GPUs are **not supported in any version of macOS**
