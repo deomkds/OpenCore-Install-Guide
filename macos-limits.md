@@ -120,7 +120,6 @@ Suporte baseado em kernel (kérneis?) não modificados (vanilla):
 
 ::: details Limitações de CPUs AMD no macOS
 
-
 Infelizmente, muitos recursos do macOS são instáveis ou simplesmente não funcionam em processadores AMD. Alguns deles incluem:
 
 * Máquinas virtuais que dependem do AppleHV.
