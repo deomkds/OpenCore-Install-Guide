@@ -247,7 +247,6 @@ Em sua maioria, todos os discos baseados em SATA possuem suporte, assim como a m
   * Estes SSDs não são compatíveis de forma nativa (causam kernel panics) e portanto exigem o uso da kext [NVMeFix.kext](https://github.com/acidanthera/NVMeFix/releases) para evitar travamentos. Observe que esses SSDs ainda podem causar problemas na inicialização mesmo com a NVMeFix.kext.
   * Ainda nesse assunto, os SSDs NVMe Samsung 970 EVO Plus também possuiam esse mesmo problema, mas que foi resolvido com uma atualização de firmware. Baixe a atualização (Windows via Samsung Magician ou ISO inicializável) [aqui](https://www.samsung.com/semiconductor/minisite/ssd/download/tools/).
   * Observe também que notebooks que usam memória [Intel Optane](https://www.intel.com.br/content/www/br/pt/products/details/memory-storage/optane-memory.html) ou [Micron 3D XPoint](https://www.micron.com/products/advanced-solutions/3d-xpoint-technology) para aceleração de HDD não são suportados no macOS. Alguns usuários reportaram sucesso no macOS 10.15 Catalina, até mesmo com suporte a leitura e escrita, mas recomendamos que a memória seja removida para evitar problemas de inicialização em potencial.
-
 * **Intel 600p**
   * Embora seja possível iniciar o macOS, esteja ciente de que esse modelo de SSD pode causa inúmeros problemas, conforme relatado aqui: [Alguma solução para o Intel 600p NVMe Drive? #1286](https://github.com/acidanthera/bugtracker/issues/1286).
 
@@ -256,7 +255,7 @@ Em sua maioria, todos os discos baseados em SATA possuem suporte, assim como a m
 Praticamente todos os adaptadores de rede possuem alguma forma de suporte no macOS, seja por meio dos drivers nativos ou por meio de kexts feitas pela comunidade. As maiores exceções são:
 
 * Intel I225 2.5Gb NIC.
-	* Encontrado em placas Comet Lake para desktops de alto desempenho.
+  * Encontrado em placas Comet Lake para desktops de alto desempenho.
   * É possível contornar o problema: [fonte](https://www.hackintosh-forum.de/forum/thread/48568-i9-10900k-gigabyte-z490-vision-d-er-läuft/?postID=606059#post606059) e [exemplo](config.plist/comet-lake.md#deviceproperties).
 * Intel I350 1Gb NIC para servidores.
   * Normalmente encontrado em placas de servidor Intel e Supermicro de várias gerações.
@@ -278,11 +277,11 @@ Observação: Placas Intel possuem suporte não oficial no macOS por meio de dri
 * **Leitores de Digitais**
   * No momento, não existe uma forma de emular o sensor do Touch ID, portanto leitores de digitais não funcionam.
 * **Reconhecimento Facial do Windows Hello**
-	* O reconhecimento facial não é suportado.
+  * O reconhecimento facial não é suportado.
   * Alguns notebooks vem com webcams conectadas no barramento I2C (e usadas através da GPU integrada). Essas não funcionam.
   * Já outros vem com webcams conectadas no barramento USB. Com um pouco de sorte, a câmera pode funcionar, mas nada além disso.
 * **Tecnologia Intel Smart Sound (SST)**
-	* Nenhum dispositivo conectado através do Intel SST funcionará. Geralmente é o microfone interno. É possível verificar no Gerenciador de Dispositivos do Windows.
+  * Nenhum dispositivo conectado através do Intel SST funcionará. Geralmente é o microfone interno. É possível verificar no Gerenciador de Dispositivos do Windows.
 * **Entrada de Fone de Ouvido Combinada com Microfone (ComboJack, TRRS, Fone de Celular)**
   * A parte de entrada de áudio (microfone) pode não funcionar em alguns modelos de notebooks. Nesses casos, será necessário usar o microfone integrado ou algum dispositivo de áudio USB externo.
 * **Portas USB-C Thunderbolt**
