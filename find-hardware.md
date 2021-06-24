@@ -115,7 +115,7 @@ Para descobrir as especificações pelo Linux, as seguintes ferramentas serão n
 * `pciutils`
 * `dmidecode`
 
-A seguir está uma lista de comandos a serem executados no terminal. O bom é que muitas distros Linux já vem com essas ferramentas pré-instaladas. Se não estiverem, é quase certo estarem disponíveis no gerenciador de pacotes específico da distro.
+O bom é que muitas distros Linux já vem com essas ferramentas pré-instaladas. Se não estiverem, é quase certo estarem disponíveis no gerenciador de pacotes específico da distro. A seguir está uma lista de comandos a serem executados no terminal.
 
 ### Modelo da CPU
 
