@@ -36,7 +36,7 @@ Devido à interface de usuário mais amigável, é recomendado baixar e instalar
 
 * Observação: O chipset e outros recursos estarão presentes no mesmo [die (ou pastilha)](https://pt.wikipedia.org/wiki/Die_(circuito_integrado)), em vez de estarem em chips dedicados. Isso significa que é um pouco mais difícil determinar o modelo exato do chipset.
 
-### Tipo de Conexão de Teclado, Trackpad e Touchscreen 
+### Tipo de Conexão de Teclado, Trackpad e Touchscreen
 
 | Gerenciador de Dispositivos |
 | :--- |
