@@ -1,10 +1,10 @@
 {
    "name": "OpenCore-Install-Guide",
-   "version": "0.6.8",
-   "description": "Guide to put macOS on unsupported devices",
+   "version": "0.7.0",
+   "description": "Guia para Instalar o macOS em computadores não suportados",
    "main": "index.js",
-   "author": "Deomkds (https://github.com/deomkds)",
-   "repository": "git+https://github.com/deomkds/OpenCore-Install-Guide.git",
+   "author": "deomkds (https://github.com/deomkds)",
+   "repository": "https://github.com/deomkds/OpenCore-Install-Guide.git",
    "scripts": {
       "dev": "vuepress dev",
       "build": "vuepress build",
@@ -41,5 +41,5 @@
       "vuepress-theme-succinct": "^1.7.2",
       "vuepress-theme-yuu": "^3.0.1"
    },
-   "homepage": "https://dortania.github.io/OpenCore-Install-Guide/"
+   "homepage": "https://deomkds.github.io/OpenCore-Install-Guide/"
 }
