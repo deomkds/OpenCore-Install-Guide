@@ -64,31 +64,31 @@ module.exports = {
             ariaLabel: 'Language Menu',
             items: [{
                 text: 'Site Original (em inglês)',
-                link: 'https://dortania.github.io/'
+                link: 'https://deomkds.github.io/'
             },
             {
                 text: 'Primeiros Passos com a ACPI',
-                link: 'https://dortania.github.io/Getting-Started-With-ACPI/'
+                link: 'https://deomkds.github.io/Getting-Started-With-ACPI/'
             },
             {
                 text: 'Pós-instalação do OpenCore',
-                link: 'https://dortania.github.io/OpenCore-Post-Install/'
+                link: 'https://deomkds.github.io/OpenCore-Post-Install/'
             },
             {
                 text: 'Multiboot com o OpenCore',
-                link: 'https://dortania.github.io/OpenCore-Multiboot/'
+                link: 'https://deomkds.github.io/OpenCore-Multiboot/'
             },
             {
                 text: 'Guia de Compra de GPUs',
-                link: 'https://dortania.github.io/GPU-Buyers-Guide/'
+                link: 'https://deomkds.github.io/GPU-Buyers-Guide/'
             },
             {
                 text: 'Guia de Compra de Wi-Fi',
-                link: 'https://dortania.github.io/Wireless-Buyers-Guide/'
+                link: 'https://deomkds.github.io/Wireless-Buyers-Guide/'
             },
             {
                 text: 'Guia de Compra Anti-Hackintosh',
-                link: 'https://dortania.github.io/Anti-Hackintosh-Buyers-Guide/'
+                link: 'https://deomkds.github.io/Anti-Hackintosh-Buyers-Guide/'
             },
             ]
         },
@@ -123,7 +123,7 @@ module.exports = {
             },
                 '/installer-guide/opencore-efi',
                 'ktext',
-            ['https://dortania.github.io/Getting-Started-With-ACPI/', 'Primeiros Passos com a ACPI'],
+            ['https://deomkds.github.io/Getting-Started-With-ACPI/', 'Primeiros Passos com a ACPI'],
                 '/config.plist/',
             ]
         },
@@ -220,28 +220,28 @@ module.exports = {
             title: 'Pós-instalação',
             collapsable: false,
             children: [
-                ['https://dortania.github.io/OpenCore-Post-Install/', 'Pós-Instalação'],
+                ['https://deomkds.github.io/OpenCore-Post-Install/', 'Pós-Instalação'],
                 {
                     title: 'Universal',
                     collapsable: true,
                     sidebarDepth: 1,
                     children: [
-                        ['https://dortania.github.io/OpenCore-Post-Install/universal/security', 'Segurança e FileVault'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/universal/audio', 'Consertando o Áudio'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/universal/oc2hdd', 'Iniciando sem Pendrive'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/universal/update', 'Atualizando o OpenCore, as kexts e o macOS'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/universal/drm', 'Consertando a DRM'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/universal/iservices', 'Consertando os iServiços'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/universal/pm', 'Consertanto o Gerenciamento de Energia'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/universal/sleep', 'Consertando a Suspensão'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/usb/', 'Consertando a USB'],
+                        ['https://deomkds.github.io/OpenCore-Post-Install/universal/security', 'Segurança e FileVault'],
+                        ['https://deomkds.github.io/OpenCore-Post-Install/universal/audio', 'Consertando o Áudio'],
+                        ['https://deomkds.github.io/OpenCore-Post-Install/universal/oc2hdd', 'Iniciando sem Pendrive'],
+                        ['https://deomkds.github.io/OpenCore-Post-Install/universal/update', 'Atualizando o OpenCore, as kexts e o macOS'],
+                        ['https://deomkds.github.io/OpenCore-Post-Install/universal/drm', 'Consertando a DRM'],
+                        ['https://deomkds.github.io/OpenCore-Post-Install/universal/iservices', 'Consertando os iServiços'],
+                        ['https://deomkds.github.io/OpenCore-Post-Install/universal/pm', 'Consertanto o Gerenciamento de Energia'],
+                        ['https://deomkds.github.io/OpenCore-Post-Install/universal/sleep', 'Consertando a Suspensão'],
+                        ['https://deomkds.github.io/OpenCore-Post-Install/usb/', 'Consertando a USB'],
                     ]
                 },
                 {
                     title: 'Problemas de Laptops',
                     collapsable: true,
                     children: [
-                        ['https://dortania.github.io/OpenCore-Post-Install/laptop-specific/battery', 'Consertando Níveis de Bateria'],
+                        ['https://deomkds.github.io/OpenCore-Post-Install/laptop-specific/battery', 'Consertando Níveis de Bateria'],
 
                     ]
                 },
@@ -249,26 +249,26 @@ module.exports = {
                     title: 'Cosméticos',
                     collapsable: true,
                     children: [
-                        ['https://dortania.github.io/OpenCore-Post-Install/cosmetic/verbose', 'Consertando a Resolução e o modo Verbose'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/cosmetic/gui', 'Adicionando GUI e som de boot'],
+                        ['https://deomkds.github.io/OpenCore-Post-Install/cosmetic/verbose', 'Consertando a Resolução e o modo Verbose'],
+                        ['https://deomkds.github.io/OpenCore-Post-Install/cosmetic/gui', 'Adicionando GUI e som de boot'],
                     ]
                 },
                 {
                     title: 'Multiboot',
                     collapsable: true,
                     children: [
-						['https://dortania.github.io/OpenCore-Multiboot/', 'Multiboot no OpenCore'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/multiboot/bootstrap', 'Configurando o LauncherOption'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/multiboot/bootcamp', 'Instalando o BootCamp'],
+						['https://deomkds.github.io/OpenCore-Multiboot/', 'Multiboot no OpenCore'],
+                        ['https://deomkds.github.io/OpenCore-Post-Install/multiboot/bootstrap', 'Configurando o LauncherOption'],
+                        ['https://deomkds.github.io/OpenCore-Post-Install/multiboot/bootcamp', 'Instalando o BootCamp'],
                     ]
                 },
                 {
                     title: 'Diversos',
                     collapsable: true,
                     children: [
-                        ['https://dortania.github.io/OpenCore-Post-Install/misc/rtc', 'Consertando o RTC'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/misc/msr-lock', 'Consertando o CFG Lock'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/misc/nvram', 'NVRAM Emulada'],
+                        ['https://deomkds.github.io/OpenCore-Post-Install/misc/rtc', 'Consertando o RTC'],
+                        ['https://deomkds.github.io/OpenCore-Post-Install/misc/msr-lock', 'Consertando o CFG Lock'],
+                        ['https://deomkds.github.io/OpenCore-Post-Install/misc/nvram', 'NVRAM Emulada'],
                     ]
                 },
             ]
