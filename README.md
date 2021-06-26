@@ -1,13 +1,13 @@
 ---
 home: true
 heroImage: /dortania-logo-clear.png
-heroText: Guia de Instalação do OpenCore (Não Oficial) 
+heroText: Guia de Instalação do OpenCore 
 actionText: Primeiros Passos→
 actionLink: prerequisites.md
 
 meta:
 - name: description
-  content: Versão suportada 0.7.0
+  content: Tradução NÃO OFICIAL por deomkds (v0.7.0)
 ---
 
 # O que é o OpenCore e para quem é este guia?
@@ -23,4 +23,4 @@ Por este motivo, espera-se que o leitor seja capaz de ler, aprender e até mesmo
 
 Por favor, lembre-se de que o OpenCore ainda é novo e está em fase de testes. Embora estável (e provavelmente muito mais estável do que o Clover em praticamente todos os aspectos), ele ainda recebe atualizações constantes, o que significa que partes da configuração são alteradas com bastante frequência (ex.: novos *quirks* substituindo antigos).
 
-Por fim, aqueles que estejam tendo dificuldades podem acessar tanto o [subreddit r/Hackintosh](https://www.reddit.com/r/hackintosh/) quanto o [Discord do r/Hackintosh](https://discord.gg/u8V7N5C) (em inglês) para obter ajuda.
+Por fim, aqueles que estejam tendo dificuldades podem acessar tanto o [subreddit r/Hackintosh](https://www.reddit.com/r/hackintosh/) quanto o [Discord do r/Hackintosh](https://discord.gg/u8V7N5C) (em inglês) para obter ajuda.</br></br></br></br>
