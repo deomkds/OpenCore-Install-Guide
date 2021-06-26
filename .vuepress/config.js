@@ -3,7 +3,7 @@ const {
 } = require('../package')
 
 module.exports = {
-    title: 'OpenCore Install Guide',
+    title: 'Guia de Instalação do OpenCore',
     head: [
         ['meta', {
             name: 'theme-color',
@@ -98,11 +98,11 @@ module.exports = {
             collapsable: false,
             sidebarDepth: 1,
             children: [
-				'prerequisites',
-				'macos-limits',
-				'find-hardware',
-                'terminology',
-                'why-oc',
+				    'prerequisites',
+				    'macos-limits',
+				    'find-hardware',
+            'terminology',
+            'why-oc',
             ]
 
         },
@@ -111,7 +111,7 @@ module.exports = {
             collapsable: false,
             sidebarDepth: 2,
             children: [{
-                title: 'Criando Pendrive',
+                title: 'Criando o Pendrive',
                 collapsable: true,
                 path: '/installer-guide/',
                 sidebarDepth: 1,
@@ -289,8 +289,8 @@ module.exports = {
             title: 'Outros',
             collapsable: false,
             children: [
-                'CONTRIBUTING',
-                '/misc/credit',
+                ['CONTRIBUTING', 'Contribuindo'],
+                ['/misc/credit', 'Créditos'],
             ]
         },
         ],
