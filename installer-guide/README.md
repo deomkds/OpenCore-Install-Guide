@@ -1,34 +1,34 @@
-# Creating the USB
+# Criando o Pendrive
 
-Requirements:
+Exigências:
 
-* [OpenCorePkg](https://github.com/acidanthera/OpenCorePkg/releases), highly recommend running the debug version to show more info
-* [ProperTree](https://github.com/corpnewt/ProperTree) to edit .plist files (OpenCore Configurator is another tool but is heavily outdated and the Mackie version is known for corruption. **Please avoid these kinds of tools at all costs!**).
-* You must remove Clover from your system entirely if you wish to use OpenCore as your main boot-loader. Keep a backup of your Clover based EFI. See here on what needs to be cleaned: [Clover Conversion](https://github.com/dortania/OpenCore-Install-Guide/tree/master/clover-conversion)
+* [OpenCorePkg](https://github.com/acidanthera/OpenCorePkg/releases), altamente recomendado usar a versão de *debug* para exibir mais informações.
+* [ProperTree](https://github.com/corpnewt/ProperTree) para editar arquivos .plist (OpenCore Configurator é outra ferramenta, mas bastante desatualizada e a versão do Mackie é conhecida corromper dados. **Por favor, evite esse tipo de ferramenta a todo custo!**).
+* É preciso remover o Clover do seu sistema completamente se desejar usar o OpenCore como o seu *bootloader* principal. Mantenha um backup da pasta EFI do Clover. Veja aqui o que precisa ser removido: [Convertendo do Clover](https://github.com/deomkds/OpenCore-Install-Guide/tree/master/clover-conversion)
 
-### Online vs Offline Installer
+### Instalador Online vs Offline
 
-Offline installers have a complete copy of macOS, while online installers are only a recovery image (~500MB) which then download macOS from Apple servers once booted.
+Instaladores offline carregam uma cópia completa do macOS, enquanto instaladores online são somente uma imagem de recuperação (~500MB) que só baixa o macOS diretamente dos servidores da Apple depois de iniciado.
 
-* Offline
-  * Can only be made in macOS
-  * Windows/Linux do not have the APFS/HFS drivers needed to assemble a full installer
-* Online
-  * Can be made in macOS/Linux/Windows
-  * Requires a working internet connection via a macOS supported network adapter on the target machine
+* Instalador Offline
+  * Só pode ser criado no macOS.
+  * O Windows ou o Linux não possuem os drivers APFS/HFS necessários para montar um instalador completo.
+* Instalador Online
+  * Pode ser criado no macOS, Linux ou Windows.
+  * Exige uma conexão funcional com a internet por meio de um adaptador de rede que seja suportado pelo macOS no computador alvo.
 
-### Making the Installer
+### Criando o Instalador
 
-Depending on which OS you're on, see your specific section on making the USB:
+Dependendo do sistema operacional a ser usado, acesse a seção correspondente sobre como criar o pendrive.
 
-* [macOS users](../installer-guide/mac-install.md)
-  * Supports OS X 10.4 to current
-  * Supports both legacy and UEFI installs
-* [Windows users](../installer-guide/winblows-install.md)
-  * Supports OS X 10.7 to current
-  * Online installer only
-  * Supports both legacy and UEFI installs
-* [Linux users(UEFI)](../installer-guide/linux-install.md)
-  * Supports OS X 10.7 to current
-  * Online installer only
-  * Meant for machines supporting UEFI Boot
+* [Usuários de macOS](../installer-guide/mac-install.md)
+  * Suporta Mac OS X 10.4 Tiger até o mais recente.
+  * Suporta tanto instalações legadas quanto UEFI.
+* [Usuários do Windows](../installer-guide/winblows-install.md)
+  * Suporta OS X 10.7 Lion até o mais recente.
+  * Somente instalador online.
+  * Suporta tanto instalações legadas quanto UEFI.
+* [Usuários Linux (UEFI)](../installer-guide/linux-install.md)
+  * Suporta OS X 10.7 Lion até o mais recente.
+  * Somente instalador online.
+  * Criado para computadores que suportam boot UEFI.
