@@ -1,19 +1,18 @@
+# Criando o instalador no macOS
 
-# Making the installer in macOS
+Embora não seja necessário ter uma instalação zerada para usar o OpenCore, alguns usuários preferem ter um sistema limpo ao atualizar seus gerenciadores de boot.
 
-While you don't need a fresh install of macOS to use OpenCore, some users prefer having a fresh slate with their boot manager upgrades.
+Para começar, será necessário baixar uma cópia do macOS. Se estiver só criando um pendrive bootável com o OpenCore e não um instalador completo, pule essa seção e vá direto para a formatação do pendrive. Para os outros, é possível baixar o macOS tanto da Mac App Store quanto pelo script do Munki.
 
-To start we'll want to grab ourselves a copy of macOS. You can skip this and head to formatting the USB if you're just making a bootable OpenCore stick and not an installer. For everyone else, you can either download macOS from the App Store or with Munki's script.
+## Baixando o macOS: Sistema Operacional Moderno
 
-## Downloading macOS: Modern OS
+* Este método permite baixar o macOS 10.13 High Sierra ou mais novo. Para versões mais antigas, como o macOS 10.12 Sierra ou anterior, acesse o guia [Baixando o macOS: Sistema Operacional Antigo](#downloading-macos-legacy-os).
 
-* This method allows you to download macOS 10.13 and newer, for 10.12 and older see [Downloading macOS: Legacy OS](#downloading-macos-legacy-os)
+A partir de um computador executando o macOS que atinja os requisitos da versão do sistema operacional que você pretende utilizar, vá direto para a Mac App Store e baixe a versão do macOS desejada, depois prossiga até a seção [**Configurando o Instalador**](#setting-up-the-installer).
 
-From a macOS machine that meets the requirements of the OS version you want to install, go directly to the App Store and download the desired OS release and continue to [**Setting up the installer**](#setting-up-the-installer).
+Para computadores que necessitam de uma versão específica do sistema operacional ou não conseguem baixar da Mac App Store, é possível usar o utilitário `InstallInstallMacos` do Munki.
 
-For machines that need a specific OS release or can't download from the App Store, you can use the Munki's InstallInstallMacOS utility.
-
-In order to run it, just copy and paste the below command in a terminal window:
+Para executá-lo, copie e cole o comando abaixo em uma janela do Terminal.
 
 ```sh
 mkdir ~/macOS-installer && cd ~/macOS-installer && curl -O https://raw.githubusercontent.com/munki/macadmin-scripts/main/installinstallmacos.py && sudo python installinstallmacos.py
@@ -21,60 +20,63 @@ mkdir ~/macOS-installer && cd ~/macOS-installer && curl -O https://raw.githubuse
 
 ![](../images/installer-guide/mac-install-md/munki.png)
 
-As you can see, we get a nice list of macOS installers. If you need a particular versions of macOS, you can select it by typing the number next to it. For this example we'll choose 10:
+Como dá para ver, ele exibe uma bela lista de instaladores do macOS. Se for necessário baixar uma versão específica, é possível selecioná-la digitando o número que está ao lado. Neste exemplo, será usado a opção 10:
 
 ![](../images/installer-guide/mac-install-md/munki-process.png)
 
-* **macOS 11, Big Sur Note**: As this OS is quite new, there's still some issues with certain systems to resolve. For more information, see here: [OpenCore and macOS 11: Big Sur](../extras/big-sur/README.md)
-  * For first time users, we recommend macOS 10.15, Catalina
-* **Nvidia GPU Note**: Reminder to verify whether your hardware support newer OSes, see [Hardware Limitations](../macos-limits.md)
+* **Observação sobre o macOS 11 Big Sur**: Como essa versão é bem nova, ainda existem alguns problemas a serem resolvidos com certos sistemas. Para mais informações, acesse: [OpenCore e macOS 11 Big Sur](../extras/big-sur/README.md).
+  * Para usuários de primeira viagem, recomendamos o macOS 10.15 Catalina.
+* **Observação sobre GPUs Nvidia**: Lembre-se de verificar se seu hardware suporta os macOS mais novos. Consulte o guia [Limitações de Hardware](../macos-limits.md) para mais informações.
 
-This is going to take a while as we're downloading the entire 8GB+ macOS installer, so it's highly recommended to read the rest of the guide while you wait.
+Isso vai demorar um pouco, já que o utilitário baixará todos os 8GB do instalador do macOS, então é altamente recomendado ler o resto deste guia enquanto aguarda.
 
-Once finished, you'll find in your `~/macOS-Installer/` folder a DMG containing the macOS Installer, called `Install_macOS_11.1-20C69.dmg` for example. Mount it and you'll find the installer application.
+Uma vez terminado, a DMG contendo o instalador do macOS poderá ser encontrada na pasta `~/macOS-Installer/`. O arquivo terá um nome parecido com `Install_macOS_11.1-20C69.dmg`, a variar dependendo da versão. Monte-a e encontrará o aplicativo instalador dentro dela.
 
-* Note: We recommend to move the Install macOS.app into the `/Applications` folder, as we'll be executing commands from there.
-* Note 2: Running Cmd+Shift+G in Finder will allow you to easily jump to `~/macOS-installer`
+* Observações:
+  * É recomendado mover o "Instalador do macOS.app" para a pasta `/Aplicativos`, pois os comandos a seguir serão executados nela.
+  * Pressionar Cmd+Shift+G no Finder permite abrir rapidamente a pasta `~/macOS-installer`.
 
 ![](../images/installer-guide/mac-install-md/munki-done.png)
 
 ![](../images/installer-guide/mac-install-md/munki-dmg.png)
 
-From here, jump to [Setting up the installer](#setting-up-the-installer) to finish your work.
+Daqui, pule para [Configurando o Instalador](#setting-up-the-installer) para terminar o que você começou.
 
-## Downloading macOS: Legacy OS
+## Baixando o macOS: Sistema Operacional Antigo
 
-* This method allows you to download much older versions of OS X, currently supporting all Intel versions of OS X(10.4 to current)
+* Este método permite baixar versões do OS X muito mais antigas. Atualmente, suporta todas as versões para Intel do OS X (do 10.4 Tiger até a mais atual).
 
-  * [Legacy macOS: Offline method](./mac-install-pkg.md)
-    * 10.10-10.12 Supported
-  * [Legacy macOS: Online method(10.7-10.15 Supported)](./mac-install-recovery.md)
-    * 10.7-11 Supported
-  * [Legacy macOS: Disk Images](./mac-install-dmg.md)
-    * 10.4-10.6 Supported
+  * [macOS Antigo: Método Offline](./mac-install-pkg.md)
+    * Suporta do 10.10 ao 10.12.
+  * [macOS Antigo: Método Online (Suporta 10.7 a 10.15)](./mac-install-recovery.md)
+    * Suporta do 10.7 ao 11.
+  * [macOS Antigo: Imagens de Disco](./mac-install-dmg.md)
+    * Suporta do 10.4 ao 10.6.
 
-## Setting up the installer
+## Configurando o Instalador
 
-Now we'll be formatting the USB to prep for both the macOS installer and OpenCore. We'll want to use macOS Extended (HFS+) with a GUID partition map. This will create two partitions: the main `MyVolume` and a second called `EFI` which is used as a boot partition where your firmware will check for boot files.
+Agora, será necessário formatar o pendrive para prepará-lo para receber tanto o instalador do macOS quanto o OpenCore. Utilize as opções macOS Extendido (HFS+) com um mapa de partição tipo GUID. Serão criadas duas particões: a principal `MyVolume` e uma segunda partição chamada `EFI`, que é usada como a partição de boot e onde o firmware do computador procurará pelos arquivos de inicialização.
 
-* Note: By default, Disk Utility only shows partitions – press Cmd/Win+2 to show all devices (alternatively you can press the View button)
-* Note 2: Users following "Legacy macOS: Online method" section can skip to [Setting up OpenCore's EFI environment](#setting-up-opencore-s-efi-environment)
+* Observações:
+  * Por padrão, o Utilitário de Disco somente mostra partições. Pressione Cmd/Win+2 para exibir todos os dispositivos. Alternativamente, é possível usar o botão Visualização.
+  * Os usuários que estão seguindo a seção "macOS Antigo: Método Online" podem pular para [Configurando o Ambiente EFI do OpenCore](#setting-up-opencore-s-efi-environment)
 
-![Formatting the USB](../images/installer-guide/mac-install-md/format-usb.png)
+![Formatando o pendrive](../images/installer-guide/mac-install-md/format-usb.png)
 
-Next run the `createinstallmedia` command provided by [Apple](https://support.apple.com/en-us/HT201372). Note that the command is made for USB's formatted with the name `MyVolume`:
+Depois, execute o comando `createinstallmedia` provido pela [Apple](https://support.apple.com/en-us/HT201372).
+Observer que o comando é feito para pendrives formatados com o nome `MyVolume`:
 
 ```sh
 sudo /Applications/Install\ macOS\ Big\ Sur.app/Contents/Resources/createinstallmedia --volume /Volumes/MyVolume
 ```
 
-This will take some time so you may want to grab a coffee or continue reading the guide (to be fair you really shouldn't be following this guide step by step without reading the whole thing first).
+Isso vai demorar um pouco. Fique à vontade para tomar um café ou continuar lendo este guia (pra ser honesto, ninguém deveria estar seguindo este guia passo a passo sem ler ele inteiro primeiro).
 
-You can also replace the `createinstallmedia` path with that of where your installer's located (same idea with the drive name).
+Também é possível trocar o caminho do `createinstallmedia` pela localização do instalador no seu computador (mesma coisa com o nome do pendrive).
 
-::: details Legacy createinstallmedia Commands
+::: details Comandos createinstallmedia Antigos
 
-Pulled from Apple's own site: [How to create a bootable installer for macOS](https://support.apple.com/en-us/HT201372)
+Retirados do próprio site da Apple: [Como criar um instalador inicializável no macOS](https://support.apple.com/pt-br/HT201372)
 
 ```sh
 # Big Sur
@@ -104,49 +106,49 @@ sudo /Applications/Install\ OS\ X\ Mavericks.app/Contents/Resources/createinstal
 
 :::
 
-## Legacy Setup
+## Configuração Legada
 
-For systems not supporting UEFI boot, see below:
+Para sistemas que não suportam a inicialização UEFI, veja:
 
-::: details Setting up Legacy Boot
+::: details Configurando a Inicialização Legada
 
-To start, you need the following:
+Para começar, será preciso:
 
-* BootInstall_IA32.tool or BootInstall_X64.tool
-  * This can be found in OpenCorePkg under `/Utilties/LegacyBoot/`
-* Install USB(Created above)
+* `BootInstall\_IA32.tool` ou `BootInstall\_X64.tool`
+  * Podem ser encontrados no OpenCorePkg, na pasta `/Utilties/LegacyBoot/`.
+* Pendrive de Instalação (criado acima).
 
-Within your OpenCore build folder, navigate to `Utilities/LegacyBoot`. Here you'll find a file called `BootInstall_ARCH.tool`. What this does is install DuetPkg to your desired drive.
+Dentro da pasta do OpenCore, navegue até `Utilities/LegacyBoot`. Lá existirá um arquivo chamado `BootInstall_ARCH.tool`. Ele é responsável por instalar o DuetPkg no disco de destino selecionado.
 
-![BootInstall Location](../images/extras/legacy-md/download.png)
+![Local do BootInstall](../images/extras/legacy-md/download.png)
 
-Now run this tool in terminal **with sudo**(This tool will likely fail otherwise):
+Agora, execute essa ferramenta no Terminal **com sudo**. A ferramenta falhará, caso contrário.
 
 ```sh
-# Replace X64 with IA32 if you have a 32-Bit CPU
+# Substitua X64 por IA32 se for usar uma CPU de 32 bits.
 sudo ~/Downloads/OpenCore/Utilities/legacyBoot/BootInstall_X64.tool
 ```
 
-![Disk Selection/writing new MBR](../images/extras/legacy-md/boot-disk.png)
+![Seleção de Disco/Salvando nova MBR](../images/extras/legacy-md/boot-disk.png)
 
-This will give you a list of available disks, choose yours and you will be prompted to write a new MBR. Choose yes`[y]` and you'll be finished.
+Isso exibirá uma lista de discos disponíveis, escolha o seu e será perguntado sobre salvar uma nova MBR. Escolha _sim_ (`[y]`) e o processo terá terminado.
 
-![Finished Installer](../images/extras/legacy-md/boot-done.png)
+![Instalador Finalizado](../images/extras/legacy-md/boot-done.png)
 
-![Base EFI](../images/extras/legacy-md/efi-base.png)
+![EFI Base](../images/extras/legacy-md/efi-base.png)
 
-This will provide you with an EFI partition with either a **bootia32** or **bootx64** file
+Isso criará um arquivo **bootia32** ou **bootx64** na partição EFI.
 
 :::
 
-## Setting up OpenCore's EFI environment
+## Configurando o Ambiente EFI do OpenCore
 
-Setting up OpenCore's EFI environment is simple – all you need to do is mount our EFI system partition. This is automatically made when we format with GUID but is unmounted by default, this is where our friend [MountEFI](https://github.com/corpnewt/MountEFI) comes in:
+Configurar o ambiente EFI do OpenCore é simples, basta montar a partição EFI. Ela é criada automaticamente quando o pendrive é formatado em GUID, mas a partição permanece desmontada por padrão. É aqui que entra nosso amigo [MountEFI](https://github.com/corpnewt/MountEFI):
 
 ![MountEFI](../images/installer-guide/mac-install-md/mount-efi-usb.png)
 
-You'll notice that once we open the EFI partition, it's empty. This is where the fun begins.
+Note que a partição EFI está vazia no momento em que é montada. É aqui que a diversão começa.
 
-![Empty EFI partition](../images/installer-guide/mac-install-md/base-efi.png)
+![Partição EFI vazia](../images/installer-guide/mac-install-md/base-efi.png)
 
-## Now with all of this done, head to [Setting up the EFI](./opencore-efi.md) to finish up your work
+## Agora, com tudo isso pronto, acesse o guia [Configurando a EFI](./opencore-efi.md) para terminar o trabalho.
