@@ -40,7 +40,8 @@ xar -xf /Volumes/Install\ OS\ X/InstallMacOSX.pkg
 ```sh
 xar -xf /Volumes/Install\ macOS/InstallOS.pkg
 ```
-Depois, execute o seguinte (uma linha de cada vez):
+
+Depois, execute o seguinte (uma linha de cada vez).
 
 * OS X 10.10 Yosemite:
 
