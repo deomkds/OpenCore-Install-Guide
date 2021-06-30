@@ -1,58 +1,57 @@
-# Legacy macOS: Online method
+# macOS Antigo: Método Online
 
-This method allows us to download legacy versions of macOS including 10.7 to current, however these are only recovery installers so require an internet connection inside the installer itself
+Este método permite baixar versões antigas do macOS, incluíndo o OS X 10.7 Lion até o mais atual. No entanto, estes são apenas instaladores de recuperação e exigem uma conexão com a internet funcional dentro do instalador.
 
-To start, you'll want to use macrecovery.py instead. This tool is actually already bundled in OpenCorePkg:
+Para iniciar, será necessário usar o script macrecovery.py. Esta ferramenta já vem dentro do OpenCorePkg:
 
 ![](../images/installer-guide/legacy-mac-install-md/macrecovery.png)
 
-Instructions for running are quite simple, choose from one of the below commands depending on which OS you want to download:
+As instruções de execução são bastante simples: escolha a partir de um dos comandos abaixo dependendo da versão do sistema operacional que deseja baixar.
 
 ```sh
-# Lion(10.7):
+# OS X 10.7 Lion:
 python ./macrecovery.py -b Mac-2E6FAB96566FE58C -m 00000000000F25Y00 download
 python ./macrecovery.py -b Mac-C3EC7CD22292981F -m 00000000000F0HM00 download
 
-# Mountain Lion(10.8):
+# OS X 10.8 Mountain Lion:
 python ./macrecovery.py -b Mac-7DF2A3B5E5D671ED -m 00000000000F65100 download
 
-# Mavericks(10.9):
+# OS X 10.9 Mavericks:
 python ./macrecovery.py -b Mac-F60DEB81FF30ACF6 -m 00000000000FNN100 download
 
-# Yosemite(10.10):
+# OS X 10.10 Yosemite:
 python ./macrecovery.py -b Mac-E43C1C25D4880AD6 -m 00000000000GDVW00 download
 
-# El Capitan(10.11):
+# OS X 10.11 El Capitan:
 python ./macrecovery.py -b Mac-FFE5EF870D7BA81A -m 00000000000GQRX00 download
 
-# Sierra(10.12):
+# macOS 10.12 Sierra:
 python ./macrecovery.py -b Mac-77F17D7DA9285301 -m 00000000000J0DX00 download
 
-# High Sierra(10.13)
+# macOS 10.13 High Sierra:
 python ./macrecovery.py -b Mac-7BA5B2D9E42DDD94 -m 00000000000J80300 download
 python ./macrecovery.py -b Mac-BE088AF8C5EB4FA2 -m 00000000000J80300 download
 
-# Mojave(10.14)
+# macOS 10.14 Mojave:
 python ./macrecovery.py -b Mac-7BA5B2DFE22DDD8C -m 00000000000KXPG00 download
 
-# Catalina(10.15)
+# macOS 10.15 Catalina:
 python ./macrecovery.py -b Mac-00BE6ED71E35EB86 -m 00000000000000000 download
 
-# Latest version
-# ie. Big Sur(11)
+# Versão mais recente (ex.: macOS 11 Big Sur):
 python ./macrecovery.py -b Mac-E43C1C25D4880AD6 -m 00000000000000000 download
 ```
 
-From here, run one of those commands in terminal and once finished you'll get an output similar to this:
+A partir daqui, execute um desses comandos no Terminal e, assim que terminado, aparecerá algo como:
 
 ![](../images/installer-guide/legacy-mac-install-md/download-done.png)
 
-Once this is done, format your USB as FAT32 with GUID Partition Scheme:
+Uma vez que isso tenha terminado, formate o pendrive como FAT32 usando o esquema de partição GUID:
 
 ![](../images/installer-guide/legacy-mac-install-md/fat32-erase.png)
 
-And finally, create folder on the root of this drive called `com.apple.recovery.boot` and place the newly downloaded BaseSystem/RecoveryImage files in:
+Finalmente, crie uma pasta na raiz desse pendrive chamada `com.apple.recovery.boot` e coloque o arquivo BaseSystem/RecoveryImage baixado nela:
 
 ![](../images/installer-guide/legacy-mac-install-md/dmg-chunklist.png)
 
-### Once you're finished, you can head to [Setting up OpenCore's EFI environment](./mac-install.md#setting-up-opencore-s-efi-environment)
+### Terminado, siga para o guia [Configurando o Ambiente EFI do OpenCore](./mac-install.md#setting-up-opencore-s-efi-environment)
