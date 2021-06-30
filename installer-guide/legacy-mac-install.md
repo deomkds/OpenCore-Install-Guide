@@ -1,3 +1,3 @@
-# Grabbing older versions of macOS/OS X
+# Conseguindo versões antigas do macOS/OS X
 
-This page has been deprecated, see the respective install pages for legacy macOS installers
+Esta página foi descontinuada. Por favor, leia as páginas relativas aos intaladores legados do macOS.
