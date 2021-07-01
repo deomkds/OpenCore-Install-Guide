@@ -1,149 +1,151 @@
-# Making the installer in Linux
+# Criando o Instalador no Linux
 
-While you don't need a fresh install of macOS to use OpenCore, some users prefer having a fresh slate with their boot manager upgrades.
+Embora não seja necessário ter uma instalação zerada para usar o OpenCore, alguns usuários preferem ter um sistema limpo ao atualizar seus gerenciadores de boot.
 
-To start you'll need the following:
+Para começar, tenha em mãos (virtuais?):
 
-* 4GB USB Stick
+* Pendrive de 4GB
 * [macrecovery.py](https://github.com/acidanthera/OpenCorePkg/releases)
   
-## Downloading macOS
+## Baixando o macOS
 
-Now to start, first cd into [macrecovery's folder](https://github.com/acidanthera/OpenCorePkg/releases) and run one of the following commands:
+Para iniciar, use o comando `cd` para acessar a pasta do [macrecovery](https://github.com/acidanthera/OpenCorePkg/releases) e execute um dos comandos abaixo:
 
 ![](../images/installer-guide/legacy-mac-install-md/macrecovery.png)
 
 ```sh
-# Adjust below command to the correct folder
+# Ajuste o seguinte comando para a pasta correta
 cd ~/Downloads/OpenCore-0/Utilities/macrecovery/
 ```
 
-Next, run one of the following commands depending on the OS you'd like to boot:
+Depois, execute um dos seguintes comandos dependendo do sistema que deseja iniciar:
 
 ```sh
-# Lion(10.7):
+# OS X 10.7 Lion:
 python ./macrecovery.py -b Mac-2E6FAB96566FE58C -m 00000000000F25Y00 download
 python ./macrecovery.py -b Mac-C3EC7CD22292981F -m 00000000000F0HM00 download
 
-# Mountain Lion(10.8):
+# OS X 10.8 Mountain Lion:
 python ./macrecovery.py -b Mac-7DF2A3B5E5D671ED -m 00000000000F65100 download
 
-# Mavericks(10.9):
+# OS X 10.9 Mavericks:
 python ./macrecovery.py -b Mac-F60DEB81FF30ACF6 -m 00000000000FNN100 download
 
-# Yosemite(10.10):
+# OS X 10.10 Yosemite:
 python ./macrecovery.py -b Mac-E43C1C25D4880AD6 -m 00000000000GDVW00 download
 
-# El Capitan(10.11):
+# OS X 10.11 El Capitan:
 python ./macrecovery.py -b Mac-FFE5EF870D7BA81A -m 00000000000GQRX00 download
 
-# Sierra(10.12):
+# macOS 10.12 Sierra:
 python ./macrecovery.py -b Mac-77F17D7DA9285301 -m 00000000000J0DX00 download
 
-# High Sierra(10.13)
+# macOS 10.13 High Sierra:
 python ./macrecovery.py -b Mac-7BA5B2D9E42DDD94 -m 00000000000J80300 download
 python ./macrecovery.py -b Mac-BE088AF8C5EB4FA2 -m 00000000000J80300 download
 
-# Mojave(10.14)
+# macOS 10.14 Mojave:
 python ./macrecovery.py -b Mac-7BA5B2DFE22DDD8C -m 00000000000KXPG00 download
 
-# Catalina(10.15)
+# macOS 10.15 Catalina
 python ./macrecovery.py -b Mac-00BE6ED71E35EB86 -m 00000000000000000 download
 
-# Latest version
-# ie. Big Sur(11)
+# Versão mais recente
+# macOS 11 Big Sur
 python ./macrecovery.py -b Mac-E43C1C25D4880AD6 -m 00000000000000000 download
 ```
 
-From here, run one of those commands in terminal and once finished you'll get an output similar to this:
+A partir daqui, execute um desses comandos numa janela do Terminal e, quando terminado, aparecerá uma mensagem similar a esta:
 
 ![](../images/installer-guide/legacy-mac-install-md/download-done.png)
 
-* **Note**: Depending on the OS, you'll either get BaseSystem or RecoveryImage files. They both act in the same manner so when we reference BaseSystem the same info apples to RecoveryImage
+* **Observação**: dependendo do sistema operacional, o script baixará um arquivo chamado BaseSystem ou um cahamdo RecoveryImage. Ambos agem da mesma forma, então quando este guia fizer referência a BaseSystem, a informação também se aplica ao RecoveryImage.
 
-* **macOS 11, Big Sur Note**: As this OS is quite new, there's still some issues with certain systems to resolve. For more information, see here: [OpenCore and macOS 11: Big Sur](../extras/big-sur/README.md)
-  * For first time users, we recommend macOS 10.15, Catalina
-* **Nvidia GPU Note**: Reminder to verify whether your hardware support newer OSes, see [Hardware Limitations](../macos-limits.md)
+* **Observação sobre o macOS 11 Big Sur**: como essa versão é nova, ainda há problemas a serem resolvidos com sertos sistemas. Para mais informações, acesse: [OpenCore e o macOS 11 Big Sur](../extras/big-sur/README.md).
+  * Para usuários de primeira viagem, recomenda-se usar o macOS 10.15 Catalina.
+* **Observação sobre GPUs Nvidia**: Lembre-se de verificar se sua placa suporta as versões mais recentes do sistema operaciona. Para isso, leia as [Limitações de Hardware](../macos-limits.md).
 
-## Making the installer
+## Criando o Instalador
 
-This section will target making the necessary partitions in the USB device. You can use your favorite program be it `gdisk` `fdisk` `parted` `gparted` or `gnome-disks`. This guide will focus on `gdisk` as it's nice and can change the partition type later on, as we need it so that macOS Recovery HD can boot. (the distro used here is Ubuntu 18.04, other versions or distros may work)
+Esta seção focará na forma de fazer as partições necessárioas no dispositivo USB. Fique à vontade para usar seu programa preferido, seja o `gdisk`, o `fdisk`, o `parted`, o `gparted` ou o `gnome-disks`. Este guia focará no `gdisk` por ser daorinha e permitir mudar o tipo de partição no futuro, o que será necessário para fazer a partição de Recuperação do macOS iniciar. A distro usada neste guia foi o Ubuntu 18.04, mas outras versões também servem.
 
-Credit to [midi1996](https://github.com/midi1996) for his work on the [Internet Install Guide](https://midi1996.github.io/hackintosh-internet-install-gitbook/) guide which this is based off of.
+Créditos ao [midi1996](https://github.com/midi1996) pelo seu trabalho no [Guia de Instalador Online](https://midi1996.github.io/hackintosh-internet-install-gitbook/) (em inglês), no qual este guia foi baseado.
 
-### Method 1
+### Método 1
 
-In terminal:
+No Terminal:
 
-1. run `lsblk` and determine your USB device block
+1. Execute `lsblk` e determine o bloco do seu dispositivo USB.
   ![lsblk](../images/installer-guide/linux-install-md/unknown-5.png)
-2. run `sudo gdisk /dev/<your USB block>`
-   1. if you're asked what partition table to use, select GPT.
-      ![Select GPT](../images/installer-guide/linux-install-md/unknown-6.png)
-   2. send `p` to print your block's partitions \(and verify it's the one needed\)
+2. Execute `sudo gdisk /dev/<bloco do seu dispositivo USB>`.
+   1. Se perguntado qual tabela de partição usar, selecione GPT.
+      ![Selecione GPT](../images/installer-guide/linux-install-md/unknown-6.png)
+   2. Aperte `p` para exibir as partições do bloco \(e checar se é a que você procura\).
       ![](../images/installer-guide/linux-install-md/unknown-13.png)
-   3. send `o` to clear the partition table and make a new GPT one (if not empty)
-      1. confirm with `y`
+   3. Aperte `o` para limpar a tabela de partição e crie uma nova em GPT (se houver).
+      1. Confirme apertando `y`.
          ![](../images/installer-guide/linux-install-md/unknown-8.png)
-   4. send `n`
-      1. `partition number`: keep blank for default
-      2. `first sector`: keep blank for default
-      3. `last sector`: keep blank for whole disk
-      4. `Hex code or GUID`: `0700` for Microsoft basic data partition type
-   5. send `w`
-      * Confirm with `y`
+   4. Aperte `n`.
+      1. `partition number`: Deixe em branco para usar o valor padrão.
+      2. `first sector`: Deixe em branco para usar o valor padrão.
+      3. `last sector`: Deixe em branco para usar o disco todo.
+      4. `Hex code or GUID`: `0700` para definir o tipo de partição como Microsoft Basic Data.
+   5. Aperte `w`.
+      * Confirme apertando `y`.
       ![](../images/installer-guide/linux-install-md/unknown-9.png)
-      * In some cases a reboot is needed, but rarely, if you want to be sure, reboot your computer. You can also try re-plugging your USB key.
-   6. Close `gdisk` by sending `q` (normally it should quit on its own)
-3. Use `lsblk` to determine your partition's identifiers
-4. run `sudo mkfs.vfat -F 32 -n "OPENCORE" /dev/<your USB partition block>` to format your USB to FAT32 and named OPENCORE
-5. then `cd` to `/OpenCore/Utilities/macrecovery/` and you should get to a `.dmg` and `.chunklist` files
-   1. mount your USB partition with `udisksctl` (`udisksctl mount -b /dev/<your USB partition block>`, no sudo required in most cases) or with `mount` (`sudo mount /dev/<your USB partition block> /where/your/mount/stuff`, sudo is required)
-   2. `cd` to your USB drive and `mkdir com.apple.recovery.boot` in the root of your FAT32 USB partition
-   3. now `cp` or `rsync` both `BaseSystem.dmg` and `BaseSystem.chunklist` into `com.apple.recovery.boot` folder.
+      * Em alguns casos, um reboot é necessário, mas é raro. Se quiser ter certeza, reinicie seu computador. Você também pode tentar reconectar seu pendrive.
+   6. Feche o `gdisk` apertando `q` (normalmente ele fecha sozinho).
+3. Use o `lsblk` para determinar os identificadores da partição.
+4. Execute `sudo mkfs.vfat -F 32 -n "OPENCORE" /dev/<bloco da partição no dispositivo USB>` para formatar seu pendrive em FAT32 usando o nome OPENCORE.
+5. Então execute `cd` para acessar o diretório `/OpenCore/Utilities/macrecovery/` e deve encontrar uma `.dmg` e um arquivo `.chunklist`.
+   1. Monte a partição do pendrive com o `udisksctl` (`udisksctl mount -b /dev/<bloco da partição no dispositivo USB>`, não precisa de sudo na maioria dos casos) ou com o `mount` (`sudo mount /dev/<bloco da partição no dispositivo USB> /onde/você/monta/partições`, o sudo é necessário).
+   2. Execute o `cd` para acessar o seu pendrive e crie uma pasta com o `mkdir com.apple.recovery.boot` na raiz da partição FAT32 do pendrive.
+   3. Agora use o comando `cp` ou o comando `rsync` para copiar tanto a `BaseSystem.dmg` quanto o arquivo `BaseSystem.chunklist` para dentro da pasta `com.apple.recovery.boot`.
 
-### Method 2 (in case 1 didn't work)
+_*Nota do deomkds: acho que este guia poderia ser mais mastigado, porém, se a pessoa se aventura a usar Linux, ela deve saber como usar esses comandos corretamente._
 
-In terminal:
+### Método 2 (caso o primeiro não funcione)
 
-1. run `lsblk` and determine your USB device block
+No Terminal:
+
+1. Execute o `lsblk` e determine o bloco do seu dispositivo USB.
    ![](../images/installer-guide/linux-install-md/unknown-11.png)
-2. run `sudo gdisk /dev/<your USB block>`
-   1. if you're asked what partition table to use, select GPT.
+2. Execute `sudo gdisk /dev/<bloco do seu dispositivo USB>`
+   1. Se perguntado qual tabela de partição usar, selecione GPT.
       ![](../images/installer-guide/linux-install-md/unknown-12.png)
-   2. send `p` to print your block's partitions \(and verify it's the one needed\)
+   2. Aperte `p` para exibir as partições do bloco \(e checar se é a que você procura\).
       ![](../images/installer-guide/linux-install-md/unknown-13.png)
-   3. send `o` to clear the partition table and make a new GPT one (if not empty)
-      1. confirm with `y`
+   3. Aperte `o` para limpar a tabela de partição e crie uma nova em GPT (se houver).
+      1. Confirme apertando `y`.
          ![](../images/installer-guide/linux-install-md/unknown-14.png)
-   4. send `n`
-      1. partition number: keep blank for default
-      2. first sector: keep blank for default
-      3. last sector: `+200M` to create a 200MB partition that will be named later on OPENCORE
-      4. Hex code or GUID: `0700` for Microsoft basic data partition type
+   4. Aperte `n`.
+      1. `partition number`: Deixe em branco para usar o valor padrão.
+      2. `first sector`: Deixe em branco para usar o valor padrão.
+      3. `last sector`: `+200M` para criar uma partição de 200MB que depois será renomeada para OPENCORE.
+      4. `Hex code or GUID`: `0700` para definir o tipo de partição como Microsoft Basic Data.
       ![](../images/installer-guide/linux-install-md/unknown-15.png)
-   5. send `n`
-      1. partition number: keep blank for default
-      2. first sector: keep blank for default
-      3. last sector: keep black for default \(or you can make it `+3G` if you want to partition further the rest of the USB\)
-      4. Hex code or GUID: `af00` for Apple HFS/HFS+ partition type
+   5. Aperte `n`.
+      1. `partition number`: Deixe em branco para usar o valor padrão.
+      2. `first sector`: Deixe em branco para usar o valor padrão.
+      3. `last sector`: Deixe em branco para usar o valor padrão \(ou pode usar `+3G` se desejar particionar o resto do pendrive\).
+      4. `Hex code or GUID`: `af00` para definir o tipo de partição como Apple HFS/HFS+.
       ![](../images/installer-guide/linux-install-md/unknown-16.png)
-   6. send `w`
-      * Confirm with `y`
+   6. Aperte `w`.
+      * Confirme apertando `y`.
       ![](../images/installer-guide/linux-install-md/unknown-17.png)
-      * In some cases a reboot is needed, but rarely, if you want to be sure, reboot your computer. You can also try re-plugging your USB key.
-   7. Close `gdisk` by sending `q` (normally it should quit on its own)
-3. Use `lsblk` again to determine the 200MB drive and the other partition
+      * Em alguns casos, um reboot é necessário, mas é raro. Se quiser ter certeza, reinicie seu computador. Você também pode tentar reconectar seu pendrive.
+   7. Feche o `gdisk` apertando `q` (normalmente ele fecha sozinho).
+3. Use o `lsblk` novamente para determinar o bloco do disco de 200MB e da outra partição.
    ![](../images/installer-guide/linux-install-md/unknown-18.png)
-4. run `sudo mkfs.vfat -F 32 -n "OPENCORE" /dev/<your 200MB partition block>` to format the 200MB partition to FAT32, named OPENCORE
-5. then `cd` to `/OpenCore/Utilities/macrecovery/` and you should get to a `.dmg` and `.chunklist` files
-   1. mount your USB partition with `udisksctl` (`udisksctl mount -b /dev/<your USB partition block>`, no sudo required in most cases) or with `mount` (`sudo mount /dev/<your USB partition block> /where/your/mount/stuff`, sudo is required)
-   2. `cd` to your USB drive and `mkdir com.apple.recovery.boot` in the root of your FAT32 USB partition
-   3. download `dmg2img` (available on most distros)
-   4. run `dmg2img -l BaseSystem.dmg` and determine which partition has `disk image` property
+4. Execute `sudo mkfs.vfat -F 32 -n "OPENCORE" /dev/<o bloco da sua partição de 200MB>` para formatar a partição de 200MB em FAT32 usando o nome OPENCORE.
+5. Então execute `cd` para acessar o diretório `/OpenCore/Utilities/macrecovery/` e deve encontrar uma `.dmg` e um arquivo `.chunklist`.
+   1. Monte a partição do pendrive com o `udisksctl` (`udisksctl mount -b /dev/<bloco da partição no dispositivo USB>`, não precisa de sudo na maioria dos casos) ou com o `mount` (`sudo mount /dev/<bloco da partição no dispositivo USB> /onde/você/monta/partições`, o sudo é necessário).
+   2. Execute o `cd` para acessar o seu pendrive e crie uma pasta com o `mkdir com.apple.recovery.boot` na raiz da partição FAT32 do pendrive.
+   3. Baixe o `dmg2img` (disponível na maioria das distros).
+   4. Execute `dmg2img -l BaseSystem.dmg` e determine qual partição tem a propriedade `disk image`.
       ![](../images/installer-guide/linux-install-md/unknown-20.png)
-   5. run `dmg2img -p <the partition number> -i BaseSystem.dmg -o <your 3GB+ partition block>` to extract and write the recovery image to the partition disk
-      * It will take some time. A LOT if you're using a slow USB (took me about less than 5 minutes with a fast USB2.0 drive).
+   5. Execute `dmg2img -p <o número da partição> -i BaseSystem.dmg -o <o bloc da sua partição de 3GB+>` para extrair e escrever a imagem de recuperação na partição do disco.
+      * Vai demorar um pouco. MUITO, se estiver usando um pendrive lento (demorou mais ou menos uns 5 minutos usando um pendrive rápido com USB 2.0).
       ![](../images/installer-guide/linux-install-md/unknown-21.png)
 
-## Now with all this done, head to [Setting up the EFI](./opencore-efi.md) to finish up your work
+## Agora com tudo isso feito, acesse [Configurando a EFI](./opencore-efi.md) para continuar
