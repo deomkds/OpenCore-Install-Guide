@@ -1,92 +1,92 @@
-# Adding The Base OpenCore Files
+# Adicionado os Arquivos Base do OpenCore
 
-To setup OpenCore’s folder structure, you’ll want to grab the EFI folder found in [OpenCorePkg's releases](https://github.com/acidanthera/OpenCorePkg/releases/). Note that they will be under either the IA32 or X64 folders, the former for 32-bit Firmwares and the latter for 64-bit Firmwares:
+Para configurar a estrutura da pasta do OpenCore, será necessário baixar a pasta EFI encontrada na página [Lançamentos do OpenCorePkg](https://github.com/acidanthera/OpenCorePkg/releases/). Observe que tudo estará sob a pasta IA32 ou sob a pasta X64, a primeira sendo necessária para firmwares 32 bits e a última para firmwares 64 bits.
 
 ![](../images/installer-guide/opencore-efi-md/ia32-x64.png)
 
-Regarding DEBUG versus RELEASE version:
+Sobre as versões DEBUG e RELEASE:
 
-* **DEBUG**: Can greatly help with debugging boot issues, however can add some noticeable delay to boot times(ie. 3-5 seconds to get to the picker). Once installed you can easily transition to RELEASE
-* **RELEASE**: Much snappier boot times, however virtually no useful DEBUG info is provided in OpenCore making troubleshooting much more difficult.
+* **DEBUG**: ajuda muito a resolver bugs durante o boot, mas adiciona atrasos notáveis na inicialização (isto é, de 3 a 5 segundos para chegar no seletor). Uma vez instalado, é fácil mudar para a versão RELEASE.
+* **RELEASE**: Inicialização muito mais rápida, mas não oferece basicamente nenhuma informação de DEBUG, o que torna a solução de problemas muito mais difícil.
 
-And once downloaded, place the EFI folder(from OpenCorePkg) on the root of your EFI partition:
+E uma vez baixado, coloque a pasta EFI (do OpenCorePkg) na raiz da partição EFI:
 
 ![](../images/installer-guide/opencore-efi-md/efi-moved.png)
 
-**Note**:
+**Observação**:
 
-* **Windows users:** you'll want to place the EFI folder on the root of the USB drive you made earlier
-* **Linux users:** This is the `OPENCORE` partition we created earlier
-  * Note that Method 1 only creates 1 partition, while Method 2 creates 2 partitions
+* **Usuários de Windows:** coloque a pasta EFI na raiz do pendrive de boot criado anteriormente.
+* **Usuários de Linux:** usar a partição `OPENCORE` criada anteriormente.
+  * Observe que o método 1 somente cria uma partição, enquanto que o método 2 cria duas partições.
 
-Now lets open up our EFI folder and see what's inside:
+Agora, abra a pasta EFI e veja o que há dentro dela:
 
-![base EFI folder](../images/installer-guide/opencore-efi-md/base-efi.png)
+![Pasta EFI de base](../images/installer-guide/opencore-efi-md/base-efi.png)
 
-Now something you'll notice is that it comes with a bunch of files in `Drivers` and `Tools` folder, we don't want most of these:
+Algo notável logo de cara é que ela vem com vários arquivos nas pastas `Drivers` e `Tools`. A maioria não será necessária:
 
-* **Keep the following from Drivers**(if applicable):
+* **Mantenha somente os seguintes arquivos na pasta Drivers** (se houver):
 
-| Driver | Status | Description |
+| Driver | Status | Descrição |
 | :--- | :--- | :--- |
-| OpenUsbKbDxe.efi | <span style="color:#30BCD5"> Optional </span> | Required for non-UEFI systems(pre-2012) |
-| OpenPartitionDxe.efi | ^^ | Required to boot macOS 10.7-10.9 recovery |
-| OpenRuntime.efi | <span style="color:red"> Required </span> | Required for proper operation |
+| OpenUsbKbDxe.efi | <span style="color:#30BCD5"> Opcional </span> | Necessário para sistemas não UEFI (anteriores a 2012) |
+| OpenPartitionDxe.efi | ^^ | Necessário para iniciar a partição de Recuperação do OS X 10.7 Lion e do 10.9 Mavericks. |
+| OpenRuntime.efi | <span style="color:red"> Necessário </span> | Necessário para o funcionamento normal. |
 
-::: details More info on provided drivers
+::: details Mais informações sobre os drivers fornecidos
 
 * AudioDxe.efi
-  * Unrelated to Audio support in macOS
+  * Não tem nada a ver com suporte de áudio no macOS.
 * CrScreenshotDxe.efi
-  * Used for taking screenshots in UEFI, not needed by us
+  * Usado para conseguir capturas de tela na UEFI. Desnecessário para este guia.
 * HiiDatabase.efi
-  * Used for fixing GUI support like OpenShell.efi on Sandy Bridge and older
-  * Not required for booting
+  * Usado para corrigir a interface gráfica (como o OpenShell.efi) em CPUs Sandy Bridge ou mais antigas.
+  * Não é usado para dar boot.
 * NvmExpressDxe.efi
-  * Used for Haswell and older when no NVMe driver is built into the firmware
-  * Don't use unless you know what you're doing
+  * Usado em CPUs Haswell ou mais antigas quando não há um driver NVMe integrado no firmware.
+  * Não use a não ser que saiba o que está fazendo.
 * OpenCanopy.efi
-  * This is OpenCore's optional GUI, we'll be going over how to set this up in [Post Install](https://dortania.github.io/OpenCore-Post-Install/cosmetic/gui.html) so remove this for now
+  * É a interface gráfica opcional do OpenCore. Como configurá-lo será abordado no guia de [pós-instalação](https://dortania.github.io/OpenCore-Post-Install/cosmetic/gui.html), portanto, remova-o por enquanto.
 * OpenHfsPlus.efi
-  * Open sourced HFS Plus driver, quite slow so we recommend not using unless you know what you're doing.
+  * Versões de código aberto do driver de HFS+. Meio lento. Recomenda-se não utilizá-lo a não ser que saiba o que está fazendo.
 * OpenPartitionDxe.efi
-  * Required to boot recovery on OS X 10.7 through 10.9
-    * Note: OpenDuet users(ie. without UEFI) will have this driver built-in, not requiring it
+  * Necessários para iniciar a partição de Recuperação do OS X 10.7 Lion ao 10.9 Mavericks.
+    * Observação: Usuários do OpenDuet (isto é, aqueles que não tem UEFI), já terão este driver integrado, o que torna sua instalação desnecessária.
 * OpenUsbKbDxe.efi
-  * Used for OpenCore picker on **legacy systems running DuetPkg**, [not recommended and even harmful on Ivy Bridge and newer](https://applelife.ru/threads/opencore-obsuzhdenie-i-ustanovka.2944066/page-176#post-856653)
+  * Usado para o seletor do OpenCore em **computadores antigos que usam o DuetPkg**. [Não recomendado e até mesmo perigoso em computadores com CPUs Ivy Bridge ou mais novas](https://applelife.ru/threads/opencore-obsuzhdenie-i-ustanovka.2944066/page-176#post-856653).
 * Ps2KeyboardDxe.efi + Ps2MouseDxe.efi
-  * Pretty obvious when you need this, USB keyboard and mouse users don't need it
-  * Reminder: PS2 ≠ USB
+  * Auto-explicativo. Usuários de teclado e mouse USB não precisam desses drivers.
+  * Lembre-se: PS2 ≠ USB.
 * UsbMouseDxe.efi
-  * similar idea to OpenUsbKbDxe, should only be needed on legacy systems using DuetPkg
+  * Ideia similar ao OpenUsbKbDxe. Só deve ser necessário em computadores antigos que usam o DuetPkg.
 * XhciDxe.efi
-  * Used for Sandy Bridge and older when no XHCI driver is built into the firmware
-  * Only needed if you're using a USB 3.0 expansion card in an older machine
+  Usado para computadores com CPUs Sandy Bridge ou mais antigas, nas quais não há um driver de XHCI integrado ao firmware.
+  * Só é necessário se estiver usando uma placa de expansão USB 3.0 em um computador mais antigo.
 
 :::
 
-* **Keep the following from Tools:**
+* **Mantenha os seguintes arquivos na pasta Tools:**
 
-| Tool | Status | Description |
+| Ferramenta | Status | Descrição |
 | :--- | :--- | :--- |
-| OpenShell.efi | <span style="color:#30BCD5"> Optional </span> | Recommended for easier debugging |
+| OpenShell.efi | <span style="color:#30BCD5"> Opcional </span> | Recomendado pois facilita o _debugging_. |
 
-A cleaned up EFI:
+Uma pasta EFI limpa:
 
-![Clean EFI](../images/installer-guide/opencore-efi-md/clean-efi.png)
+![EFI Limpa](../images/installer-guide/opencore-efi-md/clean-efi.png)
 
-Now you can place **your** necessary firmware drivers(.efi) into the _Drivers_ folder and Kexts/ACPI into their respective folders. See [Gathering Files](../ktext.md) for more info on which files you should be using.
+Agora, adicione os **seus** drivers (.efi) de firmware necessários dentro da pasta _Drivers_ e as Kexts/tabelas ACPI em suas respectivas pastas. Veja [Coletando os Arquivos](../ktext.md) para mais informações sobre quais arquivos é preciso usar.
 
-* Please note that UEFI drivers from Clover are not supported with OpenCore!(EmuVariableUEFI, AptioMemoryFix, OsxAptioFixDrv, etc). Please see the [Clover firmware driver conversion](https://github.com/dortania/OpenCore-Install-Guide/blob/master/clover-conversion/clover-efi.md) for more info on supported drivers and those merged into OpenCore.
+* Por favor, observe que os drivers UEFI do Clover não são suportados no OpenCore! EmuVariableUEFI, AptioMemoryFix, OsxAptioFixDrv, entre outros. Por favor, leia o guia [Convertendo os drivers de firmware do Clover](https://github.com/dortania/OpenCore-Install-Guide/blob/master/clover-conversion/clover-efi.md) para mais informações sobre drivers suportados e sobre quais já foram integrados ao OpenCore.
 
-Here's what a populated EFI ***can*** look like (yours will be different):
+Veja um exemplo de como uma pasta EFI preenchida ***pode*** parecer (a sua certamente será diferente):
 
-![Populated EFI folder](../images/installer-guide/opencore-efi-md/populated-efi.png)
+![Pasta EFI Preenchida](../images/installer-guide/opencore-efi-md/populated-efi.png)
 
-**Reminder**:
+**Lembrete**:
 
-* SSDTs and custom DSDTs(`.aml`) go in ACPI folder
-* Kexts(`.kext`) go in Kexts folder
-* Firmware drivers(`.efi`) go in the Drivers folder
+* SSDTs e DSDTs personalizadas (`.aml`) vão na pasta ACPI.
+* As kexts (`.kext`) vão na pasta Kexts
+* Drivers de firmware (`.efi`) vão na pasta Drivers.
 
-# Now with all this done, head to [Gathering Files](../ktext.md) to get the needed kexts and firmware drivers
+# Agora, com tudo isso feito, siga para o guia [Coletando Arquivos](../ktext.md) para obter as kexts e os drivers de firmware necessários
