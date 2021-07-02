@@ -1,70 +1,70 @@
-# Making the installer in Windows
+# Criando o Instalador no Windows
 
-While you don't need a fresh install of macOS to use OpenCore, some users prefer having a fresh slate with their boot manager upgrades.
+Embora não seja necessário ter uma instalação nova do macOS para usar o OpenCore, alguns usuários preferem começar do zero quando atualizam seus gerenciadores de boot.
 
-To start you'll need the following:
+Para começar, será necessário ter:
 
-* 4GB USB Stick
-
-* For USB larger than 16 GB to format in FAT32 use [Rufus method](#rufus-method)
-
+* Pendrive de 4GB.
+  * Para formatar pendrives maiores do que 16GB em FAT32, use o método do [Rufus](#método-do-rufus).
 * [macrecovery.py](https://github.com/acidanthera/OpenCorePkg/releases)
-  * This will require [Python installed](https://www.python.org/downloads/)
+  * Isto exige uma instalação do [Python](https://www.python.org/downloads/).
 
-## Downloading macOS
+## Baixando o macOS
 
-To grab legacy installers is super easy, first grab a copy of [OpenCorePkg](https://github.com/acidanthera/OpenCorePkg/releases) and head to `/Utilities/macrecovery/`. Next copy the folder path for the macrecovery folder:
+Obter instaladores antigos é super fácil. Primeiro, baixe uma cópia do [OpenCorePkg](https://github.com/acidanthera/OpenCorePkg/releases) e vá até a pasta `/Utilities/macrecovery/`. Depois copie o caminho da pasta macrecovery:
 
 ![](../images/installer-guide/winblows-install-md/file-path.png)
 
-From here, you'll want to open up a Command Prompt and cd into the macrecovery folder that we copied earlier:
+A partir daqui, será necessário abrir uma janela do Promt de Comando e acessar, usando o comando cd, o diretório do macrecovery que foi copiando anteriormente.
 
 ```sh
-cd Paste_Folder_Path
+cd Colar_o_caminho_da_pasta
 ```
 
 ![](../images/installer-guide/winblows-install-md/command-prompt.png)
 
-Now run one of the following depending on what version of macOS you want(Note these scripts rely on [Python](https://www.python.org/downloads/) support, please install if you haven't already):
+Agora execute uma das linhas a seguir, dependendo da versão do macOS que deseja instalar.
+
+*Observação: esses scripts dependem do [Python](https://www.python.org/downloads/), por favor, instale-o se ainda não o fez.
 
 ```sh
-# Lion(10.7):
+# OS X 10.7 Lion:
 python macrecovery.py -b Mac-2E6FAB96566FE58C -m 00000000000F25Y00 download
 python macrecovery.py -b Mac-C3EC7CD22292981F -m 00000000000F0HM00 download
 
-# Mountain Lion(10.8):
+# OS X 10.8 Mountain Lion:
 python macrecovery.py -b Mac-7DF2A3B5E5D671ED -m 00000000000F65100 download
 
-# Mavericks(10.9):
+# OS X 10.9 Mavericks:
 python macrecovery.py -b Mac-F60DEB81FF30ACF6 -m 00000000000FNN100 download
 
-# Yosemite(10.10):
+# OS X 10.10 Yosemite:
 python macrecovery.py -b Mac-E43C1C25D4880AD6 -m 00000000000GDVW00 download
 
-# El Capitan(10.11):
+# OS X 10.11 El Capitan:
 python macrecovery.py -b Mac-FFE5EF870D7BA81A -m 00000000000GQRX00 download
 
-# Sierra(10.12):
+# macOS 10.12 Sierra:
 python macrecovery.py -b Mac-77F17D7DA9285301 -m 00000000000J0DX00 download
 
-# High Sierra(10.13)
+# macOS 10.13 High Sierra:
 python macrecovery.py -b Mac-7BA5B2D9E42DDD94 -m 00000000000J80300 download
 python macrecovery.py -b Mac-BE088AF8C5EB4FA2 -m 00000000000J80300 download
 
-# Mojave(10.14)
+# macOS 10.14 Mojave:
 python macrecovery.py -b Mac-7BA5B2DFE22DDD8C -m 00000000000KXPG00 download
 
-# Catalina(10.15)
+# macOS 10.15 Catalina:
 python macrecovery.py -b Mac-00BE6ED71E35EB86 -m 00000000000000000 download
 
-# Latest version
-# ie. Big Sur(11)
+# Versão mais recente
+# macOS 11 Big Sur
 python macrecovery.py -b Mac-E43C1C25D4880AD6 -m 00000000000000000 download
 ```
 
-* **macOS 11, Big Sur Note**: As this OS is quite new, there's still some issues with certain systems to resolve. For more information, see here: [OpenCore and macOS 11: Big Sur](../extras/big-sur/README.md)
-  * For first time users, we recommend macOS 10.15, Catalina
-* **Nvidia GPU Note**: Reminder to verify whether your hardware support newer OSes, see [Hardware Limitations](../macos-limits.md)
+* **Observação sobre o macOS 11 Big Sur**: Como esta versão é bem nova, ainda existem alguns problemas com certos computadores para serem resolvidos. Para mais informações, acesse: [OpenCore e o macOS 11 Big Sur](../extras/big-sur/README.md).
+  * Para usuários de primeira viagem, recomenda-se usar o macOS 10.15 Catalina.
+* **Observação sobre GPUs Nvidia**: Lembre-se de checar se sua placa é suportada nas versões mais novas do macOS. Veja mais na página sobre [Limitações de Hardware](../macos-limits.md).
 
 This will take some time, however once you're finished you should get either BaseSystem or RecoveryImage files:
 
@@ -116,7 +116,7 @@ Here we see both IA32(32 Bit CPUs) and X64(64 Bit CPUs) folders, choose the one 
 
 ![](../images/installer-guide/winblows-install-md/com-efi-done.png)
 
-### Rufus method
+### Método do Rufus
 
 1. Download [Rufus](https://rufus.ie/)
 2. Set the BOOT selection as not bootable
