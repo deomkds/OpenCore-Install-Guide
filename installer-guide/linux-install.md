@@ -148,4 +148,4 @@ No Terminal:
       * Vai demorar um pouco. MUITO, se estiver usando um pendrive lento (demorou mais ou menos uns 5 minutos usando um pendrive rápido com USB 2.0).
       ![](../images/installer-guide/linux-install-md/unknown-21.png)
 
-## Agora com tudo isso feito, acesse [Configurando a EFI](./opencore-efi.md) para continuar
+## Feito isso, acesse o guia [Configurando a EFI](./opencore-efi.md) para continuar

@@ -151,4 +151,4 @@ Note que a partição EFI está vazia no momento em que é montada. É aqui que 
 
 ![Partição EFI vazia](../images/installer-guide/mac-install-md/base-efi.png)
 
-## Agora, com tudo isso pronto, acesse o guia [Configurando a EFI](./opencore-efi.md) para terminar o trabalho
+## Feito isso, acesse o guia [Configurando a EFI](./opencore-efi.md) para continuar
