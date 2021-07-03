@@ -70,4 +70,6 @@ mv InstallESD.dmg Install\ macOS\ Sierra.app/Contents/SharedSupport/
 mv Install\ macOS\ Sierra.app /Applications
 ```
 
-### Uma vez terminado, acesse o guia [Configurando o Instalador](./mac-install.md#setting-up-the-installer)
+## Finalizando
+
+Depois de tudo terminado, acesse o guia [Configurando o Instalador](./mac-install.md#setting-up-the-installer) para continuar com a configuração do OpenCore.

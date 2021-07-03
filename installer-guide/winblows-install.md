@@ -212,4 +212,6 @@ Feito isso, volte para o pendrive e faça uma última coisa. Copie o arquivo **b
 
 :::
 
-## Com tudo isso feito, acesse o guia [Configurando a EFI](./opencore-efi.md) para continuar
+## Finalizando
+
+Depois de tudo terminado, acesse o guia [Configurando a EFI](./opencore-efi.md) para continuar com a configuração do OpenCore.

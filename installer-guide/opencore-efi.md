@@ -89,4 +89,6 @@ Veja um exemplo de como uma pasta EFI preenchida ***pode*** parecer (a sua certa
 * As kexts (`.kext`) vão na pasta Kexts
 * Drivers de firmware (`.efi`) vão na pasta Drivers.
 
-# Agora, com tudo isso feito, siga para o guia [Coletando Arquivos](../ktext.md) para obter as kexts e os drivers de firmware necessários
+## Finalizando
+
+Depois de tudo terminado, acesse o guia [Juntando os Arquivos](../ktext.md) e obtenha as kexts e os drivers de firmware necessários para continuar com a configuração do OpenCore.

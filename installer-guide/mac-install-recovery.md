@@ -54,4 +54,6 @@ Finalmente, crie uma pasta na raiz desse pendrive chamada `com.apple.recovery.bo
 
 ![](../images/installer-guide/legacy-mac-install-md/dmg-chunklist.png)
 
-### Terminado, siga para o guia [Configurando o Ambiente EFI do OpenCore](./mac-install.md#setting-up-opencore-s-efi-environment)
+## Finalizando
+
+Depois de tudo terminado, acesse o guia [Configurando o Ambiente EFI do OpenCore](./mac-install.md#setting-up-opencore-s-efi-environment) para continuar com a configuração do OpenCore.

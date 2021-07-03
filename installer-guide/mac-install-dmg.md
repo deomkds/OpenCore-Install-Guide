@@ -66,4 +66,6 @@ Provavelmente significa que o SIP precisa ser desligado. No entanto, recomenda-s
 
 :::
 
-### Uma vez terminado, siga para o guia [COnfigurando o Ambiente EFI do OpenCore](./mac-install.md#setting-up-opencore-s-efi-environment)
+## Finalizando
+
+Depois de tudo terminado, acesse o guia [Configurando o Ambiente EFI do OpenCore](./mac-install.md#setting-up-opencore-s-efi-environment) para continuar com a configuração do OpenCore.
