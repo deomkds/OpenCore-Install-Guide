@@ -1,30 +1,30 @@
-# Bulldozer(15h) and Jaguar(16h)
+# Bulldozer (15h) e Jaguar (16h)
 
-| Support | Version |
+| Suporte | Versão |
 | :--- | :--- |
-| Initial macOS Support | macOS 10.13, High Sierra |
+| Suporte Inicial no macOS | macOS 10.13 High Sierra |
 
-## Starting Point
+## Ponto de Partida
 
-So making a config.plist may seem hard, it's not. It just takes some time but this guide will tell you how to configure everything, you won't be left in the cold. This also means if you have issues, review your config settings to make sure they're correct. Main things to note with OpenCore:
+Criar uma config.plist pode parecer difícil, mas não é. Só demora um pouco, mas esse guia mostrará como configurar tudo. Você não será deixado no escuro. Isso significa que, caso surjam problemas, verifique as configurações da sua config.plist para garantir que está tudo certo. O principal a se observar com o OpenCore:
 
-* **All properties must be defined**, there are no default OpenCore will fall back on so **do not delete sections unless told explicitly so**. If the guide doesn't mention the option, leave it at default.
-* **The Sample.plist cannot be used As-Is**, you must configure it to your system
-* **DO NOT USE CONFIGURATORS**, these rarely respect OpenCore's configuration and even some like Mackie's will add Clover properties and corrupt plists!
+* **Todas as propriedades precisam estar definidas**. Não existe valores padrão para os quais o OpenCore reverterá, então **não exclua nenhuma seção, a não ser que seja indicado explicitamente**. Se o guia não mencionar uma opção, deixe-a no padrão.
+* **O arquivo Sample.plist não pode ser usado do jeito que está**. É preciso configurá-lo antes para o seu computador.
+* **NÂO USE CONFIGURADORES**. Eles raramente respeitam as configurações do OpenCore e alguns, como o do Mackie, adicionam propriedades do Clover e corrompem as plists!
 
-Now with all that, a quick reminder of the tools we need
+Agora, com tudo isso fora do caminho, um breve lembrete sobre as ferramentas necessárias:
 
 * [ProperTree](https://github.com/corpnewt/ProperTree)
-  * Universal plist editor
+  * Editor universal de arquivos `.plist`.
 * [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS)
-  * For generating our SMBIOS data
+  * Para gerar os dados da SMBIOS.
 * [Sample/config.plist](https://github.com/acidanthera/OpenCorePkg/releases)
-  * See previous section on how to obtain: [config.plist Setup](../config.plist/README.md)
-* [AMD Kernel Patches](https://github.com/AMD-OSX/AMD_Vanilla/tree/opencore)
-  * Needed for booting macOS on AMD hardware(save these for later, we'll go over how to use them below)
-  * [Bulldozer/Jaguar(15h/16h)](https://github.com/AMD-OSX/AMD_Vanilla/tree/opencore/15h_16h) (Supports 10.13, 10.14, and 10.15)
+  * Veja a seção anterior para obter esses arquivos: [Configuração da config.plist](../config.plist/README.md)
+* [Patches de Kernel para AMD](https://github.com/AMD-OSX/AMD_Vanilla/tree/opencore)
+  * Necessários para iniciar o macOS em hardware AMD (salve-os para mais tarde, a maneira de usá-los será abordada a seguir).
+  * [Bulldozer/Jaguar(15h/16h)](https://github.com/AMD-OSX/AMD_Vanilla/tree/opencore/15h_16h) (Suporta macOS 10.13 High Sierra, 10.14 Moajve e 10.15 Catalina).
 
-**And read this guide more than once before setting up OpenCore and make sure you have it set up correctly. Do note that images will not always be the most up-to-date so please read the text below them, if nothing's mentioned then leave as default.**
+**E leia este guia mais de uma vez antes de configurar o OpenCore. E tenha certeza de tê-lo configurado corretamente. Observe que as imagens deste guia nem sempre estarão 100% atualizadas, então por favor leia o texto que as acompanha. Se nada for mencionado, mantenha as configurações padrão.**
 
 ## ACPI
 
@@ -32,59 +32,59 @@ Now with all that, a quick reminder of the tools we need
 
 ### Add
 
-::: tip Info
+::: tip Informação
 
-This is where you'll add SSDTs for your system, these are very important to **booting macOS** and have many uses like [USB maps](https://dortania.github.io/OpenCore-Post-Install/usb/), [disabling unsupported GPUs](../extras/spoof.md) and such. And with our system, **it's even required to boot**. Guide on making them found here: [**Getting started with ACPI**](https://dortania.github.io/Getting-Started-With-ACPI/)
+É aqui onde serão adicionadas todas as SSDTs do seu computador. Elas são muito importantes para **iniciar o macOS** e possuem muitos usos, como [mapear as USB](https://deomkds.github.io/OpenCore-Post-Install/usb/), [desativar GPUs não suportdas](../extras/spoof.md) e coisas do tipo. E com o sistema do OpenCore, **são necessárias para dar boot**. O guia sobre como fazê-las pode ser encontrado aqui: [**Primeirs Passos com a ACPI**](https://deomkds.github.io/Getting-Started-With-ACPI/)
 
-| Required_SSDTs | Description |
+| SSDTs Necessárias | Descrição |
 | :--- | :--- |
-| **[SSDT-EC-USBX](https://dortania.github.io/Getting-Started-With-ACPI/)** | Fixes both the embedded controller and USB power, see [Getting Started With ACPI Guide](https://dortania.github.io/Getting-Started-With-ACPI/) for more details. |
+| **[SSDT-EC-USBX](https://deomkds.github.io/Getting-Started-With-ACPI/)** | Corrige tanto o controlador integrado e a energia da USB, veja o guia [Primeiros Passos com a ACPI](https://deomkds.github.io/Getting-Started-With-ACPI/) para mais detalhes. |
 
- Note that you **should not** add your generated `DSDT.aml` here, it is already in your firmware. So if present, remove the entry for it in your `config.plist` and under EFI/OC/ACPI.
+Observe que **não é preciso** adicionar a sua `DSDT.aml` aqui, pois ela já está presente no firmware do seu computador. Então, se ela estiver nessa seção, remova a entrada referente a ela na config.plist e a exclua da pasta `EFI/OC/ACPI`.
 
-For those wanting a deeper dive into dumping your DSDT, how to make these SSDTs, and compiling them, please see the [**Getting started with ACPI**](https://dortania.github.io/Getting-Started-With-ACPI/) **page.** Compiled SSDTs have a **.aml** extension(Assembled) and will go into the `EFI/OC/ACPI` folder and **must** be specified in your config under `ACPI -> Add` as well.
+Para aqueles que desejam um aprofundamendo sobre extração de DSDT, como fazer as SSDTs e como compilá-las, por favor veja o guia [**Primeiros Passos com a ACPI**](https://deomkds.github.io/Getting-Started-With-ACPI/). SSDTs compiladas possuem a extensão **.aml** (*assembled*) e serão colocadas na pasta `EFI/OC/ACPI`. Elas também **precisam** estar especificadas na sua config.plist, dentro da seção `ACPI -> Add`.
 
 :::
 
 ### Delete
 
-This blocks certain ACPI tables from loading, for us we can ignore this.
+Esta seção bloqueia o carregamento de certas tabelas da ACPI. Ignore-a por enquanto.
 
 ### Patch
 
-This section allows us to dynamically modify parts of the ACPI (DSDT, SSDT, etc.) via OpenCore. For us, our patches are handled by our SSDTs. This is a much cleaner solution as this will allow us to boot Windows and other OSes with OpenCore
+Essa seção permite modificar partes da ACPI (DSDT, SSDT etc.) de forma dinâmica pelo OpenCore. No caso deste guia, os patches são gerenciados pelas SSDTs. É uma solução muito mais limpa pois permite inicar o Windows e outros sistemas operacionais com o OpenCore.
 
 ### Quirks
 
-Settings relating to ACPI, leave everything here as default as we have no use for these quirks.
+Configurações relacionadas à ACPI. Deixe tudo como padrão pois este guia não vai usar esses *quirks*.
 
 ## Booter
 
 ![Booter](../images/config/config-universal/aptio-iv-booter.png)
 
-This section is dedicated to quirks relating to boot.efi patching with OpenRuntime, the replacement for AptioMemoryFix.efi
+Esta seção é dedicada aos *quirks* relacionados a aplicação de patches no `boot.efi` com o OpenRuntime, o substituto do `AptioMemoryFix.efi`.
 
 ### MmioWhitelist
 
-This section is allowing spaces to be passthrough to macOS that are generally ignored, useful when paired with `DevirtualiseMmio`
+Essa seção está permitindo que os espaços que são geralmente ignorados passem diretamente para o macOS. Útil ao ser combinado com o `DevirtualiseMmio`.
 
 ### Quirks
 
-::: tip Info
-Settings relating to boot.efi patching and firmware fixes, for us, we leave it as default
+::: tip Informação
+Configurações relacionadas à aplicação de patches no boot.efi e a correções de firmware. Mantenha as opções padrão.
 :::
-::: details More in-depth Info
+::: details Informação Mais Detalhada
 
 * **AvoidRuntimeDefrag**: YES
-  * Fixes UEFI runtime services like date, time, NVRAM, power control, etc
+  * Corrige serviços UEFI em tempo de execução como a data, a hora, a NVRAM, o controle de energia etc.
 * **EnableSafeModeSlide**: YES
-  * Enables slide variables to be used in safe mode.
+  * Permite que as variáveis `slide` possam ser usadas no modo de segurança.
 * **EnableWriteUnprotector**: YES
-  * Needed to remove write protection from CR0 register.
+  * Necessário para remover a proteção de escrita do registrador CR0.
 * **ProvideCustomSlide**: YES
-  * Used for Slide variable calculation. However the necessity of this quirk is determined by `OCABC: Only N/256 slide values are usable!` message in the debug log. If the message `OCABC: All slides are usable! You can disable ProvideCustomSlide!` is present in your log, you can disable `ProvideCustomSlide`.
+  * Usado para calcular a variável `slide`. No entanto, a necessidade desse *quirk* é determinada pela mensagem `OCABC: Only N/256 slide values are usable!` no log de depuração. Se a mensagem `OCABC: All slides are usable! You can disable ProvideCustomSlide!` estiver presente no seu log, desative o `ProvideCustomSlide`.
 * **SetupVirtualMap**: YES
-  * Fixes SetVirtualAddresses calls to virtual addresses, required for Gigabyte boards to resolve early kernel panics
+  * Corrige as chamadas de SetVirtualAddresses para endereços virtuais, exigido em placas Gigabyte para resolver *kernel panics* precoces.
   
 :::
 
@@ -94,60 +94,60 @@ Settings relating to boot.efi patching and firmware fixes, for us, we leave it a
 
 ### Add
 
-Sets device properties from a map.
+Configura as propriedades de dispositivo a partir de um mapa.
 
-By default, the Sample.plist has this section set for iGPU and Audio. We have no iGPU so PciRoot `PciRoot(0x0)/Pci(0x2,0x0)` can be removed from `Add` section. For audio we'll be setting the layout in the boot-args section, so removal of `PciRoot(0x0)/Pci(0x1b,0x0)` is also recommended from both `Add` and `Block` sections
+Por padrão, a Sample.plist apresenta esta seção já configurada para GPUs integradas e áudio. Neste momento, não há GPUs integradas, então o PciRoot `PciRoot(0x0)/Pci(0x2,0x0)` pode ser removido da seção`Add`. Para o áudio, o layout será configurado na seção de argumentos de inicialização (*boot-args*), então a remoção do  `PciRoot(0x0)/Pci(0x1b,0x0)` também é recomendada tanto da seção `Add` quanto da seção `Block`.
 
-TL;DR, delete all the PciRoot's here as we won't be using this section.
+TL;DR: exclua todos os PciRoot pois não serão utilizados neste guia.
 
 ### Delete
 
-Removes device properties from the map, for us we can ignore this
+Remove as propriedades de dispositivos do mapa. Pode ser ignorado.
 
 ## Kernel
 
-| Kernel | Kernel Patches |
+| Kernel | Patches de Kernel |
 | :--- | :--- |
 | ![Kernel](../images/config/AMD/kernel.png) | ![](../images/config/AMD/kernel-patch.png) |
 
 ### Add
 
-Here's where we specify which kexts to load, in what specific order to load, and what architectures each kext is meant for. By default we recommend leaving what ProperTree has done, however for 32-bit CPUs please see below:
+É aqui onde são especificadas as kexts que serão carregadas, a ordem desse carregamento e quais arquiteturas cada kext suporta. Por padrão, recomenda-se manter o que o ProperTree criou, no entanto, para computadores com CPUs de 32 bits, veja abaixo:
 
-::: details More in-depth Info
+::: details Informações Mais Detalhadas
 
-The main thing you need to keep in mind is:
+O principal a se observar é:
 
-* Load order
-  * Remember that any plugins should load *after* its dependencies
-  * This means kexts like Lilu **must** come before VirtualSMC, AppleALC, WhateverGreen, etc
+* Ordem de Carregamento
+  * Lembre-se que quaisquer plugins devem carregar *depois* de suas dependências.
+  * Isso significa que kexts como a Lilu **precisam** vir antes da VirtualSMC, AppleALC, WhateverGreen etc.
 
-A reminder that [ProperTree](https://github.com/corpnewt/ProperTree) users can run **Cmd/Ctrl + Shift + R** to add all their kexts in the correct order without manually typing each kext out.
+Lembre-se que usuários do [ProperTree](https://github.com/corpnewt/ProperTree) podem pressionar **Cmd/Ctrl + Shift + R** para adicionar todas as suas kexts na ordem correta sem precisar digitar cada uma manualmente.
 
 * **Arch**
-  * Architectures supported by this kext
-  * Currently supported values are `Any`, `i386` (32-bit), and `x86_64` (64-bit)
+  * Arquiteturas suportadas por esta kext.
+  * Atualmente, os valores suportados são `Any`, `i386` (32 bits), e `x86_64` (64 bits).
 * **BundlePath**
-  * Name of the kext
-  * ex: `Lilu.kext`
+  * Nome da kext.
+  * Ex: `Lilu.kext`.
 * **Enabled**
-  * Self-explanatory, either enables or disables the kext
+  * Auto explicativo. Ativa ou desativa a kext.
 * **ExecutablePath**
-  * Path to the actual executable is hidden within the kext, you can see what path your kext has by right-clicking and selecting `Show Package Contents`. Generally, they'll be `Contents/MacOS/Kext` but some have kexts hidden within under `Plugin` folder. Do note that plist only kexts do not need this filled in.
-  * ex: `Contents/MacOS/Lilu`
+  * O caminho para o executável de fato fica escondido dentro da kext. É possível encontrá-lo clicando com o botão direito e selecionando a opção `Show Package Contents`. Geralmente, estará em `Contents/MacOS/Kext` mas algumas kexts possuem outras kexts escondidas na pasta `Plugin`. Observe que kexts compostas somente de uma plsit não precisam ter este campo preenchido.
+  * Ex: `Contents/MacOS/Lilu`.
 * **MinKernel**
-  * Lowest kernel version your kext will be injected into, see below table for possible values
-  * ex. `12.00.00` for OS X 10.8
+  * A versão mínima do kernel na qual a kext pode ser injetada. Consulte a tabela abaixo para os valores permitidos.
+  * Ex. `12.00.00` representa o OS X 10.8 Mountain Lion.
 * **MaxKernel**
-  * Highest kernel version your kext will be injected into, see below table for possible values
-  * ex. `11.99.99` for OS X 10.7
+  * A versão máxima do kernel na qual a kext pode ser injetada. Consulte a tabela abaixo para os valores permitidos.
+  * Ex. `11.99.99` representa o OS X 10.7 Lion.
 * **PlistPath**
-  * Path to the `info.plist` hidden within the kext
-  * ex: `Contents/Info.plist`
+  * Caminho para o arquivo `info.plist` escondido dentro da kext.
+  * Ex: `Contents/Info.plist`.
   
-::: details Kernel Support Table
+::: details Tabela de Suporte de Kernel
 
-| OS X Version | MinKernel | MaxKernel |
+| Versão do macOS | MinKernel | MaxKernel |
 | :--- | :--- | :--- |
 | 10.4 | 8.0.0 | 8.99.99 |
 | 10.5 | 9.0.0 | 9.99.99 |
@@ -167,34 +167,34 @@ A reminder that [ProperTree](https://github.com/corpnewt/ProperTree) users can r
 
 ### Emulate
 
-::: tip Info
+::: tip Informações
 
-Needed for spoofing unsupported CPUs like Pentiums and Celerons and to disable CPU power management on unsupported CPUs (such as AMD CPUs)
+Necessário para esconder CPUs não suportadas como Pentiums e Celerons, e para desativar o gerenciamento de energida da CPU em CPUs não suportadas (como em CPUs AMD).
 
-| Quirk | Enabled |
+| Quirk | Ativado |
 | :--- | :--- |
 | DummyPowerManagement | YES |
 
 :::
 
-::: details More in-depth Info
+::: details Informações Mais Detalhadas
 
-* **CpuidMask**: Leave this blank
-  * Mask for fake CPUID
-* **CpuidData**: Leave this blank
-  * Fake CPUID entry
+* **CpuidMask**: Deixe vazio.
+  * Máscara para CPUID falso.
+* **CpuidData**: Deixe vazio.
+  * Entrada do CPUID falso.
 * **DummyPowerManagement**: YES
-  * New alternative to NullCPUPowerManagement, required for all AMD CPU based systems as there's no native power management. Intel can ignore
-* **MinKernel**: Leave this blank
-  * Lowest kernel version the above patches will be injected into, if no value specified it'll be applied to all versions of macOS. See below table for possible values
-  * ex. `12.00.00` for OS X 10.8
-* **MaxKernel**: Leave this blank
-  * Highest kernel version the above patches will be injected into, if no value specified it'll be applied to all versions of macOS. See below table for possible values
-  * ex. `11.99.99` for OS X 10.7
+  * Nova alternativa para a NullCPUPowerManagement, exigida em todos os computadores baseados em CPUs AMD, pois eles não possuem gerenciamento de energia nativo. Usuários de Intel podem ignorar isso.
+* **MinKernel**: Deixe vazio.
+  * A versão mínima do kernel no qual os patches acima serão injetados. Se nenhum valor for especificado, será aplicado a todas as versões do macOS. Veja os valores permitidos na tabela abaixo.
+  * Ex. `12.00.00` representa o OS X 10.8 Mountain Lion.
+* **MaxKernel**: Deixe vazio.
+  * A versão máxima do kernel no qual os patches acima serão injetados. Se nenhum valor for especificado, será aplicado a todas as versões do macOS. Veja os valores permitidos na tabela abaixo.
+  * Ex. `11.99.99` representa o OS X 10.7 Lion.
 
-::: details Kernel Support Table
+::: details Tabela de Suporte de Kernel
 
-| OS X Version | MinKernel | MaxKernel |
+| Versão do macOS | MinKernel | MaxKernel |
 | :--- | :--- | :--- |
 | 10.4 | 8.0.0 | 8.99.99 |
 | 10.5 | 9.0.0 | 9.99.99 |
@@ -214,13 +214,13 @@ Needed for spoofing unsupported CPUs like Pentiums and Celerons and to disable C
 
 ### Force
 
-Used for loading kexts off system volume, only relevant for older operating systems where certain kexts are not present in the cache(ie. IONetworkingFamily in 10.6).
+Usado para carregar kexts direto do volume do sistema. Relevante somente para sistemas operacionais mais antigos nos quais algumas kexts não estavam presentes no cache (ex.: IONetworkingFamily no Mac OS X 10.6 Snow Leopard).
 
-For us, we can ignore.
+Pode ser ignorado.
 
 ### Block
 
-Blocks certain kexts from loading. Not relevant for us.
+Impede que certas kexts sejam carregadas. Não relevante no momento.
 
 ### Patch
 
