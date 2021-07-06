@@ -12,7 +12,7 @@ meta:
 
 # O que é o OpenCore e para quem é este guia?
 
-O OpenCore é um software conhecido como *bootloader*, que é um *software* complexo usado na preparação do sistema para executar o macOS. Mais especificamente, é o responsável por injetar dados para o sistema operacional, como o SMBIOS, as tabelas da ACPI e as kexts. Ele difere de outras ferramentas como o Clover pois foi criado com segurança e qualidade em mente, permitindo a utilização de muitos recursos encontrados nos Macs reais, como a [Proteção da Integridade do Sistema](https://support.apple.com/pt-br/HT204899) (ou SIP, na sigla em inglês) e o [FileVault](https://support.apple.com/pt-br/HT204837). Uma explicação mais profunda pode ser encontrada aqui: [Por que OpenCore em vez do Clover e outros?](why-oc.md).
+O OpenCore é um *bootloader*: um software complexo usado na preparação do sistema para executar o macOS. Mais especificamente, é o responsável por injetar dados para o sistema operacional, como o SMBIOS, as tabelas da ACPI e as kexts. Ele difere de outras ferramentas como o Clover pois foi criado com segurança e qualidade em mente, permitindo a utilização de muitos recursos encontrados nos Macs reais, como a [Proteção da Integridade do Sistema](https://support.apple.com/pt-br/HT204899) (ou SIP, na sigla em inglês) e o [FileVault](https://support.apple.com/pt-br/HT204837). Uma explicação mais profunda pode ser encontrada aqui: [Por que OpenCore em vez do Clover e outros?](why-oc.md).
 
 Este guia (não oficial) foca especificamente em dois aspectos principais:
 

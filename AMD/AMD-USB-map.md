@@ -1,7 +1,7 @@
-# AMD USB Map
+# Mapeamento USB em AMD
 
-For those looking for the AMD USB map guide, it has been moved here:
+Para aqueles que estiverem procurando pelo guia de mapeamento de USB em plataformas AMD, ele foi movido para este local:
 
-* [USB Map guide](https://dortania.github.io/OpenCore-Post-Install/usb/)
+* [Mapeando a USB](https://deomkds.github.io/OpenCore-Post-Install/usb/)
 
-For a more user-friendly guide, see Aleksander's post: [Why you need to care about USB mapping](https://aplus.rs/2020/usb-mapping-why/)
+Para um guia mais amigável ao usuário, veja o post de Aleksander: [Why you need to care about USB mapping](https://aplus.rs/2020/usb-mapping-why/) (em inglês).

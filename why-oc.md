@@ -2,6 +2,8 @@
 
 Esta seção contém uma breve descrição dos motivos pelos quais a comunidade tem transicionado para o OpenCore e busca derrubar alguns mitos comuns que circulam por aí. Aqueles que só querem instalar o macOS podem pular esta página.
 
+[[toc]]
+
 * [Por que o OpenCore em vez do Clover e outros](#por-que-o-opencore-em-vez-do-clover-e-outros)
   * Recursos do OpenCore
   * Suporte de Software
