@@ -288,7 +288,7 @@ Configurações relacionadas ao kernel. Ative somente as seguintes opções:
 
 ### Scheme
 
-Configurações relacionadas com a inicialização de sistemas operacionais antigos, como o Mac OS X 10.4 Tiger, 10.5 Leopard e 10.6 Snow Leopard. A maioria dos leitores pode pular essa parte. No entanto, aqueles que planejam usar sistemas antigos, continue lendo.
+Configurações relacionadas com a inicialização de sistemas operacionais antigos, como o Mac OS X 10.4 Tiger, 10.5 Leopard e 10.6 Snow Leopard. A maioria dos leitores pode pular essa parte. No entanto, aqueles que planejam usar sistemas antigos, continuem lendo.
 
 ::: details Informações Mais Detalhadas
 
@@ -573,32 +573,32 @@ Configure o `Generic -> ROM` tanto para Apple ROM (extraída de um Mac de verdad
 ::: details Informações Mais Detalhadas
 
 * **AdviseWindows**: NO
-  * Used for when the EFI partition isn't first on the Windows drive
+  * Usado para quanto a partição EFI não é a primeira na unidade do Windows.
 
 * **MaxBIOSVersion**: NO
-  * Sets BIOS version to Max to avoid firmware updates in Big Sur+, mainly applicable for genuine Macs.
+  * Configura a versão da BIOS para o máximo, evitando assim atualizações de firmware no macOS 11 Big Sur e superior. Mais relevante principalmente para Macs originais.
 
 * **ProcessorType**: `0`
-  * Set to `0` for automatic type detection, however this value can be overridden if desired. See [AppleSmBios.h](https://github.com/acidanthera/OpenCorePkg/blob/master/Include/Apple/IndustryStandard/AppleSmBios.h) for possible values
+  * Configure como `0` para ativar a detecção automática de tipo. Porém, este valor pode ser substituído, se necessário. Veja o arquivo [AppleSmBios.h](https://github.com/acidanthera/OpenCorePkg/blob/master/Include/Apple/IndustryStandard/AppleSmBios.h) (em inglês) para os valores possívels.
 
 * **SpoofVendor**: YES
-  * Swaps vendor field for Acidanthera, generally not safe to use Apple as a vendor in most case
+  * Altera a informação de fabricante para `Acidanthera`. Geralmente, não é seguro usar `Apple` como fabricante na maioria dos casos.
 
 * **SystemMemoryStatus**: Auto
-  * Sets whether memory is soldered or not in SMBIOS info, purely cosmetic and so we recommend `Auto`
+  * Define, nas informações da SMBIOS, se a memória é soldada ou não. Puramente cosmético, por isso recomenda-se deixar como `Auto`.
 
 * **UpdateDataHub**: YES
-  * Update Data Hub fields
+  * Atualiza os campos de Data Hub.
 
 * **UpdateNVRAM**: YES
-  * Update NVRAM fields
+  * Atualiza os campos da NVRAM.
 
 * **UpdateSMBIOS**: YES
-  * Updates SMBIOS fields
+  * Atualiza os campos da SMBIOS.
 
 * **UpdateSMBIOSMode**: Create
-  * Replace the tables with newly allocated EfiReservedMemoryType, use `Custom` on Dell laptops requiring `CustomSMBIOSGuid` quirk
-  * Setting to `Custom` with `CustomSMBIOSGuid` quirk enabled can also disable SMBIOS injection into "non-Apple" OSes however we do not endorse this method as it breaks Bootcamp compatibility. Use at your own risk
+  * Substitui as tabelas com EfiReservedMemoryType recentemente alocado. Use `Custom` em notebooks  Dell que exigem o uso do *quirk* `CustomSMBIOSGuid`.
+  * Configurar para `Custom` com o *quirk* `CustomSMBIOSGuid` ativado pode também desativar a injeção de SMBIOS em sistemas operacionais que não são da Apple. No entanto, este método não é recomendado por quebrar a compatibilidade com o Bootcamp. Use por sua conta e risco.
 
 :::
 
@@ -608,102 +608,108 @@ Configure o `Generic -> ROM` tanto para Apple ROM (extraída de um Mac de verdad
 
 **ConnectDrivers**: YES
 
-* Forces .efi drivers, change to NO will automatically connect added UEFI drivers. This can make booting slightly faster, but not all drivers connect themselves. E.g. certain file system drivers may not load.
+* Força a conexão dos drivers `.efi`. Mudar para `NO` pode acelerar um pouco a inicialização, mas exigirá que os drivers se conectem por conta própria. Acontece que nem todos fazem isso, como é o caso de alguns drivers de sistema de arquivos, que podem não carregar caso esta opção esteja configurada para `NO`.
 
 ### Drivers
 
-Add your .efi drivers here.
+Adicione os drivers `.efi` aqui.
 
-Only drivers present here should be:
+Para este guia, os únicos drivers que devem estar presentes nessa seção são:
 
-* HfsPlus.efi
-* OpenRuntime.efi
+* `HfsPlus.efi`
+* `OpenRuntime.efi`
 
 ### APFS
 
-Settings related to the APFS driver, leave everything here as default.
+Configurações relacionadas ao driver de APFS. Mantenha tudo no padrão.
 
 ### Audio
 
-Related to AudioDxe settings, for us we'll be ignoring(leave as default). This is unrelated to audio support in macOS.
+Configurações relacionadas ao `AudioDxe`. Esta seção será ignorada neste guia. Mantenha todas as opções no padrão. Esta seção não tem nada a ver com o suporte de áudio no macOS.
 
-* For further use of AudioDxe and the Audio section, please see the Post Install page: [Add GUI and Boot-chime](https://dortania.github.io/OpenCore-Post-Install/)
+* Para outros usos do `AudioDxe` e da seção `Audio`, acesse o guia de [Pós-instalação do OpenCore](https://deomkds.github.io/OpenCore-Post-Install/).
 
 ### Input
 
-Related to boot.efi keyboard passthrough used for FileVault and Hotkey support, leave everything here as default as we have no use for these quirks. See here for more details: [Security and FileVault](https://dortania.github.io/OpenCore-Post-Install/)
+Configurações relacionadas ao teclado no `boot.efi`. É usado para oferecer suporte ao FileVault e a teclas de atalho. Mantenha todas as opções no padrão pois esses *quirks* não serão utilizados no momento. Obtenha mais detalhes aqui: [Segurança e FileVault](https://deomkds.github.io/OpenCore-Post-Install/universal/security.html).
 
 ### Output
 
-Relating to OpenCore's visual output,  leave everything here as default as we have no use for these quirks.
+Configurações relacionadas com a saída visual do OpenCore. Mantenha todas as opções no padrão pois esses *quirks* não serão utilizados no momento.
 
 ### ProtocolOverrides
 
-Mainly relevant for Virtual machines, legacy macs and FileVault users. See here for more details: [Security and FileVault](https://dortania.github.io/OpenCore-Post-Install/)
+Relevante principalmente em máquinas virtuais, Macs antigos e usuários do FileVault. Para mais detalhes, acesse: [Segurança e FileVault](https://deomkds.github.io/OpenCore-Post-Install/universal/security.html).
 
 ### Quirks
 
 ::: tip Informações
-Relating to quirks with the UEFI environment, for us we'll be changing the following:
+Configurações dos *quirks* relacionados ao ambiente UEFI. Altere as seguintes opções:
 
-| Quirk | Enabled | Comment |
+| Quirk | Ativado | Observação |
 | :--- | :--- | :--- |
-| UnblockFsConnect | NO | Needed mainly by HP motherboards |
+| UnblockFsConnect | NO | Necessário principalmente em placas-mãe HP. |
 
 :::
 
 ::: details Informações Mais Detalhadas
 
 * **DisableSecurityPolicy**: NO
-  * Disables platform security policy in firmware, recommended for buggy firmwares where disabling Secure Boot does not allow 3rd party firmware drivers to load.
-  * If running a Microsoft Surface device, recommended to enable this option
+  * Desativa a política de segurança de plataforma no firmware. Recomendado para firmwares problemáticos que impedem o carregamento de drivers de firmware de terceiros ao desligar a Inicialização Segura.
+  * Recomenda-se ativar esta opção em dispositivos Microsoft Surface.
 
 * **RequestBootVarRouting**: YES
-  * Redirects AptioMemoryFix from `EFI_GLOBAL_VARIABLE_GUID` to `OC_VENDOR_VARIABLE_GUID`. Needed for when firmware tries to delete boot entries and is recommended to be enabled on all systems for correct update installation, Startup Disk control panel functioning, etc.
+  * Redireciona o `AptioMemoryFix` de `EFI_GLOBAL_VARIABLE_GUID` para `OC_VENDOR_VARIABLE_GUID`. É necessário quando o firmware tenta excluir as opções de *boot*. Recomenda-se deixar ativado em todos os computadores para garantir o funcionamento correto ao instalar atualizações, do painel de controle `Disco de Inicialização`, entre outras coisas.
 
 * **UnblockFsConnect**: NO
-  * Some firmware block partition handles by opening them in By Driver mode, which results in File System protocols being unable to install. Mainly relevant for HP systems when no drives are listed
+  * Alguns firmwares bloqueiam o intrumental de partições abrindo-as no modo `By Driver`, o que resulta na impossibilidade de instalação dos protocolos de sistema de arquivo. É relevante principalmente em computadores HP, quando nenhum driver for listado.
 
 :::
 
 ### ReservedMemory
 
-Used for exempting certain memory regions from OSes to use, mainly relevant for Sandy Bridge iGPUs or systems with faulty memory. Use of this quirk is not covered in this guide
+Usado para impedir que os sistemas operacionais usem certas regiões da memória. É relevante principalmente para as GPUs integradas das CPUs Sandy Bridge ou em computadores com falhas de memória. O uso desta *quirk* não será coberto neste guia.
 
-## Cleaning up
+## Limpando
 
-And now you're ready to save and place it into your EFI under EFI/OC.
+Agora tudo está pronto para ser salvo e copiado para a partição `EFI`, na pasta `EFI/OC`.
 
-For those having booting issues, please make sure to read the [Troubleshooting section](../troubleshooting/troubleshooting.md) first and if your questions are still unanswered we have plenty of resources at your disposal:
+Para aqueles que estiverem tendo problemas de inicialização, é recomendado ler a seção de [Solução de Problemas](../troubleshooting/troubleshooting.md) primeiro e se ainda restarem dúvidas, consultar algum dos recursos disponíveis abaixo:
 
-* [AMD OS X Discord](https://discord.gg/QuUWg7)
-* [r/Hackintosh Subreddit](https://www.reddit.com/r/hackintosh/)
+* [Discord de OS X em AMD](https://discord.gg/QuUWg7) (em inglês).
+* [Subreddit r/Hackintosh](https://www.reddit.com/r/hackintosh/) (em inglês).
 
-**Sanity check**:
+**Verificação de Sanidade**:
 
-So thanks to the efforts of Ramus, we also have an amazing tool to help verify your config for those who may have missed something:
+Graças aos esforços de Ramus, agora a comunidade possui uma ferramenta incrível que ajuda a verificar a `config.plist` em busca de erros:
 
-* [**Sanity Checker**](https://opencore.slowgeek.com)
+* [**Sanity Checker**](https://opencore.slowgeek.com) (em inglês).
 
-Note that this tool is neither made nor maintained by Dortania, any and all issues with this site should be sent here: [Sanity Checker Repo](https://github.com/rlerdorf/OCSanity)
+Observe que essa ferramenta não é desenvolvida nem mantida pelo time Dortania e todos os problemas com ela devem ser reportadas no repositório do [Sanity Checker](https://github.com/rlerdorf/OCSanity) (em inglês).
 
-## AMD BIOS Settings
+## Configurações da BIOS em AMD
 
-* Note: Most of these options may not be present in your firmware, we recommend matching up as closely as possible but don't be too concerned if many of these options are not available in your BIOS
+* Observação: a maioria dessas opções podem não estar presentes no firmware do seu computador. É recomendado que todas as opções estejam configuradas da forma mais próxima possível, mas não se preocupe muito caso essas opções não estejam presentes na BIOS do seu computador.
 
-### Disable
+### Opções para Desativar
 
-* Fast Boot
-* Secure Boot
-* Serial/COM Port
-* Parallel Port
-* Compatibility Support Module (CSM)(**Must be off, GPU errors like `gIO` are common when this option in enabled**)
+| Nome em Inglês | Nome em Português | Observação |
+| :--- | :--- | :--- |
+| Fast Boot | Inicialização Rápida | NA |
+| Secure Boot | Inicialização Segura | NA |
+| Serial/COM Port | Porta Serial/COM | NA |
+| Parallel Port | Porta Paralela | NA |
+| Compatibility Support Module (CSM) | Módulo de Suporte de Compatibilidade (MSC) | **É preciso estar desligada.** Erros de GPU como `gIO` são comuns com essa opção ligada. |
 
-### Enable
+### Opções para Ativar
 
-* Above 4G decoding(**This must be on, if you can't find the option then add `npci=0x2000` to boot-args. Do not have both this option and npci enabled at the same time**)
-* EHCI/XHCI Hand-off
-* OS type: Windows 8.1/10 UEFI Mode
-* SATA Mode: AHCI
+| Nome em Inglês | Nome em Português | Oservação |
+| :--- | :--- | :--- |
+| Above 4G decoding | NA | **Precisa estar ligado.** Se não puder encontrar essa opção, adicione `npci=0x2000` aos argumentos de inicialização (boot-args). Não mantenha essa opção da BIOS e o argumento de *boot* ligados ao mesmo tempo! |
+| EHCI/XHCI Hand-off | NA | NA |
+| OS type: Windows 8.1/10 UEFI Mode | Tipo de SO: Windows 8.1/10 em Modo UEFI | NA |
+| SATA Mode: AHCI | Modo SATA: AHCI | NA |
 
-# Now with all this done, head to the [Installation Page](../installation/installation-process.md)
+## Finalizando
+
+Depois de tudo terminado, acesse o guia [Processo de Instalação](../installation/installation-process.md) para continuar com a configuração do OpenCore.
