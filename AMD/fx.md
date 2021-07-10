@@ -73,6 +73,7 @@ Esta seção permite que os espaços de memória que são geralmente ignorados s
 ::: tip Informações
 Configurações relacionadas à aplicação de patches no `boot.efi` e a correções de firmware. Mantenha as opções padrão.
 :::
+
 ::: details Informação Mais Detalhada
 
 * **AvoidRuntimeDefrag**: YES
@@ -303,7 +304,6 @@ Configurações relacionadas com a inicialização de sistemas operacionais anti
     * Mac OS X 10.6 Snow Leopard: `i386`, `i386-user32` ou `x86_64`.
     * OS X 10.7 Lion: `i386` ou `x86_64`.
     * OS X 10.8 Mountain Lion ou mais novo: `x86_64`.
-
 * **KernelCache**: Auto
   * Configura o tipo de *cache* do *kernel*. Útil principalmente para depuração, então recomenda-se manter configurado como `Auto` para obter o melhor suporte.
 
@@ -337,7 +337,7 @@ Configurações da tela de inicialização. Mantenha todos os padrões como est�
 * **AppleDebug**: YES
   * Ativa o *log* do `boot.efi`. Útil para depuração. Observe que isso só é suportado no macOS 10.15.4 Catalina ou superior.
 * **ApplePanic**: YES
-  * Tenta salvar os logs de *kernel panics* diretamente no disco.
+  * Tenta salvar os *logs* de *kernel panics* diretamente no disco.
 * **DisableWatchDog**: YES
   * Desativa o *watchdog* do UEFI. Pode ajudar com problemas precoces na inicialização.
 * **DisplayLevel**: `2147483650`
