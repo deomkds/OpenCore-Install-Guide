@@ -1,46 +1,55 @@
-# Clover Boot Arg Conversion
+# Convertendo os Argumentos de Inicialização
 
-This section is mainly used for explaining what boot-args are no longer relevant, it's quite common for users to be still carrying legacy args which have little to no real affect in newer versions of macOS or have little use in OpenCore
+Esta seção é usada principalmente para explicar quais argumentos de inicialização (*boot-args* ou *flags*) não são mais relevantes. É bastante comum encontrar usuários que ainda estejam utilizando argumentos antigos que exercem pouco ou nenhum efeito nas novas versoes do macOS, ou que não possuem muita utilidade no OpenCore.
+
+Esta lista é baseada na memória de um ser incomodado por ver essas *flags* ainda aparecerem.
+
+::: details Informação do Texto Original
 
 This list is based of memory and an annoyed self with seeing these flags keep popping up, got other flags to add then I recommend [opening an issue](https://github.com/khronokernel/OpenCore-Vanilla-Desktop-Guide/issues). All help is welcomed!
 
-## macOS flags
+Vou traduzir essa parte assim que tiver um bugtracker no ar.
+
+:::
+
+## Flags do macOS
 
 **dart=0**:
 
-* Used for disabling VT-D support
-* With Clover, when this flag was present it would also drop your DMAR table from ACPI
-* This flag also requires SIP to be disabled in macOS 10.15 Catalina, so with OpenCore this flag is no longer recommended and instead replaced with `Kernel -> Quirks -> DisableIoMapper`
+* Usado para desativar o suporte ao VT-D.
+* Quando essa *flag* estava presente, o Clover descartava a tabela DMAR da ACPI.
+* Essa bandeira também necessita que o SIP seja desativado no macOS 10.15 Catalina. No OpenCore, essa flag não é mais recomendada e foi substituida pela *quirk* `Kernel -> Quirks -> DisableIoMapper`.
 
 **kext-dev-mode=1**:
 
-* Used for allowing unsigned kexts to be loaded, flag only present in Yosemite
-* `CSR_ALLOW_UNSIGNED_KEXTS` bit to be flipped in `csr-active-config` NVRAM variable for newer releases
-* This is not needed on OpenCore due to the kernel injection method used: Attaching to the prelinked kernel
+* Usado para permitir o carregamento de *kexts* não assinadas. *Flag* presente só no OS X 10.10 Yosemite.
+* Alterar o bit `CSR_ALLOW_UNSIGNED_KEXTS` na variável de NVRAM `csr-active-config` para obter o mesmo resultado em versões mais novas.
+* Isso não é necessário no OpenCore devido ao método de injeção de *kernel* usado, que envolve anexar ao *prelinked kernel*.
 
-## Kexts flags
+## Flags de Kexts
 
-**nvda_drv=1**: Used for enabling Nvidia's Web Drivers, no longer works in macOS 10.12
+**nvda_drv=1**:
 
-* This flag was actually turned into `nvda_drv_vrl=1` for Sierra and High Sierra
+* Usado para ativar os Web Drivers da Nvidia. Não funciona mais no macOS 10.12 Sierra.
+* Esta *flag* foi, na verdade, transformada no argumento `nvda_drv_vrl=1` para o macOS 10.12 Sierra e 10.13 High Sierra.
 
-## Chameleon flags
+## Flags do Chameleon
 
-For some reason people kept using these flags into Clover which had no effect, and so we really need to stop the train on this one with OpenCore
+Por algum motivo, as pessoas continuaram usando essas *flags* no Clover, sem efeito algum. Realmente precisamos esse trem com o OpenCore.
 
 **PCIRootUID=Value**
 
-* This sets the `_UID` of `Device (PCI0)` to whatever the value is, supposedly needed on legacy AMD GPUs but this is debatable. Ironically Clover still uses this flag but most users know it from Chameleon. [Source](https://github.com/CloverHackyColor/CloverBootloader/blob/81f2b91b1552a4387abaa2c48a210c63d5b6233c/rEFIt_UEFI/Platform/FixBiosDsdt.cpp#L1630-L1674)
+* Isso configura o `_UID` do `Device (PCI0)` para qualquer que seja o valor. É supostamente necessário ao usar GPUs antigas da AMD, mas isso é questionável. Ironicamente, o Clover ainda usa essa *flag*, mas a maioria dos usuários a conhecem do Chameleon. [Fonte](https://github.com/CloverHackyColor/CloverBootloader/blob/81f2b91b1552a4387abaa2c48a210c63d5b6233c/rEFIt_UEFI/Platform/FixBiosDsdt.cpp#L1630-L1674) (em inglês).
 
 **GraphicsEnabler=Yes/No**
 
-* InjectAMD/Nvidia was the Clover equivalent but no feature parity in OpenCore besides running [WhateverGreen](https://github.com/acidanthera/WhateverGreen)
+* A opção equivalente a isso no Clover era `InjectAMD/Nvidia` que não existe no OpenCore. O mais próximo disso é usar a [WhateverGreen](https://github.com/acidanthera/WhateverGreen).
 
 **IGPEnabler=Yes/No**
 
-* Same idea as GraphicsEnabler, Clover equivalent is InjectIntel so feature parity would be [WhateverGreen's Framebuffer patching](https://github.com/acidanthera/WhateverGreen/blob/master/Manual/FAQ.IntelHD.en.md)
+* A mesma ideia do `GraphicsEnabler`. No Clover, a equivalente era a opção `InjectIntel`, então, para conseguir um efeito parecido, é possível usar o patch de *framebuffer* da [WhateverGreen](https://github.com/acidanthera/WhateverGreen/blob/master/Manual/FAQ.IntelHD.en.md) (em inglês).
 
 **-f**
 
-* Enables cacheless booting on Chameleon and Clover, OpenCore has a slightly different option under `Kernel -> Scheme -> KernelCache` and set the entry to `Cacheless`
-  * Currently cacheless booting is only supported on 64-bit kernels from OS X 10.6 to 10.9
+* Ativa a inicialização sem *cache* no Chameleon e no Clover. O OpenCore possui uma opção um pouco diferente: `Kernel -> Scheme -> KernelCache` configurada para `Cacheless`.
+  * Atualmente, inicialização sem *cache* só é suportada em *kernels* (kernéis?) de 64 bits, do Mac OS X 10.6 Snow Leopard ao OS X 10.9 Mavericks.
