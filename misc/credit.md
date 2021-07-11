@@ -1,72 +1,74 @@
 # Credits
 
-No good guide is made by one man, here's credit to those who've helped out:
+Nenhum bom guia é feito por só uma pessoa. Aqui estão os créditos daqueles que ajudaram:
 
 * [vit9696](https://github.com/vit9696)
-  * One of many developers of OpenCore
-  * Corrections to the original guide
-  * Corrections to this guide...(seriously this man deserves a medal)
+  * Um dos muitos desenvolvedores do OpenCore.
+  * Por oferecer correções ao guia original.
+  * Por oferecer correções para este guia... (sério, esse cara merece uma medalha).
 * [CorpNewt](https://github.com/corpnewt)
-  * Heavily inspiring this guide(if not a rip off) and helping overall with questions and advice
-  * Spoof SSDT source
+  * Por ser uma fonte de inspiração para este guia (uma cópia descarada) e por ajudar de maneira geral com perguntas e conselhos.
+  * Fonte da *Spoof SSDT*.
 * [Midi](https://github.com/midi1996)
-  * Corrections and recommendations for the guide
+  * Por oferecer correções e recomendações para o guia.
 * [AlGrey#9303](https://amd-osx.com/forum/memberlist.php?mode=viewprofile&u=10918&sid=e0feb8a14a97be482d2fd68dbc268f97)
-  * AMD Kernel patches
+  * Pelos patches de *kernel* para AMD.
 * [NoOne/IOIIIO](https://github.com/IOIIIO)
-  * For the original AMD Vanilla Guide
-  * Corrections to AMD portion of the guide
+  * Pelo guia original AMD Vanilla.
+  * Por correções na porção deste guia sobre AMD.
 * [DhinakG](https://github.com/dhinakg)
-  * Random guide related stuff
+  * Coisas aleatórias relacionadas ao guia.
 * [Khronokernel](https://github.com/khronokernel)
-  * For both writing and maintaining the guide
-* [and the rest of the dortania team](https://github.com/dortania) for helping out
-  
-And to the rest who've helped out as well, thank you!
+  * Por escrever e manter o guia.
+* [e o restante do time Dortania](https://github.com/dortania) por ajudar.
+ 
+E para o restante das pessoas que nos ajudaram, muito obrigado!
 
-**Developers of OpenCore**:
+**Desenvolvedores do OpenCore**:
 
 * [al3xtjames](https://github.com/al3xtjames)
 * [Andrey1970AppleLife](https://github.com/Andrey1970AppleLife)
-* [mhaeuser (formerly Download-Fritz)](https://github.com/mhaeuser)
+* [mhaeuser (anteriormente Download-Fritz)](https://github.com/mhaeuser)
 * [Goldfish64](https://github.com/Goldfish64)
 * [nms42](https://github.com/nms42)
 * [PMHeart](https://github.com/PMHeart)
 * [savvamitrofanov](https://github.com/savvamitrofanov)
 * [vit9696](https://github.com/vit9696)
 
-Guides linked or those that inspired this guide:
+Links citados ou que inspiraram este guia:
 
-* [r/Hackintosh Vanilla Desktop Guide](https://hackintosh.gitbook.io/-r-hackintosh-vanilla-desktop-guide/)
-* [All-in-one Vanilla AMD Hackintosh Guide](https://github.com/doesprintfwork/All-in-one-Vanilla-AMD-Hackintosh-Guide)
-* [USB Map Guide](https://dortania.github.io/OpenCore-Post-Install/usb/)
-* [Intel Framebuffer Patching](https://github.com/acidanthera/WhateverGreen/blob/master/Manual/FAQ.IntelHD.en.md)
-* [AppleALC Supported Codecs](https://github.com/acidanthera/AppleALC/wiki/Supported-codecs)
-* [gfxutil](https://github.com/acidanthera/gfxutil/releases)
+* [r/Hackintosh Vanilla Desktop Guide](https://hackintosh.gitbook.io/-r-hackintosh-vanilla-desktop-guide/) (em inglês).
+* [All-in-one Vanilla AMD Hackintosh Guide](https://github.com/doesprintfwork/All-in-one-Vanilla-AMD-Hackintosh-Guide) (em inglês).
+* [USB Map Guide](https://dortania.github.io/OpenCore-Post-Install/usb/) (em inglês, mas também disponível nesta tradução).
+* [Intel Framebuffer Patching](https://github.com/acidanthera/WhateverGreen/blob/master/Manual/FAQ.IntelHD.en.md) (em inglês).
+* [AppleALC Supported Codecs](https://github.com/acidanthera/AppleALC/wiki/Supported-codecs) (em inglês).
+* [gfxutil](https://github.com/acidanthera/gfxutil/releases) (em inglês).
 
-And for those who have recommendations or issues with this guide, you can find the GitHub repo for this site [here](https://github.com/dortania/OpenCore-Install-Guide).
+E para aqueles que tiverem recomendações ou queiram reportar problemas neste guia, o repositório do GitHub para esta tradução pode ser encontrado [aqui](https://github.com/deomkds/OpenCore-Install-Guide). **Nunca reporte erros deste guia (que é uma tradução não oficial) nas páginas oficiais do Dortania ou do Acidanthera.**
 
-**Sources**:
+**Fontes**:
 
-* [OpenCore Documentation](https://github.com/acidanthera/OpenCorePkg/tree/master/Docs)
+* [Documentação do OpenCore](https://github.com/acidanthera/OpenCorePkg/tree/master/Docs) (em inglês).
 * KASLR slide:
-  * [vit9696's Explainer](https://www.insanelymac.com/forum/topic/331381-aptiomemoryfix/?do=findComment&comment=2564269)
-  * [Apianti's explainer](https://www.reddit.com/r/hackintosh/comments/cfjyla/i_unleashed_a_plague_upon_you_guys_and_i_am_sorry/)
-  * [KASLR Explainer](https://lwn.net/Articles/569635/)
-  * [More KASLR Explainer](https://www.blackhat.com/docs/us-16/materials/us-16-Jang-Breaking-Kernel-Address-Space-Layout-Randomization-KASLR-With-Intel-TSX.pdf)
-* Cleaning RC scripts:
-  * [Clover Emulated NVRAM Uninstaller](https://www.tonymacx86.com/resources/clover-emulated-nvram-uninstaller.368/)
-* ACPI Dumping:
-  * [acpica](https://github.com/acpica/acpica/tree/master/source/tools/acpidump)
-* iServices Guide:
-  * [Как завести сервисы Apple - iMessage, FaceTime, iCloud](https://applelife.ru/threads/nastrojka-app-store-imessage-facetime-i-icloud.40790/page-219#post-727913)
-* iGPU and DRM configuration:
-  * [WhateverGreen's manual](https://github.com/acidanthera/WhateverGreen/blob/master/Manual/FAQ.IntelHD.en.md)
-  * [WhateverGreen's DRM chart](https://github.com/acidanthera/WhateverGreen/blob/master/Manual/FAQ.Chart.md)
-  * [DRM Testing](https://applelife.ru/threads/proigryvanie-zaschischjonnogo-kontenta-na-raznom-oborudovanii.1349123/page-67#post-846582)
-* rEFInd Guide:
-  * [rEFInd Manual](https://www.rodsbooks.com/refind/index.html)
-* USB Mapping Guide:
-  * [XHCI Wake issues](https://osy.gitbook.io/hac-mini-guide/details/usb-fix)
-  * [CorpNewt's USB Map Guide](https://dortania.github.io/OpenCore-Post-Install/usb/)
-  * [AppleLife USB Map Guide](https://applelife.ru/threads/nastrojka-usb-v-10-11-10-15.627190/)
+  * [Explicação de vit9696](https://www.insanelymac.com/forum/topic/331381-aptiomemoryfix/?do=findComment&comment=2564269) (em inglês).
+  * [Explicação de Apianti](https://www.reddit.com/r/hackintosh/comments/cfjyla/i_unleashed_a_plague_upon_you_guys_and_i_am_sorry/) (em inglês).
+  * [Explicação sobre KASLR](https://lwn.net/Articles/569635/) (em inglês).
+  * [Mais explicação sobre KASLR](https://www.blackhat.com/docs/us-16/materials/us-16-Jang-Breaking-Kernel-Address-Space-Layout-Randomization-KASLR-With-Intel-TSX.pdf) (em inglês).
+* Limpando os *scripts* RC:
+  * [Clover Emulated NVRAM Uninstaller](https://www.tonymacx86.com/resources/clover-emulated-nvram-uninstaller.368/) (em inglês).
+* Extração de ACPI:
+  * [acpica](https://github.com/acpica/acpica/tree/master/source/tools/acpidump) (em inglês).
+* Guia dos iServiços:
+  * [Как завести сервисы Apple - iMessage, FaceTime, iCloud](https://applelife.ru/threads/nastrojka-app-store-imessage-facetime-i-icloud.40790/page-219#post-727913) (em russo).
+* Configuração de GPU integrada e DRM:
+  * [Manual do WhateverGreen](https://github.com/acidanthera/WhateverGreen/blob/master/Manual/FAQ.IntelHD.en.md) (em inglês).
+  * [Tabela de DRM do WhateverGreen](https://github.com/acidanthera/WhateverGreen/blob/master/Manual/FAQ.Chart.md) (em inglês).
+  * [Testes de DRM](https://applelife.ru/threads/proigryvanie-zaschischjonnogo-kontenta-na-raznom-oborudovanii.1349123/page-67#post-846582) (em russo).
+* Guia do rEFInd:
+  * [Manual do rEFInd](https://www.rodsbooks.com/refind/index.html) (em inglês).
+* Guia de Mapeamento de USB:
+  * [Problemas de XHCI Wake](https://osy.gitbook.io/hac-mini-guide/details/usb-fix) (em inglês).
+  * [Guia de Mapeamento da USB do CorpNewt](https://dortania.github.io/OpenCore-Post-Install/usb/) (em inglês, mas também disponível nesta tradução).
+  * [Guia de Mapeamento da USB no AppleLife](https://applelife.ru/threads/nastrojka-usb-v-10-11-10-15.627190/) (em russo).
+
+Essa tradução foi feita por @deomkds.
