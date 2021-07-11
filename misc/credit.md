@@ -21,7 +21,7 @@ Nenhum bom guia é feito por só uma pessoa. Aqui estão os créditos daqueles q
 * [Khronokernel](https://github.com/khronokernel)
   * Por escrever e manter o guia.
 * [e o restante do time Dortania](https://github.com/dortania) por ajudar.
- 
+
 E para o restante das pessoas que nos ajudaram, muito obrigado!
 
 **Desenvolvedores do OpenCore**:

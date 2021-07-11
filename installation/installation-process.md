@@ -1,14 +1,14 @@
-# Installation Process
+# Processo de Instalação
 
-Now that you've finished setting up OpenCore, you're finally able to boot, main things to keep in mind:
+Agora que a configuração do OpenCore está terminada, finalmente é possível iniciar o macOS. Ainda há algumas coisas que precisam ser feitas:
 
-* Enable BIOS settings optimal for macOS
-* Read up on the [OpenCore Multiboot Guide](https://dortania.github.io/OpenCore-Multiboot/) as well as [Setting up LauncherOption](https://dortania.github.io/OpenCore-Post-Install/multiboot/bootstrap)
-  * Mainly relevant for those running a single drive for multiple OSes
-* And a copy of the [General Troubleshooting](../troubleshooting/troubleshooting.md) page
-* Read up on the [macOS Boot Process](../troubleshooting/boot.md)
-  * Can help first time installers better understand where they may be getting stuck
-* And a ton of patience
+* Ativar as melhores opções para o macOS na BIOS.
+* Ler o guia [Multiboot com o OpenCore](https://deomkds.github.io/OpenCore-Multiboot/) assim como o guia [Configurando o LauncherOption](https://deomkds.github.io/OpenCore-Post-Install/multiboot/bootstrap).
+  * Relevante principalmente para aqueles que possuem uma única unidade com vários sistemas operacionais.
+* Ter uma cópia do guia de [Solução de Problemas](../troubleshooting/troubleshooting.md) por perto.
+* Ler sobre o [processo de inicialização do macOS](../troubleshooting/boot.md).
+  * Pode ajudar *hackintoshers* de primeira viagem a entender melhor onde podem estar ficando travados.
+* E uma tonelada de paciência.
 
 ## Double checking your work
 

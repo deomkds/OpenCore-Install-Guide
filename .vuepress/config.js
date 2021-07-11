@@ -104,12 +104,11 @@ module.exports = {
             'terminology',
             'why-oc',
             ]
-
         },
         {
             title: 'Pendrive de Boot',
             collapsable: false,
-            sidebarDepth: 2,
+            sidebarDepth: 1,
             children: [{
                 title: 'Criando o Pendrive',
                 collapsable: true,
@@ -130,6 +129,7 @@ module.exports = {
         {
             title: 'Configuração',
             collapsable: false,
+            sidebarDepth: 1,
             children: [{
                 title: 'Desktop com Intel',
                 collapsable: true,
@@ -191,7 +191,6 @@ module.exports = {
             collapsable: false,
             children: [
                 '/installation/installation-process',
-
             ]
         },
         {
@@ -200,7 +199,7 @@ module.exports = {
             children: [
                 '/troubleshooting/troubleshooting',
 				{
-            		title: '',
+            		title: 'Problemas Comuns',
             		collapsable: false,
 		            children: [
 		                '/troubleshooting/extended/opencore-issues',
@@ -208,7 +207,6 @@ module.exports = {
 						'/troubleshooting/extended/userspace-issues',
 						'/troubleshooting/extended/post-issues',
 						'/troubleshooting/extended/misc-issues',
-
 		            ]
 				},
                 '/troubleshooting/debug',
@@ -276,12 +274,23 @@ module.exports = {
         {
             title: 'Extras',
             collapsable: false,
-			sidebarDepth: 2,
+            sidebarDepth: 1,
             children: [
                 '/extras/kaslr-fix',
                 '/extras/spoof',
                 '/extras/big-sur/',
-                ['https://github.com/dortania/OpenCore-Install-Guide/tree/master/clover-conversion', 'Convertendo do Clover'],
+                {
+                    title: 'Convertendo do Clover',
+                    collapsable: true,
+                    sidebarDepth: 2,
+                    children: [
+                        ['/clover-conversion/clover-conversion', 'Introdução'],
+                        ['/clover-conversion/clover-boot-arg', 'Argumentos de Inicialização'],
+                        ['/clover-conversion/clover-config', 'Propriedades Comuns'],
+                        ['/clover-conversion/clover-efi', 'Kexts e Drivers'],
+                        ['/clover-conversion/clover-patch','Patches de Kernel e de Kexts'],
+                    ]
+                },
                 '/extras/smbios-support.md',
             ]
         },
