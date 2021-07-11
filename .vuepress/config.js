@@ -289,6 +289,7 @@ module.exports = {
             title: 'Outros',
             collapsable: false,
             children: [
+                ['/misc/progress', 'Progresso da Tradução'],
                 ['CONTRIBUTING', 'Contribuindo'],
                 ['/misc/credit', 'Créditos'],
             ]
