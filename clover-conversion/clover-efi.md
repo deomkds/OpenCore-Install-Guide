@@ -1,26 +1,25 @@
-# Clover Kexts and Firmware driver conversion(.kext, .efi)
+# Convertendo as Kexts e os Drivers de Firmware
 
-Main thing to note is that you must specify your kexts and firmware drivers in your config.plist, or else they will not load. All kexts that are currently supported on Clover will work on OpenCore, however many have been deprecated with better variants being integrated into OpenCore. Firmware drivers are a bit different as they can in-fact break booting.
+O principal a se ter em mente com o OpenCore é que ele exige que as *kexts* e os drivers de firmware sejam especificados na `config.plist`, ou eles não serão carregados. Todas as *kexts* que são atualmente suportadas pelo Clover, funcionarão no OpenCore. No entanto, muitas delas foram descontinuadas, com variantes melhores sendo integradas ao OpenCore. Já os drivers de firmware são um pouco diferentes, visto que podem de fato quebrar a inicialização.
 
-* [Kexts](#kexts)
-* [Firmware Drivers](#firmware-drivers)
+[[toc]]
 
 ## Kexts
 
-For the most part, all kexts are supported in OpenCore. However there are a few integrated
+Na maior parte do tempo, todas as *kexts* são suportadas no OpenCore. No entanto, algumas tiveram suas funcionalidades integradas ao OpenCore:
 
-**Integrated Kexts:**
+**Kexts Integradas**
 
-* NullCPUPowerManagement.kext
-  * Integrated into `DummyPowerManagement` under `Kernel -> Emulate`
-* BT4LEContinuityFixup.kext
-  * Integrated into `ExtendBTFeatureFlags` under `Kernel -> Quirks`
+* `NullCPUPowerManagement.kext`
+  * Integrada à `DummyPowerManagement` sob `Kernel -> Emulate`.
+* `BT4LEContinuityFixup.kext`
+  * Integrada à `ExtendBTFeatureFlags` sob `Kernel -> Quirks`.
 
-## Firmware Drivers
+## Drivers de Firmware
 
-**Supported ones:**
+**Suportados**
 
-* AudioDxe.efi(Make sure this is from [OpenCorePkg](https://github.com/acidanthera/OpenCorePkg) and **not** Goldfish64's or Clover's repo)
+* AudioDxe.efi (certifique-se de usar a versão distribuida no [OpenCorePkg](https://github.com/acidanthera/OpenCorePkg) e **não** a versão dos repositórios do Goldfish64 e do Clover).
 * CsmVideoDxe.efi(Note that [BiosVideo.efi](https://github.com/acidanthera/DuetPkg) may be preferred)
 * EnhancedFatDxe.efi
 * ExFatDxeLegacy.efi
