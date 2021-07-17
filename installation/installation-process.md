@@ -10,50 +10,51 @@ Agora que a configuração do OpenCore está terminada, finalmente é possível 
   * Pode ajudar *hackintoshers* de primeira viagem a entender melhor onde podem estar ficando travados.
 * E uma tonelada de paciência.
 
-## Double checking your work
+## Verificando Seu Trabalho
 
-One last thing we should go over before booting is how your EFI is setup:
+Uma última coisa a ser abordada antes de iniciar é a forma como a EFI é configurada.
 
-Good EFI          |  Bad EFI
+EFI Boa | EFI Ruim
 :-------------------------:|:-------------------------:
 ![](../images/installation/install-md/good-efi.png)  |  ![](../images/installation/install-md/bad-efi.png)
-EFI folder found on EFI partition | EFI folder missing
-ACPI Files are compiled(.aml) | ACPI Files are not compiled(.dsl)
-DSDT is not included |* DSDT is included
-Removed unneeded Drivers(.efi) | Leaves default Drivers
-Removed unneeded Tools(.efi) | Leaves default Tools
-All files in the Kexts folder end in .kext | Includes source code and folders
-config.plist found under EFI/OC | Neither renamed or placed the .plist in right location
-Only uses kexts that are needed | Downloaded every kext listed
+Pasta EFI presente na partição EFI. | Pasta EFI faltando.
+Arquivos ACPI estão compilados (`.aml`). | Arquivos ACPI não estão compilados (`.dsl`).
+A DSDT não está presente. | A DSDT está presente.
+Drivers (`.efi`) desnecessários foram removidos. | Drivers padrão estão presentes.
+Ferramentas (`.efi`) desenecessárias removidas. | Ferramentas padrão estão presentes.
+Todos os arquivos da pasta `Kexts` terminam em `.kext`. | Código fonte e pastas estão presentes.
+O arquivo `config.plist` está presente em `EFI/OC`. | Não renomeou nem colocou o arquivo `.plist` no local certo.
+Somente as *kexts* necessárioas estão presentes. | Baixou todas as *kexts* listadas.
 
-And a reminder that slowgeek site is your friend:
+E um lembrete de que o site do slowgeek é seu amigo:
 
-* [**Sanity Checker**](https://opencore.slowgeek.com)
+* [**Sanity Checker**](https://opencore.slowgeek.com) (em inglês).
 
-## Booting the OpenCore USB
+## Iniciando o Pendrive com o OpenCore
 
-So you're now ready to finally put the USB stick into your computer and boot off of it. Remember that most laptops and some desktops will still default to the internal drive with Windows, and you'll need to manually select OpenCore in the BIOS boot options. You'll need to check in the user manual or use a bit of google to find out what Fn key accesses the BIOS and boot menu(ie. Esc, F2, F10 or F12)
+Agora está tudo pronto para finalmente conectar o pendrive no computador e iniciar a partir dele. Lembre-se de que a maioria dos notebooks e alguns desktops ainda iniciarão por padrão a unidade interna com Windows. Será necessário selecionar manualmente o OpenCore nas opções de inicialização da BIOS. Será preciso verificar o manual de usuário ou pesquisar no Google para descobrir qual tecla ou combinação de teclas são necessárias para acessar a BIOS e o menu de inicialização (ex.: Esc, F2, F10, F12 etc.).
 
-Once you boot the USB, you'll likely be greeted to the following boot options:
+Uma vez iniciado a partir do pendrive, as seguintes opções de inicialização serão exibidas:
 
 1. Windows
 2. macOS Base System (External) / Install macOS Catalina (External)
 3. OpenShell.efi
 4. Reset NVRAM
 
-For us, **Option 2.** is the one we want. Depending how the installer was made, it may report as either **"macOS Base System (External)"** if created in Linux or Windows and **"Install macOS Catalina (External)"** if created in macOS.
+Neste caso, selecione a **opção 2**. Dependendo da maneira como o instalador foi criado, ele pode aparecer tanto como **"macOS Base System (External)"** se criado no Linux ou Windows, quanto **"Install macOS Catalina (External)"** se criado no macOS.
 
-## macOS Installer
+## Instalador do macOS
 
-So you've finally got the installer booted, got through the verbose and hit the installer! Now that you've gotten this far,  the main things to keep in mind:
+Após iniciar o pendrive, acompanhar todo o texto do modo *verbose* ser exibido e chegar no instalador, há algumas coisas para se ter em mente.
 
-* Drives you wish to install macOS on **must** be both of GUID partition Scheme **and** APFS
-  * High Sierra on HDD and all Sierra users will need to use macOS Journaled(HFS+)
-* The drive **must** also have a 200MB partition
-  * By default, macOS will setup freshly formatted drives with 200MB
-  * See the [Multiboot Guide](https://dortania.github.io/OpenCore-Multiboot/) for more info on partitioning a Windows Drive
+* A unidade onde o macOS será instalado **precisa** tanto usar o Esquema de Partição GUID **quanto** estar formatada em APFS.
+  * Os usuários de macOS 10.13 High Sierra que estejam instalando em HDs e todos os usuários de macOS 10.12 Sierra precisarão formatar a unidade em macOS Reg. Cronológico (HFS+).
+* A unidade também **precisa** ter uma partição de 200MB.
+  * Por padrão, o macOS criará automaticamente a partição de 200MB em unidades recém formatadas.
+  * Veja o guia [Multiboot com o OpenCore](https://deomkds.github.io/OpenCore-Multiboot/) para obter mais informações sobre como particionar uma unidade do Windows.
 
-Once you start the installation, you will want to wait until the system restarts. You will once again want to boot into OpenCore, but rather than selecting your USB installer/recovery - you will want to select the macOS installer on the hard drive to continue installation. You should get an apple logo, and after a few minutes you should get a timer at the bottom saying "x minutes remaining". This may be a good time to get a drink or snack as this will take a while. It may restart a couple more times, but if all goes well, it should finally plop you at the "Setup your Mac screen"
+Uma vez iniciada a instalação, será necessário aguardar até que o computador seja reiniciado. Mais uma vez, inicie o pendrive com o OpenCore, mas em vez de selecionar o instalador que está no pendrive ou a partição de recuperação, será necessário escolher o instalador do macOS que está no disco para continuar. A maçã deverá ser exibida e, após alguns minutos, deverá aparecer um temporizador na parte de baixo da tela dizendo "x minutos restantes". É um ótimo momento para beber alguma coisa ou pegar algo para comer, já que esse processo demora um pouco. O computador pode reiniciar algumas outras vezes, mas se tudo correr bem, a tela de "Configure o Seu Mac" deverá ser exibida.
 
-You're in! 🎉
-You will want to go through the Post-Installation pages to finish setting up your system.
+Você conseguiu! 🎉
+
+Agora, leia as páginas do guia de [Pós-instalação do OpenCore](https://deomkds.github.io/OpenCore-Post-Install/) para terminar de configurar o computador.
