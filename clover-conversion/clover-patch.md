@@ -1,44 +1,44 @@
-# Converting common Kernel and Kext patches
+# Convertendo Patches Comuns de Kexts e de Kernel
 
-## Manually converting a patch
+## Convertendo um Patch Manualmente
 
-When converting a kernel/kext patch into one for OpenCore, you'll need to remember a few things
+Ao converter um patch de kext/kernal para o OpenCore, será necessário observar o seguinte:
 
-* `InfoPlistPatch` has no feature parity
-* `MatchOS` is replaced with `MinKernel` and `MaxKernel`
-* Both kernel and kext patches go under `Kernel -> Patch`, and you use `Identifier` to say whether it's the kernel or a specific kext you want to patch
+* Não existe paridade para o recurso `InfoPlistPatch`.
+* O equivalente da opção `MatchOS` são as opções `MinKernel` e `MaxKernel`.
+* Os dois tipos de patches (*kext* e kernel) são inseridos no caminho `Kernel -> Patch`. Para informar se o patch é de kernel ou de uma *kext* específica, utilize a opção `Identifier`.
 
-Now lets look at this example:
+Observe o exemplo:
 
-**KernelToPatch**:
+**KernelToPatch (Clover)**:
 
-| Key | Type | Value |
+| Chave | Tipo | Valor |
 | :--- | :--- | :--- |
-| Comment | String | cpuid_set_cpufamily - force CPUFAMILY_INTEL_PENRYN |
+| Comment | String | cpuid\_set_cpufamily - forca CPUFAMILY\_INTEL_PENRYN |
 | Disabled | Boolean | False |
 | MatchBuild | String | 18G95,18G103 |
 | MatchOS | String | 10.14.6 |
 | Find | Data | 31db803d4869980006755c |
 | Replace | Data | bbbc4fea78e95d00000090 |
 
-So to convert this patch, see below:
+No OpenCore, as opções são:
 
-* `Comment`: Available both on Clover and OpenCore
-* `Disabled`: OpenCore uses `Enabled` instead
-* `MatchBuild`: OpenCore uses `MinKernel` and `MaxKernel`, see below for more info
-* `MatchOS`: OpenCore uses `MinKernel` and `MaxKernel`, see below for more info
-* `Find`: Available both on Clover and OpenCore
-* `Replace`: Available both on Clover and OpenCore
-* `MaskFind`: OpenCore uses `Mask` instead
-* `MaskReplace`: Available both on Clover and OpenCore
+* `Comment`: Disponível tanto no Clover quanto no OpenCore.
+* `Disabled`: No OpenCore, use `Enabled`.
+* `MatchBuild`: No OpenCore, use `MinKernel` e `MaxKernel`. Veja abaixo para mais informações.
+* `MatchOS`: No OpenCore, use `MinKernel` e `MaxKernel`. Veja abaixo para mais informações.
+* `Find`: Disponível tanto no Clover quanto no OpenCore.
+* `Replace`: Disponível tanto no Clover quanto no OpenCore.
+* `MaskFind`: No OpenCore, use `Mask`.
+* `MaskReplace`: Disponível tanto no Clover quanto no OpenCore.
 
-So the above patch would become:
+Então, o patch anterior ficaria dessa forma:
 
-**Kernel -> Patch**:
+**Kernel -> Patch (OpenCore)**:
 
-| Key | Type | Value |
+| Chave | Tipo | Valor |
 | :--- | :--- | :--- |
-| Comment | String | cpuid_set_cpufamily - force CPUFAMILY_INTEL_PENRYN |
+| Comment | String | cpuid\_set_cpufamily - força CPUFAMILY\_INTEL_PENRYN |
 | Enabled | Boolean | True |
 | MinKernel | String | 18.7.0 |
 | MaxKernel | String | 18.7.0 |
@@ -51,58 +51,58 @@ So the above patch would become:
 | Mask | Data | |
 | ReplaceMask | Data | |
 
-For Min and MaxKernel, we can use the below as for info, so 18G95 has the kernel version `18.7.0` and 18G103 has `18.7.0`(both being the same kernel):
+Nas opções `MinKernel` e `MaxKernel`, utilize o link a seguir para ver os valores possíveis. A versão 18G95 possui um kernel cuja versão é `18.7.0` e a 18G103, `18.7.0` também. Note que ambas as versões utilizam o mesmo kernel.
 
-* [macOS Mojave: Release history](https://en.wikipedia.org/wiki/MacOS_Mojave#Release_history)
+* [macOS Mojave: Release history](https://en.wikipedia.org/wiki/MacOS_Mojave#Release_history) (em inglês).
 
-For Identifier, you'll either define `kernel` or the kext you want to patch(ie. `com.apple.iokit.IOGraphicsFamily` )
+Defina a opção `Identifier` como `kernel` ou a *kext* que deseja aplicar o patch (ex.: `com.apple.iokit.IOGraphicsFamily`).
 
-Regarding Limit, Count and Skip, they are set to `0` so they apply to all instances. `Mask` and `ReplaceMask` can be left as blank as Clover doesn't support masking(until very recently but won't be covered here).
+Quanto as opções `Limit`, `Count` e `Skip`, elas são configuradas para `0` de forma que serão aplicadas a todas as instâncias. As opções `Mask` e `ReplaceMask` podem ser deixadas vazias pois o Clover não suporta máscaras (até bem recentemente, mas isso não será abordado aqui).
 
-## Common patches in OpenCore and co
+## Patches Comuns no OpenCore e Cia
 
-Little section mentioning common Kernel and Kexts patches that have been absorbed into OpenCore or other kexts. This list is not complete so any that may have been forgotten can be mentioned by opening a new [issue](https://github.com/khronokernel/OpenCore-Vanilla-Desktop-Guide/issues). Any help is much appreciated
+Uma breve seção que menciona os patches de *kexts* e de kernel que foram absorvidas pelo OpenCore ou por outras *kexts*. Essa lista não está copmpleta e qualquer outro patch que tenha sido deixado de fora pode ser incluída por meio da abertura de um novo [issue](https://github.com/deomkds/OpenCore-Vanilla-Desktop-Guide/issues). Toda ajuda é bem-vinda!
 
-### Kernel Patches
+### Patches de Kernel
 
-For a full list of patches OpenCore supports, see [/Library/OcAppleKernelLib/CommonPatches.c](https://github.com/acidanthera/OpenCorePkg/blob/master/Library/OcAppleKernelLib/CommonPatches.c)
+Para obter uma lista completa dos patches suportados pelo OpenCore, veja o arquivo [/Library/OcAppleKernelLib/CommonPatches.c](https://github.com/acidanthera/OpenCorePkg/blob/master/Library/OcAppleKernelLib/CommonPatches.c) (em inglês).
 
-**General Patches**:
+**Patches Gerais**:
 
-* `MSR 0xE2 _xcpm_idle instant reboot` (c) Pike R. Alpha
+* `MSR 0xE2 _xcpm_idle instant reboot` © Pike R. Alpha
   * `Kernel -> Quirks -> AppleXcpmCfgLock`
 
-**HEDT Specific Patches**:
+**Patches específicos de HEDT**:
 
-All of the following patches are inside the `Kernel -> Quirk -> AppleXcpmExtraMsrs`
+Todos os patches a seguir podem ser encontrados no caminho `Kernel -> Quirk -> AppleXcpmExtraMsrs` na `config.plist`.
 
-* `_xcpm_bootstrap` © Pike R. Alpha
-* `xcpm_pkg_scope_msrs` © Pike R. Alpha
-* `_xcpm_SMT_scope_msrs` 1 © Pike R. Alpha
-* `_xcpm_SMT_scope_msrs` #2 (c) Pike R. Alpha
-* `_xcpm_core_scope_msrs` © Pike R. Alpha
-* `_xcpm_ performance_patch` © Pike R. Alpha
-* xcpm MSR Patch 1 and 2 @Pike R. Alpha
-* `/0x82D390/MSR_PP0_POLICY 0x63a xcpm support` patch 1 and 2 Pike R. Alpha
+* `_xcpm_bootstrap` por Pike R. Alpha
+* `xcpm_pkg_scope_msrs` por Pike R. Alpha
+* `_xcpm_SMT_scope_msrs` Patch nº 1 por Pike R. Alpha
+* `_xcpm_SMT_scope_msrs` Patch nº 2 por Pike R. Alpha
+* `_xcpm_core_scope_msrs` por Pike R. Alpha
+* `_xcpm_ performance_patch` por Pike R. Alpha
+* Patches de MSR xcpm nº 1 e nº 2 por Pike R. Alpha
+* `/0x82D390/MSR_PP0_POLICY 0x63a xcpm support` patches nº 1 e nº 2 por Pike R. Alpha
 
-### Kext Patches
+### Patches de Kexts
 
 * `Disable Panic Kext logging`
   * `Kernel -> Quirks -> PanicNoKextDump`
-* AppleAHCIPort External Icon Patch1
+* Patch 1 de Ícone de Unidade Externa para AppleAHCIPort
   * `Kernel -> Quirks -> ExternalDiskIcons`
-* SSD Trim Enabler
+* Ativador do TRIM em SSD
   * `Kernel -> Quirks -> ThirdPartyDrives`
-* USB Port Limit Patches
+* Limite de portas USB
   * `Kernel -> Quirks -> XhciPortLimit`
-* FredWst DP/HDMI patch
+* Patch de DP/HDMI por FredWst
   * [AppleALC](https://github.com/acidanthera/AppleALC/releases) + [WhateverGreen](https://github.com/acidanthera/whatevergreen/releases)
-* IOPCIFamily Patch
+* Patch para IOPCIFamily
   * `Kernel -> Quirks -> IncreasePciBarSize`
-* Disable board-ID check
+* Desativar a verificação de board-ID
   * [WhateverGreen](https://github.com/acidanthera/whatevergreen/releases)
-* AppleHDA Patch
+* Patch de AppleHDA
   * [AppleALC](https://github.com/acidanthera/AppleALC/releases)
-* IONVMe Patches
-  * Not required anymore on High Sierra and newer
-  * For power management on Mojave and newer: [NVMeFix](https://github.com/acidanthera/NVMeFix/releases)
+* Patches de IONVMe
+  * Desnecessário a partir do macOS 10.13 High Sierra.
+  * Para o gerenciamento de energia no macOS 10.14 Mojave ou mais novo: [NVMeFix](https://github.com/acidanthera/NVMeFix/releases).
