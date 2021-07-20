@@ -1,41 +1,41 @@
-# Disabling GPU
+# Desativando a GPU
 
-So you need to hide your unsupported GPU? Well with OpenCore things are slightly different, specifically that we need to specify to which exact device we want to spoof. There are 3 ways we can do this:
+Então você precisa esconder sua GPU não suportada? Bem, com o OpenCore as coisas são um pouco diferentes. Sendo mais específico, é preciso especificar qual é o dispositivo exato que se quer falsificar. Existem 3 maneiras de se fazer isso:
 
-* Boot Flag
-  * Disables all GPUs except the iGPU
-* DeviceProperties
-  * Disables GPU on a per-slot basis
-* SSDT
-  * Disables GPU on a per-slot basis
+* Por Argumento de Inicialização
+  * Desativa todas as GPUs exceto a GPU integrada Intel.
+* Por DeviceProperties
+  * Desativa GPUs por slot.
+* Por SSDT
+  * Desativa GPUs por slot.
 
-**CSM must be off in the BIOS for the spoofing to work correctly, especially on AMD CPU based systems.**
+**O CSM precisa estar desligado na BIOS para a falsificação funcionar corretamente, especialmente em computadores baseados em CPUs AMD.**
 
-### Boot Flag
+### Por Argumento de Inicialização
 
-By far the simplest way, all you need to do is add the following boot-arg:
+De longe, o método mais simples. Só é necessário adicionar o seguinte argumento de inicialização (*boot-arg*):
 
 `-wegnoegpu`
 
-Do note that this will disable all GPUs excluding the iGPU.
+Observe que isso desativará todas as GPUs, exceto as integradas da Intel.
 
-### DeviceProperties Method
+### Por DeviceProperties
 
-Here is quite simple, find the PCI route with [gfxutil](https://github.com/acidanthera/gfxutil/releases) and then create a new DeviceProperties section with your spoof:
+É bastante simples. Encontre a rota PCI com o [gfxutil](https://github.com/acidanthera/gfxutil/releases) (em inglês) e então crie uma nova seção de DeviceProperties contendo sua falsificação:
 
 ```
 path/to/gfxutil -f GFX0
 ```
 
-And the output will result in something similar:
+E a saída resultará em algo similar a isso:
 
 ```
 DevicePath = PciRoot(0x0)/Pci(0x1,0x0)/Pci(0x0,0x0)/Pci(0x0,0x0)/Pci(0x0,0x0)
 ```
 
-With this, navigate towards `Root -> DeviceProperties -> Add` and add your PCI route with the following properties:
+Com isso, navegue até `Root -> DeviceProperties -> Add` e adicione a rota de PCI com as seguintes propriedades:
 
-| Key | Type | Value |
+| Chave | Tipo | Valor |
 | :--- | :--- | :--- |
 | name | data | 23646973706C6179 |
 | IOName | string | #display |
@@ -43,11 +43,11 @@ With this, navigate towards `Root -> DeviceProperties -> Add` and add your PCI r
 
 ![](../images/extras/spoof-md/config-gpu.png)
 
-### SSDT Method
+### Por SSDT
 
-There are many ways to find the path but generally, the easiest way is to get into Device Manager under windows and find the PCI path.
+Existem várias maneiras de encontrar o caminho, mas geralmente a mais fácil é acessar o Gerenciador de Dispositivos no Windows e descobrir o caminho da PCI.
 
-Example of device path for `\_SB.PCI0.PEG0.PEGP`:
+Exemplo de caminho de dispositivo para `\_SB.PCI0.PEG0.PEGP`:
 
 ```
 
@@ -86,28 +86,28 @@ Example of device path for `\_SB.PCI0.PEG0.PEGP`:
 
 ```
 
-A copy of this SSDT can be found here: [Spoof-SSDT.dsl](https://github.com/dortania/OpenCore-Install-Guide/blob/master/extra-files/Spoof-SSDT.dsl). You will need [MaciASL](https://github.com/acidanthera/MaciASL/releases) to compile this. Remember that `.aml` is assembled and `.dsl` is source code. You can compile with MaciASL by selecting File -> Save As -> ACPI Machine Language.
+Uma cópia dessa SSDT pode ser encontrada aqui: [Spoof-SSDT.dsl](https://github.com/dortania/OpenCore-Install-Guide/blob/master/extra-files/Spoof-SSDT.dsl). Será necessário usar o [MaciASL](https://github.com/acidanthera/MaciASL/releases) para compilar a SSDT. Lebre-se que `.aml` é compilada e `.dsl` é o código fonte. Para compilar com o MaciASL, selecione `File -> Save As -> ACPI Machine Language`.
 
-Source: CorpNewt
+Fonte: CorpNewt
 
-## Windows GPU Selection
+## Seleção de GPU no Windows
 
-Depending on your setup, you may find that Windows renders games or applications using an undesired GPU.
+Dependendo da configuração do seu computador, é possível que o Windows esteja renderizando jogos ou aplicativos usando uma GPU não desejada.
 
-Many users only have two GPUs. Nvidia and the Intel HD/UHD IGPU. Since Nvidia no longer works on macOS, they may have the monitor plugged into the motherboards HDMI/DP connection for convenience. As a result, Windows will render all games and applications through the IGPU. You can reroute a specific game or application to a different GPU by going to: Settings > System > Display > Graphics settings
+Muitos usuários têm somente duas GPUs. Nvidia e a Intel HD/UHD integrada. Já que a Nvidia não funciona mais no macOS, esses usuários conectam seus monitores nas portas HDMI/DP de suas placas-mãe por pura conveniencia. Como resultado disso, o Windows renderiza todos os jogos e aplicativos por meio da GPU integrada da Intel. É possível redirecionar um jogo ou aplicativo específico para uma GPU diferente acessando `Configurações > Sistema > Monitores > Configurações Gráficas`.
 
-![Credit to CorpNewt for image](../images/extras/spoof-md/corp-windows.png)
+![Créditos da Imagem à CorpNewt](../images/extras/spoof-md/corp-windows.png)
 
-The rendered game or application will have its buffer copied to the IGPU. Which is then displayed to you. This does come with a few downsides:
+O jogo ou aplicativo renderizado terá seu buffer copiado para a GPU integrada, que é então exibida no monitor. Isso traz algumas desvantagens:
 
-* GSync will no longer work.
-* Nvidia settings can no longer be opened. This requires the display to be connected to the GPU
-* Decreased frame rate.
-* Increased input latency.
-* Refresh rate cap.
+* GSync deixará de funcionar.
+* Não será mais possível abrir as configurações da Nvidia. Essa função exige que o monitor esteja conectado diretamente na GPU.
+* Taxa de quadros menor.
+* Latência de entrada maior.
+* Limite de atualização de quadros.
 
-If your motherboard only has an HDMI connector for the IGPU, the maximum refresh rate for spec 2.1 is [120Hz](https://www.hdmi.org/spec21Sub/EightK60_FourK120). This assumes your board and monitor are of the same spec. This means your 144Hz monitor is only seeing a maximum of 120Hz as determined by the hardware. This limitation *does not* apply if your board has a DP connector for the IGPU.
+Se sua placa-mãe só possui uma porta HDMI para a GPU integrada, a taxa de atualização máxima para a especificação 2.1 é de [120Hz](https://www.hdmi.org/spec21Sub/EightK60_FourK120) (em inglês). Assume-se que a placa-mãe e o monitor seguem a mesma especificação. Isso significa que um monitor de 144Hz só consegue enxergar um máximo de 120Hz conforme determinado pelo hardware. Essa limitação *não* se aplica se sua placa possuir uma porta DP para a GPU integrada.
 
-If you have more than two GPUs (AMD, Nvidia and Intel), this setting is limited. A monitor connected to the AMD GPU means Windows will only allow you to select the AMD GPU or the Intel IGPU. The Nvidia GPU will not show. In a future version of Windows, this [limitation is removed](https://pureinfotech.com/windows-10-21h1-new-features/#:~:text=Graphics%20settings).
+Se houver mais de duas GPUs (AMD, Nvidia e Intel), essa configuração é limitada. Um monitor conectado à GPU AMD significa que o Windows somente permitira esoclher a GPU AMD ou a GPU integrada da Intel. A GPU Nvidia não será exibida. Essa [limitação foi removida](https://pureinfotech.com/windows-10-21h1-new-features/#:~:text=Graphics%20settings) em versões mais novas do Windows.
 
-As a recommendation, if you use both operating systems equally and prefer no downsides, your best option is an HDMI or DP switch.
+Como recomendaçõa, se você usa ambos os sistemas operacionais igualmente e prefere não ter desvantagens, a melhor opção é usar um *switch* HDMI ou DP.
