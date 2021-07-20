@@ -1,32 +1,32 @@
-# Choosing the right SMBIOS
+# Escolhendo a SMBIOS Correta
 
-When choosing the right SMBIOS for your machine, you've gotta understand that it's more than just simple CPU match up. Many things can affect how your machine works as your SMBIOS determines CPU Power management, GPU profiles, USB maps and much more.
+Ao escolher a SMBIOS correta para o seu computador, é preciso entender que o processo vai além de simplesmente encontrar a que mais combina com a sua CPU. Vários aspectos podem afetar a forma como seu computador funciona, pois a SMBIOS determina o gerenciamento de energia da CPU, os perfis de GPU, os mapas de USB, entre outros.
 
-The main things to consider when selecting your SMBIOS:
+Os principais detalhes a se considerar no momento de escolher uma SMBIOS são:
 
-* CPU Type
-  * Specifically mobile vs desktop vs server, as this can greatly affect sleep and overall system stability
-  * This also determines whether or not you can use Apple's XCPM and what profiles you get
-    * These 2 are mostly resolved with CPUFriend: [Fixing Power management](https://dortania.github.io/OpenCore-Post-Install/universal/pm.html)
-  * Note AMD CPUs do not need to concern about this
-* GPU Type
-  * Many things are affected here, like GPU power management(AGPM), display out support(AGDP), sleep(AGDC) and much more.
-    * This is especially relevant when we look to the [Mac Mini](#mac-mini) SMBIOS that only uses mobile hardware, which doesn't match well with desktop hardware. This is the reason we highly discourage them unless used for [Intel's NUC series](https://www.intel.ca/content/www/ca/en/products/boards-kits/nuc.html) and such which are based off mobile hardware.
-    * Laptops should also pay very close attention, as Apple always assumes that when a dGPU is present for the SMBIOS, all display outs will be routed through it. This can become an issue when an Optimus laptop has its external displays wired through the iGPU instead, causing black screen issues which would require more patching.
-  * CPUs without an iGPU need to pay very close attention, as features like Quicklook and such will be broken if the SMBIOS expects an iGPU(ie. Every single iMac SMBIOS)
-    * For these situations, look closely at the iMac Pro and Mac Pro SMBIOS
-  * DRM is also tied in here as well however this is mostly resolved here: [Fixing DRM](https://dortania.github.io/OpenCore-Post-Install/universal/drm.html)
+* Tipo de CPU.
+  * Especificamente, se é de notebook, desktop ou servidor. Isso pode afetar significativamente a suspensão e a estabilidade geral do sistema.
+  * Isso também determina se será possível utilizar o XCPM da Apple e quais perfis ficam disponíveis.
+    * Esses dois problemas estão, em grande parte, resolvidos com a CPUFriend: [Corrigindo o Gerenciamento de Energia](https://deomkds.github.io/OpenCore-Post-Install/universal/pm.html).
+  * Usuários de CPUs AMD não precisam se preocupar com isso.
+* Tipo de GPU.
+  * Afeta muitas coisas, como o gerenciamento de energia da GPU (AGPM), o suporte às saídas de monitores (AGDP), a suspensão (AGDC), entre outras coisas.
+    * Isso é especificamente relevante ao se observar a SMBIOS do [Mac Mini](#mac-mini), que usa somente hardware de notebook e não combina muito bem com hardware de desktop. Este é o motivo pelo qual o uso dessa SMBIOS é desencorajado, a não ser que seja em computadores da série [Intel NUC](https://www.intel.com.br/content/www/br/pt/products/details/nuc.html) ou similares, por também utilizarem hardware de notebook.
+    * Usuários de notebooks também devem prestar muita atenção, já que a Apple sempre presume que, quando uma GPU dedicada está presente na SMBIOS, todas as saídas de vídeo serão direcionadas através dela. Isso pode se tornar um problema em notebooks com tecnologia Optimus. Caso eles possuam saídas de vídeo conectadas através da GPU integrada, problemas de tela preta podem acontecer. Isso exige ainda mais correções e patches.
+  * Usuários de CPUs que não possuem GPU integrada precisam prestar muita atenção, já que funções como o Quicklook e similares não funcionam quando há uma GPU integrada na SMBIOS (ex.: SMBIOS de todos os iMacs).
+    * Nessas situações, examine bem as SMBIOS do iMac Pro e do Mac Pro.
+  * A DRM também está ligada à SMBIOS, porém esse problema já foi quase todo resolvido: [Corrigindo a DRM](https://deomkds.github.io/OpenCore-Post-Install/universal/drm.html).
   
-* OS Support
-  * Mainly relevant for older hardware, as macOS may still have support for the CPU however no longer supports SMBIOS from that era
-    * Arrandale CPUs are a great example, as they still have OS support even in macOS 11, Big Sur(however no iGPU support past 10.13.6)
-* USB Devices
-  * Certain SMBIOS will have their own USB map which may attach to your hardware causing USB issues.
-    * See here for more info: [USB Mapping](https://dortania.github.io/OpenCore-Post-Install/usb/)
-  * Also to note, Skylake+ SMBIOS will also require a [USBX device](https://github.com/acidanthera/OpenCorePkg/tree/master/Docs/AcpiSamples/Source/SSDT-EC-USBX.dsl#L54L79) to fix USB current output
-    * See here for more info: [Fixing USB Power](https://dortania.github.io/OpenCore-Post-Install/usb/misc/power.html)
+* Suporte de Sistema Operacional.
+  * Relevante principalmente em hardware mais antigo, já que o macOS pode não mais suportar a SMBIOS antiga mesmo ainda oferecendo suporte para a CPU.
+    * CPUs Arrandale são um ótimo exemplo disso, já que ainda são suportadas pelo sistema operacional, até mesmo no macOS 11 Big Sur (mas sem suporte à GPU integrada depois do macOS 10.13.6 High Sierra).
+* Dispositivos USB.
+  * Certas SMBIOS possuem seu próprio mapa de USB, que podem se vincular ao hardware e causar problemas.
+    * Veja mais detalhes aqui: [Mapeando a USB](https://deomkds.github.io/OpenCore-Post-Install/usb/).
+  * Outra observação: SMBIOS de Skylake ou superior exigem a presença de um [dispositivo USBX](https://github.com/acidanthera/OpenCorePkg/tree/master/Docs/AcpiSamples/Source/SSDT-EC-USBX.dsl#L54L79) (em inglês) para corrigir a corrente de saída das portas.
+    * Veja mais detalhes aqui: [Fixing USB Power](https://dortania.github.io/OpenCore-Post-Install/usb/misc/power.html)
 
-::: details XCPM Supported SMBIOS
+::: details SMBIOS que suportam XCPM
 
 | SMBIOS |
 | :--- |
@@ -40,9 +40,9 @@ The main things to consider when selecting your SMBIOS:
 
 :::
 
-## How to decide
+## Como decidir?
 
-Generally our recommendations with SMBIOS is as follows:
+Geralmente, são essas as recomendações para encontrar a melhor SMBIOS:
 
 1. Find the right CPU Generation and tier as closely as possible
 2. Then match up with either iGPU only or dGPU SMBIOS
