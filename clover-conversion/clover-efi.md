@@ -20,7 +20,7 @@ Na maior parte do tempo, todas as *kexts* são suportadas no OpenCore. No entant
 **Suportados**
 
 * AudioDxe.efi (certifique-se de usar a versão distribuida no [OpenCorePkg](https://github.com/acidanthera/OpenCorePkg) e **não** a versão dos repositórios do Goldfish64 e do Clover).
-* CsmVideoDxe.efi(Note that [BiosVideo.efi](https://github.com/acidanthera/DuetPkg) may be preferred)
+* CsmVideoDxe.efi (Observe que o [BiosVideo.efi](https://github.com/acidanthera/DuetPkg) talvez seja preferível)
 * EnhancedFatDxe.efi
 * ExFatDxeLegacy.efi
 * ExFatDxe.efi
@@ -45,7 +45,7 @@ Na maior parte do tempo, todas as *kexts* são suportadas no OpenCore. No entant
 * VBoxIso9600.efi
 * XhciDxe.efi
 
-**Drivers provided/merged into OpenCore and so are no longer needed:**
+**Drivers fornecidos ou integrados no OpenCore e que não são mais necessários:**
 
 * APFS.efi
 * ApfsDriverLoader.efi
@@ -57,7 +57,7 @@ Na maior parte do tempo, todas as *kexts* são suportadas no OpenCore. No entant
 * AppleUITheme.efi
 * AptioInputFix.efi
 * AptioMemoryFix.efi
-* AudioDxe.efi(well kinda, see AudioDxe shipped with [OpenCorePkg](https://github.com/acidanthera/OpenCorePkg))
+* AudioDxe.efi (mais ou menos, veja o AudioDxe distribuido com o [OpenCorePkg](https://github.com/acidanthera/OpenCorePkg))
 * BootChimeDxe.efi
 * DataHubDxe.efi
 * EmuVariableUEFI.efi
@@ -68,19 +68,22 @@ Na maior parte do tempo, todas as *kexts* são suportadas no OpenCore. No entant
 * OcQuirks.efi
 * VirtualSMC.efi
 
-**Explicitly unsupported drivers:**
+**Drivers explicitamente não suportados:**
 
-* AppleUsbKbDxe.efi(replaced with OpenUsbKbDxe.efi)
+* AppleUsbKbDxe.efi (substituído pelo OpenUsbKbDxe.efi)
 * FSInject.efi
-* FwRuntimeServices.efi(replaced with OpenRuntime.efi)
+* FwRuntimeServices.efi (substituído pelo OpenRuntime.efi)
 * osxaptiofix2drv-free2000.efi
 * osxaptiofix2drv.efi
 * osxaptiofix3drv.efi
 * osxaptiofixdrv.efi
 * OsxFatBinaryDrv.efi
 * OsxLowMemFixDrv.efi
-* UsbKbDxe.efi(replaced with OpenUsbKbDxe.efi)
+* UsbKbDxe.efi (substituído pelo OpenUsbKbDxe.efi)
 
-### AptioMemoryFix Note
+### Observação Sobre o AptioMemoryFix
 
+Resolvi não traduzir essa seção pois algumas frases não fazem sentido. Considerando que toda essa parte sobre conversão do Clover parece estar inacabada, me parece normal encontrar textos incompletos como esse. O texto original pode ser lido a seguir.
+
+::: details Texto Original
 Well before we actually get started on converting the Clover config, we must first talk about converting from AptioMemoryFix. The main thing to note is that it's inside of OpenCore with OpenRuntime being an extension, this means that AptioMemoryFix and that there's also a lot more settings to choose from. Please see the hardware specific sections of the OpenCore guide to know what Booter settings your system may require(HEDT like X99 and X299 should look to the closest CPU like Skylake-X should refer to Skylake guide and **read the comments** as they mention specifics for your system).
