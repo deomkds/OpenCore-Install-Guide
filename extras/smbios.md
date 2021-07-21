@@ -1,3 +1,3 @@
-# Selecting the right SMBIOS
+# Selecionando a SMBIOS Correta
 
-Page has been moved here: [Choosing the right SMBIOS](https://dortania.github.io/OpenCore-Install-Guide/extras/smbios-support.html)
+Página foi movida para: [Escolhendo a SMBIOS Correta](https://deomkds.github.io/OpenCore-Install-Guide/extras/smbios-support.html)
