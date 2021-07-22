@@ -8,55 +8,55 @@ Essa seção é para aqueles usuários que queiram entender e corrigir o erro "C
 
 KASLR significa, em inglês, Kernel Address Space Layout Randomization (Aleatorização do Leiaute do Espaço de Endereços do Kernel). É usado para propósitos de segurança. Mais precisamente, o KASLR dificulta que invasores descubram onde objetos importantes estão na memória, já que as posições são aleatórias entre computadores e inicializações. Uma explicação mais aprofundada sobre o KASLR pode ser encontrada [aqui](https://lwn.net/Articles/569635/) (em inglês).
 
-Where this becomes an issue is when you introduce devices with either small memory maps or just way too many devices present. There likely is space for the kernel to operate but there's also free space where the kernel won't fit entirely. This is where `slide=xxx` fits in. Instead of letting macOS choose a random area to operate in each boot, we'll constrain it to somewhere that we know will work.
+Isso se torna um problema quando aparecem dispositivos com mapas de memória pequens ou com muitos dispositivos presentes. Embora seja muito provável que haja espaço para o kernel operar, existem muitas outras áreas livres onde o kernel não cabe completamente. É nesse cenário que entra o `slide=xxx`. Em vez de deixar que o macOS escolha uma área aleatória para operar a cada inicialização, ele é forçado a operar em um local em que sabe-se que irá funcionar.
 
-## And who is this info for
+## E Para Quem É Essa Informação
 
-Well as I mentioned earlier, this is for users who don't have enough space for the kernel or moves to a place that is too small. You'll generally experience an error similar to this when booting:
+Como mencionado anteriormente, essa opções é para usuários que não possuem espaço suficiente para o kernel ou em situações em que ele se move para lugares muito pequenos. Geralmente resultará em um erro como esse ao iniciar:
 
 ```
 Error allocating 0x1197b pages at 0x0000000017a80000 alloc type 2
 Couldn't allocate runtime area
 ```
 
-With some variation:
+Com algumas variações:
 
 ```
 Only 244/256 slide values are usable!
 ```
 
-Or even crashes while running macOS:
+Ou até mesmo travamentos ao executar o macOS:
 
 ```
 panic(cpu 6 caller 0xffffff801fc057ba): a freed zone element has been modified in zone kalloc.4096: expected 0x3f00116dbe8a46f6 but found 0x3f00116d00000000
 ```
 
-The best part about these errors is that they can be random, also the reason why power cycling your PC 20 times also can fix the issue but only temporarily.
+A melhor parte sobre esses erros é que eles podem ser aleatórios. Isso também explica por que ligar e desligar o computador 20 vezes pode resolver o problema, embora temporariamente.
 
-Fun Fact: It takes around 31 ms to find an area to operate in, manually setting a slide value can on average can reduce boot times by 0.207%!!!
+Fato Curioso: Leva mais ou menos 31ms para o kernel encontrar uma área de operação. Configurar um valor de `slide` manulmente pode, em média, reduzir o tempo de inicialização por incríveis 0,207%!!!
 
-## So how do I fix this
+## Então Como Consertar Isso
 
-The real fix to this is quite simple actually. What you'll need:
+A solução real para isso é bastante simples, na verdade. Será necessário:
 
-* **OpenCore users**:
+* **Usuários do OpenCore**:
   * [OpenRuntime](https://github.com/acidanthera/OpenCorePkg/releases)
-  * [OpenShell](https://github.com/acidanthera/OpenCorePkg/releases)(Don't forget to enable this under `Root -> Misc -> Tools`)
+  * [OpenShell](https://github.com/acidanthera/OpenCorePkg/releases) (Não se esqueca de ativá-lo no caminho `Root -> Misc -> Tools`).
 
-And we'll also need to configure our config.plist -> Booter:
+E também será preciso alterar a `config.plist`, na seção `Booter`:
 
 * **AvoidRuntimeDefrag**: YES
-  * Fixes UEFI runtime services like date, time, NVRAM, power control, etc
+  * Corrige serviços UEFI em tempo de execução, como a data, a hora, a NVRAM, o controle de energia etc.
 * **DevirtualiseMmio**: YES
-  * Reduces Stolen Memory Footprint, expands options for `slide=N` values and very helpful with fixing Memory Allocation issues on Z390.
+  * Reduz a quantidade de memória reservada. Por consequência, expande as opções de valores do `slide=N` e ajuda bastante a corrigir problemas de alocação de memória em Z390.
 * **EnableSafeModeSlide**: YES
-  * Allows for slide values to be used in Safe mode
+  * Permite que as variáveis `slide` possam ser usadas no modo de segurança.
 * **ProtectUefiServices**: NO
-  * Protects UEFI services from being overridden by the firmware, mainly relevant for VMs, 300 series and newer systems like Ice Lake and Comet Lake
+  * Protege os serviços de UEFI de serem sobrescritos pelo firmware. Relevante principalmente em máquinas virtuais, computadores série 300 e mais novos baseados em Ice Lake e Comet Lake.
 * **ProvideCustomSlide**: YES
-  * This makes sure the kernel will only choose good regions and avoid those that may result in boot failures. It's still random but omits those bad regions in its randomization
+  * Isso garante que o kernel somente escolherá regiões boas e evitar aquelas que podem resultar em falha de inicialização. Ainda é aleatório, mas omite as regiões ruins na aleatorização.
 * **RebuildAppleMemoryMap**: YES
-  * Generates Memory Map compatible with macOS, can break on some laptop OEM firmwares so if you receive early boot failures disable this, this makes sure our memory map will fit to what the kernel expects
+  * Gera um mapa de memória compatível com o macOS, mas pode não funcionar em alguns firmwares de notebooks OEM. Ao encontrar falhas precoces na inicialização, desative esta opção. Isso garante que o mapa de memória se encaixará naquilo que o kernel espera.
 
 ## Prepping the BIOS
 

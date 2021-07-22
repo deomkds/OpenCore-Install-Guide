@@ -93,7 +93,7 @@ Configurações relacionadas à aplicação de patches no `boot.efi` e a correç
   * Esta *quirk* e `RebuildAppleMemoryMap` podem conflitar às vezes. É recomendado ativar a última em plataformas mais novas e desativar esta *quirk*.
   * No entanto, devido a problemas com OEMs que não utilizam as últimas *builds* EDKII, falhas precoces na inicialização podem acontecer ao usar o combo citado acima. Isso decorre da ausência do `MEMORY_ATTRIBUTE_TABLE`. Recomenda-se portanto, desativar `RebuildAppleMemoryMap` e ativar o `EnableWriteUnprotector`. Mais informações sobre isso podem ser encontradas na seção de [Solução de Problemas](/troubleshooting/extended/kernel-issues.md#stuck-on-eb-log-exitbs-start).
 * **ProvideCustomSlide**: YES
-  * Usado para calcular a variável `slide`. No entanto, a necessidade desta *quirk* é determinada pela existência da mensagem `OCABC: Only N/256 slide values are usable!` no *log* de depuração. Se a mensagem `OCABC: All slides are usable! You can disable ProvideCustomSlide!` estiver presente no *log*, desative o `ProvideCustomSlide`.
+  * Usado para calcular a variável `slide`. No entanto, a necessidade desta *quirk* é determinada pela presença da mensagem `OCABC: Only N/256 slide values are usable!` no *log* de depuração. Se a mensagem `OCABC: All slides are usable! You can disable ProvideCustomSlide!` estiver presente no *log*, desative o `ProvideCustomSlide`.
 * **RebuildAppleMemoryMap**: YES
   * Gera um mapa de memória compatível com o macOS, mas pode não funcionar em alguns firmwares de notebooks OEM. Ao encontrar falhas precoces na inicialização, desative esta *quirk*.
 * **SetupVirtualMap**: YES
