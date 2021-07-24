@@ -48,7 +48,7 @@ E também será preciso alterar a `config.plist`, na seção `Booter`:
 * **AvoidRuntimeDefrag**: YES
   * Corrige serviços UEFI em tempo de execução, como a data, a hora, a NVRAM, o controle de energia etc.
 * **DevirtualiseMmio**: YES
-  * Reduz a quantidade de memória reservada. Por consequência, expande as opções de valores do `slide=N` e ajuda bastante a corrigir problemas de alocação de memória em placas-mãe Z390.
+  * Reduz a quantidade de memória reservada, expande as opções de valores do `slide=N` e ajuda bastante a corrigir problemas de alocação de memória em placas-mãe Z390.
 * **EnableSafeModeSlide**: YES
   * Permite que as variáveis `slide` possam ser usadas no modo de segurança.
 * **ProtectUefiServices**: NO
