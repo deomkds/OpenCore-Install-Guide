@@ -1,16 +1,16 @@
-# Corrigindo os Valores de slide do KASLR
+# Calculando o Valor de Slide do KASLR
 
 Essa seção é para aqueles usuários que queiram entender e corrigir o erro "Couldn't allocate runtime area", mais comum em placas-mãe Z390, X99 e X299.
 
-* Observação: é necessário usar o OpenCore. O Clover não é mais suportado por este guia.
+* Observação: é necessário usar o OpenCore. O Clover não é mais suportado.
 
-## O Que é KASLR?
+## Definição de KASLR
 
 KASLR significa, em inglês, *Kernel Address Space Layout Randomization* (Aleatorização do Leiaute do Espaço de Endereços do Kernel). É usado para fins de segurança. Mais precisamente, o KASLR dificulta que invasores descubram onde os objetos importantes estão na memória, já que as posições são aleatórias entre computadores e inicializações. Uma explicação mais aprofundada sobre o KASLR pode ser encontrada [aqui](https://lwn.net/Articles/569635/) (em inglês).
 
 Isso se torna um problema quando aparecem computadores com mapas de memória pequenos ou que possuem muitos dispositivos presentes. Embora seja bastante provável haver espaço para o *kernel* operar, existem muitas outras áreas livres onde o *kernel* não cabe completamente. É nesse cenário que entra o `slide=xxx`. Em vez de deixar que o macOS escolha uma área aleatória para operar a cada inicialização, ele é forçado a operar em um local em que se sabe que irá funcionar.
 
-## E Para Quem É Essa Informação
+## Para Quem Se Aplica
 
 Como mencionado anteriormente, essa opções são para usuários que não possuem espaço suficiente para o *kernel* ou em situações em que ele se move para lugares muito pequenos. Geralmente resultará em um erro como esse ao iniciar:
 
@@ -35,7 +35,7 @@ A melhor parte sobre esses erros é que eles podem ser aleatórios. Isso também
 
 Fato curioso: leva mais ou menos 31ms para o *kernel* encontrar uma área de operação. Configurar um valor de `slide` manulmente pode, em média, reduzir o tempo de inicialização por incríveis 0,207%!!!
 
-## Então Como Consertar Isso
+## Como Corrigir
 
 A solução real para isso é bastante simples, na verdade. Será necessário:
 
@@ -84,7 +84,7 @@ Com a EFI ajustada, a `config.plist` e a BIOS configuradas, é hora de testar a 
 
 ## Encontrando o Valor de Slide
 
-Abra o `shell` EFI no seu gerenciador de *boot* preferido e execute o `memap`. Isso exibirá uma lista de todas as páginas e seus tamanhos. Aqui é onde a diversão começa.
+Abra o `shell` EFI no seu gerenciador de *boot* preferido e execute o `memmap`. Isso exibirá uma lista de todas as páginas e seus tamanhos. Aqui é onde a diversão começa.
 
 Exemplo do que será exibido:
 
@@ -134,14 +134,14 @@ Ao calcular o valor de `slide`, às vezes o valor retornado pode ser muito peque
 
 E para os usuários que estejam tendo problemas para encontrar os valores de `slide`, também podem digitar `$slide [insira o maior valor da coluna Nº de Páginas]` no canal #Sandbox no Discor do [r/Hackintosh](https://discord.gg/u8V7N5C) (em inglês).
 
-> But this is soooooo hard
+> Mas isso é tããããããããão difícil
 
-Well fret not, for there is a simple solution. After running `memmap` in the shell, run:
+Bom, não esquenta, pois há uma solução simples. Após abrir o `memmap` no `shell`, execute:
 
 ```
-shell> fs0: //replace with your USB
+shell> fs0: //Substitua pelo seu pendrive.
 
-fs0:\> dir //to verify this is the right directory, if not try fs1 and so on
+fs0:\> dir //Para verificar que se trada do diretório correto. Se não, tente fs1 e assim por diante.
 
 Directory of fs0:\
 01/01/01 3:30p   EFI
@@ -149,15 +149,15 @@ Directory of fs0:\
 fs0:\> memmap > memmap.txt
 ```
 
-This will add a `memmap.txt` file to the root of your EFI, you can then proceed to drop it into the r/Hackintosh discord in the #Sandbox channel and type `$slide [insert a link to memmap.txt]`
+Isso criará um arquivo `memmap.txt` na raíz da sua partição EFI. Agora, poste o arquivo no Discord do r/Hackintosh, no canal #Sandbox e digite `$slide [insira um link para o arquivo memmap.txt]`.
 
-## Using DevirtualiseMmio
+## Usando o DevirtualiseMmio
 
-DevirtualiseMmio is quite an interesting quirk, specifically in that it gets around a huge hurdle with many PCI device systems like some Z390 boards and virtually all HEDT boards like X99 and X299. How it does this is it takes MMIO regions and removes runtime attributes allowing them to be used as space for the kernel to sit comfortably, pair this with `ProvideCustomSlide` quirk means we can keep the security feature of slide while also getting a bootable machine.
+O DevirtualiseMmio é uma *quirk* interessante. Isso porque ela contorna um grande problema com dispositivos PCI em alguns computadores, como em placas-mãe Z390 e praticamente todas as placas HEDT, como a X99 e a X299. O que ela faz é acessar as regiões de MMIO e remover os atributos de tempo de execução, permitindo que sejam usados como espaço onde o *kernel* pode caber confortavelmente. Combinada com a *quirk* `ProvideCustomSlide`, é possível manter o recurso de segurança do `slide` ao mesmo tempo em que se torna possível iniciar o sistema.
 
-For extremely problematic systems like Threadripper TRX40 19H, we need to find specific regions that aren't required for proper operation. This is where `MmioWhitelist` comes into play. Note that whitelisting isn't required for most systems
+Para computadores extremamente problemáticos, como o Threadripper TRX40 19H, é preciso encontrar as regiões específicas que não são necessárias para o funcionamento normal. É nesse momento em que o  `MmioWhitelist` entra. Observe que o processo de *whitelisting* não é necessário na maioria dos computadores.
 
-If you run the debug version of OpenCore with DevirtualiseMmio, you'll notice this in your logs:
+Execute a versão de depuração do OpenCore com a opção DevirtualiseMmio e observe as seguintes informações no log:
 
 ```
 21:495 00:009 OCABC: MMIO devirt start
@@ -170,11 +170,11 @@ If you run the debug version of OpenCore with DevirtualiseMmio, you'll notice th
 21:520 00:003 OCABC: MMIO devirt end, saved 278608 KB
 ```
 
-* Note: See [OpenCore Debugging](../troubleshooting/debug.md) on how to enable logging to file
+* Observação: Veja a página [Depurando o OpenCore](../troubleshooting/debug.md) para descobrir como ativar o arquivo de log.
 
-So we have 6 regions we need to go through and see which are bad, best idea is to block all MMIO sections *except* one and try each region to get a list of good regions.
+Neste exemplo, há 6 regiões que precisam ser verificadas para descobrir quais são ruins. A melhor estratégia é bloquear todas as seções de MMIO, *exceto* uma, e tentar cada uma delas até obter uma lista das regiões boas.
 
-Now lets take the above example and create our own MmioWhitelist, we'll need to first convert the address from hexadecimal to decimal:
+Agora, o exemplo acima será utilizado para criar uma MmioWhitelist. Primeiramente, é preciso converter os endereços de hexadecimal para decimal:
 
 * MMIO devirt 0x60000000 -> 1610612736
 * MMIO devirt 0xFE000000 -> 4261412864
@@ -183,6 +183,14 @@ Now lets take the above example and create our own MmioWhitelist, we'll need to 
 * MMIO devirt 0xFEE00000 -> 4276092928
 * MMIO devirt 0xFF000000 -> 4278190080
 
-Should look something like this when done:
+Então, adicione cada um deles no caminho `Root > Booter > MmioWhitelist`, no arquivo `config.plist`. Crie uma entrada para cada linha e preencha as chaves da seguinte maneira:
+
+| Chave | Tipo | Valor |
+| :--- | :--- | :--- |
+| Address | Number | 1610612736 |
+| Comment | String | Qualquer coisa que identifique os endereços, veja o exemplo na imagem abaixo. |
+| Enabled | Boolean | YES |
+
+Deve ficar assim quando terminado:
 
 ![](../images/extras/kaslr-fix-md/mmio-white.png)
