@@ -639,8 +639,8 @@ Configure o `Generic -> ROM` tanto para uma ROM da Apple (extraída de um Mac de
 
 ![UEFI](../images/config/config-universal/aptio-v-uefi.png)
 
-**ConnectDrivers**: YES
-* Força a conexão dos drivers `.efi`. Mudar para `NO` pode acelerar um pouco a inicialização, mas exigirá que os drivers se conectem por conta própria. Acontece que nem todos fazem isso, como é o caso de alguns drivers de sistema de arquivos, que podem não carregar caso esta opção esteja configurada para `NO`.
+* **ConnectDrivers**: YES
+  * Força a conexão dos drivers `.efi`. Mudar para `NO` pode acelerar um pouco a inicialização, mas exigirá que os drivers se conectem por conta própria. Acontece que nem todos fazem isso, como é o caso de alguns drivers de sistema de arquivos, que podem não carregar caso esta opção esteja configurada para `NO`.
 
 ### Drivers
 

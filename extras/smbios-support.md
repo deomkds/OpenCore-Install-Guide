@@ -321,7 +321,7 @@ Informações extras sobre as CPUs da Apple:
 | iMac21,1 | Mid 2021 | Apple M1 | J256 | 11.3 (20E232?) |
 | iMac21,2 | Mid 2021 | Apple M1 | J257 | 11.3 (20E232?) |
 
-::: details Power PC SMBIOS Table
+::: details Tabela de SMBIOS de Power PC
 
 #### PowerBook - PowerPC
 
