@@ -33,7 +33,7 @@ Agora, com isso fora do caminho, um breve lembrete sobre as ferramentas necessá
 
 É aqui onde todas as SSDTs do computador são adicionadas. Elas são muito importantes para **iniciar o macOS** e possuem muitos usos, como [mapear USBs](https://deomkds.github.io/OpenCore-Post-Install/usb/), [desativar GPUs não suportdas](../extras/spoof.md) e coisas do tipo. Da forma como o OpenCore funciona, **elas são necessárias para iniciar o macOS**. O guia sobre como fazê-las pode ser encontrado aqui: [**Primeiros Passos com a ACPI**](https://deomkds.github.io/Getting-Started-With-ACPI/).
 
-Serão necessárias algumas SSDTs para trazer de volta algumas funcionalidades que o Clover possuía:
+Serão necessárias algumas SSDTs para trazer de volta algumas funcionalidades que o Clover oferecia:
 
 | SSDTs Necessárias | Descrição |
 | :--- | :--- |
