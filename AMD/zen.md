@@ -6,10 +6,10 @@
 
 ## Ponto de Partida
 
-Criar uma config.plist pode parecer difícil, mas não é. Este guia mostrará como configurar tudo, só é preciso ter tempo. Não se preocupe, você não será deixado no escuro. Isso significa que, caso surjam problemas, cheque as configurações da sua `config.plist` para garantir que está tudo certo. O principal a ser observado com o OpenCore é:
+Criar uma config.plist pode parecer difícil, mas não é. Este guia mostrará como configurar tudo, só é preciso ter tempo. Não se preocupe, você não será deixado no escuro. Isso significa que, caso surjam problemas, verifique as configurações da sua `config.plist` para garantir que está tudo certo. O principal a ser observado com o OpenCore é:
 
 * **Todas as propriedades precisam estar definidas**. O OpenCore não reverte para valores padrão, então **não exclua nenhuma seção, a não ser que seja explicitamente indicado**. Se o guia não menciona uma opção, mantenha os padrões.
-* **O arquivo Sample.plist não pode ser usado do jeito que vem**. É preciso configurá-lo para o seu computador antes de usá-lo.
+* **O arquivo Sample.plist não pode ser usado sem alterações**. É preciso configurá-lo para o seu computador antes de usá-lo.
 * **NÂO USE CONFIGURADORES**. Eles raramente respeitam as configurações do OpenCore e alguns, como o do Mackie, adicionam propriedades do Clover e corrompem as plists!
 
 Agora, com isso fora do caminho, um breve lembrete sobre as ferramentas necessárias:
@@ -34,11 +34,11 @@ Agora, com isso fora do caminho, um breve lembrete sobre as ferramentas necessá
 
 ::: tip Informações
 
-É aqui onde todas as SSDTs do computador são adicionadas. Elas são muito importantes para **iniciar o macOS** e possuem muitos usos, como [mapear as USB](https://deomkds.github.io/OpenCore-Post-Install/usb/), [desativar GPUs não suportdas](../extras/spoof.md) e coisas do tipo. Da forma como o OpenCore funciona, **elas são necessárias para dar _boot_**. O guia sobre como fazê-las pode ser encontrado aqui: [**Primeiros Passos com a ACPI**](https://deomkds.github.io/Getting-Started-With-ACPI/).
+É aqui onde todas as SSDTs do computador são adicionadas. Elas são muito importantes para **iniciar o macOS** e possuem muitos usos, como [mapear USBs](https://deomkds.github.io/OpenCore-Post-Install/usb/), [desativar GPUs não suportdas](../extras/spoof.md) e coisas do tipo. Da forma como o OpenCore funciona, **elas são necessárias para iniciar o macOS**. O guia sobre como fazê-las pode ser encontrado aqui: [**Primeiros Passos com a ACPI**](https://deomkds.github.io/Getting-Started-With-ACPI/).
 
 | SSDTs Necessárias | Descrição |
 | :--- | :--- |
-| **[SSDT-EC-USBX](https://deomkds.github.io/Getting-Started-With-ACPI/)** | Corrige tanto o controlador integrado quanto a energia da USB. Veja o guia [Primeiros Passos com a ACPI](https://deomkds.github.io/Getting-Started-With-ACPI/) para mais detalhes. |
+| **[SSDT-EC-USBX](https://deomkds.github.io/Getting-Started-With-ACPI/)** | Corrige tanto o controlador integrado quanto a energia da USB. Veja mais no guia [Primeiros Passos com a ACPI](https://deomkds.github.io/Getting-Started-With-ACPI/) para mais detalhes. |
 | **[SSDT-CPUR](https://github.com/naveenkrdy/Misc/blob/master/SSDTs/SSDT-CPUR.dsl)** | Corrige as definições de CPU em placas-mãe B550 e A520. **Não utilize** caso não possua uma placa-mãe AMD B550 ou A520. É possível baixar a versão compilada aqui: [SSDT-CPUR.aml](https://github.com/deomkds/Getting-Started-With-ACPI/blob/master/extra-files/compiled/SSDT-CPUR.aml) |
 
 Observe que **não é preciso** adicionar a sua `DSDT.aml` aqui, pois ela já está presente no firmware do seu computador. Então, se ela estiver presente nesta seção, remova a sua entrada da `config.plist` e exclua o arquivo `.aml` da pasta `EFI/OC/ACPI`.
@@ -67,7 +67,7 @@ Esta seção é dedicada a *quirks* relacionadas com a aplicação de patches no
 
 ### MmioWhitelist
 
-Esta seção permite que os espaços de memória que são geralmente ignorados sejam transmitidos diretamente para o macOS. Útil ao ser combinado com o `DevirtualiseMmio`.
+Esta seção permite que certos dispositivos que são geralmente ignorados, sejam transmitidos diretamente para o macOS. Útil ao ser combinado com o `DevirtualiseMmio`.
 
 ### Quirks
 
@@ -91,9 +91,9 @@ Configurações relacionadas à aplicação de patches no `boot.efi` e a correç
   * Permite que as variáveis `slide` possam ser usadas no modo de segurança.
 * **EnableWriteUnprotector**: NO
   * Esta *quirk* e `RebuildAppleMemoryMap` podem conflitar às vezes. É recomendado ativar a última em plataformas mais novas e desativar esta *quirk*.
-  * No entanto, devido a problemas com OEMs que não utilizam as últimas *builds* EDKII, falhas precoces na inicialização podem acontecer ao usar o combo citado acima. Isso decorre da ausência do `MEMORY_ATTRIBUTE_TABLE`. Recomenda-se portanto, desativar `RebuildAppleMemoryMap` e ativar o `EnableWriteUnprotector`. Mais informações sobre isso podem ser encontradas na seção de [Solução de Problemas](/troubleshooting/extended/kernel-issues.md#stuck-on-eb-log-exitbs-start).
+  * No entanto, devido a problemas com OEMs que não utilizam as últimas *builds* EDKII, a combinação acima pode causar falhas precoces na inicialização. Isso decorre da ausência do `MEMORY_ATTRIBUTE_TABLE`. Recomenda-se portanto, desativar `RebuildAppleMemoryMap` e ativar o `EnableWriteUnprotector`. Mais informações sobre isso podem ser encontradas na seção de [Solução de Problemas](/troubleshooting/extended/kernel-issues.md#stuck-on-eb-log-exitbs-start).
 * **ProvideCustomSlide**: YES
-  * Usado para calcular a variável `slide`. No entanto, a necessidade desta *quirk* é determinada pela presença da mensagem `OCABC: Only N/256 slide values are usable!` no *log* de depuração. Se a mensagem `OCABC: All slides are usable! You can disable ProvideCustomSlide!` estiver presente no *log*, desative o `ProvideCustomSlide`.
+  * Usado para variáveis `slide` calculadas. No entanto, a necessidade desta *quirk* é determinada pela presença da mensagem `OCABC: Only N/256 slide values are usable!` no *log* de depuração. Se a mensagem `OCABC: All slides are usable! You can disable ProvideCustomSlide!` estiver presente no *log*, desative o `ProvideCustomSlide`.
 * **RebuildAppleMemoryMap**: YES
   * Gera um mapa de memória compatível com o macOS, mas pode não funcionar em alguns firmwares de notebooks OEM. Ao encontrar falhas precoces na inicialização, desative esta *quirk*.
 * **SetupVirtualMap**: YES
@@ -278,7 +278,7 @@ Configurações relacionadas ao *kernel*. Ative somente as seguintes opções:
   * Desativa múltiplos acessos ao MSR necessários em CPUs não suportadas como Pentiums e alguns Xeons.
 * **CustomSMBIOSGuid**: NO
   * Aplica patches de GUID quando `UpdateSMBIOSMode` está configurado para `Custom`. Mais relevante para notebooks Dell.
-  * Ativar esta *quirk* em conjunto com `PlatformInfo -> UpdateSMBIOSMode -> Custom` desativará a injeção de SMBIOS em sistemas operacionais que não sejam da Apple. Este guia não endossa este método pois quebra a compatibilidade com o Bootcamp. Use por sua conta e risco.
+  * Ativar esta *quirk* em conjunto com `PlatformInfo -> UpdateSMBIOSMode -> Custom` desativará a injeção de SMBIOS em sistemas operacionais que não sejam da Apple. Este guia não endossa este método, pois quebra a compatibilidade com o Bootcamp. Use por sua conta e risco.
 * **DisableIoMapper**: NO
   * CPUs AMD não possuem suporte a DMAR ou VT-D, portanto é irrelevante.
 * **DisableLinkeditJettison**: YES
@@ -299,6 +299,9 @@ Configurações relacionadas ao *kernel*. Ative somente as seguintes opções:
   * Configura o intervalo de tempo do TRIM (em microsegundos) em SSDs com sistema de arquivos APFS. Aplicável somente para o macOS 10.14 Mojave ou mais novos que estejam utilizando SSDs problemáticos.
 * **XhciPortLimit**: YES
   * Isto é, na verdade, o patch que corrige o limite de 15 portas USB. Não dependa dele, pois não é uma solução garantida para corrigir problemas de USB. Uma solução mais apropriada para computadores com CPUs AMD pode ser encontrado aqui: [Mapeamento de USB em AMD](https://deomkds.github.io/OpenCore-Post-Install/usb/).
+
+O motivo para tal é que o UsbInjectAll reimplementa uma funcionalidade integrada do macOS sem os ajustes apropriados. É muito mais limpo simplesmente descrever suas portas em uma *kext* com só um arquivo `.plist` dentro, o que não desperdiçará memória em tempo de execução e coisas do tipo.
+
 :::
 
 ### Scheme
@@ -408,7 +411,7 @@ Segurança é bastante autoexplicativa. **Não pule** esta parte. Eis o que deve
   * Configurar para `0` permite ver todas as unidades disponíveis. Veja a seção [Segurança](https://deomkds.github.io/OpenCore-Post-Install/universal/security.html) para obter mais detalhes. **O OpenCore não iniciará pendrives se esta opção estiver configurada para Default**.
 * **SecureBootModel**: Default
   * Ativa a funcionalidade de Inicialização Segura da Apple no macOS. Consulte a seção [Segurança](https://dortania.github.io/OpenCore-Post-Install/universal/security.html) para mais detalhes.
-  * Observação: Usuários podem notar que atualizar o OpenCore em um sistema operacional já instalado pode resultar em falhas precoces de inicialização. Para resolver isso, veja: [Parado em OCB: LoadImage failed - Security Violation](/troubleshooting/extended/kernel-issues.md#stuck-on-ocb-loadimage-failed-security-violation).
+  * Observação: Usuários podem notar que atualizar o OpenCore em um sistema operacional já instalado pode resultar em falhas precoces de inicialização. Para resolver isso, veja: [Parado em OCB: LoadImage failed - Security Violation](/troubleshooting/extended/kernel-issues.md#stuck-on-ocb-loadimage-failed-security-violation) (em inglês).
 
 :::
 
@@ -457,7 +460,7 @@ GUID de NVRAM do OpenCore. Relevante principalmente para usuários da RTCMemoryF
 ::: details Informação Mais Detalhada
 
 * **rtc-blacklist**: <>
-  * Para ser usado em conjunto com a RTCMemoryFixup. Acesse esta página para obter mais detalhes: [Corrigindo problemas de escrita do RTC](https://deomkds.github.io/OpenCore-Post-Install/misc/rtc.html#finding-our-bad-rtc-region)
+  * Para ser usado em conjunto com a RTCMemoryFixup. Acesse esta página para obter mais detalhes: [Corrigindo problemas de escrita do RTC](https://deomkds.github.io/OpenCore-Post-Install/misc/rtc.html#finding-our-bad-rtc-region) (em inglês).
   * A maioria dos usuários pode ignorar esta seção.
 
 :::
@@ -485,10 +488,10 @@ Máscara de bits da Proteção da Integridade do Sistema (SIP).
 
 * **csr-active-config**: `00000000`
   * Confgigurações da Proteção da Integridade do Sistema (SIP). É geralmente recomendado alterar essa opção por meio da partição de Recuperação, usando o utilitário de linha de comando `csrutil`.
-  * Por padrão, o `csr-active-config` é configurado para `00000000`, o que ativa a Proteção da Integridade do Sistema. É possível escolher uma variedade de valores diferentes, mas de maneira geral, recomenda-se mantê-lo ligado para melhores práticas de segurança. Mais informações podem ser encontradas na página de solução de problemas: [Desativando o SIP](../troubleshooting/extended/post-issues.md#disabling-sip).
+  * Por padrão, o `csr-active-config` é configurado para `00000000`, o que ativa a Proteção da Integridade do Sistema. É possível escolher uma variedade de valores diferentes, mas de maneira geral, recomenda-se mantê-lo ligado para melhores práticas de segurança. Mais informações podem ser encontradas na página de solução de problemas: [Desativando o SIP](../troubleshooting/extended/post-issues.md#desativando-o-sip).
 
 * **run-efi-updater**: `No`
-  * Isso é usado para prevenir que os pacotes de atualização de firmware da Apple sejam instalados e quebrem a ordem de inicialização. É importante pois essas atualizações de firmware (criadas para os Macs) não funcionam em *hackintoshes*.
+  * Isso é usado para prevenir que os pacotes de atualização de firmware da Apple sejam instalados e quebrem a ordem de inicialização. É importante, pois essas atualizações de firmware (criadas para os Macs) não funcionam em *hackintoshes*.
 
 * **prev-lang:kbd**: <>
   * Necessário para teclados não latinos. Use o formato `lang-COUNTRY:keyboard`. Recomenda-se manter vazio, mas é possível especificá-lo caso seja necessário. **O padrão na Sample.plist é russo.**):
@@ -658,6 +661,7 @@ Relevante principalmente em máquinas virtuais, Macs antigos e para usuários do
 ### Quirks
 
 ::: tip Informações
+
 Configurações das *quirks* relacionados ao ambiente UEFI. Altere as seguintes opções:
 
 | Quirk | Ativada | Observação |
