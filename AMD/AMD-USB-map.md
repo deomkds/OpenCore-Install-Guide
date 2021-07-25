@@ -1,4 +1,4 @@
-# Mapeamento USB em AMD
+# Mapeando Portas USB em Hardware AMD
 
 Para aqueles que estiverem procurando pelo guia de mapeamento de USB em plataformas AMD, ele foi movido para este local:
 
