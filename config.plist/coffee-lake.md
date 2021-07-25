@@ -103,7 +103,7 @@ Configurações relacionadas à aplicação de patches no `boot.efi` e a correç
 * **RebuildAppleMemoryMap**: YES
   * Gera um mapa de memória compatível com o macOS, mas pode não funcionar em alguns firmwares de notebooks OEM. Ao encontrar falhas precoces na inicialização, desative esta *quirk*.
 * **SetupVirtualMap**: YES
-  * Corrige as chamadas de `SetVirtualAddresses` para endereços virtuais. Computadores com CPUs Skylake ou mais novas talvez não precisem disso. Alguns firmwares, como o Gigabyte, talvez ainda necessite desta opção, pois podem causar *kernel panics* sem ela.
+  * Corrige as chamadas de `SetVirtualAddresses` para endereços virtuais. Computadores com CPUs Skylake ou mais novas talvez não precisem disso. Alguns firmwares, como o Gigabyte, talvez ainda necessite desta opção, pois podem ter *kernel panics* sem ela.
 * **SyncRuntimePermissions**: YES
   * Corrige o alinhamento com tabelas MAT e é necessária para iniciar o Windows e o Linux com as tabelas MAT. Também é recomendado para o macOS. Relevante principalmente para usuários da *quirk* `RebuildAppleMemoryMap`.
 
@@ -127,7 +127,7 @@ O `AAPL,ig-platform-id` é o que o macOS usa para determinar como os drivers da 
 | :--- | :--- |
 | 07009B3E | Usado quando a GPU integrada de desktops é usada para exibir as imagens no monitor. |
 | 00009B3E | Alternativa a 07009B3E, caso não funcione. |
-| 0300913E | Usado quando a GPU integrada de desktop é utilizada somente para tarefas de computação e não exibe imagens em um monitor.  |
+| 0300913E | Usado quando a GPU integrada de desktop é utilizada somente para tarefas de computação e não exibe imagens em um monitor. |
 
 * **Observação**: no macOS 10.15.5 Catalina ou mais novos, parece haver muitos problemas de tela preta ao utilizar `07009B3E`. Se problemas parecidos acontecerem, tente usar `00009B3E`.
 
@@ -534,7 +534,7 @@ Reescreve as variáveis NVRAM na marra. Observe que `Add` **não sobrescreve** v
 
 Para configurar a informação da SMBIOS, será utilizado o aplicativo [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS), desenvolvido por CorpNewt.
 
-Neste exemplo de Coffee Lake example, a SMBIOS do iMac19,1 será utilizada. Isso é intencional, por questões de compatibilidade. Existem duas principais SMBIOS usadas em computadores com CPUs Coffee Lake:
+Neste exemplo de Coffee Lake, a SMBIOS do iMac19,1 será utilizada. Isso é intencional, por questões de compatibilidade. Existem duas principais SMBIOS usadas em computadores com CPUs Coffee Lake:
 
 | SMBIOS | Hardware |
 | :--- | :--- |
