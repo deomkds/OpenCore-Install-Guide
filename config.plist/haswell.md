@@ -526,7 +526,6 @@ Reescreve as variáveis NVRAM na marra. Observe que `Add` **não sobrescreve** v
 
 ![PlatformInfo](../images/config/config.plist/haswell/smbios.png)
 
-
 ::: tip Informações
 
 Para configurar a informação da SMBIOS, será utilizado o aplicativo [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS), desenvolvido por CorpNewt.
@@ -659,7 +658,7 @@ Configurações das *quirks* relacionados ao ambiente UEFI. Altere as seguintes 
 ::: details Informação Mais Detalhada
 
 * **IgnoreInvalidFlexRatio**: YES
-  * Fix for when MSR_FLEX_RATIO (0x194) can't be disabled in the BIOS, required for all pre-Skylake based systems
+  * Correção para quando o MSR\_FLEX\_RATIO (0x194) não puder ser desabilitado na BIOS. Necessári em todos os computadores com CPUs Skylake ou anteriores.
 
 * **DisableSecurityPolicy**: NO
   * Desativa a política de segurança de plataforma no firmware. Recomendado para firmwares problemáticos que impeçam o carregamento de drivers de firmware de terceiros ao desligar a Inicialização Segura.
@@ -711,7 +710,7 @@ Observe que essa ferramenta não é desenvolvida nem mantida pelo time Dortania 
 | Thunderbolt | | Só durante a instalação inicial, já que as portas Thunderbolt podem causar problemas caso não estejam configuradas corretamente. |
 | Intel SGX | | |
 | Intel Platform Trust | | |
-| CFG Lock (MSR 0xE2 write protection) | Trava de CFG (proteção de escrita do MSR 0xE2) | **Precisa estar desligado. Se a opção da BIOS não puder ser encontrada, ative o `AppleXcpmCfgLock` sob o caminho `Kernel -> Quirks`. O macOS não iniciará com a trava de CFG ativada.** |
+| CFG Lock (MSR 0xE2 write protection) | Trava de CFG (proteção de escrita do MSR 0xE2) | **Precisa estar desligado. Se a opção da BIOS não puder ser encontrada, ative a opção `AppleXcpmCfgLock` sob o caminho `Kernel -> Quirks`. O macOS não iniciará com a trava de CFG ativada.** |
 
 * No OS X 10.10 Yosemite e anteriores, será necessário ativar a opção  `AppleCpuPmCfgLock` também.
 
