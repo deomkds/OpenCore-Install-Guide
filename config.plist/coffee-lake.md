@@ -68,7 +68,7 @@ Esta seção é dedicada a *quirks* relacionadas com a aplicação de patches no
 
 ### MmioWhitelist
 
-Esta seção permite que certos dispositivos que são geralmente ignorados, sejam transmitidos diretamente para o macOS. Pode ser ignorado por enquanto.
+Esta seção permite definir quais regiões do mapa de memória que são geralmente ignoradas pelo macOS, são boas para o uso. Pode ser ignorado por enquanto.
 
 ### Quirks
 
