@@ -37,8 +37,8 @@ Serão necessárias algumas SSDTs para trazer de volta algumas funcionalidades q
 
 | SSDTs Necessárias | Descrição |
 | :--- | :--- |
-| **[SSDT-PLUG](https://deomkds.github.io/Getting-Started-With-ACPI/)** | Permite utilizar o gerenciamento nativo de energia da CPU no Haswell e mais novos. Veja mais no guia [Primeiros Passos com a ACPI](https://deomkds.github.io/Getting-Started-With-ACPI/). |
-| **[SSDT-EC-USBX](https://deomkds.github.io/Getting-Started-With-ACPI/)** | Corrige tanto o controlador integrado quanto a energia da USB. Veja mais no guia [Primeiros Passos com a ACPI](https://deomkds.github.io/Getting-Started-With-ACPI/) para mais detalhes. |
+| **[SSDT-PLUG](https://deomkds.github.io/Getting-Started-With-ACPI/)** | Permite utilizar o gerenciamento nativo de energia da CPU no Haswell e mais novos. Veja o guia [Primeiros Passos com a ACPI](https://deomkds.github.io/Getting-Started-With-ACPI/) para mais detalhes. |
+| **[SSDT-EC-USBX](https://deomkds.github.io/Getting-Started-With-ACPI/)** | Corrige tanto o controlador integrado quanto a energia da USB. Veja o guia [Primeiros Passos com a ACPI](https://deomkds.github.io/Getting-Started-With-ACPI/) para mais detalhes. |
 | **[SSDT-AWAC](https://deomkds.github.io/Getting-Started-With-ACPI/)** | Este é o patch de RTC para [série 300](https://www.hackintosh-forum.de/forum/thread/39846-asrock-z390-taichi-ultimate/?pageNo=2) (em inglês), exigido para todas as placas-mãe B460 e Z490 que impedem o macOS de iniciar. Uma alternativa é a [SSDT-RTC0](https://deomkds.github.io/Getting-Started-With-ACPI/) para quando a AWAC SSDT é incompatível devido à falta do relógio RTC antigo. Para verificar se seu computador precisa disso e qual delas usar, consulte o guia [Primeiros Passos com a ACPI](https://deomkds.github.io/Getting-Started-With-ACPI/). |
 | **[SSDT-RHUB](https://deomkds.github.io/Getting-Started-With-ACPI/)** | Necessária para corrigir erros de Root-device em placas Asus e, talvez, em placas MSI. Placas-mãe Gigabyte e AsRock **não precisam** dessa SSDT. |
 
@@ -106,6 +106,7 @@ Configurações relacionadas à aplicação de patches no `boot.efi` e a correç
   * Corrige as chamadas de `SetVirtualAddresses` para endereços virtuais, no entanto, não funciona devido às proteções de memória do Comet Lake. Placas ASUS, Gigabyte e AsRock não iniciarão se esta opção estiver ligada.
 * **SyncRuntimePermissions**: YES
   * Corrige o alinhamento com tabelas MAT e é necessária para iniciar o Windows e o Linux com as tabelas MAT. Também é recomendado para o macOS. Relevante principalmente para usuários da *quirk* `RebuildAppleMemoryMap`.
+
 :::
 
 ## DeviceProperties
@@ -126,13 +127,13 @@ O `AAPL,ig-platform-id` é o que o macOS usa para determinar como os drivers da 
 | :--- | :--- |
 | 07009B3E | Usado quando a GPU integrada de desktops é usada para exibir as imagens no monitor. |
 | 00009B3E | Alternativa a 07009B3E, caso não funcione. |
-| 0300C89B | Usado quando a GPU integrada de desktop é utilizada somente para tarefas de computação e não exibe imagens num monitor. |
+| 0300C89B | Usado quando a GPU integrada de desktop é utilizada somente para tarefas de computação e não exibe imagens em um monitor. |
 
 * **Observação**: no macOS 10.15.5 Catalina ou mais novos, parece haver muitos problemas de tela preta ao utilizar `07009B3E`. Se problemas parecidos acontecerem, tente usar `00009B3E`.
 
-Também são adicionadas duas novas propriedades, `framebuffer-patch-enable` e `framebuffer-stolenmem`. A primeira permite aplicar patches por meio da WhateverGreen e a segunda configura a quantidade mínima de memória reservada para a GPU integrada para 19MB. Geralmente, essa é opcional, pois pode ser configurada na BIOS (recomenda-se 64MB), mas é necessária quando não houver opção na BIOS.
+Também são adicionadas duas outras propriedades, `framebuffer-patch-enable` e `framebuffer-stolenmem`. A primeira permite aplicar patches por meio da WhateverGreen e a segunda configura a quantidade mínima de memória reservada para a GPU integrada para 19MB. Geralmente, essa é opcional, pois pode ser configurada na BIOS (recomenda-se 64MB), mas é necessária quando não houver opção na BIOS.
 
-* **Observação**: framebuffers *headless* (nos quais a GPU dedicada exibe as imagens) não precisam das propriedades `framebuffer-patch-enable` e `framebuffer-stolenmem`.
+* **Observação**: framebuffers *headless* (nos quais a GPU dedicada é responsável por exibir as imagens) não precisam das propriedades `framebuffer-patch-enable` e `framebuffer-stolenmem`.
 
 | Chave | Tipo | Valor |
 | :--- | :--- | :--- |
@@ -274,7 +275,7 @@ Essa entrada tem relação com o controlador de rede Intel I225-V 2.5GBe encontr
 
 Configurações relacionadas ao *kernel*. Ative somente as seguintes opções:
 
-| Quirk | Ativada |
+| Quirk | Ativada | Observação |
 | :--- | :--- | :--- |
 | AppleXcpmCfgLock | YES | Desnecessário caso o `CFG-Lock` esteja desabilitado na BIOS. |
 | DisableIOMapper | YES | Desnecessário caso o `VT-D` esteja desabilitado na BIOS. |
@@ -317,9 +318,9 @@ Configurações relacionadas ao *kernel*. Ative somente as seguintes opções:
 * **SetApfsTrimTimeout**: `-1`
   * Configura o intervalo de tempo do TRIM (em microsegundos) em SSDs com sistema de arquivos APFS. Aplicável somente para o macOS 10.14 Mojave ou mais novos que estejam utilizando SSDs problemáticos.
 * **XhciPortLimit**: YES
-  * Isto é, na verdade, o patch que corrige o limite de 15 portas USB. Não dependa dele, pois não é uma solução garantida para corrigir problemas de USB. Por favor, crie um [mapa de portas USB](https://deomkds.github.io/OpenCore-Post-Install/usb/) quando possível.
+  * Isto é, na verdade, o patch que corrige o limite de 15 portas USB. Não dependa dele, pois não é uma solução garantida para corrigir problemas de USB. Por favor, prefira criar um [mapa das portas USB](https://deomkds.github.io/OpenCore-Post-Install/usb/) sempre que possível.
 
-O motivo para tal é que o UsbInjectAll reimplementa uma funcionalidade integrada do macOS sem os ajustes apropriados. É muito mais limpo simplesmente descrever suas portas em uma *kext* com só um arquivo `.plist` dentro, o que não desperdiçará memória em tempo de execução e coisas do tipo.
+O motivo para tal é que o UsbInjectAll reimplementa uma funcionalidade integrada do macOS sem ter os ajustes apropriados. É muito mais limpo simplesmente descrever suas portas em uma *kext* com só um arquivo `.plist` dentro, o que não desperdiça memória em tempo de execução e coisas do tipo.
 
 :::
 
@@ -375,7 +376,7 @@ Configurações da tela de inicialização. Mantenha todos os padrões como est�
 * **ApplePanic**: YES
   * Tenta salvar os *logs* de *kernel panics* diretamente no disco.
 * **DisableWatchDog**: YES
-  * Desativa o *watchdog* do UEFI. Pode ajudar com problemas precoces na inicialização.
+  * Desativa o *watchdog* do UEFI. Pode ajudar com problemas de inicialização precoces.
 * **DisplayLevel**: `2147483650`
   * Exibe ainda mais informações de depuração. Necessita da versão de depuração do OpenCore.
 * **SerialInit**: NO
@@ -396,7 +397,7 @@ Esses valores são baseados nos cálculos feitos na página [Depurando o OpenCor
 
 Segurança é bastante autoexplicativa. **Não pule** esta parte. Eis o que deve ser alterado:
 
-| Quirk | Ativada | Comentário |
+| Quirk | Ativada | Observação |
 | :--- | :--- | :--- |
 | AllowNvramReset | YES | |
 | AllowSetDefault | YES | |
@@ -739,12 +740,12 @@ Observe que essa ferramenta não é desenvolvida nem mantida pelo time Dortania 
 | Intel Platform Trust | | |
 | CFG Lock (MSR 0xE2 write protection) | Trava de CFG (proteção de escrita do MSR 0xE2) | **Precisa estar desligado. Se a opção da BIOS não puder ser encontrada, ative o `AppleXcpmCfgLock` sob o caminho `Kernel -> Quirks`. O macOS não iniciará com a trava de CFG ativada.** |
 
-### Enable
+### Opções para Ativar
 
 | Nome em Inglês | Nome em Português | Oservação |
 | :--- | :--- | :--- |
 | VT-x | Tecnologia de Virtualização Intel VT-x | |
-| Above 4G decoding | | Em BIOS mais recentes (a partir de 2020), ativar o Above4G pode desbloquear a opção Resizable BAR Support em algumas placas-mãe Z490 ou mais novas. Tenha certeza de **desativar** a opção Resizable BAR Support, em vez de mantê-la em `Auto`. |
+| Above 4G decoding | | |
 | Hyper-Threading | | |
 | Execute Disable Bit | | |
 | EHCI/XHCI Hand-off | | |
