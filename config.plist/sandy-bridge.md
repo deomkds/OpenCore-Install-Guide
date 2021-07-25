@@ -117,7 +117,7 @@ Configurações relacionadas à aplicação de patches no `boot.efi` e a correç
   * Usado para variáveis `slide` calculadas. No entanto, a necessidade desta *quirk* é determinada pela presença da mensagem `OCABC: Only N/256 slide values are usable!` no *log* de depuração. Se a mensagem `OCABC: All slides are usable! You can disable ProvideCustomSlide!` estiver presente no *log*, desative o `ProvideCustomSlide`.
 * **SetupVirtualMap**: YES
   * Corrige as chamadas de `SetVirtualAddresses` para endereços virtuais. Necessário em placas Gigabyte para resolver uma *kernel panic* precoce na inicialização.
-  
+
 :::
 
 ## DeviceProperties

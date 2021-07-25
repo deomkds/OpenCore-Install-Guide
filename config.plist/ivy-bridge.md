@@ -130,7 +130,7 @@ Configura as propriedades de dispositivo a partir de um mapa.
 
 Esta seção é configurada por meio do [Guia de Patches de Framebuffer](https://github.com/acidanthera/WhateverGreen/blob/master/Manual/FAQ.IntelHD.en.md) (em inglês) da WhateverGreen e é utilizada para configurar propriedades importantes da GPU integrada.
 
-O `AAPL,ig-platform-id` é o que o macOS usa para determinar como os drivers da GPU integrada interagem com o sistema. Escolha um dos valores a seguir:
+A propriedade `AAPL,ig-platform-id` é o que o macOS usa para determinar como os drivers da GPU integrada interagem com o sistema. Escolha um dos valores a seguir:
 
 | AAPL,ig-platform-id | Observação |
 | :--- | :--- |
