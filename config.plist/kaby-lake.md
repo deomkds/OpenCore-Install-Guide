@@ -71,7 +71,9 @@ Esta seção permite definir quais regiões do mapa de memória que são geralme
 ### Quirks
 
 ::: tip Informações
+
 Configurações relacionadas à aplicação de patches no `boot.efi` e a correções de firmware. Não é preciso alterar nada aqui.
+
 :::
 
 ::: details Informação Mais Detalhada
@@ -118,7 +120,7 @@ Também são adicionadas duas outras propriedades, `framebuffer-patch-enable` e 
 | framebuffer-patch-enable | Data | 01000000 |
 | framebuffer-stolenmem | Data | 00003001 |
 
-*Isto é um exemplo para um desktop com Intel UHD Graphics 630 sem uma GPU dedicada e que não possui opções de memória de GPU integrada na BIOS.*
+*Isto é um exemplo para um desktop com Intel UHD Graphics 630 sem GPU dedicada e que não possui opção para configurar a memória da GPU integrada na BIOS.*
 
 :::
 
@@ -136,8 +138,6 @@ Em vez disso, será utilizado o argumento de inicialização (*boot-arg*) `alcid
 ### Delete
 
 Remove as propriedades de dispositivos do mapa. Pode ser ignorado.
-
-Fato curioso: o motivo pelo qual a ordem de bytes está invertida é a maioria dos processadores modernos são [Little Endian](https://pt.wikipedia.org/wiki/Extremidade_(ordena%C3%A7%C3%A3o)).
 
 ## Kernel
 
