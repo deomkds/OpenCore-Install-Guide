@@ -139,7 +139,6 @@ A propriedade `AAPL,snb-platform-id` é o que o macOS usa para determinar como o
 | 10000300 | Usado quando a GPU integrada é responsável por exibir as imagens no monitor. |
 | 00000500 | Usado quando a GPU integrada é responsável somente por tarefas de computação e não exibe imagens em um monitor. |
 
-
 Também existe o problema de precisar de um `device-id` suportado. Da mesma forma como foi feito na tabela acima, selecione os valores de acordo com a configuração do computador:
 
 | device-id | Observação |
@@ -578,6 +577,7 @@ Serial:       C02KCYZLDNCW
 Board Serial: C02309301QXF2FRJC
 SmUUID:       A154B586-874B-4E57-A1FF-9D6E503E4580
 ```
+
 A parte `Type` deve ser copiada para `Generic -> SystemProductName`.
 
 A parte `Serial` deve ser copiada para `Generic -> SystemSerialNumber`.

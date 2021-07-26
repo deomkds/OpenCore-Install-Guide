@@ -578,6 +578,7 @@ Serial:       C02KCYZLDNCW
 Board Serial: C02309301QXF2FRJC
 SmUUID:       A154B586-874B-4E57-A1FF-9D6E503E4580
 ```
+
 A parte `Type` deve ser copiada para `Generic -> SystemProductName`.
 
 A parte `Serial` deve ser copiada para `Generic -> SystemSerialNumber`.

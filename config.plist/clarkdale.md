@@ -75,8 +75,7 @@ Esta seção permite definir quais regiões do mapa de memória que são geralme
 
 ::: tip Informações
 
-Configurações relacionadas à aplicação de patches no `boot.efi` e a correções de firmware. 
-Dependendo do suporte a UEFI, há duas opções para escolher:
+Configurações relacionadas à aplicação de patches no `boot.efi` e a correções de firmware. Dependendo do suporte a UEFI, há duas opções para escolher:
 
 #### Firmware Antigo Não UEFI
 
@@ -503,7 +502,7 @@ Reescreve as variáveis NVRAM na marra. Observe que `Add` **não sobrescreve** v
 
 Para configurar a informação da SMBIOS, será utilizado o aplicativo [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS), desenvolvido por CorpNewt.
 
-Para este exemplo de Clarkdale, será utilizada a SMBIOS do iMac11,2. Isso é intencional, por questões de compatibilidade. Existem três principais SMBIOS usadas em computadores com CPUs Clarkdale
+Para este exemplo de Clarkdale, será utilizada a SMBIOS do iMac11,2. Isso é intencional, por questões de compatibilidade. Existem três principais SMBIOS usadas em computadores com CPUs Clarkdale:
 
 | SMBIOS | Hardware |
 | :--- | :--- |
@@ -511,7 +510,7 @@ Para este exemplo de Clarkdale, será utilizada a SMBIOS do iMac11,2. Isso é in
 | iMac11,2 | SMBIOS para Clarkdale. |
 | MacPro6,1 | SMBIOS para macOS 10.14 Mojave ou mais recente. |
 
-* Se planejar executar o macOS 10.14 ou mais recente, é recomendado usar a SMBIOS do MacPro6,1. A GPU integrada precisa ser desativada na BIOS por não ser mais suportada oficialmente no macOS.
+* Se planeja executar o macOS 10.14 ou mais recente, é recomendado usar a SMBIOS do MacPro6,1. A GPU integrada precisa ser desativada na BIOS por não ser mais suportada oficialmente no macOS.
 
 Execute o GenSMBIOS, escolha a opção 1 para baixar o MacSerial e a opção 3 para selecionar a SMBIOS. Isso mostrará uma saída similar à seguinte:
 
@@ -525,6 +524,7 @@ Serial:       C02KCYZLDNCW
 Board Serial: C02309301QXF2FRJC
 SmUUID:       A154B586-874B-4E57-A1FF-9D6E503E4580
 ```
+
 A parte `Type` deve ser copiada para `Generic -> SystemProductName`.
 
 A parte `Serial` deve ser copiada para `Generic -> SystemSerialNumber`.
