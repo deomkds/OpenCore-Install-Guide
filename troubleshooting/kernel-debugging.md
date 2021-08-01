@@ -207,23 +207,23 @@ csrutil authenticated-root disable # No macOS 11 Big Sur ou superior.
 
 Reinicie e o SIP deverá ter sido ajustado. É possível executar o comando `csrutil status` no Terminal para verificar se funcionou.
 
-* <span style="color:red"> CUIDADO: </span> os usuários que dependem do recurso [ApECID do OpenCore](https://deomkds.github.io/OpenCore-Post-Install/universal/security/applesecureboot.html#apecid), tenha ciência de que o ApECID **precisa** estar desabilitado para usar o KDK.
+* <span style="color:red">CUIDADO:</span> os usuários que dependem do recurso [ApECID do OpenCore](https://deomkds.github.io/OpenCore-Post-Install/universal/security/applesecureboot.html#apecid), tenha ciência de que o ApECID **precisa** estar desabilitado para usar o KDK.
 
-#### 3. Mount root partition as writable
+#### 3. Montar a partição *root* com permissões de escrita
 
-* Applicable for macOS 10.15, Catalina and newer
+* Aplicável ao macOS 10.15 Catalina ou superior.
 
-Mounting the root volume as writable is easy, however the process is a bit long:
+Montar o volume do sistema com permissões de escrita é fácil, no entanto o processo é um pouco longo.
 
 ```bash
-# Big Sur+
-# First, create a mount point for your drive
+# macOS 11 Big Sur ou superior.
+# Primeiramente, crie um ponto de montagem para a unidade.
 mkdir ~/livemount
 
-# Next, find your System volume
+# Então, encontre o volume do sistema.
 diskutil list
 
-# From the below list, we can see our System volume is disk5s5
+# A partir da lista abaixo, é possível ver que o volume do sistema é o disk5s5.
 /dev/disk5 (synthesized):
    #:                       TYPE NAME                    SIZE       IDENTIFIER
    0:      APFS Container Scheme -                      +255.7 GB   disk5
@@ -235,85 +235,85 @@ diskutil list
    5:                APFS Volume ⁨Big Sur HD⁩              16.2 GB    disk5s5
    6:              APFS Snapshot ⁨com.apple.os.update-...⁩ 16.2 GB    disk5s5s
 
-# Mount the drive(ie. disk5s5)
+# Monte a unidade (ex.: disk5s5)
 sudo mount -o nobrowse -t apfs  /dev/disk5s5 ~/livemount
 
-# Now you can freely make any edits to the System volume
+# Agora é possível fazer alterações no volume do sistema livremente.
 ```
 
 ```bash
-# Catalina only
+# Somente macOS 10.15 Catalina.
 sudo mount -uw /
 ```
 
-#### 4. Install debug kernel and kexts
+#### 4. Instalar as versões de depuração do *kernel* e das *kexts*
 
-Now we install our KDK into the system:
+Agora é preciso instalar o KDK no sistema:
 
 ```bash
-# Install KDK to System Volume
-# Ensure to replace <KDK Version>
-# For 10.15 and older, swap livemount with /Volumes/<Target Volume>
+# Instala o KDK no volume do sistema.
+# Certifique-se de substituir o <KDK Version>.
+# Para macOS 10.15 Catalina ou mais antigo, substitua "livemount" por /Volumes/<Volume Alvo>.
 sudo ditto /Library/Developer/KDKs/<KDK Version>/System ~/livemount/System
 
-# Rebuild the kernel cache(Big Sur and newer)
+# Reconstrua o cache do kernel (macOS 11 Big Sur ou mais novo).
 sudo kmutil install --volume-root ~/livemount --update-all
 
-# Rebuild the kernel cache(Catalina and older)
+# Reconstrua o cache do kernel (macOS 10.15 Catalina ou mais antigo).
 sudo kextcache -invalidate /Volumes/<Target Volume>
 
-# Finally, once done editing the system volume
-# we'll want to create a new snapshot (Big Sur and newer)
+# Finalmente, uma vez terminado de alterar o volume do sistema,
+# será necessário criar uma nova *snapshot* (macOS 11 Big Sur ou mais novo).
 sudo bless --folder ~/livemount/System/Library/CoreServices --bootefi --create-snapshot
 ```
 
-#### 5. Update boot-args
+#### 5. Atualizar os argumentos de inicialização (*boot-args*)
 
-Now that you've finished setting up the KDK and installed it, we now need to tell boot.efi which kernel to use. You have 2 options to choose from:
+Agora que o KDK foi instalado e configurado, será necessário dizer ao `boot.efi` qual *kernel* usar. Escolha entre as duas opções a seguir:
 
-* `kcsuffix=debug` (removed with Big Sur)
+* `kcsuffix=debug` (removido no macOS 11 Big Sur).
 * `kcsuffix=development`
 * `kcsuffix=kasan`
 
-`development` arg will set the new default debug kernel in Big Sur, while `kasan` is a much more logging intensive kernel that incorporates [AddressSanitizer](https://github.com/google/sanitizers/wiki/AddressSanitizer).
+O argumento `development` configurará o novo *kernel* de depuração no macOS 11 Big Sur. O argumento `kasan` usará uma versão do *kernel* com log muito mais intenso e que incorpora o [AddressSanitizer](https://github.com/google/sanitizers/wiki/AddressSanitizer) (em inglês).
 
-Once you've decided which kernel is ideal for you, add the kcsuffix arg to your boot-args in your config.plist
+Uma vez decidido qual *kernel* é o ideal para o seu uso, adicione o argumento `kcsuffix` à `config.plis`, na opção `boot-args`.
 
-#### 6. Reboot and check your work
+#### 6. Reiniciar e verificar se tudo deu certo
 
-Assuming everything was done correctly, you'll now want to reboot and check that the correct kernel was booted:
+Presumindo que tudo tenha sido feito da maneira correta, agora é a hora de reiniciar o computador e verificar se o sistema operacional iniciará com o *kernel* correto.
 
 ```sh
 sysctl kern.osbuildconfig
  kern.osbuildconfig: kasan
 ```
 
-And as we can see, we're successfully booting a KASAN kernel.
+Como é possível ver, o sistema iniciou com o *kernel* KASAN.
 
-### Uninstalling the KDK
+### Desinstalando o KDK
 
-Uninstalling the KDK is fairly simple, however can be a bit destructive if not care.
+Desinstalar o KDK é bastante simples, no entanto, pode ser um pouco destrutivo caso não se tome cuidado.
 
-1. Mount root partition as writable(macOS 10.15+)
-2. Remove debug kernel and kexts
-3. Re-enable SIP
-4. Clean boot-args
-5. Reboot and check your work
+1. Montar a partição *root* com permissões de escrita (macOS 10.15 Catalina ou superior);
+2. Remover as versões de depuração do *kernel* e das *kexts*;
+3. Habilitar novamente o SIP;
+4. Limpar os argumentos de inicialização (*boot-args*)
+5. Reiniciar e verificar se tudo deu certo
 
-Steps:
+Passos:
 
-#### 1. Mount root partition as writable(macOS 10.15+)
+#### 1. Montar a partição *root* com permissões de escrita (macOS 10.15 Catalina ou superior)
 
 ```bash
-# Big Sur+
-# First, create a mount point for your drive
-# Skip of still present from mounting volume last time
+# macOS 11 Big Sur ou superior.
+# Primeiramente, crie um ponto de montagem para a unidade.
+# Pule se o ponto de montagem já existir.
 mkdir ~/livemount
 
-# Next, find your System volume
+# Então, encontre o volume do sistema.
 diskutil list
 
-# From the below list, we can see our System volume is disk5s5
+# A partir da lista abaixo, é possível ver que o volume do sistema é o disk5s5.
 /dev/disk5 (synthesized):
    #:                       TYPE NAME                    SIZE       IDENTIFIER
    0:      APFS Container Scheme -                      +255.7 GB   disk5
@@ -325,52 +325,52 @@ diskutil list
    5:                APFS Volume ⁨Big Sur HD⁩              16.2 GB    disk5s5
    6:              APFS Snapshot ⁨com.apple.os.update-...⁩ 16.2 GB    disk5s5s
 
-# Mount the drive (ie. disk5s5)
+# Monte a unidade (ex.: disk5s5)
 sudo mount -o nobrowse -t apfs  /dev/disk5s5 ~/livemount
 ```
 
 ```bash
-# Catalina only
+# Somente macOS 10.15 Catalina.
 sudo mount -uw /
 ```
 
-#### 2. Remove debug kernel and kexts
+#### 2. Remover as versões de depuração do *kernel* e das *kexts*
 
 ```bash
-# Revert to old snapshot (Big Sur+)
+# Reverter para uma *snapshot* antiga (macOS 11 Big Sur ou mais novo).
 sudo bless --mount ~/livemount --bootefi --last-sealed-snapshot
 ```
 
 ```bash
-# Reset kernel cache (Catalina and older)
+# Redefinir o cache do *kernel* (macOS 10.15 Catalina ou mais antigo)
 sudo rm /System/Library/Caches/com.apple.kext.caches/Startup/kernelcache.de*
 sudo rm /System/Library/PrelinkedKernels/prelinkedkernel.de*
 sudo kextcache -invalidate /
 ```
 
-#### 3. Re-enable SIP
+#### 3. Habilitar novamente o SIP
 
-* Recovery commands(if previously changed via recovery):
+* Comandos a serem executados no ambiente de Recuperação (caso o SIP tenha sido desabilitado pelo ambiente de Recuperação):
 
 ```sh
 csrutil enable
-csrutil authenticated-root enable # Big Sur+
+csrutil authenticated-root enable # macOS 11 Big Sur ou mais novo.
 ```
 
-* config.plist changes(if previously changed via config.plist):
-  * [Enabling via config.plist](./extended/post-issues.md#disabling-sip)
+* Alterações na `config.plist` (caso o SIP tenha sido desabilitado pela `config.plist`):
+  * [Habilitando pela config.plist](./extended/post-issues.md#disabling-sip).
   
-#### 4. Clean boot-args
+#### 4. Limpar os argumentos de inicialização (*boot-args*)
 
-Don't forget to remove `kcsuffix=` in your boot-args
+Não se esqueça de remover o `kcsuffix=` dos seus argumentos de inicialização.
 
-#### 5. Reboot and check your work
+#### 5. Reiniciar e verificar se tudo deu certo
 
-Assuming everything was done correctly, you'll now want to reboot and check that the correct kernel was booted:
+Presumindo que tudo tenha sido feito da maneira correta, agora é a hora de reiniciar o computador e verificar se o sistema operacional iniciará com o *kernel* correto.
 
 ```sh
 sysctl kern.osbuildconfig
  kern.osbuildconfig: release
 ```
 
-And as we can see, we're successfully booting a KASAN kernel.
+Como é possível ver, o sistema iniciou com o *kernel* padrão de lançamento.
