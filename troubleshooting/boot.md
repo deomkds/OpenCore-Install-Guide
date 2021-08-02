@@ -1,91 +1,91 @@
-# Understanding the macOS Boot Process
+# Entendendo o Processo de Inicialização do macOS
 
-So with troubleshooting a hackintosh, it can be a bit difficult to really understand *where* you're getting stuck as the exact keyword you're trying to search for may not match anything on google. While this page won't solve all your issues, it should at least help better understand where in the macOS boot-process you're getting stuck and hopefully give some ideas as to why you're stuck.
+Ao solucionar problemas em um *hackintosh*, pode ser um tanto difícil entender exatametne *onde* o sistema está travando, já que a palavra chave exata pode não retornar nenhum resultado quando procurada no Google. Embora esta página não seja capaz de resolver todos os problemas, pelo menos ela pode ajudar a entender melhor qual parte do processo de inicialização do macOS está travando e, quem sabe, suscitar algumas ideias dos motivos do travamento.
 
-## OpenCore Booting
+## Inicialização do OpenCore
 
-This section will be brief, as OpenCore boot issues are fairly rare and usually simple user error:
+Essa seção será breve, já que os problemas de inicialização do OpenCore são bastante raros e geralmente são erro do usuário.
 
-* System powers on and searches for boot devices
-* System locates BOOTx64.efi on your OpenCore USB under EFI/BOOT/
-* BOOTx64.efi is loaded which then chain-loads OpenCore.efi from EFI/OC/
-* NVRAM Properties are applied
-* EFI drivers are loaded from EFI/OC/Drivers
-* Graphics Output Protocol(GOP) is installed
-* ACPI Tables are loaded from EFI/OC/ACPI
-* SMBIOS Data is applied
-* OpenCore loads and shows you all possible boot options
-* You now boot your macOS installer
+* Ao ser iniciado, o firmware do computador procura pelos dispositivos de inicialização.
+* O firmware localiza o arquivo `BOOTx64.efi` na pasta `EFI/BOOT/` no pendrive do OpenCore.
+* O `BOOTx64.efi` é carregado, que carrega o `OpenCore.efi` da pasta `EFI/OC/` em sequência.
+* As propriedades da NVRAM são aplicadas.
+* Os drivers EFI são carregados a partir da pasta `EFI/OC/Drivers`.
+* O Graphics Output Protocol (Protocolo de Saída Gráfica ou GOP) é instalado.
+* As tabelas da ACPI são carregadas a partir da pasta `EFI/OC/ACPI`.
+* Os dados da SMBIOS são aplicados.
+* O OpenCore carrega e exibe todas as opções de inicialização possíveis.
+* Você inicia o Instalador do macOS.
 
-If you're having issues booting at this point, main things to check for:
+Caso tenha problemas de inicialização nesta parte, verifique um dos seguintes pontos:
 
-* [Stuck on `no vault provided!`](./extended/opencore-issues.md#stuck-on-no-vault-provided)
-* [Can't see macOS partitions](./extended/opencore-issues.md#can-t-see-macos-partitions)
-* [Booting OpenCore reboots to BIOS](./extended/opencore-issues.md#booting-opencore-reboots-to-bios)
+* [Parado em `no vault provided!`](./extended/opencore-issues.md#parado-em-no-vault-provided)
+* [Partições do macOS não são exibidas](./extended/opencore-issues.md#partições-do-macos-não-são exibidas)
+* [Iniciar o OpenCore reinicia na BIOS](./extended/opencore-issues.md#iniciar-o-opencore-reinicia-na-bios)
 
-For the rest of the possible issues, see here:
+Para o restante dos problemas possíveis, consulte:
 
-* [OpenCore booting issues](./extended/opencore-issues.md)
+* [Problemas ao Iniciar o OpenCore](./extended/opencore-issues.md)
 
-## boot.efi Handoff
+## Entrega ao boot.efi
 
 ![](../images/troubleshooting/boot-md/1-boot-efi.png)
 
-This is where macOS's bootloader(boot.efi) comes onto the scene, specifically what it does is prep the environment for the kernel to load and where OpenCore injects kexts. If you're getting stuck at this point, there's likely an issue with loading the kernel, main culprits:
+É aqui onde o *bootloader* (`boot.efi`) do macOS entra em cena. Especificamente, ele prepara o ambiente para o *kernel* ser carregado e é o momento no qual o OpenCore injeta as *kexts*. Se estiver travando neste momento, é bastante provável que haja um problema ao carregar o *kernel*. Os principais culpados são:
 
-* [Stuck on EndRandomSeed](./extended/kernel-issues.md#stuck-on-endrandomseed)
-* [Stuck on `[EB|#LOG:EXITBS:START]`](./extended/kernel-issues.md#stuck-on-eb-log-exitbs-start)
-* [`Couldn't allocate runtime area` errors](./extended/kernel-issues.md#couldn-t-allocate-runtime-area-errors)
+* [Preso em EndRandomSeed](./extended/kernel-issues.md#preso-em-endrandomseed)
+* [Preso em `[EB|#LOG:EXITBS:START]`](./extended/kernel-issues.md#preso-em-eb-log-exitbs-start)
+* [Erros de `Couldn't allocate runtime area`](./extended/kernel-issues.md#erros-de-couldn-t-allocate-runtime-area)
 
-For the rest of the possible issues, see here:
+Para o restante dos problemas possíveis, consulte:
 
-* [Kernel Issues](./extended/kernel-issues.md)
+* [Problemas de Kernel](./extended/kernel-issues.md)
 
-**Note**: In macOS 10.15.4, Apple changed the boot.efi debugging protocol, so things will look quite a bit different from before but all the same rules still apply
+**Observação:** no macOS 10.15.4, a Apple alterou o protocolo de depuração do `boot.efi`, então as coisas terão uma aparência bastante diferente de como era antes. No entanto, as mesmas regras se aplicam.
 
-## XNU/Kernel Handoff
+## Entrega ao XNU/Kernel
 
-Now that boot.efi has setup everything for us, we now get to watch the kernel do it's thing. This section is commonly referred as the [Rooting phase](https://developer.apple.com/library/archive/documentation/Darwin/Conceptual/KernelProgramming/booting/booting.html):
+Agora que o `boot.efi` configurou tudo, o *kernel* faz a sua mágica. Esta seção é comumente chamade de [Fase de Rooting](https://developer.apple.com/library/archive/documentation/Darwin/Conceptual/KernelProgramming/booting/booting.html) (em inglês):
 
 ![](../images/troubleshooting/boot-md/2-kernel-start.png)
 
-This section is where SMBIOS data is verified, ACPI tables/Kexts are loaded and macOS tries to get everything in order. Failures here are generally a result of:
+É nesta seção onde os dados da SMBIOS são verificados, as tabelas da ACPI e as *kexts* são carregadase o macOS tenta deixar tudo em ordem. Falhas aqui geralmente resultam de:
 
-* Corrupted SSDTs
-* Corrupted kexts(or incorrectly setup under your config.plist -> Kernel -> Add)
-* Messed up memory map
+* SSDTs corrompidas.
+* *Kexts* corrompidas (ou configuradas incorretamente na `config.plist` em `Kernel -> Add`).
+* Mapa de memória bagunçado.
 
-See here for more troubleshooting info:
+Consulte essas páginas para mais informações:
 
 * [Kernel Panic `Cannot perform kext summary`](./extended/kernel-issues.md#kernel-panic-cannot-perform-kext-summary)
-* [Kernel Panic on `Invalid frame pointer`](./extended/kernel-issues.md#kernel-panic-on-invalid-frame-pointer)
+* [Kernel Panic em `Invalid frame pointer`](./extended/kernel-issues.md#kernel-panic-em-invalid-frame-pointer)
 
 ![](../images/troubleshooting/boot-md/5-apfs-module.png)
 
-Now here we have `[ PCI configurations begin ]`, this section can be seen as a hardware test for our systems, kexts and SSDTs we injected, and where IOKit starts hardware probs to find devices to attach to.
+Agora aqui é onde acontece o `[ PCI configurations begin ]`. Essa seção pode ser encarada como o momento de testar o hardware do computador, as *kexts* e as SSDTs injetadas e quando o IOKit começa a sondar os componentes para encontrar os dispositivos aos quais se conectar.
 
-The main things that are tested here:
+O principal que é testado nessa parte:
 
-* Embedded Controllers
-* Storage(NVMe, SATA, etc)
-* PCI/e
-* NVRAM
-* RTC
-* PS2 and I2C
+* Controladores Integrados (ECs);
+* Armazenamento (NVMe, SATA etc);
+* PCI/e;
+* NVRAM;
+* RTC;
+* PS2 e I2C
 
-For more specific info on how to get around this area, see here:
+Para obter informações mais específicas sobre como contornar erros nesse momento, consulte:
 
-* [Stuck on `RTC...`, `PCI Configuration Begins`, `Previous Shutdown...`, `HPET`, `HID: Legacy...`](./extended/kernel-issues.md#stuck-on-rtc-pci-configuration-begins-previous-shutdown-hpet-hid-legacy)
+* [Preso em `RTC...`, `PCI Configuration Begins`, `Previous Shutdown...`, `HPET`, `HID: Legacy...`](./extended/kernel-issues.md#preso-em-rtc-pci-configuration-begins-previous-shutdown-hpet-hid-legacy)
 
 ![](../images/troubleshooting/boot-md/6-USB-setup.png)
 
-This is where the 15 port limit and USB mapping comes into play, and where the infamous "Waiting for Root Device" errors pops in, main things to check for:
+É aqui onde o limite de 15 portas e o mapeamento de USB entra, e é quando o infame erro `Waiting for Root Device` costuma aparecer. O principal a se verificar:
 
-* ["Waiting for Root Device" or Prohibited Sign error](./extended/kernel-issues.md#waiting-for-root-device-or-prohibited-sign-error)
+* ["Waiting for Root Device" ou erro do Sinal de Proibido](./extended/kernel-issues.md#waiting-for-root-device-ou-erro-do-sinal-de-proibido)
 
 ![](../images/troubleshooting/boot-md/8-dsmos-arrived.png)
 
-This is where our FakeSMC/VirtualSMC come into the scene and do their magic, DSMOS itself is a kext that verifies if your system has an SMC and will request a key. If this key is missing, then DSMOS will not decrypt the rest of the binaries and you'll get stuck here. You may also get stuck at AppleACPICPU which is just the same error.
+É aqui onde a FakeSMC/VirtualSMC entra em cena e faz a sua mágica. A própria DSMOS (Don't Steal Mac OS ou Não Roube o Mac OS) é uma *kext* que verifica se o computador possui um chip SMC e solicita uma chave. Se a chave estiver faltando, a DSMOS não descriptografará o restante dos binários e a inicialização falhará. É possível ficar preso na AppleACPICPU também, que é basicamente o mesmo erro.
 
 * [kextd stall[0]: AppleACPICPU](./extended/kernel-issues.md#kextd-stall-0-appleacpicpu)
 
@@ -100,25 +100,38 @@ Really, that's way uncool.
 (C) Apple Computer, Inc.
 ```
 
-Source: Dont Steal Mac OS X.kext
+::: details Tradução Livre
+
+Seu karma de hoje:
+Era uma vez um usuário que reclamava
+que seu SO existente só travava,
+e era melhor piratear um SO que ia bem
+mas descobriu que um chip lhe faltava.
+Por favor, não roube o Mac OS!
+Sério, não é nada legal.
+(C) Apple Computer, Inc.
+
+:::
+
+Fonte: `Dont Steal Mac OS X.kext`
 
 ![](../images/troubleshooting/boot-md/9-audio.png)
 
-This is where Apple's audio driver comes in, and where AppleALC shines. Generally rare to see issues here but if you do, try disabling AppleALC and any other audio related kexts.
+Esta é a parte onde o driver de áudio da Apple entra e é onde a AppleALC brilha. É geralmente raro encontrar problemas nessa parte, mas se acontecer, tente desativar a AppleALC e quaisquer outras *kexts* relacionadas a áudio.
 
 ![](../images/troubleshooting/boot-md/10-GPU.png)
 
-And here we get to the GPU driver initialization, and where WhateverGreen also does its magic. Generally errors here are due to the GPU and not WhateverGreen itself, main culprits:
+E aqui é onde ocorre a inicialização do driver da GPU e é onde a WhateverGreen também faz a sua mágica. Geralmente, os erros que ocorrem aqui se devem à GPU e não à WhateverGreen. Principais culpados:
 
-* [Stuck on or near `IOConsoleUsers: gIOScreenLock...`](./extended/kernel-issues.md#stuck-on-or-near-ioconsoleusers-gioscreenlock-giolockstate-3)
-* [Black screen after `IOConsoleUsers: gIOScreenLock...` on Navi](./extended/kernel-issues.md#black-screen-after-ioconsoleusers-gioscreenlock-on-navi)
+* [Preso em ou próximo a `IOConsoleUsers: gIOScreenLock...`](./extended/kernel-issues.md#preso-em-ou-proximo-a-ioconsoleusers-gioscreenlock-giolockstate-3)
+* [Tela preta após `IOConsoleUsers: gIOScreenLock...` em placas Navi](./extended/kernel-issues.md#tela-preta-após-ioconsoleusers-gioscreenlock-em-placas-navi)
 
-## macOS Handoff
+## Entrega ao macOS
 
 ![](../images/troubleshooting/boot-md/11-boot.png)
 
-And you've finally got past all that verbose! If you're getting stuck at the Apple logo after all that verbose, then there's a couple things to check for:
+E finalmente acabou todo aquele verboso! Se estiver travando na logo da Apple depois de tudo isso, verifique o seguinte:
 
-* [macOS frozen right before login](./extended/kernel-issues.md#macos-frozen-right-before-login)
-* [Black screen after `IOConsoleUsers: gIOScreenLock...` on Navi](./extended/kernel-issues.md#black-screen-after-ioconsoleusers-gioscreenlock-on-navi)
-* [Frozen in the macOS installer after 30 seconds](./extended/userspace-issues.md#frozen-in-the-macos-installer-after-30-seconds)
+* [macOS congela antes do login](./extended/kernel-issues.md#macos-congela-antes-do-login)
+* [Tela preta após `IOConsoleUsers: gIOScreenLock...` em placas Navi](./extended/kernel-issues.md#black-screen-after-ioconsoleusers-gioscreenlock-on-navi)
+* [Instalador do macOS congela após 30 segundos](./extended/userspace-issues.md#instalador-do-macos-congela-após-30-segundos)
