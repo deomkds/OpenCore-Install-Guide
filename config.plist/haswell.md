@@ -107,7 +107,6 @@ O `AAPL,ig-platform-id` é o que o macOS usa para determinar como os drivers da 
 
 | AAPL,ig-platform-id | Observação |
 | :--- | :--- |
------------------------------------------
 | 0300220D | Usado em CPUs Haswell, quando a GPU integrada é responsável por exibir as imagens no monitor. |
 | 04001204 | Usado em CPUs Haswell, quando a GPU integrada é responsável somente por tarefas de computação e não exibe imagens em um monitor. |
 | 07002216 | Usado em CPUs Broadwell. |
