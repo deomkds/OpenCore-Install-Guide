@@ -71,34 +71,34 @@ Então, configure `Misc` -> `Debug` -> `Target` -> `83`
 * **DisplayLevel**: `2147483714`(ou calcule um valor abaixo)
   * Usado para configurar o que aparecerá no log.
 
-| Value | Comment |
+| Valor | Observação |
 | :--- | :--- |
-| `0x00000002` | DEBUG_WARN in DEBUG, NOOPT, RELEASE. |
-| `0x00000040` | DEBUG_INFO in DEBUG, NOOPT. |
-| `0x00400000` | DEBUG_VERBOSE in custom builds. |
-| `0x80000000` | DEBUG_ERROR in DEBUG, NOOPT, RELEASE. |
+| `0x00000002` | DEBUG_WARN nas versões `DEBUG`, `NOOPT`, `RELEASE`. |
+| `0x00000040` | DEBUG_INFO nas versões `DEBUG`, `NOOPT`. |
+| `0x00400000` | DEBUG_VERBOSE em *builds* personalizadas. |
+| `0x80000000` | DEBUG_ERROR nas versões `DEBUG`, `NOOPT`, `RELEASE`. |
 
-  A full list can be found in [DebugLib.h](https://github.com/tianocore/edk2/blob/UDK2018/MdePkg/Include/Library/DebugLib.h).
+Uma lista completa pode ser encontrada no arquivo [DebugLib.h](https://github.com/tianocore/edk2/blob/UDK2018/MdePkg/Include/Library/DebugLib.h).
 
-For us we just want the following:
+Neste caso, use só os valores a seguir:
 
-* `0x00000002` — DEBUG_WARN in DEBUG, NOOPT, RELEASE.
-* `0x00000040` — DEBUG_INFO in DEBUG, NOOPT.
-* `0x80000000` — DEBUG_ERROR in DEBUG, NOOPT, RELEASE.
+* `0x00000002` — DEBUG_WARN nas versões `DEBUG`, `NOOPT`, `RELEASE`.
+* `0x00000040` — DEBUG_INFO nas versões `DEBUG`, `NOOPT`.
+* `0x80000000` — DEBUG_ERROR nas versões `DEBUG`, `NOOPT`, `RELEASE`.
 
-Just like with `Target`, we use a HEX calculator then convert to decimal:
+Assim como com `Target`, será preciso calcular o valor em hexadecimal e convertê-lo para decimal:
 
-`0x80000042` Converted to decimal `Misc` -> `Debug` -> `DisplayLevel` -> `2147483714`
+`0x80000042` convertido para decimal fica `Misc -> Debug -> DisplayLevel -> 2147483714`
 
-Once done, your config.plist should look like this:
+Uma vez terminado, seu arquivo `config.plist` deve ficar parecido com isso:
 
 ![](../images/troubleshooting/debug-md/debug.png)
 
-## Disabling all logging
+## Desativando Todos os Logs
 
-To remove all file logging, and debug messages, simply swap out all your OpenCore files for those in RELEASE like we did before in [File Swap](#file-swap) section.
+Para remover todos os logs e mensagens de depuração, simplesmente troque todos os arquivos do OpenCore por aqueles encontrados na versão de lançamento `RELEASE`, da mesma forma como foi feito na seção [Troca de Arquivos](#file-swap).
 
-Lastly, to remove writing to disk set the following:
+Por fim, para deixar de salvar no disco, configure as seguintes opções:
 
 * AppleDebug = `NO`
 * ApplePanic = `NO`
