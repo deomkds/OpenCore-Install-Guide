@@ -1,14 +1,14 @@
-# OpenCore Debugging
+# Depurando o OpenCore
 
-Needing to figure out why you're getting issues or stalling? Well, you've come to the right place:
+Precisando descobrir o motivo de problemas ou travamentos? Bem, você veio ao lugar certo:
 
-* [File Swap](#file-swaps)
-* [Config Changes](#config-changes)
-* [Disabling all logging](#disabling-all-logging)
+* [Troca de Arquivos](#file-swaps)
+* [Mudanças de Configurações](#config-changes)
+* [Desativando Todos os Logs](#disabling-all-logging)
 
-## File Swaps
+## Troca de Arquivos
 
-To start, make sure you're using either the `DEBUG` or `NOOPT` versions of OpenCore. This will provide much more info than the `RELEASE` version, the specific files that need to be swapped:
+Antes de começar, certifique-se de estar usando a versão de depuração `DEBUG`ou a versão `NOOPT` do OpenCore. Elas fornecerão muito mais informações do que a versão de lançamento `RELEASE`. É preciso trocar os seguintes arquivos:
 
 * EFI/BOOT/
   * `BOOTx64.efi`
@@ -16,60 +16,60 @@ To start, make sure you're using either the `DEBUG` or `NOOPT` versions of OpenC
   * `Bootstrap.efi`
 * EFI/OC/Drivers/
   * `OpenRuntime.efi`
-  * `OpenCanopy.efi`(if you're using it)
+  * `OpenCanopy.efi`(caso o esteja usando)
 * EFI/OC/
   * `OpenCore.efi`
 
 ![](../images/troubleshooting/debug-md/replace.png)
 
-* **Note**: Generally best to debug systems without OpenCanopy, if required make sure this file is from DEBUG else there will be virtually no debug information.
+* **Observação**: geralmente, é melhor depurar os sistemas sem o OpenCanopy. Caso seja necessário, certifique-se de estar usando a versão de depuração (`DEBUG`) do OpenCanopy ou não haverá praticamente nenhuma informação de depuração.
 
-## Config Changes
+## Mudanças de Configurações
 
-Next, head to your config.plist and locate the `Misc` section, we have a couple entries we'll want to play with here:
+Então, acesse a sua `config.plist` e localize a seção `Misc`. Será necessário alterar algumas entradas aqui:
 
 ### Misc
 
-Here we'll want to enable the following:
+Aqui, será necessário ativar as seguintes opções:
 
 * **AppleDebug**: YES
-  * Provides much more debugging information, specifically relating to boot.efi and will also store the log to disk.
+  * Fornece muito mais informações de depuração, especificamente as relacionadas ao `boot.efi` e também faz com que o log seja salvo no disco.
 
 * **ApplePanic**: YES
-  * This will allow kernel panics to be stored to disk, highly recommend keeping `keepsyms=1` in boot-args to preserve as much info as possible.
+  * Isso permitirá que `kernel panics` sejam salvas no disco. Altamente recomendado manter o argumento de inicialização `keepsyms=1` na entrada `boot-args` para preservar a maior quantidade possível de informações.
 
 * **DisableWatchdog**: YES
-  * Disables the UEFI watchdog, used for when OpenCore is stalling on something non-critical.
+  * Desabilita o *watchdog* UEFI, usado para quando o OpenCore trava ou coisas não críticas.
 
-* **Target**: `67`(or calculate one below)
-  * Used for enabling different levels of debugging
+* **Target**: `67`(ou calcule um abaixo)
+  * Usado para habilitar diferentes níveis de depuração.
 
-| Value | Comment |
+| Valor | Observação |
 | :--- | :--- |
-| `0x01` | Enable Logging |
-| `0x02` | Enable Onscreen debug |
-| `0x04` | Enable logging to Data Hub. |
-| `0x08` | Enable serial port logging. |
-| `0x10` | Enable UEFI variable logging. |
-| `0x20` | Enable non-volatile UEFI variable logging. |
-| `0x40` | Enable logging to file. |
+| `0x01` | Habilita os logs. |
+| `0x02` | Habilita a depuração na tela. |
+| `0x04` | Habilita o salvamento de logs no Data Hub. |
+| `0x08` | Habilita a saída de logs na porta serial. |
+| `0x10` | Habilita os logs de variávies UEFI. |
+| `0x20` | Habilita os logs de variávies UEFI não voláteis. |
+| `0x40` | Habilita o salvamento de logs em arquivos. |
 
-To calculate the target, we can use a HEX calculator and then convert it to decimal. For us we want to have our values on stored onto a .txt file for later viewing:
+Para calcular o valor de `Target`, use uma calculadora hexadecimal e então converta o valor para decimal. Então, armazene os valores em um arquivo `.txt` para consulta posterior.
 
-* `0x01` — Enable Logging
-* `0x02` — Enable Onscreen debug
-  * Note this can heavily increase boot times on firmwares with poor GOP implementations
-* `0x10` — Enable UEFI variable logging.
-* `0x40` — Enable logging to file.
+* `0x01` — Habilita os logs.
+* `0x02` — Habilita a depuração na tela.
+  * Observe que isso pode aumentar bastante o tempo de inicialização em firmwares com implementações de GOP (driver de vídeo EFI) ruins.
+* `0x10` — Habilita os logs de variávies UEFI.
+* `0x40` — Habilita o salvamento de logs em arquivos.
 
 `0x01` + `0x02` + `0x10` + `0x40` = `0x53`
 
-`0x53` converted to decimal becomes `83`
+`0x53` convertido para decimal é `83`
 
-So we can set `Misc` -> `Debug` -> `Target` -> `83`
+Então, configure `Misc` -> `Debug` -> `Target` -> `83`
 
-* **DisplayLevel**: `2147483714`(or calculate one below)
-  * Used for setting what is logged
+* **DisplayLevel**: `2147483714`(ou calcule um valor abaixo)
+  * Usado para configurar o que aparecerá no log.
 
 | Value | Comment |
 | :--- | :--- |
