@@ -105,13 +105,13 @@ Configurações relacionadas à aplicação de patches no `boot.efi` e a correç
 * **EnableSafeModeSlide**: YES
   * Permite que as variáveis `slide` possam ser usadas no modo de segurança.
 * **EnableWriteUnprotector**: NO
-* Usado para remover a proteção de escrita do registrador CR0 em firmwares UEFI.
+  * Usado para remover a proteção de escrita do registrador CR0 em firmwares UEFI.
 * **ProvideCustomSlide**: YES
   * Usado para variáveis `slide` calculadas. No entanto, a necessidade desta *quirk* é determinada pela presença da mensagem `OCABC: Only N/256 slide values are usable!` no *log* de depuração. Se a mensagem `OCABC: All slides are usable! You can disable ProvideCustomSlide!` estiver presente no *log*, desative o `ProvideCustomSlide`.
 * **RebuildAppleMemoryMap**: YES
   * Corrige *kernel panic* precoce de memória no Mac OS X 10.6 Snow Leopard e anteriores.
 * **SetupVirtualMap**: YES
-* Corrige as chamadas de `SetVirtualAddresses` para endereços virtuais em firmwares UEFI.
+  * Corrige as chamadas de `SetVirtualAddresses` para endereços virtuais em firmwares UEFI.
 
 :::
 
