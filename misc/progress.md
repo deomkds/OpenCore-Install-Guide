@@ -35,7 +35,7 @@ Acompanhe o progresso da tradução deste guia. Tentarei manter essa página atu
 
 | PÁGINA | PROGRESSO |
 | :----- | :-------- |
-| **Configuração** | **42%** |
+| **Configuração** | **62%** |
 | **Desktop com Intel** | **100%** |
 | Penryn | 100% |
 | Clarkdale | 100% |
@@ -57,12 +57,12 @@ Acompanhe o progresso da tradução deste guia. Tentarei manter essa página atu
 | Coffee Lake e Whiskey Lake | 0% |
 | Coffee Lake Plus e Comet Lake | 0% |
 | Ice Lake | 0% |
-| **Intel HEDT** | **0%** |
-| Nehalem e Westmere | 0% |
-| Sandy e Ivy Bridge-E | 0% |
-| Haswell-E | 0% |
-| Broadwell-E | 0% |
-| Skylake-X/W e Cascade Lake-X/W | 0% |
+| **Intel HEDT** | **100%** |
+| Nehalem e Westmere | 100% |
+| Sandy e Ivy Bridge-E | 100% |
+| Haswell-E | 100% |
+| Broadwell-E | 100% |
+| Skylake-X/W e Cascade Lake-X/W | 100% |
 | **Desktop com AMD** | **100%** |
 | Bulldozer (15h) e Jaguar (16h) | 100% |
 | Ryzen e Threadripper (17h e 19h) | 100% |
