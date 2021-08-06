@@ -181,7 +181,6 @@ Lembre-se que usuários do [ProperTree](https://github.com/corpnewt/ProperTree) 
 
 Necessário para "falsificar" CPUs não suportadas. Porém, CPUs Sandy Bridge-E e Ivy Bridge-E são oficialmente suportadas e nenhum patch é requerido.
 
-
 ### Force
 
 Usado para carregar *kexts* direto do volume do sistema. Relevante somente para sistemas operacionais mais antigos nos quais algumas *kexts* não estavam presentes no *cache* (ex.: `IONetworkingFamily` no Mac OS X 10.6 Snow Leopard).
@@ -461,7 +460,6 @@ Máscara de bits da Proteção da Integridade do Sistema (SIP).
 ::: tip Informações
 
 Reescreve as variáveis NVRAM na marra. Observe que `Add` **não sobrescreve** valores que já estejam presentes na NVRAM. Então, valores como os `boot-args` devem ser deixados como estão. Altere as seguintes opções:
-
 
 | Quirk | Ativado |
 | :--- | :--- |

@@ -531,7 +531,7 @@ Reescreve as variáveis NVRAM na marra. Observe que `Add` **não sobrescreve** v
 
 Para configurar a informação da SMBIOS, será utilizado o aplicativo [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS), desenvolvido por CorpNewt.
 
-Neste exemplo de Broadwell-E , a SMBIOS do iMacPro1,1 será utilizada.
+Neste exemplo de Broadwell-E, a SMBIOS do iMacPro1,1 será utilizada.
 
 Execute o GenSMBIOS, escolha a opção 1 para baixar o MacSerial e a opção 3 para selecionar a SMBIOS. Isso mostrará uma saída similar à seguinte:
 
