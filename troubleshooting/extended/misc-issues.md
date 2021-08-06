@@ -1,110 +1,101 @@
-# Miscellaneous Issues
+# Problemas Diversos
 
-Miscellaneous issues not revolving around macOS itself such as multibooting.
+Problemas diversos que não são relacionados ao macOS propriamente ditos, como *multibooting*.
 
-* [Can't run `acpidump.efi`](#can-t-run-acpidump-efi)
-* [Fixing SSDTTime: `Could not locate or download iasl!`](#fixing-ssdttime-could-not-locate-or-download-iasl)
-* [Fix Python: `Python is not installed or not found on PATH`](#fix-python-python-is-not-installed-or-not-found-on-path)
-* [Windows Startup Disk can't see APFS drives](#windows-startup-disk-can-t-see-apfs-drives)
-* [Incorrect resolution with OpenCore](#incorrect-resolution-with-opencore)
-* [Can't find Windows/BootCamp drive in picker](#can-t-find-windows-bootcamp-drive-in-picker)
-* [Selecting Startup Disk doesn't apply correctly](#selecting-startup-disk-doesn-t-apply-correctly)
-* [Booting Windows results in BlueScreen or Linux crashes](#booting-windows-results-in-bluescreen-or-linux-crashes)
-* [Booting Windows error: `OCB: StartImage failed - Already started`](#booting-windows-error-ocb-startimage-failed-already-started)
-* [iASL warning, only X unresolved](#iasl-warning-only-x-unresolved)
+[[toc]]
 
-## Can't run `acpidump.efi`
+## Impossível Executar `acpidump.efi`
 
-Call upon OpenCore shell:
+Execute no `shell` do OpenCore:
 
 ```
-shell> fs0: //replace with proper drive
+shell> fs0: //substitua pela unidade correta.
 
-fs0:\> dir //to verify this is the right directory
+fs0:\> dir //para verificar se é o diretório correto.
 
   Directory of fs0:\
 
    01/01/01 3:30p  EFI
-fs0:\> cd EFI\OC\Tools //note that its with forward slashes
+fs0:\> cd EFI\OC\Tools //observe que usa a barra invertida.
 
 fs0:\EFI\OC\Tools> acpidump.efi -b -n DSDT -z
 ```
 
-## Fixing SSDTTime: `Could not locate or download iasl!`
+## Corrigindo o SSDTTime: `Could not locate or download iasl!`
 
-This is usually due to an outdated version of Python, try either updating Python or add iasl to the scripts folder for SSDTTime:
+Isso geralmente acontece devido a presença de uma versão desatualizada do Python. Tente atualizá-lo ou adicionar o `iasl` na pasta `scripts` do SSDTTime:
 
-* [iasl macOS version](https://bitbucket.org/RehabMan/acpica/downloads/iasl.zip)
-* [iasl Windows version](https://acpica.org/downloads/binary-tools)
-* [iasl Linux version](http://amdosx.kellynet.nl/iasl.zip)
+* [iasl - Versão para macOS](https://bitbucket.org/RehabMan/acpica/downloads/iasl.zip)
+* [iasl - Versão para Windows](https://acpica.org/downloads/binary-tools)
+* [iasl - Versão para Linux](http://amdosx.kellynet.nl/iasl.zip)
 
-## Fix Python: `Python is not installed or not found on PATH`
+## Corrigir o Python: `Python is not installed or not found on PATH`
 
-Easy fix, download and install the latest python:
+Correção fácil. Baixe e instale a última versão do Python:
 
-* [macOS link](https://www.python.org/downloads/macos)
-* [Windows link](https://www.python.org/downloads/windows/)
-* [Linux link](https://www.python.org/downloads/source/)
+* [Python - Versão para macOS](https://www.python.org/downloads/macos)
+* [Python - Versão para Windows](https://www.python.org/downloads/windows/)
+* [Python - Versão para Linux](https://www.python.org/downloads/source/)
 
-Make sure `Add Python to PATH`
+Certifique-se de adicioná-lo ao PATH:
 
 ![](../../images/troubleshooting/troubleshooting-md/python-path.png)
 
-## Windows Startup Disk can't see APFS drives
+## O Disco de Inicialização do Windows Não Exerga Unidades em APFS
 
-* Outdated BootCamp drivers(generally ver 6.0 will come with brigadier, BootCamp Utility in macOS provides newer version like ver 6.1). CorpNewt has also forked brigadier fixing these issues as well: [CorpNewt's brigadier](https://github.com/corpnewt/brigadier)
+* Drivers de BootCamp desatualizados. Geralmente a versão 6.0 virá com o Brigadier. O Utilitário de BootCamp no macOS fornece versões mais novas, como a 6.1. O CorpNewt fez um *fork* do Brigadier para corrigir esses problemas também: [Brigadier do CorpNewt](https://github.com/corpnewt/brigadier) (em inglês).
 
-## Incorrect resolution with OpenCore
+## Resolção do OpenCore Incorreta
 
-* Follow [Fixing Resolution and Verbose](https://dortania.github.io/OpenCore-Post-Install/cosmetic/verbose.html) for correct setup, set `UIScale` to `02` for HiDPI
-* Users also have noticed that setting `ConsoleMode` to Max will sometimes fail, leaving it empty can help
+* Siga o guia [Corrigindo a Resolução e o Verbose](https://deomkds.github.io/OpenCore-Post-Install/cosmetic/verbose.html) para configurar corretamente. Configure a opção `UIScale` para `02` em telas HiDPI.
+* Alguns usuários também observaram que configurar a opção `ConsoleMode` para `Max` pode causar falhas. Deixá-la vazia pode ajudar.
 
-## Can't find Windows/BootCamp drive in picker
+## A Unidade do Windows/BootCamp Não Aparece no Seletor
 
-So with OpenCore, we have to note that legacy Windows installs are not supported, only UEFI. Most installs now are UEFI based but those made by BootCamp Assistant are legacy based, so you'll have to find other means to make an installer(Google's your friend). This also means MasterBootRecord/Hybrid partitions are also broken so you'll need to format the drive you want to install onto with DiskUtility. See the [Multiboot Guide](https://dortania.github.io/OpenCore-Multiboot/) on best practices
+É importante lembrar que instalações legadas do Windows não são suportdas no OpenCore, somente instalações UEFI. A maioria das instalações hoje em dia são UEFI, no entanto, aquelas criadas pelo Assistente de BootCamp não o são. Será necessário encontrar outras formas de criar um instalador (o Google é seu amigo). Isso signifca que partições MBR/Híbridas também não funcionam e que será necessário formatar a unidade onde o macOS será instalado usando o Utilitário de Disco. Consulte o guia [Multiboot com o OpenCore](https://deomkds.github.io/OpenCore-Multiboot/) para saber mais.
 
-Now to get onto troubleshooting:
+Agora, para solucionar problemas:
 
-* Make sure `Misc -> Security -> ScanPolicy` is set to `0` to show all drives
-* Enable `Misc -> Boot -> Hideself` when Windows bootloader is located on the same drive
+* Certifique-se de que a opção `Misc -> Security -> ScanPolicy` está configurada para `0` de forma a exibir todos as unidades.
+* Habilite a opção `Misc -> Boot -> Hideself` quando o *bootloader* do Windows estiver localizado na mesma unidade do OpenCore.
 
-## Selecting Startup Disk doesn't apply correctly
+## Seleção de Disco de Inicialização Não Aplica Corretamente
 
-If you're having issues with Startup Disk correctly applying your new boot entry, this is most likely caused by a missing `DevicePathsSupported` in your I/O Registry. To resolve this, ensure you are using `PlatformInfo -> Automatic -> True`
+Se estiver tendo problemas nos quais o painel de preferência Disco de Inicialização não aplica corretamente a opção selecionada, muito provavelmente é resultado da falta do `DevicePathsSupported` no I/O Registry. Para resolver, certifique-se de configurar a opção `PlatformInfo -> Automatic` para `TRUE`.
 
-Example of missing `DevicePathsSupported`:
+Exemplo de `DevicePathsSupported` faltante:
 
-* [Default DevicePath match failure due to different PciRoot #664](https://github.com/acidanthera/bugtracker/issues/664#issuecomment-663873846)
+* [Default DevicePath match failure due to different PciRoot #664](https://github.com/acidanthera/bugtracker/issues/664#issuecomment-663873846) (em inglês).
 
-## Booting Windows results in BlueScreen or Linux crashes
+## Iniciar o Windows Resulta em Tela Azul ou o Linux Trava
 
-This is due to alignment issues, make sure `SyncRuntimePermissions` is enabled on firmwares supporting MATs. Check your logs whether your firmware supports Memory Attribute Tables(generally seen on 2018 firmwares and newer)
+Isso acontece por causa de problemas de alinhamento. Certifique-se de habilitar a opção `SyncRuntimePermissions` em firmwares que surportam MATs. Verifique os logs para saber se o firmware suporta as Tabelas de Atributos de Memória (vistas geralmente em firmwares de 2018 e mais novas).
 
-Common Windows error code:
+Código de erro comum do Windows:
 
 * `0xc000000d`
 
-## Booting Windows error: `OCB: StartImage failed - Already started`
+## Erro ao Iniciar o Windows: `OCB: StartImage failed - Already started`
 
-This is due to OpenCore getting confused when trying to boot Windows and accidentally thinking it's booting OpenCore. This can be avoided by either move Windows to it's own drive *or* adding a custom drive path under BlessOverride. See [Configuration.pdf](https://github.com/acidanthera/OpenCorePkg/blob/master/Docs/Configuration.pdf) for more details.
+Isso acontece porque o OpenCore fica confuso ao tentar inicar o Windows e acidentalmente pensa que está iniciando o OpenCore. Pode ser evitado movendo o Windows para uma unidade dedicada *ou* adicionando um caminho de unidade personalizado sob a opção `BlessOverride`. Consulte o arquivo [Configuration.pdf](https://github.com/acidanthera/OpenCorePkg/blob/master/Docs/Configuration.pdf) (em inglês) para obter mais detalhes.
 
-## iASL warning, only X unresolved
+## Aviso do iASL: `only X unresolved`
 
-If you try to decompile your DSDT and get an error similar to this:
+Se encontrar um erro como esse ao tentar decompilar uma DSDT:
 
 ```
 iASL Warning: There were 19 external control methods found during disassembly, but only 0 were resolved (19 unresolved)
 ```
 
-This happens when one ACPI table requires the rest for proper referencing, it does not accept the creation of DSDTs as we're only using it for creating a select few SSDTs. For those who are worried, you can run the following:
+Acontece quando uma tabela da ACPI exige que as outras tabelas restantes estejam presentes para referenciá-las apropriadamente. Ele não aceita a criação de DSDTs, já que o iASL é usado somente para criar algumas poucas SSDTs. Se estiver preocupado com isso, execute o seguinte:
 
 ```
-iasl * [insert all ACPI files here]
+iasl * [insira todos os arquivos da ACPI aqui]
 ```
 
-## Time inconsistency between macOS and Windows
+## Inconsistência de Relógio Entre o macOS e o Windows
 
-This is due to macOS using Universal Time while Windows relies on Greenwich time, so you'll need to force one OS to a different way of measuring time. We highly recommend modifying Windows instead as it's far less destructive and painful:
+Isso se deve ao fato do macOS tratar o horário da BIOS/firmware UEFI como UTC enquanto o Windows o trata como fuso horário local. Será necessário forçar um dos sistemas operacionais a tratar o relógio da BIOS de maneira diferente. É altamente recomendado modifica o Windows pois é muito mais fácil, rápido e seguro:
 
-* [Install Bootcamp utilities](https://dortania.github.io/OpenCore-Post-Install/multiboot/bootcamp.html)
-* [Modify Windows' registry](https://superuser.com/q/494432)
+* [Instale os utilitáios do BootCamp](https://deomkds.github.io/OpenCore-Post-Install/multiboot/bootcamp.html)
+* [Modifique o Registro do Windows](https://superuser.com/q/494432) [Download](../../extra-files/clockfix.zip)
