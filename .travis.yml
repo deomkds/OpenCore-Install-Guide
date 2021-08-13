@@ -10,8 +10,8 @@ deploy:
   skip_cleanup: true
   local_dir: .vuepress/dist
   github_token: $GITHUB_TOKEN
-  keep_history: true
+  keep_history: false
   target_branch: gh-pages
   on:
     branch: main
-
+  fqdn: www.guiaopencore.com.br
