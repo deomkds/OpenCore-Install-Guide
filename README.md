@@ -2,12 +2,12 @@
 home: true
 heroImage: /dortania-logo-clear.png
 heroText: Guia de Instalação do OpenCore 
-actionText: Primeiros Passos→
+actionText: Primeiros Passos →
 actionLink: prerequisites.md
 
 meta:
 - name: description
-  content: Tradução NÃO OFICIAL por deomkds (v0.7.0)
+  content: Tradução NÃO OFICIAL por deomkds (v0.7.1)
 ---
 
 # O que é o OpenCore e para quem é este guia?
