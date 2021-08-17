@@ -254,16 +254,18 @@ Aplica patches tanto no *kernel* quanto nas *kexts*.
 
 ::: tip Corrigindo controladores I225-V
 
-Essa entrada tem relação com o controlador de rede Intel I225-V 2.5GBe encontrado em placas Comet Lake de alta performance. Esta opção engana o driver que a Apple distribui para I225LM, de forma que ele passe a suportar o controlador de rede I225-V:
+Essa entrada tem relação com o controlador de rede Intel I225-V 2.5GBe encontrado em placas Comet Lake de alta performance. Esta opção engana o driver que a Apple distribui para I225LM, de forma que ele passe a suportar o controlador de rede I225-V. Observe que isso só é necessário no macOS 10.15 Catalina e macOS 11 Big Sur (somente até o macOS 11.3 Big Sur).
 
 | Chave | Tipo | Valor |
 | :--- | :--- | :--- |
 | Base | String | __Z18e1000_set_mac_typeP8e1000_hw |
 | Comment | String | Patch da I225-V |
+| Count | Number | 1 |
 | Enabled | Boolean | True |
 | Find | Data | `F2150000` |
 | Identifier | String | com.apple.driver.AppleIntelI210Ethernet |
 | MinKernel | String | 19.0.0 |
+| MaxKernel | String | 20.4.0 |
 | Replace | Data | `F3150000` |
 
 * **Observação**: se a placa-mãe não possui um controlador de rede Intel I225, não há motivo para adicionar essa entrada.
@@ -499,6 +501,11 @@ Máscara de bits da Proteção da Integridade do Sistema (SIP).
 | **debug=0x100** | Isso desativa o *watchdog* do macOS, o que ajuda a prevenir uma reinicialização após um *kernel panic*. Dessa forma, é possível (talvez) obter algumas informações importantes e seguir as migalhas para resolver um problema. |
 | **keepsyms=1** | É uma configuração companheira do `debug=0x100`, que diz ao sistema operacional para também exibir os símbolos na tela durante um *kernel panic*. Pode oferecer uma compreensão ainda maior sobre o que pode estar causando o *kernel panic* em primeiro lugar. |
 | **alcid=1** | Usado para configurar o *layout-id* para a AppleALC. Veja a lista de [codecs suportados](https://github.com/acidanthera/applealc/wiki/supported-codecs) (em inglês) para descobrir qual layout é o mais apropriado para o seu computador. Mais informações são fornecidas no guia de [Pós-instalação do OpenCore](https://deomkds.github.io/OpenCore-Post-Install/) |
+
+* **Argumentos de inicialização (boot-args) específicas de Rede**:
+| boot-args | Descrição |
+| :--- | :--- |
+| **dk.e1000=0** | Desabilita o `com.apple.DriverKit-AppleEthernetE1000` (o driver DEXT da Apple) de forma que ele pare de se conectar ao controlador de Ethernet Intel I225-V encontrado em placas de alto desempenho Comet Lake. Assim, o driver da Apple para a I225 não mais carrega. Necessário para obter suporte apropriado para a I225-V.<br/>Observe que isso não é necessário em placas que não possuem o controlador de rede I225-V. |
 
 * **Argumentos de inicialização (boot-args) específicas de GPUs**:
 
