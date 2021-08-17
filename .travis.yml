@@ -14,4 +14,3 @@ deploy:
   target_branch: gh-pages
   on:
     branch: main
-  fqdn: www.guiaopencore.com.br

@@ -19,10 +19,10 @@ module.exports = {
         }],
         ["link", {
             rel: "'stylesheet",
-            href: "styles/website.css"
+            href: "/styles/website.css"
         },]
     ],
-    base: 'OpenCore-Install-Guide',
+    base: '/OpenCore-Install-Guide/',
 	
 	watch: {
 	    $page(newPage, oldPage) {
