@@ -694,7 +694,7 @@ Agora tudo está pronto para ser salvo e copiado para a partição `EFI`, na pas
 
 Para aqueles que estiverem tendo problemas de inicialização, é recomendado ler a seção de [Solução de Problemas](../troubleshooting/troubleshooting.md) primeiro. Se ainda restarem dúvidas, é possível consultar algum dos recursos disponíveis abaixo:
 
-* [Discord de OS X em AMD](https://discord.gg/QuUWg7) (em inglês).
+* [Discord de OS X em AMD](https://discord.gg/EfCYAJW) (em inglês).
 * [Subreddit r/Hackintosh](https://www.reddit.com/r/hackintosh/) (em inglês).
 
 **Verificação de Sanidade**:
