@@ -45,7 +45,7 @@ Certifique-se de adicioná-lo ao PATH:
 
 * Drivers de BootCamp desatualizados. Geralmente a versão 6.0 virá com o Brigadier. O Utilitário de BootCamp no macOS fornece versões mais novas, como a 6.1. O CorpNewt fez um *fork* do Brigadier para corrigir esses problemas também: [Brigadier do CorpNewt](https://github.com/corpnewt/brigadier) (em inglês).
 
-## Resolção do OpenCore Incorreta
+## Resolução do OpenCore Incorreta
 
 * Siga o guia [Corrigindo a Resolução e o Verbose](https://deomkds.github.io/OpenCore-Post-Install/cosmetic/verbose.html) para configurar corretamente. Configure a opção `UIScale` para `02` em telas HiDPI.
 * Alguns usuários também observaram que configurar a opção `ConsoleMode` para `Max` pode causar falhas. Deixá-la vazia pode ajudar.
@@ -97,5 +97,5 @@ iasl * [insira todos os arquivos da ACPI aqui]
 
 Isso se deve ao fato do macOS tratar o horário da BIOS/firmware UEFI como UTC enquanto o Windows o trata como fuso horário local. Será necessário forçar um dos sistemas operacionais a tratar o relógio da BIOS de maneira diferente. É altamente recomendado modifica o Windows pois é muito mais fácil, rápido e seguro:
 
-* [Instale os utilitáios do BootCamp](https://deomkds.github.io/OpenCore-Post-Install/multiboot/bootcamp.html)
+* [Instale os utilitários do BootCamp](https://deomkds.github.io/OpenCore-Post-Install/multiboot/bootcamp.html)
 * [Modifique o Registro do Windows](https://superuser.com/q/494432) [Download](https://raw.githubusercontent.com/deomkds/OpenCore-Install-Guide/main/extra-files/clockfix.zip)
