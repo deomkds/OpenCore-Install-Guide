@@ -589,7 +589,7 @@ Configure o `Generic -> ROM` tanto para uma ROM da Apple (extraída de um Mac de
 
 ::: details Informação Mais Detalhada
 
-* **AdviseWindows**: NO
+* **AdviseFeatures**: NO
   * Usado para quando a partição EFI não é a primeira na unidade do Windows.
 
 * **MaxBIOSVersion**: NO

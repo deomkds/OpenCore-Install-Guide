@@ -73,6 +73,7 @@ Esta seção permite definir quais regiões do mapa de memória que são geralme
 ### Quirks
 
 ::: tip Informações
+
 Configurações relacionadas à aplicação de patches no `boot.efi` e a correções de firmware. Será necessário alterar as seguintes opções:
 
 | Quirk | Ativada |
@@ -83,6 +84,7 @@ Configurações relacionadas à aplicação de patches no `boot.efi` e a correç
 | RebuildAppleMemoryMap | YES |
 | SetupVirtualMap | NO |
 | SyncRuntimePermissions | YES |
+
 :::
 
 ::: details Informação Mais Detalhada
@@ -503,7 +505,7 @@ Máscara de bits da Proteção da Integridade do Sistema (SIP).
 | boot-args | Descrição |
 | :--- | :--- |
 | **agdpmod=pikera** | Usado para desativar o boardID em GPUs Navi (série RX 5000). Sem isso, será exibida uma tela preta. **Não use caso não possua uma GPU Navi** (isto é, placas Polaris e Vega não devem usar). |
-| **-wegnoegpu** | Usado para desativar todas as outras GPUs além da GPU integrada da Intel. Útil para aqueles que queiram executar as versões mais novas do macOS nos quais as suas GPUs dedicadas não são suportadas. |
+| **-wegnoegpu** | Usado para desabilitar todas as outras GPUs que não sejam a integrada da Intel. Útil para aqueles que queiram executar versões mais novas do macOS nos quais a GPU dedicada não seja suportada. |
 
 * **csr-active-config**: `00000000`
   * Confgigurações da Proteção da Integridade do Sistema (SIP). É geralmente recomendado alterar essa opção por meio da partição de Recuperação, usando o utilitário de linha de comando `csrutil`.
@@ -606,7 +608,7 @@ Configure o `Generic -> ROM` tanto para uma ROM da Apple (extraída de um Mac de
 
 ::: details Informação Mais Detalhada
 
-* **AdviseWindows**: NO
+* **AdviseFeatures**: NO
   * Usado para quando a partição EFI não é a primeira na unidade do Windows.
 
 * **MaxBIOSVersion**: NO
