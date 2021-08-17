@@ -98,4 +98,4 @@ iasl * [insira todos os arquivos da ACPI aqui]
 Isso se deve ao fato do macOS tratar o horário da BIOS/firmware UEFI como UTC enquanto o Windows o trata como fuso horário local. Será necessário forçar um dos sistemas operacionais a tratar o relógio da BIOS de maneira diferente. É altamente recomendado modifica o Windows pois é muito mais fácil, rápido e seguro:
 
 * [Instale os utilitáios do BootCamp](https://deomkds.github.io/OpenCore-Post-Install/multiboot/bootcamp.html)
-* [Modifique o Registro do Windows](https://superuser.com/q/494432) [Download](https://github.com/deomkds/blob/master/OpenCore-Install-Guide/extra-files/clockfix.zip)
+* [Modifique o Registro do Windows](https://superuser.com/q/494432) [Download](https://raw.githubusercontent.com/deomkds/OpenCore-Install-Guide/main/extra-files/clockfix.zip)
