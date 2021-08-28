@@ -669,7 +669,7 @@ Configurações das *quirks* relacionados ao ambiente UEFI. Altere as seguintes 
 ::: details Informação Mais Detalhada
 
 * **IgnoreInvalidFlexRatio**: YES
-  * Fix for when MSR_FLEX_RATIO (0x194) can't be disabled in the BIOS, required for all pre-Skylake based systems
+  * Correção para quando o MSR\_FLEX\_RATIO (0x194) não pode ser desabilitado na BIOS. Exigido para todos os computadores com CPUs anteriores ao Skylake.
 * **ReleaseUsbOwnership**: YES
   * Libera o controlador USB do driver de firmware. Necessário quando o firmware não suporta o *handoff* de EHCI/XHCI. A maioria dos notebooks possuem firmwares horríveis, o que torna essa opção necessária.
 * **DisableSecurityPolicy**: NO
