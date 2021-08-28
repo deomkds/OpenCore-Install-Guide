@@ -1,6 +1,6 @@
 # Problemas Diversos
 
-Problemas diversos que não são relacionados ao macOS propriamente ditos, como *multibooting*.
+Problemas diversos que não são relacionados ao macOS propriamente dito, como *multibooting*.
 
 [[toc]]
 
