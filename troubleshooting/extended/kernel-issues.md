@@ -1,53 +1,26 @@
-# Kernel Issues
+# Problemas de Kernel
 
-Issues surrounding from initial booting the macOS installer to right before the install GUI pops up.
+Problemas que partem da primeira inicialização do instalador do macOS até o momento antes da interface gráfica aparecer.
 
-* [Stuck on `[EB|#LOG:EXITBS:START]`](#stuck-on-eb-log-exitbs-start)
-* [Stuck on EndRandomSeed](#stuck-on-endrandomseed)
-* [Stuck after selecting macOS partition in OpenCore](#stuck-after-selecting-macos-partition-in-opencore)
-* [Kernel Panic on `Invalid frame pointer`](#kernel-panic-on-invalid-frame-pointer)
-* [Stuck on [EB|LD:OFS] Err(0xE) when booting preboot volume](#stuck-on-eb-ld-ofs-err-0xe-when-booting-preboot-volume)
-* [Stuck on `OCB: LoadImage failed - Security Violation`](#stuck-on-ocb-loadimage-failed-security-violation)
-* [Stuck on `OCABC: Memory pool allocation failure - Not Found`](#stuck-on-ocabc-memory-pool-allocation-failure-not-found)
-* [Stuck on `Buffer Too Small`](#stuck-on-buffer-too-small)
-* [Stuck on `Plist only kext has CFBundleExecutable key`](#stuck-on-plist-only-kext-has-cfbundleexecutable-key)
-* [Stuck on `This version of Mac OS X is not supported: Reason Mac...`](#stuck-on-this-version-of-mac-os-x-is-not-supported-reason-mac)
-* [`Couldn't allocate runtime area` errors?](#couldn-t-allocate-runtime-area-errors)
-* [Stuck on `RTC...`, `PCI ConfigurationBegins`, `Previous Shutdown...`, `HPET`, `HID: Legacy...`](#stuck-on-rtc-pci-configuration-begins-previous-shutdown-hpet-hid-legacy)
-* [Stuck at ACPI Table loading on B550](#stuck-at-acpi-table-loading-on-b550)
-* ["Waiting for Root Device" or Prohibited Sign error](#waiting-for-root-device-or-prohibited-sign-error)
-* [Kernel panic with IOPCIFamily on X99](#kernel-panic-with-iopcifamily-on-x99)
-* [Stuck on or near `IOConsoleUsers: gIOScreenLock...`](#stuck-on-or-near-ioconsoleusers-gioscreenlock-giolockstate-3)
-* [Scrambled Screen on laptops](#scrambled-screen-on-laptops)
-* [Black screen after `IOConsoleUsers: gIOScreenLock...` on Navi](#black-screen-after-ioconsoleusers-gioscreenlock-on-navi)
-* [Kernel Panic `Cannot perform kext summary`](#kernel-panic-cannot-perform-kext-summary)
-* [Kernel Panic `AppleIntelMCEReporter`](#kernel-panic-appleintelmcereporter)
-* [Kernel Panic `AppleIntelCPUPowerManagement`](#kernel-panic-appleintelcpupowermanagement)
-* [Kernel Panic `AppleACPIPlatform` in 10.13](#kernel-panic-appleacpiplatform-in-10-13)
-* [Keyboard works but trackpad does not](#keyboard-works-but-trackpad-does-not)
-* [`kextd stall[0]: AppleACPICPU`](#kextd-stall-0-appleacpicpu)
-* [Kernel Panic on AppleIntelI210Ethernet](#kernel-panic-on-appleinteli210ethernet)
-* [Kernel panic on "Wrong CD Clock Frequency" with Icelake laptop](#kernel-panic-on-wrong-cd-clock-frequency-with-icelake-laptop)
-* [Stuck at `Forcing CS_RUNTIME for entitlement` in Big Sur](#stuck-at-forcing-cs-runtime-for-entitlement-in-big-sur)
-* [Stuck on `ramrod`(^^^^^^^^^^^^^)](#stuck-on-ramrod)
+[[toc]]
 
-## Stuck on `[EB|#LOG:EXITBS:START]`
+## Preso em `[EB|#LOG:EXITBS:START]`
 
-This section will be split into 3 parts, so pay close attention:
+Essa seção será dividida em três partes, então preste bastante atenção:
 
-* [Booter Issues](#booter-issues)
-* [Kernel Patch Issues](#kernel-patch-issues)
-* [UEFI Issues](#uefi-issues)
-* [Virtual Machine Issues](#virtual-machine-issues)
+* [Problemas na Seção Booter](#problemas-na-seção-booter)
+* [Problemas na Seção Kernel Patch](#problemas-na-seção-kernel-patch)
+* [Problemas na Seção UEFI](#problemas-na-seção-uefi)
+* [Problemas de Máquinas Virtuais](#problemas-de-máquinas-virtuais)
 
-### Booter Issues
+### Problemas na Seção Booter
 
-The main culprits to watch for in the Booter section are:
+Os principais culpados a se observar na seção Booter são:
 
 * **DevirtualiseMmio**
-  * Certain MMIO spaces are still required to function correctly, so you'll need to either exclude these regions in Booter -> MmioWhitelist or disable this quirk outright. More info here: [Using DevirtualiseMmio](../../extras/kaslr-fix.md#using-devirtualisemmio)
-  * For TRx40 users, enable this quirk
-  * For X99 users, disable this quirk as it breaks with some firmwares
+  * Algumas regiões de MMIO ainda são necessárias para o correto funcionamento, então será necessário excluir essas regiões usando a opção `Booter -> MmioWhitelist` ou desativar completamente esta *quirk*. Veja mais informações aqui: [Usando o DevirtualiseMmio](../../extras/kaslr-fix.md#usando-o-devirtualisemmio)
+  * Usuários de TRx40 devem ativar esta *quirk*.
+  * Usuários de X99 precisam desabilitar esta *quirk* pois ela causa problemas em alguns firmwares.
 
 * **SetupVirtualMap**
   * This quirk is required for the majority of firmwares and without it it's very common to kernel panic here, so enable it if not already
@@ -148,7 +121,7 @@ To do this, Add the following patch(replacing the 04 from B8 **04** 00 00 00 C3 
 * **IgnoreInvalidFlexRatio**
   * This is needed for Broadwell and older. **Not for AMD and Skylake or newer**
 
-## Stuck on EndRandomSeed
+## Preso em EndRandomSeed
 
 Same issues above, see here for more details: [Stuck on `[EB|#LOG:EXITBS:START]`](#stuck-on-eb-log-exitbs-start)
 
@@ -195,7 +168,7 @@ OCABC: MAT support is 1
 
 Note: `1` means it supports MATs, while `0` means it does not.
 
-## Stuck on `[EB|LD:OFS] Err(0xE)` when booting preboot volume
+## Preso em `[EB|LD:OFS] Err(0xE)` when booting preboot volume
 
 Full error:
 
@@ -234,7 +207,7 @@ diskutil apfs updatePreboot /volume/disk5s2
 
 Then finally reboot
 
-## Stuck on `OCB: LoadImage failed - Security Violation`
+## Preso em `OCB: LoadImage failed - Security Violation`
 
 ```
 OCSB: No suitable signature - Security Violation
@@ -298,7 +271,7 @@ cd ~
 sudo cp -a /usr/standalone/i386/. /System/Volumes/Preboot/CD844C38-1A25-48D5-9388-5D62AA46CFB8/System/Library/CoreServices
 ```
 
-## Stuck on `OCABC: Memory pool allocation failure - Not Found`
+## Preso em `OCABC: Memory pool allocation failure - Not Found`
 
 This is due to incorrect BIOS settings:
 
@@ -307,15 +280,15 @@ This is due to incorrect BIOS settings:
   * Note on some laptops, CSM must be enabled
 * BIOS is up-to-date(Z390 and HEDT are known for having poorly written firmwares)
 
-## Stuck on `Buffer Too Small`
+## Preso em `Buffer Too Small`
 
 * Enable Above4GDecoding in the BIOS
 
-## Stuck on `Plist only kext has CFBundleExecutable key`
+## Preso em `Plist only kext has CFBundleExecutable key`
 
 Missing or incorrect `Executable path` in your config.plist, this should be resolved by re-running ProperTree's snapshot tool(Cmd/Ctrl+R).
 
-## Stuck on `This version of Mac OS X is not supported: Reason Mac...`
+## Preso em `This version of Mac OS X is not supported: Reason Mac...`
 
 This error happens when SMBIOS is one no longer supported by that version of macOS, make sure values are set in `PlatformInfo->Generic` with `Automatic` enabled. For a full list of supported SMBIOS and their OSes, see here: [Choosing the right SMBIOS](../../extras/smbios-support.md)
 
@@ -347,7 +320,7 @@ This error happens when SMBIOS is one no longer supported by that version of mac
 
 See [Fixing KASLR slide values](../../extras/kaslr-fix.md)
 
-## Stuck on `RTC...`, `PCI Configuration Begins`, `Previous Shutdown...`, `HPET`, `HID: Legacy...`
+## Preso em `RTC...`, `PCI Configuration Begins`, `Previous Shutdown...`, `HPET`, `HID: Legacy...`
 
 Well this general area is where a lot of PCI devices are first setup and configured, and is where most booting issues will happen. Other names include:
 
@@ -462,7 +435,7 @@ For those running the X99 platform from Intel, please go over the following:
 * You have the following SSDTs:
   * SSDT-UNC(if not, see [Getting started with ACPI](https://dortania.github.io/Getting-Started-With-ACPI/) on creating said file)
 
-## Stuck on or near `IOConsoleUsers: gIOScreenLock...`/`gIOLockState (3...`
+## Preso em or near `IOConsoleUsers: gIOScreenLock...`/`gIOLockState (3...`
 
 This is right before the GPU is properly initialized, verify the following:
 
@@ -639,7 +612,7 @@ For the latter, ensure you're only using SSDT-CPUR with **B550 and A520**. Do no
 
 This is actually the part at where macOS will seal the system volume, and where it may seem that macOS has gotten stuck. **DO NOT RESTART** thinking you're stuck, this will take quite some time to complete.
 
-## Stuck on `ramrod`(^^^^^^^^^^^^^)
+## Preso em `ramrod`(^^^^^^^^^^^^^)
 
 ![Credit to Notiflux for image](../../images/extras/big-sur/readme/ramrod.jpg)
 
