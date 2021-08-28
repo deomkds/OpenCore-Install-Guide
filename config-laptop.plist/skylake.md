@@ -551,7 +551,7 @@ Neste exemplo de Skylake, a SMBIOS do  MacBookPro13,1 será utilizada. Isso é i
 | MacBookPro13,1 | Dual Core 15w (Entrada) | GPU integrada: Iris 540 | 13" | Não |
 | MacBookPro13,2 | Dual Core 15w (Alto Desempenho) | GPU integrada: Iris 550 | 13" | Sim |
 | MacBookPro13,3 | Quad Core 45w | GPU integrada: HD 530 + GPU dedicada: RP450/455 | 15" | Sim |
-| iMac17,1 | Computadores NUC | GPU integrada: HD 530 + R9 290 |  N/A | Não |
+| iMac17,1 | NUC | GPU integrada: HD 530 + R9 290 |  N/A | Não |
 
 Execute o GenSMBIOS, escolha a opção 1 para baixar o MacSerial e a opção 3 para selecionar a SMBIOS. Isso mostrará uma saída similar à seguinte:
 

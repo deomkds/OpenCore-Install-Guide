@@ -561,7 +561,7 @@ Neste exemplo de Coffee Lake, a SMBIOS do MacBookPro15,1 será utilizada. Isso �
 | MacBookPro15,2 | Quad Core 15w | GPU integrada: Iris 655 | 13" | Sim |
 | MacBookPro15,3 | Hexa Core 45w | GPU integrada: UHD 630 + GPU dedicada: Vega16/20 | 15" | Sim |
 | MacBookPro15,4 | Quad Core 15w | GPU integrada: Iris 645 | 13" | Sim |
-| Macmini8,1 | Computadores NUC | HD 6000/Iris Pro 6200 | N/A | Não |
+| Macmini8,1 | NUC | HD 6000/Iris Pro 6200 | N/A | Não |
 
 Execute o GenSMBIOS, escolha a opção 1 para baixar o MacSerial e a opção 3 para selecionar a SMBIOS. Isso mostrará uma saída similar à seguinte:
 
@@ -709,14 +709,6 @@ Para aqueles que estiverem tendo problemas de inicialização, é recomendado le
 
 * [Subreddit r/Hackintosh](https://www.reddit.com/r/hackintosh/) (em inglês).
 * [Discord do r/Hackintosh](https://discord.gg/2QYd7ZT) (em inglês).
-
-**Verificação de Sanidade**:
-
-Graças aos esforços de Ramus, agora a comunidade possui uma ferramenta incrível que ajuda a verificar a `config.plist` em busca de erros:
-
-* [**Sanity Checker**](https://opencore.slowgeek.com) (em inglês).
-
-Observe que essa ferramenta não é desenvolvida nem mantida pelo time Dortania e todos os problemas com ela devem ser reportadas no repositório do [Sanity Checker](https://github.com/rlerdorf/OCSanity) (em inglês).
 
 ### Lembretes Finais
 

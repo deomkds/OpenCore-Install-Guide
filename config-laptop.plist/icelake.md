@@ -39,8 +39,8 @@ Serão necessárias algumas SSDTs para trazer de volta algumas funcionalidades q
 | :--- | :--- |
 | **[SSDT-PLUG](https://deomkds.github.io/Getting-Started-With-ACPI/)** | Permite utilizar o gerenciamento nativo de energia da CPU no Haswell e mais novos. Veja o guia [Primeiros Passos com a ACPI](https://deomkds.github.io/Getting-Started-With-ACPI/) para mais detalhes. |
 | **[SSDT-EC-USBX](https://deomkds.github.io/Getting-Started-With-ACPI/)** | Corrige tanto o controlador integrado quanto a energia da USB. Veja o guia [Primeiros Passos com a ACPI](https://deomkds.github.io/Getting-Started-With-ACPI/) para mais detalhes. |
-| **[SSDT-GPIO](https://deomkds.com/dortania/Getting-Started-With-ACPI/blob/master/extra-files/decompiled/SSDT-GPI0.dsl)** | Cria um *stub* para que a VoodooI2C possa se conectar. Para aqueles que não estejam conseguindo fazer a VoodooI2C funcionar, tente usar a [SSDT-XOSI](https://github.com/deomkds/Getting-Started-With-ACPI/blob/master/extra-files/compiled/SSDT-XOSI.aml). Observe que os NUCs da Intel não precisam disso. |
-| **[SSDT-PNLF-CFL](https://dortania.github.io/Getting-Started-With-ACPI/)** | Conserta o controle de brilho. Veja o guia [Primeiros Passos com a ACPI](https://deomkds.github.io/Getting-Started-With-ACPI/) para obter mais detalhes. Observe que os NUCs da Intel não precisam disso. |
+| **[SSDT-GPIO](https://deomkds.com/deomkds/Getting-Started-With-ACPI/blob/master/extra-files/decompiled/SSDT-GPI0.dsl)** | Cria um *stub* para que a VoodooI2C possa se conectar. Para aqueles que não estejam conseguindo fazer a VoodooI2C funcionar, tente usar a [SSDT-XOSI](https://github.com/deomkds/Getting-Started-With-ACPI/blob/master/extra-files/compiled/SSDT-XOSI.aml). Observe que os NUCs da Intel não precisam disso. |
+| **[SSDT-PNLF-CFL](https://deomkds.github.io/Getting-Started-With-ACPI/)** | Conserta o controle de brilho. Veja o guia [Primeiros Passos com a ACPI](https://deomkds.github.io/Getting-Started-With-ACPI/) para obter mais detalhes. Observe que os NUCs da Intel não precisam disso. |
 | **[SSDT-AWAC](https://deomkds.github.io/Getting-Started-With-ACPI/)** | Este é o patch de RTC para [série 300](https://www.hackintosh-forum.de/forum/thread/39846-asrock-z390-taichi-ultimate/?pageNo=2) (em inglês), exigido para a maioria das placas B360, B365, H310, H370, Z390 e algumas placas Z370 que impedem o macOS de iniciar. Uma alternativa é a [SSDT-RTC0](https://deomkds.github.io/Getting-Started-With-ACPI/) para quando a AWAC SSDT é incompatível devido à falta do relógio RTC antigo. Para verificar se seu computador precisa disso e qual delas usar, consulte o guia [Primeiros Passos com a ACPI](https://deomkds.github.io/Getting-Started-With-ACPI/). |
 | **[SSDT-RHUB](https://deomkds.github.io/Getting-Started-With-ACPI/)** | Necessária para corrigir erros de Root-device em muitos notebooks com CPUs Ice Lake. |
 
@@ -703,14 +703,6 @@ Para aqueles que estiverem tendo problemas de inicialização, é recomendado le
 
 * [Subreddit r/Hackintosh](https://www.reddit.com/r/hackintosh/) (em inglês).
 * [Discord do r/Hackintosh](https://discord.gg/2QYd7ZT) (em inglês).
-
-**Verificação de Sanidade**:
-
-Graças aos esforços de Ramus, agora a comunidade possui uma ferramenta incrível que ajuda a verificar a `config.plist` em busca de erros:
-
-* [**Sanity Checker**](https://opencore.slowgeek.com) (em inglês).
-
-Observe que essa ferramenta não é desenvolvida nem mantida pelo time Dortania e todos os problemas com ela devem ser reportadas no repositório do [Sanity Checker](https://github.com/rlerdorf/OCSanity) (em inglês).
 
 ### Lembretes Finais
 

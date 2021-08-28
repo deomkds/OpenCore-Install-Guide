@@ -558,7 +558,7 @@ Neste exemplo de Kaby Lake, a SMBIOS do MacBookPro14,1 será utilizada. Isso é 
 | MacBookPro14,1 | Dual Core 15w (Entrada) | GPU integrada: Iris Plus 640 | 13" | Não |
 | MacBookPro14,2 | Dual Core 15w (Alto Desempenho) | GPU integrada: Iris Plus 650 | 13" | Sim |
 | MacBookPro14,3 | Quad Core 45w | GPU integrada: HD 630 + GPU dedicada: RP555/560 | 15" | Yes |
-| iMac18,1 | Computadores NUC | GPU integrada: Iris Plus 640 |  N/A | Não |
+| iMac18,1 | NUC | GPU integrada: Iris Plus 640 |  N/A | Não |
 
 Execute o GenSMBIOS, escolha a opção 1 para baixar o MacSerial e a opção 3 para selecionar a SMBIOS. Isso mostrará uma saída similar à seguinte:
 
