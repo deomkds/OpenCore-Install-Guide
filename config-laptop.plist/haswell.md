@@ -1,27 +1,27 @@
-# Laptop Haswell
+# Notebook Haswell
 
-| Support | Version |
+| Suporte | Versão |
 | :--- | :--- |
-| Initial macOS Support | OS X 10.8, Mountain Lion |
+| Suporte Inicial no macOS | OS X 10.8 Mountain Lion |
 
-## Starting Point
+## Ponto de Partida
 
-So making a config.plist may seem hard, it's not. It just takes some time but this guide will tell you how to configure everything, you won't be left in the cold. This also means if you have issues, review your config settings to make sure they're correct. Main things to note with OpenCore:
+Criar uma config.plist pode parecer difícil, mas não é. Este guia mostrará como configurar tudo, só é preciso ter tempo. Não se preocupe, você não será deixado no escuro. Isso significa que, caso surjam problemas, verifique as configurações da sua `config.plist` para garantir que está tudo certo. O principal a ser observado com o OpenCore é:
 
-* **All properties must be defined**, there are no default OpenCore will fall back on so **do not delete sections unless told explicitly so**. If the guide doesn't mention the option, leave it at default.
-* **The Sample.plist cannot be used As-Is**, you must configure it to your system
-* **DO NOT USE CONFIGURATORS**, these rarely respect OpenCore's configuration and even some like Mackie's will add Clover properties and corrupt plists!
+* **Todas as propriedades precisam estar definidas**. O OpenCore não reverte para valores padrão, então **não exclua nenhuma seção, a não ser que seja explicitamente indicado**. Se o guia não menciona uma opção, mantenha os padrões.
+* **O arquivo Sample.plist não pode ser usado sem alterações**. É preciso configurá-lo para o seu computador antes de usá-lo.
+* **NÂO USE CONFIGURADORES**. Eles raramente respeitam as configurações do OpenCore e alguns, como o do Mackie, adicionam propriedades do Clover e corrompem as plists!
 
-Now with all that, a quick reminder of the tools we need
+Agora, com isso fora do caminho, um breve lembrete sobre as ferramentas necessárias:
 
 * [ProperTree](https://github.com/corpnewt/ProperTree)
-  * Universal plist editor
+  * Editor universal de arquivos `.plist`.
 * [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS)
-  * For generating our SMBIOS data
+  * Para gerar os dados da SMBIOS.
 * [Sample/config.plist](https://github.com/acidanthera/OpenCorePkg/releases)
-  * See previous section on how to obtain: [config.plist Setup](../config.plist/README.md)
+  * Veja a seção anterior para obter esses arquivos: [Configuração da config.plist](../config.plist/README.md)
 
-**And read this guide more than once before setting up OpenCore and make sure you have it set up correctly. Do note that images will not always be the most up-to-date so please read the text below them, if nothing's mentioned then leave as default.**
+**Leia este guia mais de uma vez antes de configurar o OpenCore. Tenha certeza de tê-lo configurado corretamente. Observe que as imagens deste guia nem sempre estarão 100% atualizadas, então sempre leia o texto que as acompanha. Se nada for mencionado sobre uma opção, mantenha as configurações padrão.**
 
 ## ACPI
 
@@ -29,39 +29,39 @@ Now with all that, a quick reminder of the tools we need
 
 ### Add
 
-::: tip Info
+::: tip Informações
 
-This is where you'll add SSDTs for your system, these are very important to **booting macOS** and have many uses like [USB maps](https://dortania.github.io/OpenCore-Post-Install/usb/), [disabling unsupported GPUs](../extras/spoof.md) and such. And with our system, **it's even required to boot**. Guide on making them found here: [**Getting started with ACPI**](https://dortania.github.io/Getting-Started-With-ACPI/)
+É aqui onde todas as SSDTs do computador são adicionadas. Elas são muito importantes para **iniciar o macOS** e possuem muitos usos, como [mapear as portas USB](https://deomkds.github.io/OpenCore-Post-Install/usb/), [desativar GPUs não suportdas](../extras/spoof.md) e coisas do tipo. Da forma como o OpenCore funciona, **elas são necessárias para iniciar o macOS**. O guia sobre como fazê-las pode ser encontrado aqui: [**Primeiros Passos com a ACPI**](https://deomkds.github.io/Getting-Started-With-ACPI/).
 
-For us we'll need a couple of SSDTs to bring back functionality that Clover provided:
+Serão necessárias algumas SSDTs para trazer de volta algumas funcionalidades que o Clover oferecia:
 
-| Required_SSDTs | Description |
+| SSDTs Necessárias | Descrição |
 | :--- | :--- |
-| **[SSDT-PLUG](https://dortania.github.io/Getting-Started-With-ACPI/)** | Allows for native CPU power management on Haswell and newer, see [Getting Started With ACPI Guide](https://dortania.github.io/Getting-Started-With-ACPI/) for more details. |
-| **[SSDT-EC](https://dortania.github.io/Getting-Started-With-ACPI/)** | Fixes the embedded controller, see [Getting Started With ACPI Guide](https://dortania.github.io/Getting-Started-With-ACPI/) for more details. |
-| **[SSDT-GPIO](https://github.com/dortania/Getting-Started-With-ACPI/blob/master/extra-files/decompiled/SSDT-GPI0.dsl.zip)** | Creates a stub so VoodooI2C can connect, for those having troubles getting VoodooI2C working can try [SSDT-XOSI](https://github.com/dortania/Getting-Started-With-ACPI/blob/master/extra-files/compiled/SSDT-XOSI.aml) instead. Note that Intel NUCs do not need this |
-| **[SSDT-PNLF](https://dortania.github.io/Getting-Started-With-ACPI/)** | Fixes brightness control, see [Getting Started With ACPI Guide](https://dortania.github.io/Getting-Started-With-ACPI/) for more details. Note that Intel NUCs do not need this |
+| **[SSDT-PLUG](https://deomkds.github.io/Getting-Started-With-ACPI/)** | Permite utilizar o gerenciamento nativo de energia da CPU no Haswell e mais novos. Veja o guia [Primeiros Passos com a ACPI](https://deomkds.github.io/Getting-Started-With-ACPI/) para mais detalhes. |
+| **[SSDT-EC](https://deomkds.github.io/Getting-Started-With-ACPI/)** | Corrige o controlador integrado. Veja o guia [Primeiros Passos com a ACPI](https://deomkds.github.io/Getting-Started-With-ACPI/) para mais detalhes.
+| **[SSDT-GPIO](https://deomkds.com/deomkds/Getting-Started-With-ACPI/blob/master/extra-files/decompiled/SSDT-GPI0.dsl)** | Cria um *stub* para que a VoodooI2C possa se conectar. Para aqueles que não estejam conseguindo fazer a VoodooI2C funcionar, tente usar a [SSDT-XOSI](https://github.com/deomkds/Getting-Started-With-ACPI/blob/master/extra-files/compiled/SSDT-XOSI.aml). Observe que os NUCs da Intel não precisam disso. |
+| **[SSDT-PNLF](https://deomkds.github.io/Getting-Started-With-ACPI/)** | Conserta o controle de brilho. Veja o guia [Primeiros Passos com a ACPI](https://deomkds.github.io/Getting-Started-With-ACPI/) para obter mais detalhes. Observe que os NUCs da Intel não precisam disso. |
 
-Note that you **should not** add your generated `DSDT.aml` here, it is already in your firmware. So if present, remove the entry for it in your `config.plist` and under EFI/OC/ACPI.
+Observe que **não é preciso** adicionar a sua `DSDT.aml` aqui, pois ela já está presente no firmware do seu computador. Então, se ela estiver presente nesta seção, remova a sua entrada da `config.plist` e exclua o arquivo `.aml` da pasta `EFI/OC/ACPI`.
 
-For those wanting a deeper dive into dumping your DSDT, how to make these SSDTs, and compiling them, please see the [**Getting started with ACPI**](https://dortania.github.io/Getting-Started-With-ACPI/) **page.** Compiled SSDTs have a **.aml** extension(Assembled) and will go into the `EFI/OC/ACPI` folder and **must** be specified in your config under `ACPI -> Add` as well.
+Para aqueles que desejam obter mais informações sobre como extrair DSDTs, como criar SSDTs e como compilá-las, veja o guia [**Primeiros Passos com a ACPI**](https://deomkds.github.io/Getting-Started-With-ACPI/). SSDTs compiladas possuem a extensão **.aml** (*assembled*) e serão colocadas na pasta `EFI/OC/ACPI`. Elas também **precisam** estar especificadas na sua `config.plist`, dentro da seção `ACPI -> Add`.
 
 :::
 
 ### Delete
 
-This blocks certain ACPI tables from loading, for us we can ignore this.
+Esta seção bloqueia o carregamento de certas tabelas da ACPI. Ignore-a por enquanto.
 
 ### Patch
 
-::: tip Info
+::: tip Informações
 
-This section allows us to dynamically modify parts of the ACPI (DSDT, SSDT, etc.) via OpenCore. For us, we'll need the following:
+Esta seção permite modificar partes da ACPI (DSDT, SSDT etc.) de forma dinâmica por meio do OpenCore. Neste caso, será necessário configurar o seguinte:
 
-* OSI rename
-  * This is required when using SSDT-XOSI as we redirect all OSI calls to this SSDT, **this is not needed if you're using SSDT-GPIO**
+* Renomear OSI
+  * Necessário ao usar a SSDT-XOSI, já que todas as chamadas OSI são redirecionadas para essa SSDT. **Desnecessário caso esteja usando a SSDT-GPIO.**
 
-| Comment | String | Change _OSI to XOSI |
+| Comment | String | Alterar _OSI para XOSI |
 | :--- | :--- | :--- |
 | Enabled | Boolean | YES |
 | Count | Number | 0 |
@@ -73,36 +73,39 @@ This section allows us to dynamically modify parts of the ACPI (DSDT, SSDT, etc.
 
 ### Quirks
 
-Settings relating to ACPI, leave everything here as default as we have no use for these quirks.
+Configurações relacionadas à ACPI. Deixe tudo como padrão, pois este guia não vai usar essas *quirks*.
 
 ## Booter
 
 ![Booter](../images/config/config-universal/aptio-iv-booter.png)
 
-This section is dedicated to quirks relating to boot.efi patching with OpenRuntime, the replacement for AptioMemoryFix.efi
+Esta seção é dedicada a *quirks* relacionadas com a aplicação de patches no `boot.efi` através do `OpenRuntime`, o substituto do `AptioMemoryFix.efi`.
 
 ### MmioWhitelist
 
-This section is allowing spaces to be pass-through to macOS that are generally ignored, useful when paired with `DevirtualiseMmio`
+Esta seção permite definir quais regiões do mapa de memória que são geralmente ignoradas pelo macOS, são boas para o uso. Útil ao ser combinado com `DevirtualiseMmio`.
 
 ### Quirks
 
-::: tip Info
-Settings relating to boot.efi patching and firmware fixes, for us, we leave it as default
+::: tip Informações
+
+Configurações relacionadas à aplicação de patches no `boot.efi` e a correções de firmware. Mantenha os padrões.
+
 :::
-::: details More in-depth Info
+
+::: details Informação Mais Detalhada
 
 * **AvoidRuntimeDefrag**: YES
-  * Fixes UEFI runtime services like date, time, NVRAM, power control, etc
+  * Corrige serviços UEFI em tempo de execução, como a data, a hora, a NVRAM, o controle de energia etc.
 * **EnableSafeModeSlide**: YES
-  * Enables slide variables to be used in safe mode.
+  * Permite que as variáveis `slide` possam ser usadas no modo de segurança.
 * **EnableWriteUnprotector**: YES
-  * Needed to remove write protection from CR0 register.
+  * Necessária para remover a proteção de escrita do registrdor CR0.
 * **ProvideCustomSlide**: YES
-  * Used for Slide variable calculation. However the necessity of this quirk is determined by `OCABC: Only N/256 slide values are usable!` message in the debug log. If the message `OCABC: All slides are usable! You can disable ProvideCustomSlide!` is present in your log, you can disable `ProvideCustomSlide`.
+  * Usado para variáveis `slide` calculadas. No entanto, a necessidade desta *quirk* é determinada pela presença da mensagem `OCABC: Only N/256 slide values are usable!` no *log* de depuração. Se a mensagem `OCABC: All slides are usable! You can disable ProvideCustomSlide!` estiver presente no *log*, desative o `ProvideCustomSlide`.
 * **SetupVirtualMap**: YES
-  * Fixes SetVirtualAddresses calls to virtual addresses, required for Gigabyte boards to resolve early kernel panics
-  
+  * Corrige as chamadas de `SetVirtualAddresses` para endereços virtuais. Exigido em placas Gigabyte para resolver *kernel panics* precoces.
+
 :::
 
 ## DeviceProperties
@@ -111,44 +114,44 @@ Settings relating to boot.efi patching and firmware fixes, for us, we leave it a
 
 ### Add
 
-Sets device properties from a map.
+Configura as propriedades de dispositivo a partir de um mapa.
 
 ::: tip PciRoot(0x0)/Pci(0x2,0x0)
 
-This section is set up via WhateverGreen's [Framebuffer Patching Guide](https://github.com/acidanthera/WhateverGreen/blob/master/Manual/FAQ.IntelHD.en.md) and is used for setting important iGPU properties.
+Esta seção é configurada por meio do [Guia de Patches de Framebuffer](https://github.com/acidanthera/WhateverGreen/blob/master/Manual/FAQ.IntelHD.en.md) (em inglês) da WhateverGreen e é utilizada para configurar propriedades importantes da GPU integrada.
 
-When setting up your iGPU, the table below should help with finding the right values to set. Here is an explanation of some values:
+Ao configurar a GPU integrada, a tabela abaixo deve ajudar a encontrar os valores corretos a serem utilizados. Eis uma explicação sobre alguns deles:
 
 * **AAPL,ig-platform-id**
-  * This is used internally for setting up the iGPU
+  * Usado internamente para configurar a GPU integrada.
 * **Type**
-  * Whether the entry is recommended for laptops(ie. with built-in displays) or for Intel NUCs(ie. stand alone boxes)
+  * Indica se a entrada é recomendada para notebooks (ex.: com monitor integrado) ou para  NUCs da Intel (ex.: sem monitor integrado).
 
-Generally follow these steps when setting up your iGPU properties. Follow the configuration notes below the table if they say anything different:
+Siga esses passos ao configurar as propriedades da GPU integrada. Siga tambeḿ as notas de configuração presentes abaixo da tabela caso elas informem algo diferente:
 
-1. When initially setting up your config.plist, only set AAPL,ig-platform-id - this is normally enough
-2. If you boot and you get no graphics acceleration (7MB VRAM and solid background for dock), then you likely need to try different `AAPL,ig-platform-id` values, add stolenmem patches, or even add a `device-id` property.
+1. Ao criar a primeira `config.plist`, configure somente a propriedade `AAPL,ig-platform-id`. É o suficiente para iniciar o instalador.
+2. Caso o macOS inicie sem aceleração gráfica (7MB de VRAM e fundo opaco na Dock), então será necessário testar valores diferentes para a `AAPL,ig-platform-id`, adicionar patches de memória reservada (*stolenmem*) ou até mesmo adicionar a propriedade `device-id`.
 
-| AAPL,ig-platform-id | Type | Comment |
+| AAPL,ig-platform-id | Tipo | Observação |
 | ------------------- | ---- | ------- |
-| **0500260A** | Laptop | To be used usually with HD5000, HD5100 and HD5200 |
-| **0600260A** | Laptop | To be used usually with HD4200, HD4400 and HD4600, you **must** use a `device-id`(see below) |
-| **0300220D** | NUC | To be used usually with all Haswell NUCs, HD4200/4400/4600 **must** use a `device-id`(see below) |
+| **0500260A** | Notebook | Geralmente usado com HD 5000, HD 5100 e HD 5200. |
+| **0600260A** | Notebook | Geralmente usado com HD 4200, HD 4400 e HD 4600. É **necessário** usar um  `device-id` (veja abaixo). |
+| **0300220D** | NUC | Geralmente usado com todos os NUCs com CPUs Haswell. Usuários de HD 4200/4400/4600 **precisam** usar um `device-id` (veja abaixo). |
 
-#### Configuration Notes
+#### Observações Sobre a Configuração
 
-In addition to the AAPL,ig-platform-id, you'll want to add the cursor byte size patch from 6MB (00006000) to 9MB because of some glitches:
+Juntamente com o `AAPL,ig-platform-id`, será necessário adicionar a correção de tamanho de byte do cursor, de 6MB (00006000) para 9MB, devido a alguns glitches:
 
-| Key | Type | Value |
+| Chave | Tipo | Valor |
 | :--- | :--- | :--- |
 | framebuffer-patch-enable | Data | 01000000 |
 | framebuffer-cursormem | Data | 00009000 |
 
-**Special note for HD4200, HD4400 and HD4600**:
+**Observação especial para HD 4200, HD 4400 e HD 4600**:
 
-You will also require a device-id spoof to be supported:
+Será preciso usar um `device-id` falso para obter suporte:
 
-| Key | Type | Value |
+| Chave | Tipo | Valor |
 | :--- | :--- | :--- |
 | device-id | Data | 12040000 |
 
@@ -158,16 +161,16 @@ You will also require a device-id spoof to be supported:
 
 `layout-id`
 
-* Applies AppleALC audio injection, you'll need to do your own research on which codec your motherboard has and match it with AppleALC's layout. [AppleALC Supported Codecs](https://github.com/acidanthera/AppleALC/wiki/Supported-codecs).
-* You can delete this property outright as it's unused for us at this time
+* Aplica a injeção de áudio da AppleALC. Será necessário fazer sua própria pesquisa para descobrir qual codec sua placa-mãe utiliza e combiná-la com um leiaute da AppleALC. [Codecs Suportados pela AppleALC](https://github.com/acidanthera/AppleALC/wiki/Supported-codecs) (em inglês).
+* Exclua essa entrada completamente, já que ela não será utilizada por este guia neste momento.
 
-For us, we'll be using the boot argument `alcid=xxx` instead to accomplish this. `alcid` will override all other layout-IDs present. More info on this is covered in the [Post-Install Page](https://dortania.github.io/OpenCore-Post-Install/)
+Em vez disso, será utilizado o argumento de inicialização (*boot-arg*) `alcid=xxx` para conseguir o mesmo efeito. O `alcid` sobrescreverá todos os outros layout-IDs presentes. Mais informações sobre isso estão disponíveis no guia de [Pós-instalação do OpenCore](https://deomkds.github.io/OpenCore-Post-Install/).
 
 :::
 
 ### Delete
 
-Removes device properties from the map, for us we can ignore this
+Remove as propriedades de dispositivos do mapa. Pode ser ignorado.
 
 ## Kernel
 
@@ -175,42 +178,42 @@ Removes device properties from the map, for us we can ignore this
 
 ### Add
 
-Here's where we specify which kexts to load, in what specific order to load, and what architectures each kext is meant for. By default we recommend leaving what ProperTree has done, however for 32-bit CPUs please see below:
+É aqui onde são especificadas as *kexts* que serão carregadas, a ordem desse carregamento e quais arquiteturas cada *kext* suporta. Por padrão, recomenda-se manter o que o ProperTree criou, no entanto, para computadores com CPUs de 32 bits, veja a seguir.
 
-::: details More in-depth Info
+::: details Informação Mais Detalhada
 
-The main thing you need to keep in mind is:
+O principal a se observar é:
 
-* Load order
-  * Remember that any plugins should load *after* its dependencies
-  * This means kexts like Lilu **must** come before VirtualSMC, AppleALC, WhateverGreen, etc
+* Ordem de Carregamento
+  * Lembre-se que quaisquer *plugins* devem carregar **depois** de suas dependências.
+  * Isso significa que *kexts* como a Lilu **precisam** vir antes da VirtualSMC, AppleALC, WhateverGreen etc.
 
-A reminder that [ProperTree](https://github.com/corpnewt/ProperTree) users can run **Cmd/Ctrl + Shift + R** to add all their kexts in the correct order without manually typing each kext out.
+Lembre-se que usuários do [ProperTree](https://github.com/corpnewt/ProperTree) podem pressionar **Cmd/Ctrl + Shift + R** para adicionar todas as suas *kexts* na ordem correta sem precisar digitar cada uma manualmente.
 
 * **Arch**
-  * Architectures supported by this kext
-  * Currently supported values are `Any`, `i386` (32-bit), and `x86_64` (64-bit)
+  * Arquiteturas suportadas pela *kext*.
+  * Atualmente, os valores suportados são `Any`, `i386` (32 bits), e `x86_64` (64 bits).
 * **BundlePath**
-  * Name of the kext
-  * ex: `Lilu.kext`
+  * Nome da *kext*.
+  * Ex: `Lilu.kext`.
 * **Enabled**
-  * Self-explanatory, either enables or disables the kext
+  * Auto explicativo. Ativa ou desativa a *kext*.
 * **ExecutablePath**
-  * Path to the actual executable is hidden within the kext, you can see what path your kext has by right-clicking and selecting `Show Package Contents`. Generally, they'll be `Contents/MacOS/Kext` but some have kexts hidden within under `Plugin` folder. Do note that plist only kexts do not need this filled in.
-  * ex: `Contents/MacOS/Lilu`
+  * O caminho para o verdadeiro executável fica escondido dentro da *kext*. É possível encontrá-lo clicando com o botão direito e selecionando a opção `Mostrar Conteúdo do Pacote`. Geralmente, estará em `Contents/MacOS/Kext`, mas algumas *kexts* possuem outras *kexts* escondidas na pasta `Plugin`. Observe que *kexts* compostas somente por um arquivo `.plist` não precisam ter este campo preenchido.
+  * Ex: `Contents/MacOS/Lilu`.
 * **MinKernel**
-  * Lowest kernel version your kext will be injected into, see below table for possible values
-  * ex. `12.00.00` for OS X 10.8
+  * A versão mínima do *kernel* na qual a *kext* pode ser injetada. Consulte a tabela abaixo para os valores permitidos.
+  * Ex. `12.00.00` representa o OS X 10.8 Mountain Lion.
 * **MaxKernel**
-  * Highest kernel version your kext will be injected into, see below table for possible values
-  * ex. `11.99.99` for OS X 10.7
+  * A versão máxima do *kernel* na qual a *kext* pode ser injetada. Consulte a tabela abaixo para os valores permitidos.
+  * Ex. `11.99.99` representa o OS X 10.7 Lion.
 * **PlistPath**
-  * Path to the `info.plist` hidden within the kext
-  * ex: `Contents/Info.plist`
+  * Caminho para o arquivo `info.plist` escondido dentro da *kext*.
+  * Ex: `Contents/Info.plist`.
   
-::: details Kernel Support Table
+::: details Tabela de Suporte de *Kernel*
 
-| OS X Version | MinKernel | MaxKernel |
+| Versão do macOS | MinKernel | MaxKernel |
 | :--- | :--- | :--- |
 | 10.4 | 8.0.0 | 8.99.99 |
 | 10.5 | 9.0.0 | 9.99.99 |
@@ -230,37 +233,37 @@ A reminder that [ProperTree](https://github.com/corpnewt/ProperTree) users can r
 
 ### Emulate
 
-Needed for spoofing unsupported CPUs like Pentiums and Celerons
+Necessário para "falsificar" CPUs não suportadas como Pentiums e Celerons.
 
-* **CpuidMask**: Leave this blank
-* **CpuidData**: Leave this blank
+* **CpuidMask**: deixe vazio.
+* **CpuidData**: deixe vazio.
 
 ### Force
 
-Used for loading kexts off system volume, only relevant for older operating systems where certain kexts are not present in the cache(ie. IONetworkingFamily in 10.6).
+Usado para carregar *kexts* direto do volume do sistema. Relevante somente para sistemas operacionais mais antigos nos quais algumas *kexts* não estavam presentes no *cache* (ex.: `IONetworkingFamily` no Mac OS X 10.6 Snow Leopard).
 
-For us, we can ignore.
+Pode ser ignorado.
 
 ### Block
 
-Blocks certain kexts from loading. Not relevant for us.
+Impede que certas *kexts* sejam carregadas. Irrelevante no momento.
 
 ### Patch
 
-Patches both the kernel and kexts.
+Aplica patches tanto no *kernel* quanto nas *kexts*.
 
 ### Quirks
 
-::: tip Info
+::: tip Informações
 
-Settings relating to the kernel, for us we'll be enabling the following:
+Configurações relacionadas ao *kernel*. Ative somente as seguintes opções:
 
-| Quirk | Enabled | Comment |
+| Quirk | Ativada | Observação |
 | :--- | :--- | :--- |
-| AppleCpuPmCfgLock | NO | Need if running 10.10 or older and cannot disable `CFG-Lock` in the BIOS |
-| AppleXcpmCfgLock | YES | Not needed if `CFG-Lock` is disabled in the BIOS |
-| DisableIOMapper | YES | Not needed if `VT-D` is disabled in the BIOS |
-| LapicKernelPanic | NO | HP Machines will require this quirk |
+| AppleCpuPmCfgLock | NO | Necessário no OS X 10.10 Yosemite ou mais antigo e caso não seja possível desabilitar o `CFG-Lock` na BIOS. |
+| AppleXcpmCfgLock | YES | Desnecessário caso o `CFG-Lock` esteja desabilitado na BIOS. |
+| DisableIOMapper | YES | Desnecessário caso o `VT-D` esteja desabilitado na BIOS. |
+| LapicKernelPanic | NO | Computadores HP necessitam dessa *quirk*. |
 | PanicNoKextDump | YES | |
 | PowerTimeoutKernelPanic | YES | |
 | XhciPortLimit | YES | |
@@ -270,61 +273,60 @@ Settings relating to the kernel, for us we'll be enabling the following:
 ::: details More in-depth Info
 
 * **AppleCpuPmCfgLock**: NO
-  * Only needed when CFG-Lock can't be disabled in BIOS
-  * Only applicable for Ivy Bridge and older
-    * Note: Broadwell and older require this when running 10.10 or older
+  * Necessário somente quando a trava de CFG não puder ser desativada na BIOS.
+  * Aplicável somente a computadores com CPUs Ivy Bridge ou mais antigas.
+    * Observação: computadores com CPUs Broadwell ou mais antigas necessitam disso ao executar o OS X 10.10 Yosemite ou mais antigo.
 * **AppleXcpmCfgLock**: YES
-  * Only needed when CFG-Lock can't be disabled in BIOS
-  * Only applicable for Haswell and newer
-    * Note: Ivy Bridge-E is also included as it's XCPM capable
+  * Necessário somente quando a trava de CFG não puder ser desativada na BIOS.
+  * Aplicável somente para computadores com CPUs Haswell ou mais novas.
+    * Observação: computadores com CPUs Ivy Bridge-E também precisam, já que suportam XCPM.
 * **CustomSMBIOSGuid**: NO
-  * Performs GUID patching for UpdateSMBIOSMode set to `Custom`. Usually relevant for Dell laptops
-  * Enabling this quirk with UpdateSMBIOSMode Custom mode can also disable SMBIOS injection into "non-Apple" OSes however we do not endorse this method as it breaks Bootcamp compatibility. Use at your own risk
+  * Aplica patches de GUID quando `UpdateSMBIOSMode` está configurado para `Custom`. Mais relevante para notebooks Dell.
+  * Ativar esta *quirk* em conjunto com `PlatformInfo -> UpdateSMBIOSMode -> Custom` desativará a injeção de SMBIOS em sistemas operacionais que não sejam da Apple. Este guia não endossa este método, pois quebra a compatibilidade com o Bootcamp. Use por sua conta e risco.
 * **DisableIoMapper**: YES
-  * Needed to get around VT-D if either unable to disable in BIOS or needed for other operating systems, much better alternative to `dart=0` as SIP can stay on in Catalina
+  * Necessária para contornar o VT-D caso seja impossível desabilitar a opção na BIOS ou ele seja necessário em outros sistemas operacionais. Uma alternativa muito melhor ao `dart=0`, pois permite manter o SIP ligado no macOS 10.15 Catalina.
 * **DisableLinkeditJettison**: YES
-  * Allows Lilu and others to have more reliable performance without `keepsyms=1`
+  * Permite que a Lilu e outras *kexts* tenham uma performance melhor sem o `keepsyms=1`.
 * **DisableRtcChecksum**: NO
-  * Prevents AppleRTC from writing to primary checksum (0x58-0x59), required for users who either receive BIOS reset or are sent into Safe mode after reboot/shutdown
+  * Previne que a AppleRTC escreva na soma de verificação primária (0x58-0x59). Exigido para usuários que, ao reiniciar/desligar o macOS, experienciam uma redefinição de BIOS ou são enviados para o modo de segurança.
 * **ExtendBTFeatureFlags** NO
-  * Helpful for those having continuity issues with non-Apple/non-Fenvi cards
+  * Útil para aqueles que tiverem problemas com o Continuidade ao usar placas Wi-Fi que não sejam da Apple ou da Fenvi.
 * **LapicKernelPanic**: NO
-  * Disables kernel panic on AP core lapic interrupt, generally needed for HP systems. Clover equivalent is `Kernel LAPIC`
+  * Desativa um *kernel panic* no interruptor *AP core lapic*. Geralmente é necessário em computadores HP. Equivalente ao `Kernel LAPIC` do Clover.
 * **LegacyCommpage**: NO
-  * Resolves SSSE3 requirement for 64 Bit CPUs in macOS, mainly relevant for 64-Bit Pentium 4 CPUs(ie. Prescott)
+  * Resolve a necessidade de instruções SSSE3 em CPUs de 64 bits no macOS. Relevante principalmente para CPUs Pentium 4 de 64 bits, como Prescott.
 * **PanicNoKextDump**: YES
-  * Allows for reading kernel panics logs when kernel panics occur
+  * Permite ler os *logs* de *kernel panics* quando ocorrem.
 * **PowerTimeoutKernelPanic**: YES
-  * Helps fix kernel panics relating to power changes with Apple drivers in macOS Catalina, most notably with digital audio.
+  * Ajuda a corrigir *kernel panics* relacionadas a alterações de energia com os drivers da Apple no macOS 10.15 Catalina. Mais perceptível com o áudio digital.
 * **SetApfsTrimTimeout**: `-1`
-  * Sets trim timeout in microseconds for APFS filesystems on SSDs, only applicable for macOS 10.14 and newer with problematic SSDs.
+  * Configura o intervalo de tempo do TRIM (em microsegundos) em SSDs com sistema de arquivos APFS. Aplicável somente para o macOS 10.14 Mojave ou mais novos que estejam utilizando SSDs problemáticos.
 * **XhciPortLimit**: YES
-  * This is actually the 15 port limit patch, don't rely on it as it's not a guaranteed solution for fixing USB. Please create a [USB map](https://dortania.github.io/OpenCore-Post-Install/usb/) when possible.
+  * Isto é, na verdade, o patch que corrige o limite de 15 portas USB. Não dependa dele, pois não é uma solução garantida para corrigir problemas de USB. Por favor, prefira criar um [mapa das portas USB](https://deomkds.github.io/OpenCore-Post-Install/usb/) sempre que possível.
 
-The reason being is that UsbInjectAll reimplements builtin macOS functionality without proper current tuning. It is much cleaner to just describe your ports in a single plist-only kext, which will not waste runtime memory and such
+O motivo para tal é que o UsbInjectAll reimplementa uma funcionalidade integrada do macOS sem ter os ajustes apropriados. É muito mais limpo simplesmente descrever suas portas em uma *kext* com só um arquivo `.plist` dentro, o que não desperdiça memória em tempo de execução e coisas do tipo.
 
 :::
 
 ### Scheme
 
-Settings related to legacy booting(ie. 10.4-10.6), for majority you can skip however for those planning to boot legacy OSes you can see below:
+Configurações relacionadas com a inicialização de sistemas operacionais antigos, como o Mac OS X 10.4 Tiger, 10.5 Leopard e 10.6 Snow Leopard. A maioria dos leitores pode pular essa parte. No entanto, aqueles que planejam usar sistemas antigos, continuem lendo.
 
-::: details More in-depth Info
+::: details Informação Mais Detalhada
 
 * **FuzzyMatch**: True
-  * Used for ignoring checksums with kernelcache, instead opting for the latest cache available. Can help improve boot performance on many machines in 10.6
+  * Usado para ingorar somas de verificação no *kernelcache*, optando em vez disso pelo último *cache* disponível. Pode ajudar a melhorar a performance da inicialização em muitos computadores com Mac OS X 10.6 Snow Leopard.
 * **KernelArch**: x86_64
-  * Set the kernel's arch type, you can choose between `Auto`, `i386` (32-bit), and `x86_64` (64-bit).
-  * If you're booting older OSes which require a 32-bit kernel(ie. 10.4 and 10.5) we recommend to set this to `Auto` and let macOS decide based on your SMBIOS. See below table for supported values:
-    * 10.4-10.5 — `x86_64`, `i386` or `i386-user32`
-      * `i386-user32` refers 32-bit userspace, so 32-bit CPUs must use this(or CPUs missing SSSE3)
-      * `x86_64` will still have a 32-bit kernelspace however will ensure 64-bit userspace in 10.4/5
-    * 10.6 — `i386`, `i386-user32`, or `x86_64`
-    * 10.7 — `i386` or `x86_64`
-    * 10.8 or newer — `x86_64`
-
+  * Configura o tipo de arquitetura do *kernel*. As opções possíveis são: `Auto`, `i386` (32 bits) e `x86_64` (64 bits).
+  * Se estiver utilizando sistemas operacionais mais antigos que necessitam de um *kernel* 32 bits, como o Mac OS X 10.4 Tiger e 10.5 Leopard, recomenda-se configurar essa opção para `Auto` e deixar que o macOS decida a melhor opção baseado na SMBIOS. Veja a tabela abaixo com os valores suportados:
+    * Mac OS X 10.4 Tiger e 10.5 Leopard: `x86_64`, `i386` ou `i386-user32`.
+      * `i386-user32` se refere ao espaço de usuário em 32 bits. Então, CPUs de 32 bits precisam usar essa opção (ou CPUs que não possuem as instruções SSSE3).
+      * `x86_64` Ainda executará o espaço do *kernel* em 32 bits. No entanto, garantirá que o espaço de usuário seja 64 bits nessas versões do Mac OS X.
+    * Mac OS X 10.6 Snow Leopard: `i386`, `i386-user32` ou `x86_64`.
+    * OS X 10.7 Lion: `i386` ou `x86_64`.
+    * OS X 10.8 Mountain Lion ou mais novo: `x86_64`.
 * **KernelCache**: Auto
-  * Set kernel cache type, mainly useful for debugging and so we recommend `Auto` for best support
+  * Configura o tipo de *cache* do *kernel*. Útil principalmente para depuração, então recomenda-se manter configurado como `Auto` para obter o melhor suporte.
 
 :::
 
@@ -334,15 +336,15 @@ Settings related to legacy booting(ie. 10.4-10.6), for majority you can skip how
 
 ### Boot
 
-Settings for boot screen (Leave everything as default).
+Configurações da tela de inicialização. Mantenha todos os padrões como estão.
 
 ### Debug
 
-::: tip Info
+::: tip Informações
 
-Helpful for debugging OpenCore boot issues(We'll be changing everything *but* `DisplayDelay`):
+Útil para depurar os problemas de inicialização do OpenCore (tudo será alterado, *exceto* `DisplayDelay`):
 
-| Quirk | Enabled |
+| Quirk | Ativada |
 | :--- | :--- |
 | AppleDebug | YES |
 | ApplePanic | YES |
@@ -351,82 +353,81 @@ Helpful for debugging OpenCore boot issues(We'll be changing everything *but* `D
 
 :::
 
-::: details More in-depth Info
+::: details Informação Mais Detalhada
 
 * **AppleDebug**: YES
-  * Enables boot.efi logging, useful for debugging. Note this is only supported on 10.15.4 and newer
+  * Ativa o *log* do `boot.efi`. Útil para depuração. Observe que isso só é suportado no macOS 10.15.4 Catalina ou superior.
 * **ApplePanic**: YES
-  * Attempts to log kernel panics to disk
+  * Tenta salvar os *logs* de *kernel panics* diretamente no disco.
 * **DisableWatchDog**: YES
-  * Disables the UEFI watchdog, can help with early boot issues
+  * Desativa o *watchdog* do UEFI. Pode ajudar com problemas de inicialização precoces.
 * **DisplayLevel**: `2147483650`
-  * Shows even more debug information, requires debug version of OpenCore
+  * Exibe ainda mais informações de depuração. Necessita da versão de depuração do OpenCore.
 * **SerialInit**: NO
-  * Needed for setting up serial output with OpenCore
+  * Necessário para configurar a saída serial no OpenCore.
 * **SysReport**: NO
-  * Helpful for debugging such as dumping ACPI tables
-  * Note that this is limited to DEBUG versions of OpenCore
+  * Útil para a depuração, como a extração de tabelas da ACPI.
+  * Observe que essa função está limitada a versões de depuração do OpenCore.
 * **Target**: `67`
-  * Shows more debug information, requires debug version of OpenCore
+  * Exibe mais informações de depuração, mas requer a versão de depuração do OpenCore.
 
-These values are based of those calculated in [OpenCore debugging](../troubleshooting/debug.md)
+Esses valores são baseados nos cálculos feitos na página [Depurando o OpenCore](../troubleshooting/debug.md).
 
 :::
 
 ### Security
 
-::: tip Info
+::: tip Informações
 
-Security is pretty self-explanatory, **do not skip**. We'll be changing the following:
+Segurança é bastante autoexplicativa. **Não pule** esta parte. Eis o que deve ser alterado:
 
-| Quirk | Enabled | Comment |
+| Quirk | Ativada | Observação |
 | :--- | :--- | :--- |
 | AllowNvramReset | YES | |
 | AllowSetDefault | YES | |
 | BlacklistAppleUpdate | YES | |
 | ScanPolicy | 0 | |
-| SecureBootModel | Default |  This is a word and is case-sensitive, set to `Disabled` if you do not want secure boot(ie. you require Nvidia's Web Drivers) |
-| Vault | Optional | This is a word, it is not optional to omit this setting. You will regret it if you don't set it to Optional, note that it is case-sensitive |
+| SecureBootModel | Default |  Essa opção é literalmente uma palavra e diferencia maiúsculas de minúsculas. Mude para `Disabled` se precisar desativar a Inicialização Segura (ex.: se precisar usar os Web Drivers da Nvidia). |
+| Vault | Optional | Esta opção é literalmente uma palavra e omiti-la não é permitido. Você vai se arrepender se não configurá-la para `Optional`. Atente-se para o fato de que a opção diferencia maiúsculas de minúsculas. |
 
 :::
 
-::: details More in-depth Info
+::: details Informação Mais Detalhada
 
 * **AllowNvramReset**: YES
-  * Allows for NVRAM reset both in the boot picker and when pressing `Cmd+Opt+P+R`
+  * Permite redefinir a NVRAM tanto por meio do seletor de inicialização e ao pressionar `Cmd+Opt+P+R`.
 * **AllowSetDefault**: YES
-  * Allow `CTRL+Enter` and `CTRL+Index` to set default boot device in the picker
+  * Permite apertar `CTRL+Enter` e `CTRL+Index` para configurar o dispositivo padrão de inicialização no seletor.
 * **ApECID**: 0
-  * Used for netting personalized secure-boot identifiers, currently this quirk is unreliable due to a bug in the macOS installer so we highly encourage you to leave this as default.
+  * Usado para configurar identificadores de inicialização segura personalizados. Atualmente, essa *quirk* não é confiável devido a um *bug* no instalador do macOS. Recomenda-se fortemente manter essa opção configurada para o valor padrão.
 * **AuthRestart**: NO
-  * Enables Authenticated restart for FileVault 2 so password is not required on reboot. Can be considered a security risk so optional
+  * Ativa a reinicialização autenticada para o FileVault 2, de forma que a senha não seja exigida ao reiniciar o computador. Pode ser considerada um risco à segurança, portanto é opcional.
 * **BlacklistAppleUpdate**: YES
-  * Used for blocking firmware updates, used as extra level of protection as macOS Big Sur no longer uses `run-efi-updater` variable
-
+  * Usado para bloquear atualizações de firmware. Age como um nível extra de proteção, já que o macOS 11 Big Sur não mais utiliza a variável `run-efi-updater`.
 * **DmgLoading**: Signed
-  * Ensures only signed DMGs load
+  * Garante que o OpenCore só carregará DMGs que estejam assinadas digitalmente.
 * **ExposeSensitiveData**: `6`
-  * Shows more debug information, requires debug version of OpenCore
+  * Exibe mais informações de depuração e necessita da versão de depuração do OpenCore.
 * **Vault**: `Optional`
-  * We won't be dealing vaulting so we can ignore, **you won't boot with this set to Secure**
-  * This is a word, it is not optional to omit this setting. You will regret it if you don't set it to `Optional`, note that it is case-sensitive
+  * Não será necessário lidar com cofres, então ignore esta opção. **Não será possível iniciar se esta opção estiver configurada para Secure.**
+  * Isso é literalmente uma palavra e sua omissão não é permitida. Você vai se arrepender se não configurá-la para `Optional`. Atente-se para o fato de que a opção diferencia maiúsculas de minúsculas.
 * **ScanPolicy**: `0`
-  * `0` allows you to see all drives available, please refer to [Security](https://dortania.github.io/OpenCore-Post-Install/universal/security.html) section for further details. **Will not boot USB devices with this set to default**
+  * Configurar para `0` permite ver todas as unidades disponíveis. Veja a seção [Segurança](https://deomkds.github.io/OpenCore-Post-Install/universal/security.html) para obter mais detalhes. **O OpenCore não iniciará pendrives se esta opção estiver configurada para Default**.
 * **SecureBootModel**: Default
-  * Enables Apple's secure boot functionality in macOS, please refer to [Security](https://dortania.github.io/OpenCore-Post-Install/universal/security.html) section for further details.
-  * Note: Users may find upgrading OpenCore on an already installed system can result in early boot failures. To resolve this, see here: [Stuck on OCB: LoadImage failed - Security Violation](/troubleshooting/extended/kernel-issues.md#stuck-on-ocb-loadimage-failed-security-violation)
+  * Ativa a funcionalidade de Inicialização Segura da Apple no macOS. Consulte a seção [Segurança](https://deomkds.github.io/OpenCore-Post-Install/universal/security.html) para mais detalhes.
+  * Observação: Usuários podem notar que atualizar o OpenCore em um sistema operacional já instalado pode resultar em falhas precoces de inicialização. Para resolver isso, veja: [Parado em OCB: LoadImage failed - Security Violation](/troubleshooting/extended/kernel-issues.md#stuck-on-ocb-loadimage-failed-security-violation) (em inglês).
 
 :::
 
 ### Tools
 
-Used for running OC debugging tools like the shell, ProperTree's snapshot function will add these for you.
+Usado para executar as ferramentas de depuração do OpenCore, como o `shell`. A função de *snapshot* do ProperTree adicionará as ferramentas necessárias automaticamente.
 
 ### Entries
 
-Used for specifying irregular boot paths that can't be found naturally with OpenCore.
+Usado para especificar caminhos de inicialização irregulares que não podem ser encontrados naturalmente pelo OpenCore.
 
-Won't be covered here, see 8.6 of [Configuration.pdf](https://github.com/acidanthera/OpenCorePkg/blob/master/Docs/Configuration.pdf) for more info
+Não será abordado aqui. Veja o item 8.6 do PDF de configuração para mais informações: [Configuration.pdf](https://github.com/acidanthera/OpenCorePkg/blob/master/Docs/Configuration.pdf) (em inglês).
 
 ## NVRAM
 
@@ -436,71 +437,71 @@ Won't be covered here, see 8.6 of [Configuration.pdf](https://github.com/acidant
 
 ::: tip 4D1EDE05-38C7-4A6A-9CC6-4BCCA8B38C14
 
-Used for OpenCore's UI scaling, default will work for us. See in-depth section for more info
+Usado para o escalonamento da interface de usuário do OpenCore. O padrão servirá para os propósitos deste guia. Veja a seção abaixo para obter informações mais detalhadas.
 
 :::
 
-::: details More in-depth Info
+::: details Informação Mais Detalhada
 
-Booter Path, mainly used for UI Scaling
+Caminho do inicializador. Usado principalmente para o escalonamento da interface gráfica.
 
 * **UIScale**:
-  * `01`: Standard resolution
-  * `02`: HiDPI (generally required for FileVault to function correctly on smaller displays)
+  * `01`: Resolução padrão.
+  * `02`: HiDPI (geralmente necessário para que o FileVault funcione corretamente em telas menores)
 
-* **DefaultBackgroundColor**: Background color used by boot.efi
-  * `00000000`: Syrah Black
-  * `BFBFBF00`: Light Gray
+* **DefaultBackgroundColor**: Cor de fundo usada pelo `boot.efi`.
+  * `00000000`: Syrah Black (preto).
+  * `BFBFBF00`: Light Gray (cinza).
 
 :::
 
 ::: tip 4D1FDA02-38C7-4A6A-9CC6-4BCCA8B30102
 
-OpenCore's NVRAM GUID, mainly relevant for RTCMemoryFixup users
+GUID de NVRAM do OpenCore. Relevante principalmente para usuários da RTCMemoryFixup.
 
 :::
 
-::: details More in-depth Info
+::: details Informação Mais Detalhada
 
 * **rtc-blacklist**: <>
-  * To be used in conjunction with RTCMemoryFixup, see here for more info: [Fixing RTC write issues](https://dortania.github.io/OpenCore-Post-Install/misc/rtc.html#finding-our-bad-rtc-region)
-  * Most users can ignore this section
+  * Para ser usado em conjunto com a RTCMemoryFixup. Acesse esta página para obter mais detalhes: [Corrigindo problemas de escrita do RTC](https://deomkds.github.io/OpenCore-Post-Install/misc/rtc.html#finding-our-bad-rtc-region) (em inglês).
+  * A maioria dos usuários pode ignorar esta seção.
 
 :::
 
 ::: tip 7C436110-AB2A-4BBB-A880-FE41995C9F82
 
-System Integrity Protection bitmask
+Máscara de bits da Proteção da Integridade do Sistema (SIP).
 
-* **General Purpose boot-args**:
+* **Argumentos de inicialização (*boot-args*) de uso geral**:
 
-| boot-args | Description |
+| boot-args | Descrição |
 | :--- | :--- |
-| **-v** | This enables verbose mode, which shows all the behind-the-scenes text that scrolls by as you're booting instead of the Apple logo and progress bar. It's invaluable to any Hackintosher, as it gives you an inside look at the boot process, and can help you identify issues, problem kexts, etc. |
-| **debug=0x100** | This disables macOS's watchdog which helps prevents a reboot on a kernel panic. That way you can *hopefully* glean some useful info and follow the breadcrumbs to get past the issues. |
-| **keepsyms=1** | This is a companion setting to debug=0x100 that tells the OS to also print the symbols on a kernel panic. That can give some more helpful insight as to what's causing the panic itself. |
-| **alcid=1** | Used for setting layout-id for AppleALC, see [supported codecs](https://github.com/acidanthera/applealc/wiki/supported-codecs) to figure out which layout to use for your specific system. More info on this is covered in the [Post-Install Page](https://dortania.github.io/OpenCore-Post-Install/) |
+| **-v** | Ativa o modo *verbose*, que exibe todos os textos ocultos que rolam na tela durante a inicialização, em vez da maçã e da barra de progresso. É de grande valia para qualquer *hackintosher*, já que fornece uma espiada por trás do processo de inicialização e pode ajudar a identificar problemas, encontrar *kexts* defeituosas e outras coisas que impeçam o macOS de iniciar completamente. |
+| **debug=0x100** | Isso desativa o *watchdog* do macOS, o que ajuda a prevenir uma reinicialização após um *kernel panic*. Dessa forma, é possível (talvez) obter algumas informações importantes e seguir as migalhas para resolver um problema. |
+| **keepsyms=1** | É uma configuração companheira do `debug=0x100`, que diz ao sistema operacional para também exibir os símbolos na tela durante um *kernel panic*. Pode oferecer uma compreensão ainda maior sobre o que pode estar causando o *kernel panic* em primeiro lugar. |
+| **alcid=1** | Usado para configurar o *layout-id* para a AppleALC. Veja a lista de [codecs suportados](https://github.com/acidanthera/applealc/wiki/supported-codecs) (em inglês) para descobrir qual layout é o mais apropriado para o seu computador. Mais informações são fornecidas no guia de [Pós-instalação do OpenCore](https://deomkds.github.io/OpenCore-Post-Install/) |
 
-* **GPU-Specific boot-args**:
+* **Argumentos de inicialização (boot-args) específicas de GPUs**:
 
-| boot-args | Description |
+| boot-args | Descrição |
 | :--- | :--- |
-| **-wegnoegpu** | Used for disabling all other GPUs than the integrated Intel iGPU, useful for those wanting to run newer versions of macOS where their dGPU isn't supported |
+| **-wegnoegpu** | Usado para desabilitar todas as outras GPUs que não sejam a integrada da Intel. Útil para aqueles que queiram executar versões mais novas do macOS nos quais a GPU dedicada não seja suportada. |
 
 * **csr-active-config**: `00000000`
-  * Settings for 'System Integrity Protection' (SIP). It is generally recommended to change this with `csrutil` via the recovery partition.
-  * csr-active-config by default is set to `00000000` which enables System Integrity Protection. You can choose a number of different values but overall we recommend keeping this enabled for best security practices. More info can be found in our troubleshooting page: [Disabling SIP](../troubleshooting/extended/post-issues.md#disabling-sip)
+  * Confgigurações da Proteção da Integridade do Sistema (SIP). É geralmente recomendado alterar essa opção por meio da partição de Recuperação, usando o utilitário de linha de comando `csrutil`.
+  * Por padrão, o `csr-active-config` é configurado para `00000000`, o que ativa a Proteção da Integridade do Sistema. É possível escolher uma variedade de valores diferentes, mas de maneira geral, recomenda-se mantê-lo ligado para melhores práticas de segurança. Mais informações podem ser encontradas na página de solução de problemas: [Desativando o SIP](../troubleshooting/extended/post-issues.md#desativando-o-sip).
 
 * **run-efi-updater**: `No`
-  * This is used to prevent Apple's firmware update packages from installing and breaking boot order; this is important as these firmware updates (meant for Macs) will not work.
+  * Isso é usado para prevenir que os pacotes de atualização de firmware da Apple sejam instalados e quebrem a ordem de inicialização. É importante, pois essas atualizações de firmware (criadas para os Macs) não funcionam em *hackintoshes*.
 
 * **prev-lang:kbd**: <>
-  * Needed for non-latin keyboards in the format of `lang-COUNTRY:keyboard`, recommended to keep blank though you can specify it(**Default in Sample config is Russian**):
-  * American: `en-US:0`(`656e2d55533a30` in HEX)
-  * Full list can be found in [AppleKeyboardLayouts.txt](https://github.com/acidanthera/OpenCorePkg/blob/master/Utilities/AppleKeyboardLayouts/AppleKeyboardLayouts.txt)
-  * Hint: `prev-lang:kbd` can be changed into a String so you can input `en-US:0` directly instead of converting to HEX
+  * Necessário para teclados não latinos. Use o formato `lang-COUNTRY:keyboard`. Recomenda-se manter vazio, mas é possível especificá-lo caso seja necessário. **O padrão na Sample.plist é russo.**):
+  * Estadunidense: `en-US:0`(`656e2d55533a30` em hexadecimal).
+  * Uma lista completa pode ser encontrada em [AppleKeyboardLayouts.txt](https://github.com/acidanthera/OpenCorePkg/blob/master/Utilities/AppleKeyboardLayouts/AppleKeyboardLayouts.txt) (em inglês).
+  * Dica: a opção `prev-lang:kbd` pode ser alterada para usar uma cadeia de caracteres (*string*), de forma que digitar `en-US:0` diretamente também será aceito, removendo a necessidade de converter o valor para hexadecimal.
 
-| Key | Type | Value |
+| Chave | Tipo | Valor |
 | :--- | :--- | :--- |
 | prev-lang:kbd | String | en-US:0 |
 
@@ -508,42 +509,46 @@ System Integrity Protection bitmask
 
 ### Delete
 
-Forcibly rewrites NVRAM variables, do note that `Add` **will not overwrite** values already present in NVRAM so values like `boot-args` should be left alone.
+Reescreve as variáveis NVRAM na marra. Observe que `Add` **não sobrescreve** valores que já estejam presentes na NVRAM. Então, valores como os `boot-args` devem ser deixados como estão.
+
+::: details Informação Mais Detalhada
 
 * **LegacyEnable**: NO
-  * Allows for NVRAM to be stored on nvram.plist, needed for systems without native NVRAM
+  * Permite que a NVRAM seja armazenada no arquivo `nvram.plist`. Necessário em computadores que não possuem NVRAM nativa.
 
 * **LegacyOverwrite**: NO
-  * Permits overwriting firmware variables from nvram.plist, only needed for systems without native NVRAM
+  * Permite sobrescrever variáveis de firmware a partir do arquivo `nvram.plist`. Necessário somente em computadores que não possuem NVRAM nativa.
 
 * **LegacySchema**
-  * Used for assigning NVRAM variables, used with LegacyEnable set to YES
+  * Usado para atribuir variáveis NVRAM. Usado com o `LegacyEnable` configurado para YES.
 
 * **WriteFlash**: YES
-  * Enables writing to flash memory for all added variables.
+  * Ativa a função de escrever em memória *flash* para todas as variáveis adicionadas.
+
+:::
 
 ## PlatformInfo
 
 ![PlatformInfo](../images/config/config-laptop.plist/haswell/smbios.png)
 
-::: tip Info
+::: tip Informações
 
-For setting up the SMBIOS info, we'll use CorpNewt's [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS) application.
+Para configurar a informação da SMBIOS, será utilizado o aplicativo [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS), desenvolvido por CorpNewt.
 
-For this Haswell example, we chose the MacBookPro11,1 SMBIOS. The typical breakdown is as follows:
+Neste exemplo de Haswell, a SMBIOS do  MacBookPro11,1 será utilizada. Isso é intencional, por questões de compatibilidade. É mais ou menos assim:
 
-| SMBIOS | CPU Type | GPU Type | Display Size |
+| SMBIOS | Tipo de CPU | Tipo de GPU | Tamanho do Monitor |
 | :--- | :--- | :--- | :--- |
-| MacBookAir6,1 | Dual Core 15w | iGPU: HD 5000 | 11" |
-| MacBookAir6,2 | Dual Core 15w | iGPU: HD 5000 | 13" |
-| MacBookPro11,1 | Dual Core 28w | iGPU: Iris 5100 | 13" |
-| MacBookPro11,2 | Quad Core 45w | iGPU: Iris Pro 5200 | 15" |
-| MacBookPro11,3 | Quad Core 45w | iGPU: Iris Pro 5200 + dGPU: GT750M | 15" |
-| MacBookPro11,4 | Quad Core 45w | iGPU: Iris Pro 5200 | 15" |
-| MacBookPro11,5 | Quad Core 45w | iGPU: Iris Pro 5200 + dGPU: R9 M370X | 15" |
-| Macmini7,1 | NUC Systems | HD 5000/Iris 5100 | N/A |
+| MacBookAir6,1 | Dual Core 15w | GPU integrada: HD 5000 | 11" |
+| MacBookAir6,2 | Dual Core 15w | GPU integrada: HD 5000 | 13" |
+| MacBookPro11,1 | Dual Core 28w | GPU integrada: Iris 5100 | 13" |
+| MacBookPro11,2 | Quad Core 45w | GPU integrada: Iris Pro 5200 | 15" |
+| MacBookPro11,3 | Quad Core 45w | GPU integrada: Iris Pro 5200 + GPU dedicada: GT750M | 15" |
+| MacBookPro11,4 | Quad Core 45w | GPU integrada: Iris Pro 5200 | 15" |
+| MacBookPro11,5 | Quad Core 45w | GPU integrada: Iris Pro 5200 + GPU dedicada: R9 M370X | 15" |
+| Macmini7,1 | NUC | HD 5000/Iris 5100 | N/A |
 
-Run GenSMBIOS, pick option 1 for downloading MacSerial and Option 3 for selecting out SMBIOS.  This will give us an output similar to the following:
+Execute o GenSMBIOS, escolha a opção 1 para baixar o MacSerial e a opção 3 para selecionar a SMBIOS. Isso mostrará uma saída similar à seguinte:
 
 ```sh
   #######################################################
@@ -556,57 +561,57 @@ Board Serial: C02408101J9G2Y7A8
 SmUUID:       7B227BEC-660D-405F-8E60-411B3E4EF055
 ```
 
-The `Type` part gets copied to Generic -> SystemProductName.
+A parte `Type` deve ser copiada para `Generic -> SystemProductName`.
 
-The `Serial` part gets copied to Generic -> SystemSerialNumber.
+A parte `Serial` deve ser copiada para `Generic -> SystemSerialNumber`.
 
-The `Board Serial` part gets copied to Generic -> MLB.
+A parte `Board Serial` deve ser copiada para `Generic -> MLB`.
 
-The `SmUUID` part gets copied to Generic -> SystemUUID.
+A parte `SmUUID` deve ser copiada para `Generic -> SystemUUID`.
 
-We set Generic -> ROM to either an Apple ROM (dumped from a real Mac), your NIC MAC address, or any random MAC address (could be just 6 random bytes, for this guide we'll use `11223300 0000`. After install follow the [Fixing iServices](https://dortania.github.io/OpenCore-Post-Install/universal/iservices.html) page on how to find your real MAC Address)
+Configure o `Generic -> ROM` tanto para uma ROM da Apple (extraída de um Mac de verdade), o endereço MAC do controlador de rede ou qualquer endereço MAC aleatório. Pode ser só 6 bytes aleatórios. Neste guia, será utilizado `11223300 0000`. Depois da instalação, siga o guia [Corrigindo os iServiços](https://deomkds.github.io/OpenCore-Post-Install/universal/iservices.html) para saber como encontrar o endereço MAC real do seu computador.
 
-**Reminder that you want either an invalid serial or valid serial numbers but those not in use, you want to get a message back like: "Invalid Serial" or "Purchase Date not Validated"**
+**Lembre-se que o objetivo aqui é ter um número de série inválido ou um que seja válido, mas que não esteja em uso. A mensagem de resposta deve ser algo como: "Número de série inválido" ou "Data de compra não validada".**
 
-[Apple Check Coverage page](https://checkcoverage.apple.com)
+[Página para Verificar a Cobertura da Apple](https://checkcoverage.apple.com)
 
 **Automatic**: YES
 
-* Generates PlatformInfo based on Generic section instead of DataHub, NVRAM, and SMBIOS sections
+* Gera o `PlatformInfo` baseado na seção `Generic`, em vez de usar as seções `DataHub`, `NVRAM` e `SMBIOS`.
 
 :::
 
 ### Generic
 
-::: details More in-depth Info
+::: details Informação Mais Detalhada
 
-* **AdviseWindows**: NO
-  * Used for when the EFI partition isn't first on the Windows drive
+* **AdviseFeatures**: NO
+  * Usado para quando a partição EFI não é a primeira na unidade do Windows.
 
 * **MaxBIOSVersion**: NO
-  * Sets BIOS version to Max to avoid firmware updates in Big Sur+, mainly applicable for genuine Macs.
+  * Configura a versão da BIOS para o máximo, evitando assim que atualizações de firmware no macOS 11 Big Sur e superior sejam baixadas. Mais relevante principalmente para Macs originais.
 
 * **ProcessorType**: `0`
-  * Set to `0` for automatic type detection, however this value can be overridden if desired. See [AppleSmBios.h](https://github.com/acidanthera/OpenCorePkg/blob/master/Include/Apple/IndustryStandard/AppleSmBios.h) for possible values
+  * Configure como `0` para ativar a detecção automática de tipo. Porém, este valor pode ser substituído, se necessário. Veja o arquivo [AppleSmBios.h](https://github.com/acidanthera/OpenCorePkg/blob/master/Include/Apple/IndustryStandard/AppleSmBios.h) (em inglês) para os valores possívels.
 
 * **SpoofVendor**: YES
-  * Swaps vendor field for Acidanthera, generally not safe to use Apple as a vendor in most case
+  * Altera a informação de fabricante para `Acidanthera`. Geralmente, não é seguro usar `Apple` como fabricante na maioria dos casos.
 
 * **SystemMemoryStatus**: Auto
-  * Sets whether memory is soldered or not in SMBIOS info, purely cosmetic and so we recommend `Auto`
+  * Define, nas informações da SMBIOS, se a memória é soldada ou não. Puramente cosmético, por isso recomenda-se deixar como `Auto`.
 
 * **UpdateDataHub**: YES
-  * Update Data Hub fields
+  * Atualiza os campos de Data Hub.
 
 * **UpdateNVRAM**: YES
-  * Update NVRAM fields
+  * Atualiza os campos da NVRAM.
 
 * **UpdateSMBIOS**: YES
-  * Updates SMBIOS fields
+  * Atualiza os campos da SMBIOS.
 
 * **UpdateSMBIOSMode**: Create
-  * Replace the tables with newly allocated EfiReservedMemoryType, use `Custom` on Dell laptops requiring `CustomSMBIOSGuid` quirk
-  * Setting to `Custom` with `CustomSMBIOSGuid` quirk enabled can also disable SMBIOS injection into "non-Apple" OSes however we do not endorse this method as it breaks Bootcamp compatibility. Use at your own risk
+  * Substitui as tabelas com EfiReservedMemoryType recentemente alocado. Use `Custom` em notebooks  Dell que exigem o uso da *quirk* `CustomSMBIOSGuid`.
+  * Configurar para `Custom` com a *quirk* `CustomSMBIOSGuid` ativada pode também desativar a injeção de SMBIOS em sistemas operacionais que não são da Apple. No entanto, este método não é recomendado por quebrar a compatibilidade com o Bootcamp. Use por sua conta e risco.
 
 :::
 
@@ -614,128 +619,127 @@ We set Generic -> ROM to either an Apple ROM (dumped from a real Mac), your NIC 
 
 ![UEFI](../images/config/config-universal/aptio-iv-uefi-laptop.png)
 
-**ConnectDrivers**: YES
-
-* Forces .efi drivers, change to NO will automatically connect added UEFI drivers. This can make booting slightly faster, but not all drivers connect themselves. E.g. certain file system drivers may not load.
+* **ConnectDrivers**: YES
+  * Força a conexão dos drivers `.efi`. Mudar para `NO` pode acelerar um pouco a inicialização, mas exigirá que os drivers se conectem por conta própria. Acontece que nem todos fazem isso, como é o caso de alguns drivers de sistema de arquivos, que podem não carregar caso esta opção esteja configurada para `NO`.
 
 ### Drivers
 
-Add your .efi drivers here.
+Adicione os drivers `.efi` aqui.
 
-Only drivers present here should be:
+Para este guia, os únicos drivers que devem estar presentes nessa seção são:
 
-* HfsPlus.efi
-* OpenRuntime.efi
+* `HfsPlus.efi`
+* `OpenRuntime.efi`
 
 ### APFS
 
-Settings related to the APFS driver, leave everything here as default.
+Configurações relacionadas ao driver de APFS. Mantenha as opções padrão.
 
 ### Audio
 
-Related to AudioDxe settings, for us we'll be ignoring(leave as default). This is unrelated to audio support in macOS.
+Configurações relacionadas ao `AudioDxe`. Esta seção será ignorada neste guia. Mantenha todas as opções padrão. Esta seção não tem nada a ver com o suporte de áudio no macOS.
 
-* For further use of AudioDxe and the Audio section, please see the Post Install page: [Add GUI and Boot-chime](https://dortania.github.io/OpenCore-Post-Install/)
+* Para outros usos do `AudioDxe` e da seção `Audio`, acesse o guia de [Pós-instalação do OpenCore](https://deomkds.github.io/OpenCore-Post-Install/).
 
 ### Input
 
-Related to boot.efi keyboard passthrough used for FileVault and Hotkey support, leave everything here as default as we have no use for these quirks. See here for more details: [Security and FileVault](https://dortania.github.io/OpenCore-Post-Install/)
+Configurações relacionadas à transmissão do teclado para o `boot.efi`. É usado para oferecer suporte ao FileVault e a teclas de atalho. Mantenha todas as opções padrão pois essas *quirks* não serão utilizados no momento. Obtenha mais detalhes aqui: [Segurança e FileVault](https://deomkds.github.io/OpenCore-Post-Install/universal/security.html).
 
 ### Output
 
-Relating to OpenCore's visual output,  leave everything here as default as we have no use for these quirks.
+Configurações relacionadas com a exibição visual do OpenCore. Mantenha todas as opções no padrão pois essas *quirks* não serão utilizadas no momento.
 
 ### ProtocolOverrides
 
-Mainly relevant for Virtual machines, legacy macs and FileVault users. See here for more details: [Security and FileVault](https://dortania.github.io/OpenCore-Post-Install/)
+Relevante principalmente em máquinas virtuais, Macs antigos e para usuários do FileVault. Para mais detalhes, acesse: [Segurança e FileVault](https://deomkds.github.io/OpenCore-Post-Install/universal/security.html).
 
 ### Quirks
 
-::: tip Info
-Relating to quirks with the UEFI environment, for us we'll be changing the following:
+::: tip Informações
 
-| Quirk | Enabled | Comment |
+Configurações das *quirks* relacionados ao ambiente UEFI. Altere as seguintes opções:
+
+| Quirk | Ativada | Observação |
 | :--- | :--- | :--- |
 | IgnoreInvalidFlexRatio | YES | |
 | ReleaseUsbOwnership | YES | |
-| UnblockFsConnect | NO | Needed mainly by HP motherboards |
+| UnblockFsConnect | NO | Necessária principalmente em placas-mãe HP. |
 
 :::
 
-::: details More in-depth Info
+::: details Informação Mais Detalhada
 
 * **IgnoreInvalidFlexRatio**: YES
-  * Fix for when MSR_FLEX_RATIO (0x194) can't be disabled in the BIOS, required for all pre-Skylake based systems
+  * Correção para quando o MSR\_FLEX\_RATIO (0x194) não pode ser desabilitado na BIOS. Exigido para todos os computadores com CPUs anteriores ao Skylake.
 * **ReleaseUsbOwnership**: YES
-  * Releases USB controller from firmware driver, needed for when your firmware doesn't support EHCI/XHCI Handoff. Most laptops have garbage firmwares so we'll need this as well
+  * Libera o controlador USB do driver de firmware. Necessário quando o firmware não suporta o *handoff* de EHCI/XHCI. A maioria dos notebooks possuem firmwares horríveis, o que torna essa opção necessária.
 * **DisableSecurityPolicy**: NO
-  * Disables platform security policy in firmware, recommended for buggy firmwares where disabling Secure Boot does not allow 3rd party firmware drivers to load.
-  * If running a Microsoft Surface device, recommended to enable this option
+  * Desativa a política de segurança de plataforma no firmware. Recomendado para firmwares problemáticos que impeçam o carregamento de drivers de firmware de terceiros ao desligar a Inicialização Segura.
+  * Recomenda-se ativar esta opção em dispositivos Microsoft Surface.
 
 * **RequestBootVarRouting**: YES
-  * Redirects AptioMemoryFix from `EFI_GLOBAL_VARIABLE_GUID` to `OC_VENDOR_VARIABLE_GUID`. Needed for when firmware tries to delete boot entries and is recommended to be enabled on all systems for correct update installation, Startup Disk control panel functioning, etc.
+  * Redireciona o `AptioMemoryFix` de `EFI_GLOBAL_VARIABLE_GUID` para `OC_VENDOR_VARIABLE_GUID`. É necessário quando o firmware tenta excluir as opções de *boot*. Recomenda-se deixar ativado em todos os computadores para garantir o funcionamento correto ao instalar atualizações, do painel de controle `Disco de Inicialização` e outras coisas.
 
 * **UnblockFsConnect**: NO
-  * Some firmware block partition handles by opening them in By Driver mode, which results in File System protocols being unable to install. Mainly relevant for HP systems when no drives are listed
+  * Alguns firmwares bloqueiam o intrumental de partições, abrindo-as no modo `By Driver`, o que resulta na impossibilidade de instalação dos protocolos de sistema de arquivo. É relevante principalmente em computadores HP, quando nenhum driver for listado.
 
 :::
 
 ### ReservedMemory
 
-Used for exempting certain memory regions from OSes to use, mainly relevant for Sandy Bridge iGPUs or systems with faulty memory. Use of this quirk is not covered in this guide
+Usado para impedir que os sistemas operacionais usem certas regiões da memória. É relevante principalmente para as GPUs integradas das CPUs Sandy Bridge ou em computadores com falhas de memória. O uso desta *quirk* não será coberto neste guia.
 
-## Cleaning up
+## Limpando
 
-And now you're ready to save and place it into your EFI under EFI/OC.
+Agora tudo está pronto para ser salvo e copiado para a partição `EFI`, na pasta `EFI/OC`.
 
-For those having booting issues, please make sure to read the [Troubleshooting section](../troubleshooting/troubleshooting.md) first and if your questions are still unanswered we have plenty of resources at your disposal:
+Para aqueles que estiverem tendo problemas de inicialização, é recomendado ler a seção de [Solução de Problemas](../troubleshooting/troubleshooting.md) primeiro. Se ainda restarem dúvidas, é possível consultar algum dos recursos disponíveis abaixo:
 
-* [r/Hackintosh Subreddit](https://www.reddit.com/r/hackintosh/)
-* [r/Hackintosh Discord](https://discord.gg/2QYd7ZT)
+* [Subreddit r/Hackintosh](https://www.reddit.com/r/hackintosh/) (em inglês).
+* [Discord do r/Hackintosh](https://discord.gg/2QYd7ZT) (em inglês).
 
-**Sanity check**:
+### Lembretes Finais
 
-So thanks to the efforts of Ramus, we also have an amazing tool to help verify your config for those who may have missed something:
+**Usuários de Notebooks HP**:
 
-* [**Sanity Checker**](https://opencore.slowgeek.com)
+* `Kernel -> Quirks -> LapicKernelPanic -> YES`
+  * Caso não esteja ativada, ocorrerá um *kernel panic* no LAPIC.
+* `UEFI -> Quirks -> UnblockFsConnect -> YES`
 
-Note that this tool is neither made nor maintained by Dortania, any and all issues with this site should be sent here: [Sanity Checker Repo](https://github.com/rlerdorf/OCSanity)
+## Configurações da BIOS em Intel
 
-### Config reminders
+* Observação: a maioria dessas opções podem não estar presentes no firmware do seu computador. É recomendado que todas as opções estejam configuradas da forma mais próxima possível, mas não se preocupe muito caso essas opções não estejam presentes na BIOS do seu computador.
 
-**HP Users**:
+### Opções para Desativar
 
-* Kernel -> Quirks -> LapicKernelPanic -> True
-  * You will get a kernel panic on LAPIC otherwise
-* UEFI -> Quirks -> UnblockFsConnect -> True
+| Nome em Inglês | Nome em Português | Observação |
+| :--- | :--- | :--- |
+| Fast Boot | Inicialização Rápida | |
+| Secure Boot | Inicialização Segura | |
+| Serial/COM Port | Porta Serial/COM | |
+| Parallel Port | Porta Paralela | |
+| VT-d | Tecnologia de Virtualização Intel VT-d | Pode ser ativado se o `DisableIoMapper` estiver configurado para YES. |
+| Compatibility Support Module (CSM) | Módulo de Suporte de Compatibilidade (MSC) | |
+| Thunderbolt | | Só durante a instalação inicial, já que as portas Thunderbolt podem causar problemas caso não estejam configuradas corretamente. |
+| Intel SGX | | |
+| Intel Platform Trust | | |
+| CFG Lock (MSR 0xE2 write protection) | Trava de CFG (proteção de escrita do MSR 0xE2) | **Precisa estar desligado. Se a opção da BIOS não puder ser encontrada, ative o `AppleXcpmCfgLock` sob o caminho `Kernel -> Quirks`. O macOS não iniciará com a trava de CFG ativada.** |
 
-## Intel BIOS settings
+  * Será preciso habilitar a opção `AppleCpuPmCfgLock` no OS X 10.10 Yosemite ou mais antigo.
 
-* Note: Most of these options may not be present in your firmware, we recommend matching up as closely as possible but don't be too concerned if many of these options are not available in your BIOS
+### Opções para Ativar
 
-### Disable
+| Nome em Inglês | Nome em Português | Oservação |
+| :--- | :--- | :--- |
+| VT-x | Tecnologia de Virtualização Intel VT-x | |
+| Above 4G decoding | | |
+| Hyper-Threading | | |
+| Execute Disable Bit | | |
+| EHCI/XHCI Hand-off | | |
+| OS type: Windows 8.1/10 UEFI Mode | Tipo de SO: Windows 8.1/10 em Modo UEFI | |
+| DVMT Pre-Allocated (iGPU Memory): 64MB | DVMT Pré-alocado (memória da GPU integrada): 64MB | |
+| SATA Mode: AHCI | Modo SATA: AHCI | |
 
-* Fast Boot
-* Secure Boot
-* Serial/COM Port
-* Parallel Port
-* VT-d (can be enabled if you set `DisableIoMapper` to YES)
-* CSM
-* Thunderbolt(For initial install, as Thunderbolt can cause issues if not setup correctly)
-* Intel SGX
-* Intel Platform Trust
-* CFG Lock (MSR 0xE2 write protection)(**This must be off, if you can't find the option then enable `AppleXcpmCfgLock` under Kernel -> Quirks. Your hack will not boot with CFG-Lock enabled**)
-  * For 10.10 and older, you'll need to enable AppleCpuPmCfgLock as well
+## Finalizando
 
-### Enable
-
-* VT-x
-* Above 4G decoding
-* Hyper-Threading
-* Execute Disable Bit
-* EHCI/XHCI Hand-off
-* OS type: Windows 8.1/10 UEFI Mode
-* DVMT Pre-Allocated(iGPU Memory): 64MB
-* SATA Mode: AHCI
-
-# Now with all this done, head to the [Installation Page](../installation/installation-process.md)
+Depois de tudo terminado, acesse o guia [Processo de Instalação](../installation/installation-process.md) para continuar com a configuração do OpenCore.
