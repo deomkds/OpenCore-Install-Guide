@@ -168,7 +168,6 @@ Siga esses passos ao configurar as propriedades da GPU integrada. Siga tambeḿ 
 
 #### Observações Sobre a Configuração
 
--------------------------------------
 * A VGA *não* é suportada, a não ser que seja ligada por meio de um adaptador interno de VGA para DP. Aparentemente, pouquíssimos dispositivos terão essa configuração, então é questão de sorte.
 
 * Caso esteja utilizando `04006601` como `ig-platform-id`, talvez seja necessário adicionar os seguintes parâmetros para corrigir as saídas externas (caso contrário, pode haver somente uma saída. Créditos ao Rehabman por isso).
@@ -571,18 +570,16 @@ Reescreve as variáveis NVRAM na marra. Observe que `Add` **não sobrescreve** v
 
 ## PlatformInfo
 
-
 ![PlatformInfo](../images/config/config-laptop.plist/ivy-bridge/smbios.png)
 
 ::: tip Informações
 
 Para configurar a informação da SMBIOS, será utilizado o aplicativo [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS), desenvolvido por CorpNewt.
 
-Neste exemplo de Ivy Bridge, a SMBIOS do iMac13,2 será utilizada. Isso é intencional, por questões de compatibilidade. É mais ou menos assim:
+Neste exemplo de Ivy Bridge, a SMBIOS do MacBookPro10,2 será utilizada. Isso é intencional, por questões de compatibilidade. É mais ou menos assim:
 
 | SMBIOS | Tipo de CPU | Tipo de GPU | Tamanho do Monitor |
 | :--- | :--- | :--- | :--- |
--------------------------------------
 | MacBookAir5,1 | Dual Core 17w | GPU integrada: HD 4000 | 11" |
 | MacBookAir5,2 | Dual Core 17w | GPU integrada: HD 4000 | 13" |
 | MacBookPro10,1 | Quad Core 45w | GPU integrada: HD 4000 + GPU dedicada: GT650M | 15" |
