@@ -76,7 +76,7 @@ Configurações relacionadas à aplicação de patches no `boot.efi` e a correç
 
 | Quirk | Ativada | Observação |
 | :--- | :--- | :--- |
-| DevirtualizeMmio | NO | É necessário ativar em placas-mãe TRX40. |
+| DevirtualiseMmio | NO | É necessário ativar em placas-mãe TRX40. |
 | EnableWriteUnprotector | NO | |
 | RebuildAppleMemoryMap | YES | |
 | SetupVirtualMap | YES | É preciso desativar esta opção ao usar placas-mãe B550, A520, TRX40, X570 com versões de BIOS mais novas, X470 e B450 com versões de BIOS lançadas no final de 2020. |
@@ -696,14 +696,6 @@ Para aqueles que estiverem tendo problemas de inicialização, é recomendado le
 
 * [Discord de OS X em AMD](https://discord.gg/EfCYAJW) (em inglês).
 * [Subreddit r/Hackintosh](https://www.reddit.com/r/hackintosh/) (em inglês).
-
-**Verificação de Sanidade**:
-
-Graças aos esforços de Ramus, agora a comunidade possui uma ferramenta incrível que ajuda a verificar a `config.plist` em busca de erros:
-
-* [**Sanity Checker**](https://opencore.slowgeek.com) (em inglês).
-
-Observe que essa ferramenta não é desenvolvida nem mantida pelo time Dortania e todos os problemas com ela devem ser reportadas no repositório do [Sanity Checker](https://github.com/rlerdorf/OCSanity) (em inglês).
 
 ## Configurações da BIOS em AMD
 

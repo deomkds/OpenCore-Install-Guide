@@ -26,10 +26,6 @@ Todos os arquivos da pasta `Kexts` terminam em `.kext`. | Código fonte e pastas
 O arquivo `config.plist` está presente em `EFI/OC`. | Não renomeou nem colocou o arquivo `.plist` no local certo.
 Somente as *kexts* necessárioas estão presentes. | Baixou todas as *kexts* listadas.
 
-E um lembrete de que o site do slowgeek é seu amigo:
-
-* [**Sanity Checker**](https://opencore.slowgeek.com) (em inglês).
-
 ## Iniciando o Pendrive com o OpenCore
 
 Agora está tudo pronto para finalmente conectar o pendrive no computador e iniciar a partir dele. Lembre-se de que a maioria dos notebooks e alguns desktops ainda iniciarão por padrão a unidade interna com Windows. Será necessário selecionar manualmente o OpenCore nas opções de inicialização da BIOS. Será preciso verificar o manual de usuário ou pesquisar no Google para descobrir qual tecla ou combinação de teclas são necessárias para acessar a BIOS e o menu de inicialização (ex.: Esc, F2, F10, F12 etc.).
@@ -37,11 +33,11 @@ Agora está tudo pronto para finalmente conectar o pendrive no computador e inic
 Uma vez iniciado a partir do pendrive, as seguintes opções de inicialização serão exibidas:
 
 1. Windows
-2. macOS Base System (External) / Install macOS Catalina (External)
+2. macOS Base System (External) / Install macOS Big Sur (External) / *Nome do Pendrive* (External)
 3. OpenShell.efi
 4. Reset NVRAM
 
-Neste caso, selecione a **opção 2**. Dependendo da maneira como o instalador foi criado, ele pode aparecer tanto como **"macOS Base System (External)"** se criado no Linux ou Windows, quanto **"Install macOS Catalina (External)"** se criado no macOS.
+Neste caso, selecione a **opção 2**. Dependendo da maneira como o instalador foi criado, ele pode aparecer tanto como **"macOS Base System (External)"**, **"Install macOS Big Sur (External)"** ou **"*Nome do Seu Pendrive* (External)"**
 
 ## Instalador do macOS
 

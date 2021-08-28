@@ -96,5 +96,6 @@ Traduções atuais conhecidas:
 * [Technopat](https://www.technopat.net/sosyal/konu/opencore-ile-macos-kurulum-rehberi.963661/) (Turco).
 * [ThrRip](https://github.com/ThrRip/OpenCore-Install-Guide) (Chinês).
 * [Shijuro](https://github.com/shijuro/OpenCore-Install-Guide) (Russo).
+* [viOpenCore](https://github.com/viOpenCore/OpenCore-Install-Guide) (Vietinamita).
 
 E observe que essas traduções estão sujeitas a preferências de seus autores, adaptações de linguagem e erro humano. Lembre-se disso ao lê-las, pois elas não são guias oficiais do Dortania.

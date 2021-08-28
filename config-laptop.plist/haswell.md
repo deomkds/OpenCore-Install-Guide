@@ -725,7 +725,7 @@ Para aqueles que estiverem tendo problemas de inicialização, é recomendado le
 | Intel Platform Trust | | |
 | CFG Lock (MSR 0xE2 write protection) | Trava de CFG (proteção de escrita do MSR 0xE2) | **Precisa estar desligado. Se a opção da BIOS não puder ser encontrada, ative o `AppleXcpmCfgLock` sob o caminho `Kernel -> Quirks`. O macOS não iniciará com a trava de CFG ativada.** |
 
-  * Será preciso habilitar a opção `AppleCpuPmCfgLock` no OS X 10.10 Yosemite ou mais antigo.
+* Será preciso habilitar a opção `AppleCpuPmCfgLock` no OS X 10.10 Yosemite ou mais antigo.
 
 ### Opções para Ativar
 

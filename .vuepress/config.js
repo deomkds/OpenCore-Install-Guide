@@ -58,7 +58,7 @@ module.exports = {
         repo: 'https://github.com/deomkds/OpenCore-Install-Guide',
 		editLinks: true,
 		editLinkText: 'Ajude-nos a melhorar esta página!',
-        logo: 'homepage.png',
+        logo: '/homepage.png',
         nav: [{
             text: 'Outros Guias',
             ariaLabel: 'Language Menu',

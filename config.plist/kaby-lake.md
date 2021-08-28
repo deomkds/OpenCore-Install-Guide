@@ -662,14 +662,6 @@ Para aqueles que estiverem tendo problemas de inicialização, é recomendado le
 * [Subreddit r/Hackintosh](https://www.reddit.com/r/hackintosh/) (em inglês).
 * [Discord do r/Hackintosh](https://discord.gg/2QYd7ZT) (em inglês).
 
-**Verificação de Sanidade**:
-
-Graças aos esforços de Ramus, agora a comunidade possui uma ferramenta incrível que ajuda a verificar a `config.plist` em busca de erros:
-
-* [**Sanity Checker**](https://opencore.slowgeek.com) (em inglês).
-
-Observe que essa ferramenta não é desenvolvida nem mantida pelo time Dortania e todos os problemas com ela devem ser reportadas no repositório do [Sanity Checker](https://github.com/rlerdorf/OCSanity) (em inglês).
-
 ## Configurações da BIOS em Intel
 
 * Observação: a maioria dessas opções podem não estar presentes no firmware do seu computador. É recomendado que todas as opções estejam configuradas da forma mais próxima possível, mas não se preocupe muito caso essas opções não estejam presentes na BIOS do seu computador.

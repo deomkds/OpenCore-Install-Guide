@@ -12,8 +12,6 @@ Antes de começar, certifique-se de estar usando a versão de depuração `DEBUG
 
 * EFI/BOOT/
   * `BOOTx64.efi`
-* EFI/OC/Bootstrap/
-  * `Bootstrap.efi`
 * EFI/OC/Drivers/
   * `OpenRuntime.efi`
   * `OpenCanopy.efi`(caso o esteja usando)

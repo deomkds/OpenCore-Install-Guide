@@ -32,7 +32,7 @@ No quesito CPU, as seguintes características são suportadas:
 * CPUs Intel de alta performance e de servidor.
   * Este guia oferece suporte para processadores Nehalem a Cascade Lake X.
 * CPUs Intel Core "i" e série Xeon para notebooks.
-  * Este guia oferece suporte para processadores Arrendale a Ice Lake.
+  * Este guia oferece suporte para processadores Arrandale a Ice Lake.
   * Observe que processadores para notebooks Atom, Celeron e Pentium não são suportados.
 * CPUs AMD Bulldozer (15h), Jaguar (16h) e Ryzen (17h) para desktops.
   * Processadores AMD para notebooks **não** são suportados.
@@ -131,7 +131,7 @@ Infelizmente, muitos recursos do macOS são instáveis ou simplesmente não func
   * É possível desativar certas funcionalidades, como suporte a RAW, para evitar tais travamentos: [Correções para Adobe](https://gist.github.com/naveenkrdy/26760ac5135deed6d0bb8902f6ceb6bd).
 * Suporte a arquitetura de 32 bits.
   * Para aqueles que ainda dependem de softwares de 32 bits em versões do macOS 10.14 Mojave e anteriores, observe que os patches vanilla não suportam instruções 32 bits.
-  * Uma alternativa é a instalação de um [kernel modificado](https://amd-osx.com/download/kernel.html), no entanto, perde-se o suporte ao iMessage.
+  * Uma alternativa é a instalação de um [kernel modificado](https://files.amd-osx.com/?dir=Kernels), no entanto, perde-se o suporte ao iMessage. Além disso, não há suporte oficial para esses *kernels* (*kérneis?*).
 * Problemas de estabilidade em muitos aplicativos.
   * Aplicativos de áudio, como o Logic Pro, são os mais vulneráveis a problemas.
   * É sabido que o DaVinci Resolve também apresenta problemas esporádicos.
@@ -172,7 +172,7 @@ E uma observação importante sobre **notebooks com GPUs dedicadas**:
 | :--- | :--- | :--- | :--- |
 | [GMA de 3ª Geração](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Third_generation) | 10.4.1 | 10.7.5 | [Exige kernel e patches de 32 bits](https://deomkds.github.io/OpenCore-Post-Install/gpu-patching/legacy-intel/) |
 | [GMA de 4ª Geração](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen4) | 10.5.0 | ^^ | ^^ |
-| [Arrendale (HD Graphics de 1ª Geração)](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen5) | 10.6.4 | 10.13.6 | Suporta somente conexão interna LVDS. HDMI, eDP e outras portas não são suportadas. |
+| [Arrandale (HD Graphics de 1ª Geração)](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen5) | 10.6.4 | 10.13.6 | Suporta somente conexão interna LVDS. HDMI, eDP e outras portas não são suportadas. |
 | [Sandy Bridge (HD 3000)](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen6) | 10.6.7 | ^^ | N/A |
 | [Ivy Bridge (HD 4000)](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen7) | 10.7.3 | 10.15.7 | ^^ |
 | [Haswell (HD 4XXX, 5XXX)](https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen7) | 10.8.5 | <span style="color:green"> Atual </span> | ^^ |
@@ -205,7 +205,7 @@ Observação: a Apple manteve os drivers das GPUs integradas do Ivy Bridge (4ª 
 | [Vega 10](https://en.wikipedia.org/wiki/Radeon_RX_Vega_series) | 10.12.6 | ^^ | ^^ |
 | [Vega 20](https://en.wikipedia.org/wiki/Radeon_RX_Vega_series) | 10.14.5 | ^^ | ^^ |
 | [Navi 10](https://en.wikipedia.org/wiki/Radeon_RX_5000_series) | 10.15.1 | ^^ | Exige o uso do argumento de boot `agdpmod=pikera`. |
-| [Navi 20](https://en.wikipedia.org/wiki/Radeon_RX_6000_series) | <span style="color:red"> N/A </span> | <span style="color:red"> N/A </span> | <span style="color:red"> Drivers atuais não funcionam. </span> |
+| [Navi 20](https://en.wikipedia.org/wiki/Radeon_RX_6000_series) | 11.4 | ^^ | <span style="color:yellow"> Atualmente, somente alguns modelos de Navi 21 funcionam. </span> |
 
 *Todos os links estão em inglês.*
 
