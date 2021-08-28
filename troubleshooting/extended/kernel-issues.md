@@ -19,47 +19,47 @@ Os principais culpados a se observar na seção Booter são:
 
 * **DevirtualiseMmio**
   * Algumas regiões de MMIO ainda são necessárias para o correto funcionamento, então será necessário excluir essas regiões usando a opção `Booter -> MmioWhitelist` ou desativar completamente esta *quirk*. Veja mais informações aqui: [Usando o DevirtualiseMmio](../../extras/kaslr-fix.md#usando-o-devirtualisemmio)
-  * Usuários de TRx40 devem ativar esta *quirk*.
+  * Usuários de TRx40 devem habilitar esta *quirk*.
   * Usuários de X99 precisam desabilitar esta *quirk* pois ela causa problemas em alguns firmwares.
 
 * **SetupVirtualMap**
-  * This quirk is required for the majority of firmwares and without it it's very common to kernel panic here, so enable it if not already
-    * Mainly Z390 and older require this quirk enabled
-    * However, certain firmwares(mainly 2020+) do not work with this quirk and so may actually cause this kernel panic:
-      * Intel's Ice Lake series
-      * Intel's Comet Lake series(B460, H470, Z490, etc)
-      * AMD's B550 and A520(Latest BIOS on X570 are also included now)
-        * Many B450 and X470 boards with late 2020 BIOS updates are also included
-      * AMD's TRx40
-      * VMs like QEMU
-      * X299 2020+ BIOS updates(This applies to other X299 boards on the latest BIOS that released either in late 2019 or 2020+)
+  * Esta *quirk* é necessária na maioria dos firmwares e sem ela é bem comum ter *kernel panics*. Habilite-a caso ainda não esteja.
+    * Necessário principalmente em placas Z390 e mais antigas.
+    * No entanto, alguns firmwares (2020+) não funcionam com esta *quirk* e podem causar *kernel panic*:
+      * Série Ice Lake da Intel.
+      * Série Comet Lake da Intel (B460, H470, Z490 etc).
+      * AMD B550 e A520 (agora inclui a última versão da BIOS em placas X570).
+        * Muitas placas B450 e X470 com atualizações de BIOS do final de 2020 também estão inclusas.
+      * AMD TRx40.
+      * Máquinas virtuais como o QEMU.
+      * Placas X299 com atualização de BIOS 2020+ (aplica-se também a placas X299 na última versão da BIOS lançada ou no final de 2019 ou em 2020+).
 
 * **EnableWriteUnprotector**
 
-  * Another issue may be that macOS is conflicting with the write protection from CR0 register, to resolve this we have 2 options:
-    * If your firmware supports MATs(2018+ firmwares):
-      * EnableWriteUnprotector -> False
-      * RebuildAppleMemoryMap -> True
-      * SyncRuntimePermissions -> True
-    * For older firmwares:
-      * EnableWriteUnprotector -> True
-      * RebuildAppleMemoryMap -> False
-      * SyncRuntimePermissions -> False
-    * Note: Some laptops(ex. Dell Inspiron 5370) even with MATs support will halt on boot up, in these cases you'll have two options:
-      * Boot with the old firmware quirk combo(ie. With EnableWriteUnprotector and disable `RebuildAppleMemoryMap` + `SyncRuntimePermissions`)
-      * Enable `DevirtualiseMmio` and follow [MmioWhitelist guide](https://dortania.github.io/OpenCore-Install-Guide/extras/kaslr-fix.html)
+  * Outro problema pode ser que o macOS esteja conflitando com a proteção de escrita do registrador CR0. Para resolver isto, existem duas opções:
+    * Caso o firmware suporte MATs (firmwares de 2018 em diante):
+      * EnableWriteUnprotector -> NO
+      * RebuildAppleMemoryMap -> YES
+      * SyncRuntimePermissions -> YES
+    * Em firmwares mais antigos:
+      * EnableWriteUnprotector -> YES
+      * RebuildAppleMemoryMap -> NO
+      * SyncRuntimePermissions -> NO
+    * Observação: alguns notebooks (ex.: Dell Inspiron 5370), mesmo tendo suporte a MATs, travam na inicialização. Para esses casos, existem duas opções:
+      * Iniciar com a combinação antiga de *quirk* de firmware (isto é, habilitar `EnableWriteUnprotector` e desabilitar `RebuildAppleMemoryMap` + `SyncRuntimePermissions`)
+      * Habilitar `DevirtualiseMmio` e seguir o [guia do MmioWhitelist](https://deomkds.github.io/OpenCore-Install-Guide/extras/kaslr-fix.html).
 
-Regarding MATs support, firmwares built against EDK 2018 will support this and many OEMs have even added support all the way back to Skylake laptops. Issue is it's not always obvious if an OEM has updated the firmware, you can check the OpenCore logs whether yours supports it([See here how to get a log](../debug.html)):
+Sobre o suporte a MATs, firmwares compilados com o EDK 2018 terão suporte. Muitas OEMs também adicionaram suporte até notebooks com CPUs Skylake. Acontece que não é sempre óbvio se a OEM atualizou o firmware, mas é possível checar os logs do OpenCore para saber se seu computador possui suporte. ([Veja como acessar o log aqui.](../debug.html)):
 
 ```
 OCABC: MAT support is 1
 ```
 
-* Note: `1` means it supports MATs, while `0` means it does not.
+* Observação: `1` significa que há suporte para MATs, enquanto `0` significa que não há suporte.
 
-### Kernel Patch Issues
+### Problemas na Seção Kernel Patch
 
-This section will be split between Intel and AMD users:
+Esta seção será dividida entre usuários de Intel e AMD:
 
 #### AMD Users
 
