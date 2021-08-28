@@ -551,7 +551,7 @@ Reescreve as variáveis NVRAM na marra. Observe que `Add` **não sobrescreve** v
 
 Para configurar a informação da SMBIOS, será utilizado o aplicativo [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS), desenvolvido por CorpNewt.
 
-Neste exemplo de Kaby Lake example, a SMBIOS do MacBookPro14,1 será utilizada. Isso é intencional, por questões de compatibilidade. É mais ou menos assim:
+Neste exemplo de Kaby Lake, a SMBIOS do MacBookPro14,1 será utilizada. Isso é intencional, por questões de compatibilidade. É mais ou menos assim:
 
 | SMBIOS | Tipo de CPU | Tipo de GPU | Tamanho do Monitor | Touch ID |
 | :--- | :--- | :--- | :--- | :--- |
@@ -706,14 +706,6 @@ Para aqueles que estiverem tendo problemas de inicialização, é recomendado le
 
 * [Subreddit r/Hackintosh](https://www.reddit.com/r/hackintosh/) (em inglês).
 * [Discord do r/Hackintosh](https://discord.gg/2QYd7ZT) (em inglês).
-
-**Verificação de Sanidade**:
-
-Graças aos esforços de Ramus, agora a comunidade possui uma ferramenta incrível que ajuda a verificar a `config.plist` em busca de erros:
-
-* [**Sanity Checker**](https://opencore.slowgeek.com) (em inglês).
-
-Observe que essa ferramenta não é desenvolvida nem mantida pelo time Dortania e todos os problemas com ela devem ser reportadas no repositório do [Sanity Checker](https://github.com/rlerdorf/OCSanity) (em inglês).
 
 ### Lembretes Finais
 
