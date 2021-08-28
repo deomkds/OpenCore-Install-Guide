@@ -31,11 +31,11 @@ Acompanhe o progresso da tradução deste guia. Tentarei manter essa página atu
 
 :::
 
-::: details Configuração (42%)
+::: details Configuração (100%)
 
 | PÁGINA | PROGRESSO |
 | :----- | :-------- |
-| **Configuração** | **62%** |
+| **Configuração** | **100%** |
 | **Desktop com Intel** | **100%** |
 | Penryn | 100% |
 | Clarkdale | 100% |
@@ -46,17 +46,17 @@ Acompanhe o progresso da tradução deste guia. Tentarei manter essa página atu
 | Kaby Lake | 100% |
 | Coffee Lake | 100% |
 | Comet Lake | 100% |
-| **Laptop com Intel** | **0%** |
-| Arrandale | 0% |
-| Sandy Bridge | 0% |
-| Ivy Bridge | 0% |
-| Haswell | 0% |
-| Broadwell | 0% |
-| Skylake | 0% |
-| Kaby Lake | 0% |
-| Coffee Lake e Whiskey Lake | 0% |
-| Coffee Lake Plus e Comet Lake | 0% |
-| Ice Lake | 0% |
+| **Laptop com Intel** | **100%** |
+| Arrandale | 100% |
+| Sandy Bridge | 100% |
+| Ivy Bridge | 100% |
+| Haswell | 100% |
+| Broadwell | 100% |
+| Skylake | 100% |
+| Kaby Lake | 100% |
+| Coffee Lake e Whiskey Lake | 100% |
+| Coffee Lake Plus e Comet Lake | 100% |
+| Ice Lake | 100% |
 | **Intel HEDT** | **100%** |
 | Nehalem e Westmere | 100% |
 | Sandy e Ivy Bridge-E | 100% |
@@ -78,17 +78,17 @@ Acompanhe o progresso da tradução deste guia. Tentarei manter essa página atu
 
 :::
 
-::: details Solução de Problemas (44%)
+::: details Solução de Problemas (67%)
 
 | PÁGINA | PROGRESSO |
 | :----- | :-------- |
-| **Solução de Problemas** | **44%** |
+| **Solução de Problemas** | **67%** |
 | Solução de Problemas | 100% |
-| *OpenCore Boot Issues* | 0% |
+| *OpenCore Boot Issues* | 100% |
 | *Kernel Issues* | 0% |
 | *Userspace Issues* | 0% |
 | *Post-Install Issues* | 0% |
-| *Miscellaneous Issues* | 0% |
+| *Miscellaneous Issues* | 100% |
 | Depurando o OpenCore | 100% |
 | Entendendo o Processo de Inicialização do macOS | 100% |
 | Depurando o Sistema a Fundo | 100% |
