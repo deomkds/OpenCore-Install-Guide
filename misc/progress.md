@@ -82,10 +82,10 @@ Acompanhe o progresso da tradução deste guia. Tentarei manter essa página atu
 
 | PÁGINA | PROGRESSO |
 | :----- | :-------- |
-| **Solução de Problemas** | **67%** |
+| **Solução de Problemas** | **78%** |
 | Solução de Problemas | 100% |
 | *OpenCore Boot Issues* | 100% |
-| *Kernel Issues* | 0% |
+| *Kernel Issues* | 100% |
 | *Userspace Issues* | 0% |
 | *Post-Install Issues* | 0% |
 | *Miscellaneous Issues* | 100% |
