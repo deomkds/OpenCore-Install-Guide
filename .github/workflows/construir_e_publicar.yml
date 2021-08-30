@@ -26,10 +26,9 @@ jobs:
       - name: Publicar
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: .vuepress/dist/
-          CLEAN: true
+          branch: gh-pages
+          folder: .vuepress/dist/
+          clean: true
   lint:
     name: Lint
     runs-on: ubuntu-latest
