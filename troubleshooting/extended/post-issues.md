@@ -1,105 +1,87 @@
-# Post-Install Issues
+# Problemas Após a Instalação
 
-Issues revolving around macOS once properly installed.
+Problemas que podem ocorrem depois de ter o macOS instalado corretamente.
 
-* [Broken iMessage and Siri](#broken-imessage-and-siri)
-* [No on-board audio](#no-on-board-audio)
-* [BIOS reset or sent into Safemode after reboot/shutdown?](#bios-reset-or-sent-into-safemode-after-reboot-shutdown)
-* [Synaptics PS2 based trackpad doesn't work](#synaptics-ps2-based-trackpad-doesn-t-work)
-* [Fix for Dell breakless PS2 keyboard keys](#fix-for-dell-breakless-ps2-keyboard-keys)
-* [macOS GPU acceleration missing on AMD X570](#macos-gpu-acceleration-missing-on-amd-x570)
-* [DRM Broken](#drm-broken)
-* ["Memory Modules Misconfigured" on MacPro7,1](#memory-modules-misconfigured-on-macpro7-1)
-* [Apps crashing on AMD](#apps-crashing-on-amd)
-* [AssetCache Content Caching unavailable in virtual machine](#assetcache-content-caching-unavailable-in-virtual-machine)
-* [Coffee Lake systems failing to wake](#coffee-lake-systems-failing-to-wake)
-* [No temperature/fan sensor output](#no-temperature-fan-sensor-output)
-* ["You can't change the startup disk to the selected disk" error](#you-can-t-change-the-startup-disk-to-the-selected-disk-error)
-* [macOS waking up with the wrong time](#macos-waking-up-with-the-wrong-time)
-* [No Volume/Brightness control on external monitors](#no-volume-brightness-control-on-external-monitors)
-* [Disabling SIP](#disabling-sip)
-* [Rolling back APFS Snapshots](#rolling-back-apfs-snapshots)
-* [Apple Watch Unlock Issues](#apple-watch-unlock-issues)
-* [4K iGPU output issues over HDMI](#4k-igpu-output-issues-over-hdmi)
+[[toc]]
 
-## Broken iMessage and Siri
+## iMessage e Siri Não Funcionam
 
-Refer to [Fixing iServices](https://dortania.github.io/OpenCore-Post-Install/universal/iservices.html) section
+Veja o guia [Corrigindo os iServiços](https://deomkds.github.io/OpenCore-Post-Install/universal/iservices.html).
 
-## No on-board audio
+## Sem Áudio Integrado
 
-Refer to [Fixing Audio with AppleALC](https://dortania.github.io/OpenCore-Post-Install/) section
+Veja o guia [Corrigindo o Áudio com a AppleALC](https://deomkds.github.io/OpenCore-Post-Install/).
 
-## BIOS reset or sent into Safemode after reboot/shutdown
+## Reset de BIOS ou Modo de Segurança Após Reinicio/Desligamento
 
-Refer to [Fixing RTC/CMOS Resets](https://dortania.github.io/OpenCore-Post-Install/misc/rtc.html) section
+Veja o guia [Corrigindo Resets de RTC/CMOS](https://deomkds.github.io/OpenCore-Post-Install/misc/rtc.html).
 
-## Synaptics PS2 based trackpad doesn't work
+## Trackpads PS2 Synaptics Não Funcionam
 
-You can try to use [SSDT-Enable_DynamicEWMode.dsl](https://github.com/acidanthera/VoodooPS2/blob/master/Docs/ACPI/SSDT-Enable_DynamicEWMode.dsl).
-First, you have to open Device Manager, and head to the following:
+Tente usar o arquivo [SSDT-Enable_DynamicEWMode.dsl](https://github.com/acidanthera/VoodooPS2/blob/master/Docs/ACPI/SSDT-Enable_DynamicEWMode.dsl).
+Primeiro, abra o Gerenciador de Dispositivos (Windows) e abra o seguinte caminho:
 
 ```
-Device Manager -> Mice and other pointing devices -> Double click on your trackpad -> Properties -> Details > BIOS device name
+Gerenciador de Dispositivos -> Mouse e Outros Dispositivos Apontadores -> clique duas vezes no trackpad -> Propriedades -> Detalhes > Nome de Dispositivo na BIOS
 ```
 
-Then grab [SSDT-Enable_DynamicEWMode.dsl](https://github.com/acidanthera/VoodooPS2/blob/master/Docs/ACPI/SSDT-Enable_DynamicEWMode.dsl)
-By default, this uses PCI0.LPCB.PS2K for the pathing. you'll want to rename accordingly.
+Então baixe o arquivo [SSDT-Enable_DynamicEWMode.dsl](https://github.com/acidanthera/VoodooPS2/blob/master/Docs/ACPI/SSDT-Enable_DynamicEWMode.dsl)
+Por padrão, o arquivo usa `PCI0.LPCB.PS2K` como caminho. Será necessário alterá-lo de acordo com o caminho do trackpad do seu computador.
 
 ```c
-External (_SB_.PCI0.LPCB.PS2K, DeviceObj) <- Rename this
+External (_SB_.PCI0.LPCB.PS2K, DeviceObj) <- Renomeie isso.
 
-    Name(_SB.PCI0.LPCB.PS2K.RMCF, Package()  <- Rename this
+    Name(_SB.PCI0.LPCB.PS2K.RMCF, Package()  <- Renomeie isso.
 
 ```
 
-Then compile with MaciASL, copy to your OC/ACPI folder, and add it to your config, and you should be good to go.
+Então compile com o MaciASL, copie o arquivo final para a pasta `OC/ACPI` e adicione-o na `config.plist`.
 
-* Note: Although this will work for most cases, the trackpad may be laggy and you may not be able to use the physical buttons ([more details](https://github.com/acidanthera/bugtracker/issues/890)). If you can live without the trackpad, this may be better:
+* Observação: embora isso funcione na maioria dos casos, o trackpad pode sofrer atrasos e os botões físicos podem não funciona. [Veja mais detalhes aqui.](https://github.com/acidanthera/bugtracker/issues/890) (em inglês). Se puder viver sem o trackpado, esta opção pode ser melhor:
 
-Find the ACPI path of your mouse (see above), then grab [SSDT-DisableTrackpadProbe.dsl](https://github.com/acidanthera/VoodooPS2/blob/master/Docs/ACPI/SSDT-DisableTrackpadProbe.dsl). By default, this uses PCI0.LPCB.PS2K so you have to change that to your ACPI path if necessary:
+Encontre o caminho da ACPI para o seu mouse (veja acima), então baixe o arquivo [SSDT-DisableTrackpadProbe.dsl](https://github.com/acidanthera/VoodooPS2/blob/master/Docs/ACPI/SSDT-DisableTrackpadProbe.dsl). Por padrão, o arquivo usa `PCI0.LPCB.PS2K` como caminho. Será necessário alterá-lo de acordo com o caminho da ACPI do seu computador.
 
 ```c
-External (_SB_.PCI0.LPCB.PS2K, DeviceObj) <- Rename this
+External (_SB_.PCI0.LPCB.PS2K, DeviceObj) <- Renomeie isso.
 
-    Name(_SB.PCI0.LPCB.PS2K.RMCF, Package() <- Rename this
+    Name(_SB.PCI0.LPCB.PS2K.RMCF, Package() <- Renomeie isso.
 ```
 
-## Fix for Dell breakless PS2 keyboard keys
+## Correção para Teclas "Breakless" em Teclados Dell PS2
 
-For those with issues surrounding key presses not releasing(ie. pressing infinitely), you'll want to enable VoodooPS2's Dell profile.
+Aqueles usuários que estejam tendo problemas com pressionamentos de teclas que não retornam (pressionando indefinidamente), será necessário ativar o perfil da Dell na VoodooPS2.
 
-First of all, you need to find the path to your ACPI keyboard object in the Device Manager:
+Primeiro de tudo, será necessário encontrar, no Gerenciador de Dispositivos, o caminho ACPI para o objeto do teclado:
 
 ```
-Device Manager -> Keyboards -> Double click on your keyboard -> Properties -> Details > BIOS device name
+Gerenciador de Dispositivos -> Teclados -> clique duas vezes no teclado -> Propriedades -> Detalhes > Nome do Dispositivo na BIOS
 ```
 
-After this, grab [SSDT-KEY-DELL-WN09.dsl](https://github.com/acidanthera/VoodooPS2/blob/master/Docs/ACPI/SSDT-KEY-DELL-WN09.dsl) and change the ACPI path to the one found above as needed:
+Então, baixe o arquivo [SSDT-KEY-DELL-WN09.dsl](https://github.com/acidanthera/VoodooPS2/blob/master/Docs/ACPI/SSDT-KEY-DELL-WN09.dsl) e altere o caminho ACPI para o que foi encontrado no passo anterior:
 
 ```c
-External (_SB_.PCI0.LPCB.PS2K, DeviceObj) <- Rename this
+External (_SB_.PCI0.LPCB.PS2K, DeviceObj) <- Renomeie isso.
 
-    Method(_SB.PCI0.LPCB.PS2K._DSM, 4) <- Rename this
+    Method(_SB.PCI0.LPCB.PS2K._DSM, 4) <- Renomeie isso.
 ```
 
-## macOS GPU acceleration missing on AMD X570
+## macOS Sem Aceleração Gráfica na GPU AMD X570
 
-Verify the following:
+Verifique o seguinte:
 
-* GPU is UEFI capable(GTX 7XX/2013+)
-* CSM is off in the BIOS
-* Forcing PCIe 3.0 link speed
+* A GPU é compatível com UEFI (GTX 7XX/2013+).
+* O CSM está desativado na BIOS.
+* Forçar a velocidade do link da PCIe 3.0.
 
-## DRM Broken
+## DRM Não Funciona
 
-Refer to [Fixing DRM](https://dortania.github.io/OpenCore-Post-Install/universal/drm.html) section
+Veja o guia [Corrigindo a DRM](https://deomkds.github.io/OpenCore-Post-Install/universal/drm.html).
 
 ## "Memory Modules Misconfigured" on MacPro7,1
 
 Follow guide listed here:
 
-* [Fixing MacPro7,1 Memory Errors](https://dortania.github.io/OpenCore-Post-Install/universal/memory.html)
+* [Fixing MacPro7,1 Memory Errors](https://deomkds.github.io/OpenCore-Post-Install/universal/memory.html)
 
 For those who simply want to disable the notification(not the error itself) is more than enough. For these users, we recommend installing [RestrictEvents](https://github.com/acidanthera/RestrictEvents/releases)
 
@@ -225,7 +207,7 @@ Oddly enough, macOS has locked down digital audio from having control. To bring 
 
 This is due to macOS using Universal Time while Windows relies on Greenwich time, so you'll need to force one OS to a different way of measuring time. We highly recommend modifying Windows instead as it's far less destructive and painful:
 
-* [Install Bootcamp utilities](https://dortania.github.io/OpenCore-Post-Install/multiboot/bootcamp.html)
+* [Install Bootcamp utilities](https://deomkds.github.io/OpenCore-Post-Install/multiboot/bootcamp.html)
 * [Modify Windows' registry](https://superuser.com/q/494432)
 
 ## Disabling SIP
