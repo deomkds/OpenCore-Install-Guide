@@ -77,105 +77,103 @@ Verifique o seguinte:
 
 Veja o guia [Corrigindo a DRM](https://deomkds.github.io/OpenCore-Post-Install/universal/drm.html).
 
-## "Memory Modules Misconfigured" on MacPro7,1
+## "Memory Modules Misconfigured" no MacPro7,1
 
-Follow guide listed here:
+Veja o guia [Corrigindo Problemas de Memória no MacPro7,1](https://deomkds.github.io/OpenCore-Post-Install/universal/memory.html).
 
-* [Fixing MacPro7,1 Memory Errors](https://deomkds.github.io/OpenCore-Post-Install/universal/memory.html)
+Aqueles que simplesmente quiserem desativar a notificação (não o erro em si), recomenda-se instalar o [RestrictEvents](https://github.com/acidanthera/RestrictEvents/releases).
 
-For those who simply want to disable the notification(not the error itself) is more than enough. For these users, we recommend installing [RestrictEvents](https://github.com/acidanthera/RestrictEvents/releases)
+## Aplicativos Travando em AMD
 
-## Apps crashing on AMD
+~~Solução fácil: compra um Intel.~~
 
-~~Easy fix, buy Intel~~
+Em CPUs AMD, sempre que o macOS faz uma chamada para funções específicas da CPU, o aplicativo pode não funcionar corretamente ou travar. Aqui estão alguns dos apps afetados e suas "soluções":
 
-So with AMD, whenever Apple calls CPU specific functions the app will either not work or outright crash. Here are some apps and their "fixes":
+* Produtos da Adobe nem sempre funcionam:
+  * Algumas correções podem ser encontradas aqui: [Correções de Adobe](https://adobe.amd-osx.com/) (em inglês).
+  * Observe que essas correções simplesmente desligam certos recursos. Isto é, não são correções de verdade.
+* Máquinas virtuais sendo executada no *framework* AppleHV não funcionam (ex.: Parallels 15, VMware):
+  * O VirtualBox funciona bem, visto que não utiliza o AppleHV.
+  * O VMware 10 ou mais antigo também funciona.
+  * O Parallels 13.1.0 ou mais antigo também são conhecidos por funcionar.
+* Docker quebrado:
+  * O Docker Toolbox é a única solução, por ser baseado no VirtualBox. Muitos recursos não estão disponíveis nessa versão.
+* O IDA Pro não instala:
+  * Existe uma verificação específica de Intel no instalador. O app propriamente dito deve rodar.
+* Páginas da web travando em CPUs 15/16h:
+  * Siga as direções dessa página (após a seção UPDATE 5): [Fix web pages](https://www.insanelymac.com/forum/topic/335877-amd-mojave-kernel-development-and-testing/?do=findComment&comment=2661857) (em inglês).
 
-* Adobe Products don't always work
-  * Some fixes can be found here: [Adobe Fixes](https://adobe.amd-osx.com/)
-  * Do note these fixes just disables functionality, they're not really fixes
-* Virtual Machine running off of AppleHV's framework will not work(ie: Parallels 15, VMware)
-  * VirtualBox works fine as it doesn't use AppleHV
-  * VMware 10 and older can work as well
-  * Parallels 13.1.0 and older are known to work as well
-* Docker broken
-  * Docker toolbox is the only solution as it's based off of VirtualBox, many features are unavailable with this version
-* IDA Pro won't install
-  * There's an Intel specific check in the installer, app itself is likely fine
-* 15/16h CPU web pages crashing
-  * Follow directions here after UPDATE 5: [Fix web pages](https://www.insanelymac.com/forum/topic/335877-amd-mojave-kernel-development-and-testing/?do=findComment&comment=2661857)
+## Suspensão Travando em AMD
 
-## Sleep crashing on AMD
+Geralmente acontece em computadores com AMD Ryzen ou mais novo que utilizam o controlador USB do chipset. A principal maneira de verificar se este problema está acontecendo é observar os logs após ativar ou retornar da suspensão:
 
-This is generally seen on AMD who use the chipset's USB controller, specifically for the Ryzen series and newer. The main way to tell if you're having issues with this is checking logs after either sleeping or waking:
-
-* In terminal:
+* No Terminal:
   * `log show --last 1d | grep -i "Wake reason"`
 
-Should result in something like this:
+Deverá resultar em algo como:
 
 ```
 Sleep transition timed out after 180 seconds while calling power state change callbacks. Suspected bundle: com.apple.iokit.IOUSBHostFamily.
 ```
 
-You can double check which controller is XHC0 via IOReg and checking the Vendor ID(1022 for AMD chipset). The fix for this sleep issue is either:
+É possível verificar qual controlador é `XHC0` por meio do IOReg, procurando pelo Vendor ID (1022 é o chipset AMD). A correção para esse problema de suspensão pode ser:
 
-* Avoid the chipset USB all together(ideally set `_STA = 0x0` to disable the controller outright with an SSDT)
-* Correct the USBX power properties to what the controller expects
+* Evitar o chipset USB completamente (idealmente, configurar `_STA = 0x0` para desativar completamente o controlador usando uma SSDT).
+* Corrigir as propriedades de energida da USBX de forma que atenda às expectativas do controlador.
 
-## AssetCache Content Caching unavailable in virtual machine
+## AssetCache Content Caching Indisponível em Máquinas Virtuais
 
-Errors such as:
+Erros como:
 
 ```bash
 $ sudo AssetCacheManagerUtil activate
 AssetCacheManagerUtil[] Failed to activate content caching: Error Domain=ACSMErrorDomain Code=5 "virtual machine"...
 ```
 
-arise due to `VMM` flag being exposed by sysctl.
+Surgem devido à *flag* `VMM` ser exposta pelo `sysctl`.
 
-Apply [VmAssetCacheEnable](https://github.com/ofawx/VmAssetCacheEnable) kernel patch to disguise the flag and allow normal operation.
+Aplique o patch de *kernel* [VmAssetCacheEnable](https://github.com/ofawx/VmAssetCacheEnable) para esconder a *flag* e permitir a operação normal.
 
-## Coffee Lake systems failing to wake
+## Computadores com CPUs Coffee Lake Falhando ao Retornar da Suspensão
 
-In macOS 10.15.4, there were some changes made to AGPM that can cause wake issues on Coffee Lake systems. Specifically displays hooked up to the iGPU would fail to wake. To resolve this:
+No macOS 10.15.4 Catalina, algumas mudanças foram feitas na AGPM que podem causar problemas ao retornar da suspensão em computadores com CPUs Coffee Lake. Especificamente, monitores conectados à GPU integrada não retornam da suspensão como deveriam. Para resolver isso:
 
-* Add `igfxonln=1` to boot-args
-* Make sure you're using [WhateverGreen v1.3.8](https://github.com/acidanthera/WhateverGreen/releases) or newer
+* Adicione o argumento de inicialização `igfxonln=1` na `config.plist`.
+* Certifique-se de estar usando a [WhateverGreen v1.3.8](https://github.com/acidanthera/WhateverGreen/releases) ou mais nova.
 
-## No temperature/fan sensor output
+## Sem Informações de Temperatura/Cooler
 
-So couple things:
+Uma de duas:
 
-* iStat Menus doesn't yet support MacPro7,1 readouts
-* VirtualSMC's bundled sensors do not support AMD
+* O iStat Menus ainda não suporta leitura desses dados no MacPro7,1.
+* Os sensores integrados da VirtualSMC não suportam AMD.
 
-For iStat, you'll have to wait for an update. For AMD users, you can use either:
+No caso do iStat, será necessário aguardar por uma atualização. Já usuários de AMD podem escolher uma das duas soluções:
 
 * [SMCAMDProcessor](https://github.com/trulyspinach/SMCAMDProcessor/releases)
-  * Still in early beta but great work has been done, note it's been mainly tested on Ryzen
+  * Ainda em beta inicial, mas um ótimo trabalho já foi feito. Observe que foi testada principalmente em CPUs Ryzen.
 * [FakeSMC3_with_plugins](https://github.com/CloverHackyColor/FakeSMC3_with_plugins/releases)
 
-**Note for AMD with FakeSMC**:
+**Observações para CPUs AMD com FakeSMC**:
 
-* FileVault support requires more work with FakeSMC
-* Make sure no other SMC kexts are present, specifically those from [VirtualSMC](https://github.com/acidanthera/VirtualSMC/releases)
+* O suporte ao FileVault na FakeSMC ainda precisa de mais trabalho.
+* Certifique-se de que nenhuma outra `kext` de SMC esteja presente, especialmente a [VirtualSMC](https://github.com/acidanthera/VirtualSMC/releases).
 
-## "You can't change the startup disk to the selected disk" error
+## Erro "Você não pode alterar o disco de inicialização para o disco selecionado"
 
-This is commonly caused by irregular partition setup of the Windows drive, specifically that the EFI is not the first partition. To fix this, we need to enable this quirk:
+É comumente causado por uma configuração de partição do Windows irregular. Mais especificamente, signfica que a partição EFI não é a primeira no disco. Para corrigir isso, será necessário ativar a seguinte *quirk*:
 
 * `PlatformInfo -> Generic -> AdviseWindows -> True`
 
 ![](../../images/troubleshooting/troubleshooting-md/error.png)
 
-## Selecting Startup Disk doesn't apply correctly
+## Seleção de Disco de Inicialização Não Aplica Corretamente
 
-If you're having issues with Startup Disk correctly applying your new boot entry, this is most likely caused by a missing `DevicePathsSupported` in your I/O Registry. To resolve this, ensure you are using `PlatformInfo -> Automatic -> True`
+Caso esteja tendo problemas nos quais o painel de configuração Disco de Inicialização não aplica corretamente as novas configurações, muito provavelmente é um problema causado pela falta de um `DevicePathsSupported` no I/O Registry. Para resolver isso, certifique-se de que a opção `PlatformInfo -> Automatic` está ativada.
 
-Example of missing `DevicePathsSupported`:
+Exemplo de `DevicePathsSupported` faltante:
 
-* [Default DevicePath match failure due to different PciRoot #664](https://github.com/acidanthera/bugtracker/issues/664#issuecomment-663873846)
+* [Default DevicePath match failure due to different PciRoot #664](https://github.com/acidanthera/bugtracker/issues/664#issuecomment-663873846) (em inglês).
 
 ## macOS waking up with the wrong time
 
