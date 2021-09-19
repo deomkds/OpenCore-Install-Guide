@@ -82,12 +82,12 @@ Acompanhe o progresso da tradução deste guia. Tentarei manter essa página atu
 
 | PÁGINA | PROGRESSO |
 | :----- | :-------- |
-| **Solução de Problemas** | **78%** |
+| **Solução de Problemas** | **100%** |
 | Solução de Problemas | 100% |
 | *OpenCore Boot Issues* | 100% |
 | *Kernel Issues* | 100% |
-| *Userspace Issues* | 0% |
-| *Post-Install Issues* | 0% |
+| *Userspace Issues* | 100% |
+| *Post-Install Issues* | 100% |
 | *Miscellaneous Issues* | 100% |
 | Depurando o OpenCore | 100% |
 | Entendendo o Processo de Inicialização do macOS | 100% |
