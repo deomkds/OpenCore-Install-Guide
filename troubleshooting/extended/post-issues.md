@@ -302,25 +302,25 @@ Para quem estiver tendo problemas ao desbloquear o computador com o Apple Watch,
 * Se possui uma placa de rede sem fio Apple com Bluetooth Low Energy (4.0 ou superior).
 * Se o macOS e o Apple Watch estão usando oo mesmo ID Apple.
 * Se os iServiços estão funcionando corretamente (ex.: iMessage).
-* There's an option to Unlock with Apple Watch under Security and Privacy setting in System Preferences
+* Se há uma opção para desbloquear com o Apple Watch nas configurações de Segurança e Privacidade nas Preferências do Sistema.
 
 ![](../../images/troubleshooting/troubleshooting-md/watch-unlock.png)
 
-If the above are met, and you still have unlock issues we recommend running through the below guide:
+Se os requisitos acima forem cumpridos, mas problemas de desbloqueio ainda ocorrerem, recomenda-se seguir o guia abaixo:
 
-* [Fixing Auto Unlock](https://forums.macrumors.com/threads/watchos-7-beta-5-unlock-mac-doesnt-work.2250819/page-2?post=28904426#post-28904426)
+* [Fixing Auto Unlock](https://forums.macrumors.com/threads/watchos-7-beta-5-unlock-mac-doesnt-work.2250819/page-2?post=28904426#post-28904426) (em inglês)
 
-## 4K iGPU output issues over HDMI
+## Problemas com Saída 4K em GPUs Integradas Usando HDMI
 
-For machines with HDMI 2.0 capable ports with resolutuion issues, verify the following:
+Em computadores com portas HDMI 2.0 que estejam tendo problemas de resolução, verifique o seguinte:
 
-* 4k output works correctly in Windows
-* Monitor is set explicitly to HDMI 2.0
-  * If using an HDMI to DisplayPort converter, ensure the monitor is set to DisplayPort 1.2 or higher
-* Ensure enough iGPU memory has been allocated
-  * For Broadwell and newer, 64MB is expected to be allocated
-  * Machines relying on WhateverGreen's `framebuffer-stolenmem` property should know this can cause 4k output issues. Please ensure you can set the iGPU's memory to 64MB allowing you to remove these properties
-* Laptops and many desktop users may need this boot-arg:
+* Se a saída de vídeo em 4K funciona corretamente no Windows.
+* Se o monitor está configurado para usar a HDMI 2.0.
+  * Caso esteja utilizando um conversor de HDMI para DisplayPort, certifique-se de que o monitor está configurado para usar DisplayPort 1.2 ou superior.
+* Certifique-se de que foi alocada memória suficiente para a GPU integrada.
+  * Em CPUs Broadwell e mais novas, 64MB é o esperado.
+  * Usuários que dependem da propriedade `framebuffer-stolenmem` da WhateverGreen precisam saber que ela pode causar problemas com a saída de vídeo em 4K. Certifique-se de que é possível configurar a memória de vídeo da GPU integrada para 64MB, de forma a permitir a remoção dessas propriedades.
+* Usuários de notebooks e muitos desktops talvez precisem deste argumento de inicialização:
   * `-cdfon`
 
-For all other troubleshooting, please reference [WhateverGreen's Intel docs](https://github.com/acidanthera/WhateverGreen/blob/master/Manual/FAQ.IntelHD.en.md)
+Para qualquer outra solução de problemas, veja a [documentação Intel da WhateverGreen](https://github.com/acidanthera/WhateverGreen/blob/master/Manual/FAQ.IntelHD.en.md).
