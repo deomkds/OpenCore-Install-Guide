@@ -285,7 +285,7 @@ sudo kmutil install --volume-root ~/livemount --update-all
 sudo bless --folder ~/livemount/System/Library/CoreServices --bootefi --create-snapshot
 ```
 
-## Revertendo Snapshots do APFS
+## Revertendo Snapshots APFS
 
 No macOS 11 Big Sur, o volume do sistema possui uma *snapshot* que permite a reversão para um estado prévio caso atualizações do sistema parem de funcionar devido a um selo violado. Graças ao fato de que novas *snapshots* são criadas a cada atualização do sistema operacional, há várias opções para reversão.
 

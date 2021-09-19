@@ -153,7 +153,7 @@ Os guias foram atualizados para acomodar o macOS 11 Big Sur. Veja a página que 
 
 ![Créditos a Stompy pela imagem](../../images/extras/big-sur/readme/cs-stuck.jpg)
 
-Esta é a parte na qual o macOS sela o volume do sistema, e onde pode parecer que o macOS está travado. **NÃO REINICIE** pensando que travou, pois este processo pode demorar um pouco para terminar e corromperá a instalação caso seja interrompido. 
+Esta é a parte na qual o macOS sela o volume do sistema, e onde pode parecer que o macOS está travado. **NÃO REINICIE** pensando que travou, pois este processo pode demorar um pouco para terminar e corromperá a instalação caso seja interrompido.
 
 ### Preso em `PCI Configuration Begins` em Placas Intel X99 e X299
 
@@ -165,7 +165,7 @@ Como mencionado anteriormente, placas-mãe Intel HEDT podem ter alguns problemas
 
 ![Créditos a Notiflux pela imagem](../../images/extras/big-sur/readme/ramrod.jpg)
 
-Caso fique preso perto da seção `ramrod` (inicia, dá esse erro e reinicia de novo nesse erro, causando um loop), significa que o emulador de SMC está com problemas. Para corrigir, existem duas opções: 
+Caso fique preso perto da seção `ramrod` (inicia, dá esse erro e reinicia de novo nesse erro, causando um loop), significa que o emulador de SMC está com problemas. Para corrigir, existem duas opções:
 
 * Certifique-se de estar usando as *builds* mais recentes da VirtualSMC e da Lilu, com o argumento de inicialização `vsmcgen=1`.
 * Alterne para a [FakeSMC do Rehabman](https://bitbucket.org/RehabMan/os-x-fakesmc-kozlek/downloads/) (pode usar o truque do `MinKernel`/`MaxKernel` mencionado anteriormente para restringir a FakeSMC ao macOS 11 Big Sur e superior).
@@ -176,23 +176,23 @@ E ao trocar de *kexts*, certifique-se de que não ter ambas FakeSMC e VirtualSMC
 
 Isso deve-se a presença de Pontes PCI não utilizadas ativadas na ACPI. Dessa forma, quando o IOPCIFamily procura por dispositivos desconhecidos, causa um *kernel panic*. Para resolver, será preciso adicionar a [SSDT-UNC](https://github.com/acidanthera/OpenCorePkg/tree/master/Docs/AcpiSamples/Source/SSDT-UNC.dsl) nas configurações.
 
-### DeviceProperties injection failing
+### Injeção de DeviceProperties Falhando
 
-With Big Sur, macOS has become much pickier with devices being present in ACPI. Especially if you're injecting important properties for WhateverGreen or AppleALC, you may find they're no longer applying. To verify whether your ACPI defines your hardware, check for the `acpi-path` property in [IORegistryExplorer](https://github.com/khronokernel/IORegistryClone/blob/master/ioreg-210.zip):
+O macOS 11 Big Sur é muito mais enjoado em relação aos dispositivos presentes na ACPI. Em especial, se estiver injetando propriedades importantes para a WhateverGreen ou a AppleALC, pode notar que algumas delas não são aplicadas. Para verificar se a ACPI define o hardware, procure pela propriedade `acpi-path` no [IORegistryExplorer](https://github.com/khronokernel/IORegistryClone/blob/master/ioreg-210.zip):
 
 ![](../../images/extras/big-sur/readme/acpi-path.png)
 
-If no property is found, you'll need to create an SSDT that provides the full pathing as you likely have a PCI Bridge that is not documented in your ACPI tables. An example of this can be found here: [SSDT-BRG0](https://github.com/acidanthera/OpenCorePkg/tree/master/Docs/AcpiSamples/Source/SSDT-BRG0.dsl)
+Se nenhuma propriedade for encontrada, será necessário criar uma SSDT que fornecerá o caminho completo, visto que o computador provavelmente possui uma ponte PCI que não está documentada em nenhuma tabela ACPI. Um exemplo disso pode ser encontrado aqui: [SSDT-BRG0](https://github.com/acidanthera/OpenCorePkg/tree/master/Docs/AcpiSamples/Source/SSDT-BRG0.dsl) (em inglês).
 
-* **Note**: This issue may also pop up in older versions of macOS, however Big Sur is most likely to have issues.
+* **Observação**: este problema também pode aparecer em versões mais antigas do macOS, no entanto, o macOS 11 Big Sur é o mais provável de apresentar problemas.
 
-### Keyboard and Mouse broken
+## Teclado e Mouse Não Funcionam
 
-For certain legacy systems, you may notice that while the USB ports work your HID-based devices such as the keyboard and mouse may be broken. To resolve this, add the following patch:
+Em alguns computadores antigos (ex.: Intel Core 2 Duo, 2010 ou mais antigo), embora as portas USB funcionem, alguns dispositivos de Interface Humana (HID) como teclados e mouses podem não funcionar. Para resolver isso, adicione o seguinte patch:
 
-::: details IOHIDFamily Patch
+::: details Patch de IOHIDFamily
 
-config.plist -> Kernel -> Patch:
+`config.plist -> Kernel -> Patch`:
 
 | Key | Type | Value |
 | :--- | :--- | :--- |
@@ -209,36 +209,36 @@ config.plist -> Kernel -> Patch:
 | ReplaceMask | Data | |
 | Skip | Integer | 0 |
 
-[Source](https://applelife.ru/threads/ustanovka-macos-big-sur-11-0-beta-na-intel-pc-old.2944999/page-81#post-884400)
+[Source](https://applelife.ru/threads/ustanovka-macos-big-sur-11-0-beta-na-intel-pc-old.2944999/page-81#post-884400) (em inglês)
 
 :::
 
-### Early Kernel Panic on `max_cpus_from_firmware not yet initialized`
+### Kernel Panic Precoce em `max_cpus_from_firmware not yet initialized`
 
-If you receive an early kernel panic on `max_cpus_from_firmware not yet initialized`, this is due to the new `acpi_count_enabled_logical_processors` method added in macOS Big Sur's kernel. To resolve, please ensure you're on OpenCore 0.6.0 or newer with the `AvoidRuntimeDefrag` Quirk enabled.
+Caso ocorra um *kernel panic* precoce em `max_cpus_from_firmware not yet initialized`, deve-se ao novo método `acpi_count_enabled_logical_processors` adicionado no *kernel* do macOS 11 Big Sur. Para resolver isso, certifique-se de estar usando o OpenCore 0.6.0 ou mais novo com a *quirk* `AvoidRuntimeDefrag` ativada.
 
-* **Note**: Due to how early this kernel panic happens, you may only be able to log it either via serial or rebooting in a known working install of macOS and checking your panic logged in NVRAM.
-  * Most users will see this panic simply as `[EB|#LOG:EXITBS:START]`
+* **Observação**: devido ao momento em que este *kernel panic* ocorre, talvez só seja possível obter um registro dele por meio da porta serial ou reiniciando uma instalação funcional do macOS e checando os *logs* da NVRAM.
+  * A maioria dos usuários verão este *kernel panic* simplesmente como `[EB|#LOG:EXITBS:START]`.
 
-::: details Example Kernel Panic
+::: details Kernel Panic de Exemplo
 
-On-screen:
+Na tela:
 
 ![](../../images/extras/big-sur/readme/onscreen-panic.png)
 
-Via serial logging or NVRAM:
+Registro por porta serial ou NVRAM:
 
 ![](../../images/extras/big-sur/readme/apic-panic.png)
 
 :::
 
-::: details Legacy Edge Case
+::: details Problema Raro Legado
 
-On certain hardware, mainly the HP DC7900, the kernel still can't determine exactly how many threads your hardware supports. This will result in the aforementioned kernel panic and so we need to hard code the CPU core's value.
+Em alguns hardwares, principalmente o HP DC7900, o *kernel* ainda não consegue determinar exatamente quantas *threads* o hardware suporta. Isso resultará no *kernel panic* supracitado e será necessário especificar manualmente a contagem de núcleos da CPU.
 
-To do this, Add the following patch(replacing the 04 from B8 **04** 00 00 00 C3 with the amount of CPU threads your hardware supports):
+Para fazer isso, adicione o seguinte patch (substituindo o 04 de B8 **04** 00 00 00 C3 pela quantidade de *threads* da CPU que o hardware suporta):
 
-| Key | Type | Value |
+| Chave | Tipo | Valor |
 | :--- | :--- | :--- |
 | Base | String | _acpi_count_enabled_logical_processors |
 | Count | Integer | 1 |
@@ -255,45 +255,45 @@ To do this, Add the following patch(replacing the 04 from B8 **04** 00 00 00 C3 
 
 :::
 
-### Cannot update to newer versions of Big Sur
+### Impossível Atualizar Para Novas Versões do macOS 11 Big Sur
 
-Generally there's 2 main culprits:
+Geralmente, existem 2 culpados principais:
 
-* [Broken Update Utility](#broken-update-utility)
-  * Most common error if running a beta, try this first
-* [Broken Seal](#broken-seal)
+* [Utilitário de Atualização Quebrado](#utilitário-de-atualização-quebrado)
+  * Erro mais comum ao executar versoes betas. Tente isso primeiro.
+* [Selo Violado](#selo-violado)
 
-#### Broken Update Utility
+#### Utilitário de Atualização Quebrado
 
-Generally seen with every beta cycle, simply unenroll and enroll again:
+Geralmente visto em todos os ciclos de betas. Simplesmente saia e entre novamente no catálogo de betas.
 
 ```sh
-# Unenroll from beta catalog
+# Saia do catálogo de betas.
 sudo /System/Library/PrivateFrameworks/Seeding.framework/Resources/seedutil unenroll
-# Enroll back in
+# Entre novamente.
 sudo /System/Library/PrivateFrameworks/Seeding.framework/Resources/seedutil enroll DeveloperSeed
 ```
 
-Then check back with settings, and it should pop up. If not, run the following:
+Então verifique novamente as configurações que a atualização deverá aparecer. Caso não aconteça, execute o seguinte:
 
 ```sh
-# List software updates via terminal
+# Listar as atualizações de software pelo Terminal.
 softwareupdate -l
 ```
 
-This should help kick the update utility back into gear. If you still have issues, check the [Broken Seal](#broken-seal) section.
+Isso deve ajudar a empurrar o Utilitário de Atualização de volta à ação. Caso ainda tenha problemas, veja a próxima seção.
 
-#### Broken Seal
+#### Selo Violado
 
-With Apple's new snapshotting for the system drive, they now depend heavily on this for OS updates to apply correctly. So when a drove's seal is broken, macOS will refuse to update the drive.
+Com as snapshots que a Apple faz do volume do sistema, agora as atualizações de software dependem muito disso para funcionar corretamente. Então, quando o selo de um volume está violado, o macOS se recusará a atualizar aquele volume.
 
-To verify yourself, check that `Snapshot Sealed` returns as YES:
+Para verificar isso, veja se `Snapshot Sealed` retorna YES:
 
 ```bash
-# List all APFS volumes
+# Lista todos os volumes APFS.
 diskutil apfs list
 
-# Look for your system volume
+# Procure pelo volume do sistema.
 Volume disk1s8 A604D636-3C54-4CAA-9A31-5E1A460DC5C0
         ---------------------------------------------------
         APFS Volume Disk (Role):   disk1s8 (System)
@@ -309,38 +309,38 @@ Volume disk1s8 A604D636-3C54-4CAA-9A31-5E1A460DC5C0
         Snapshot Sealed:           Yes
 ```
 
-If it returns `Snapshot Sealed: Broken`, then you'll want to go through the following:
+Se retornar `Snapshot Sealed: Broken`, então será necessário realizar os passos a seguir:
 
-* Update to OpenCore 0.6.4 or newer
-  * Specifically commit [ba10b5d](https://github.com/acidanthera/OpenCorePkg/commit/1b0041493d4693f9505aa6415d93079ea59f7ab0) or newer is required
-* Revert to older snapshots
-  * Mainly for those who have tampered with the system volume
-  * See here how to revert: [Rolling back APFS Snapshots](../../troubleshooting/extended/post-issues.md#rolling-back-apfs-snapshot)
+* Atualize para o OpenCore 0.6.4 ou mais novo:
+  * Exige especificamente o *commit* [ba10b5d](https://github.com/acidanthera/OpenCorePkg/commit/1b0041493d4693f9505aa6415d93079ea59f7ab0) (em inglês) ou mais novo.
+* Reverta para snapshots mais antigas.
+  * Principalmente para aqueles que tenham feito alterações no volume do sistema.
+  * Veja aqui como reverter: [Revertendo Snapshots APFS](../../troubleshooting/extended/post-issues.md#revertendo-snapshots-apfs)
 
-### Kernel Panic on `Rooting from the live fs`
+### Kernel Panic em `Rooting from the live fs`
 
-Full error:
+Erro completo:
 
 ```
 Rooting from the live fs of a sealed volume is not allowed on a RELEASE build
 ```
 
-This is due to issues around Secure Boot boot being enabled in Beta 10 with older versions of OpenCore. Simply update to 0.6.4 to resolve
+Isso deve-se a problemas com o a Inicialização Segura estando ativada no beta 10 enquanto utiliza versões antigas do OpenCore. Simplesmente atualize para a versão 0.6.4 para resolver.
 
-* Specifically commit [ba10b5d](https://github.com/acidanthera/OpenCorePkg/commit/1b0041493d4693f9505aa6415d93079ea59f7ab0) or newer is required
+* Exige especificamente o *commit* [ba10b5d](https://github.com/acidanthera/OpenCorePkg/commit/1b0041493d4693f9505aa6415d93079ea59f7ab0) (em inglês) ou mais recente.
 
-### Asus Z97 and HEDT(ie. X99 and X299) failing Stage 2 Installation
+### Asus Z97 e HEDT (ex.: X99 e X299) Falhando no Estágio 2 da Instalação
 
-With Big Sur, there's a higher reliance on native NVRAM for installation otherwise the installer will get stuck in a reboot loop. To resolve this you'll need to either:
+A instalação do macOS 11 Big Sur possui uma dependência maior na NVRAM nativa. Caso ela não funcione, o instalador travará em um *boot loop*. Para resolver isso, será necessário uma das coisas a seguir:
 
-* Install Big Sur on another machine, then transfer the drive
-* Fix the motherboard's NVRAM
-  * mainly applicable with Asus's Z97 series
+* Instalar o macOS 11 Big Sur em outro computador, então transferir o disco rígido.
+* Consertar a NVRAM da placa-mãe.
+  * Aplicável principalmente a Asus Série Z97.
 
-For the latter, see here: [Haswell ASUS Z97 Big Sur Update Thread](https://www.reddit.com/r/hackintosh/comments/jw7qf1/haswell_asus_z97_big_sur_update_and_installation/)
+Para o último, veja: [Haswell ASUS Z97 Big Sur Update Thread](https://www.reddit.com/r/hackintosh/comments/jw7qf1/haswell_asus_z97_big_sur_update_and_installation/) (em inglês).
 
-### Laptops kernel panicking on `cannot perform kext scan`
+### Notebooks com Kernel Panics em `cannot perform kext scan`
 
-This is due to multiple copies of the same kext being in your kernel cache, and to be more specific having multiple copies of VoodooInput. Look over your `Kernel -> Add` and verify you only have 1 copy of VoodooInput enabled.
+Isso deve-se ao fato de existirem multiplas cópias da mesma *kext* presente no *kernel cache*. Para ser mais específico, múltiplas cópias da VoodooInput. Verifique o caminho `Kernel -> Add` para ter certeza de que há somente uma cópia da VoodooInput ativada.
 
-* Note: Both VoodooI2C and VoodooPS2 have a bundled copy of VoodooInput, which you disable is up to personal preference
+* Observação: tanto a VoodooI2C quanto a VoodooPS2 possuem uma cópia da VoodooInput dentro delas. Desabilite uma de sua preferência.
