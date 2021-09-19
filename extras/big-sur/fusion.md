@@ -6,7 +6,7 @@
 * Java (anbos JRE e JDK funcionam).
 * Um computador executando o macOS.
 * O Instalador do macOS desejado salvo na pasta `/Aplicativos`.
-* Um disco rígido ou SSD externo, conectado pela USB, ou uma unidade interna que pode ser usada completamente.
+* Um HD ou SSD externo, conectado pela USB, ou uma unidade interna que pode ser usada completamente.
 
 ## Convertendo a Mídia de Instalação
 
