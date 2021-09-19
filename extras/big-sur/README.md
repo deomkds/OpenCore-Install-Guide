@@ -1,125 +1,108 @@
-# OpenCore and macOS 11: Big Sur
+# OpenCore e o macOS 11 Big Sur
 
-It's that time of year again and with it, and a new macOS beta has been dropped. Here's all the info you need to get started.
+É aquela época do ano de novo e, com ela, veio um novo beta do macOS. Aqui estão todas as informações para começar.
 
-::: tip Reminder
+::: tip Lembrete
 
-**This page will be a small discussion on exactly what you need to prepare for Big Sur, a more in depth look into what's changed on Big Sur can be found here:**
+**Esta página contém uma breve discussão sobre o que é preciso para se preparar para o macOS 11 Big Sur. Um olhar mais detalhado acerca do que mudou com o macOS 11 Big Sur pode ser encontrado aqui:**
 
-* [What's new in macOS 11, Big Sur!](https://dortania.github.io/hackintosh/updates/2020/11/12/bigsur-new.html)
+* [What's new in macOS 11, Big Sur!](https://dortania.github.io/hackintosh/updates/2020/11/12/bigsur-new.html) (em inglês)
 
 :::
 
 ## Table of Contents
 
-* [Prerequisites](#prerequisites)
-  * [A supported SMBIOS](#a-supported-smbios)
-  * [Supported hardware](#supported-hardware)
-  * [Up-to-date kexts, bootloader and config.plist](#up-to-date-kexts-bootloader-and-config-plist)
-  * [Known issues](#known-issues)
-* [Installation](#installation)
-* [Troubleshooting](#troubleshooting)
-  * [Stuck at Forcing CS_RUNTIME for entitlement](#stuck-at-forcing-cs-runtime-for-entitlement)
-  * [Stuck at PCI Configuration Begins for Intel's X99 and X299 boards](#stuck-at-pci-configuration-begins-for-intel-s-x99-and-x299-boards)
-  * [Stuck on ramrod(^^^^^^^^^^^^^)](#stuck-on-ramrod)
-  * [X79 and X99 Kernel Panic on IOPCIFamily](#x79-and-x99-kernel-panic-on-iopcifamily)
-  * [DeviceProperties injection failing](#deviceproperties-injection-failing)
-  * [Keyboard and Mouse broken](#keyboard-and-mouse-broken)
-  * [Early Kernel Panic on max_cpus_from_firmware not yet initialized](#early-kernel-panic-on-max-cpus-from-firmware-not-yet-initialized)
-  * [Cannot update to newer versions of Big Sur](#cannot-update-to-newer-versions-of-big-sur)
-  * [Kernel Panic on Rooting from the live fs](#kernel-panic-on-rooting-from-the-live-fs)
-  * [Asus Z97 and HEDT(ie. X99 and X299) failing Stage 2 Installation](#asus-z97-and-hedt-ie-x99-and-x299-failing-stage-2-installation)
-  * [Laptops kernel panicking on cannot perform kext scan](#laptops-kernel-panicking-on-cannot-perform-kext-scan)
+[[toc]]
 
-## Prerequisites
+## Pré-requisitos
 
-Before we can jump head first into installing Big Sur, we need to go over a few things:
+Antes de pular de cabeça na instalação do macOS 11 Big Sur, será preciso revisar algumas coisas:
 
-### A supported SMBIOS
+### Uma SMBIOS Suportada
 
-Big Sur dropped a few Ivy Bridge and Haswell based SMBIOS from macOS, so see below that yours wasn't dropped:
+O macOS 11 Big Sur deixou de suportar algumas das SMBIOS de CPUs Ivy Bridge e Haswell. Veja a lista abaixo para saber se a sua ainda é suportada:
 
-* iMac14,3 and older
-  * Note iMac14,4 is still supported
-* MacPro5,1 and older
-* MacMini6,x and older
-* MacBook7,1 and older
-* MacBookAir5,x and older
-* MacBookPro10,x and older
+* iMac14,3 e mais antigas.
+  * Observação: iMac14,4 ainda é suportada.
+* MacPro5,1 e mais antigas.
+* MacMini6,x e mais antigas.
+* MacBook7,1 e mais antigas.
+* MacBookAir5,x e mais antigas.
+* MacBookPro10,x e mais antigas.
 
-If your SMBIOS was supported in Catalina and isn't included above, you're good to go!
+Se sua SMBIOS era suportada no macOS 10.15 Catalina e não está incluída na lista acima, está tudo certo!
 
-::: details Supported SMBIOS
+::: details SMBIOS Suportadas
 
-SMBIOS still supported in macOS Big Sur:
+SMBIOS ainda suportadas no macOS 11 Big Sur:
 
-* iMac14,4 and newer
-* MacPro6,1 and newer
-* iMacPro1,1 and newer
-* MacMini7,1 and newer
-* MacBook8,1 and newer
-* MacBookAir6,x and newer
-* MacBookPro11,x and newer
+* iMac14,4 e mais novas.
+* MacPro6,1 e mais novas.
+* iMacPro1,1 e mais novas.
+* MacMini7,1 e mais novas.
+* MacBook8,1 e mais novas.
+* MacBookAir6,x e mais novas.
+* MacBookPro11,x e mais novas.
 
-For full list of supported SMBIOS including OS support, see here: [Choosing the right SMBIOS](../smbios-support.md)
+Para obter uma lista completa de todas as SMBIOS suportadas, incluíndo em quais versões do macOS, veja: [Escolhendo a SMBIOS Correta](../smbios-support.md).
 
 :::
 
-For those wanting a simple translation for their Machines:
+Para aqueles que estejam procurando por uma simples tradução para seus computadores:
 
-* iMac13,1 should transition over to using iMac14,4
-* iMac13,2 should transition over to using iMac15,1
-* iMac14,2 and iMac14,3 should transition over to using iMac15,1
-  * Note: AMD CPU users with Nvidia GPUs may find MacPro7,1 more suitable
-* iMac14,1 should transition over to iMac14,4
+* Usuários de iMac13,1 devem passar a usar iMac14,4.
+* Usuários de iMac13,2 devem passar a usar iMac15,1.
+* Usuários de iMac14,2 e iMac14,3 devem passar a usar iMac15,1.
+  * Observação: usuários de CPUs AMD com GPUs Nvidia talvez achem a MacPro7,1 mais apropriada.
+* Usuários de iMac14,1 devem passar a usar iMac14,4.
 
-### Supported hardware
+### Hardware Suportado
 
-Not much hardware has been dropped, though the few that have:
+Poucas coisas deixaram de ser suportadas, mas aqui estão algumas que deixaram:
 
-* Official Ivy Bridge U, H and S CPUs.
-  * These CPUs will still boot without much issue, but note that no Macs are supported with consumer Ivy Bridge in Big Sur.
-  * Ivy Bridge-E CPUs are still supported thanks to being in MacPro6,1
-* Ivy Bridge iGPUs slated for removal
-  * HD 4000 and HD 2500, however currently these drivers are still present in 11.0.1
-* BCM4331 and BCM43224 based WiFi cards.
-  * See [Wireless Buyers guide](https://dortania.github.io/Wireless-Buyers-Guide/) for potential cards to upgrade to.
-  * Potential work-around is to inject a patched IO80211Family, see here for more details: [IO80211 Patches](https://github.com/khronokernel/IO80211-Patches)
-* Certain SATA controllers dropped
-  * For some reason, Apple removed the AppleIntelPchSeriesAHCI class from AppleAHCIPort.kext. Due to the outright removal of the class, trying to spoof to another ID (generally done by SATA-unsupported.kext) can fail for many and create instability for others.
-  * A partial fix is to inject Catalina's version with any conflicting symbols being patched. You can find a sample kext here: [Catalina's patched AppleAHCIPort.kext](https://github.com/dortania/OpenCore-Install-Guide/blob/master/extra-files/CtlnaAHCIPort.kext.zip)
-  * We recommend setting the MinKernel value to 20.0.0 for the kext `CtlnaAHCIPort.kext` to avoid any potential conflicts. This way, it will work in both Catalina and Big Sur so you can remove SATA-unsupported if you want.
+* CPUs Ivy Bridge U, H e S oficiais.
+  * Essas CPUs ainda serão capazes de iniciar sem muitos problemas, mas observe que não existem mais Macs suportados pelo macOS 11 Big Sur que utilizem CPUs Ivy Bridge para consumidores.
+  * CPUs Ivy Bridge-E ainda são suportadas graças ao MacPro6,1.
+* GPUs integradas das CPUs Ivy Bridge terão suporte removido.
+  * No entanto, os drivers da HD 4000 e HD 2500 ainda estão presentes no macOS 11.0.1 Big Sur.
+* Placas Wi-Fi com chipsets BCM4331 e BCM43224.
+  * Veja o [Guia de Compra Wi-Fi](https://deomkds.github.io/Wireless-Buyers-Guide/) para alternativas de atualização.
+  * Possível contorno é injetar uma versão corrigida da IO80211Family. Veja este link para mais detalhes: [IO80211 Patches](https://github.com/khronokernel/IO80211-Patches) (em inglês).
+* Alguns controladores SATA.
+  * Por algum motivo, a Apple removeu a classe AppleIntelPchSeriesAHCI da `AppleAHCIPort.kext`. Devido a remoção completa dessa classe, tentar falsificar outro ID (geralmente feito pela `SATA-unsupported.kext`) pode falhar para uns e causar instabilidade para outros.
+  * Uma correção parcial é injetar a versão do macOS 10.15 Catalina que tenha tido seus símbolos conflitantes corrigidos. É possível encontrar uma versão de exemplo aqui: [AppleAHCIPort.kext do macOS 10.15 Catalina com Patches](https://github.com/deomkds/OpenCore-Install-Guide/blob/master/extra-files/CtlnaAHCIPort.kext.zip)
+  * Recomenda-se configurar o valor do `MinKernel` para 20.0.0 na *kext* `CtlnaAHCIPort.kext`, de forma a evitar quaisquer conflitos em potencial. Dessa forma, funcionará tanto no macOS 10.15 Catalina e no macOS 11 Big Sur e a SATA-unsupported poderá ser removida.
 
-Other notable changes:
+Outras mudanças notáveis:
 
-* MSI Navi users no longer require the `ATY,rom`/`-wegnoegpu` patch to boot the installer
-* Stage 2 installation requiring working NVRAM
-  * Asus 9 series: For more info, see here: [Haswell ASUS Z97 Big Sur Update Thread](https://www.reddit.com/r/hackintosh/comments/jw7qf1/haswell_asus_z97_big_sur_update_and_installation/)
-  * X99 and X299 users with broken NVRAM will need to install on another machine and move the SSD when done
+* Usuários de GPUs Navi MSI não mais precisam do patch `ATY,rom`/`-wegnoegpu` para iniciar o instalador.
+* O estágio 2 da instalação exige NVRAM funcional.
+  * Asus Série 9: para mais informações, acesse [Haswell ASUS Z97 Big Sur Update Thread](https://www.reddit.com/r/hackintosh/comments/jw7qf1/haswell_asus_z97_big_sur_update_and_installation/) (em inglês).
+  * Usuários de X99 e X299 com NVRAM quebrada precisarão instalar em outro computador e mover o SSD ao terminar.
 
-### Up-to-date kexts, bootloader and config.plist
+### Kexts atualizadas, bootloader e config.plist
 
-Ensure that you have the latest version of OpenCore, kexts and config.plist so it won't have any odd compatibility issues. You can simply download and update OpenCore and kexts as mentioned here:
+Certifique-se de estar usando a versão mais recente do OpenCore, das *kexts* e da `config.plist` para eviar problemas estranhos de compatibilidade. É possível baixar e atualizar o OpenCore e as *kexts* seguindo o guia:
 
-* [Updating OpenCore and macOS](https://dortania.github.io/OpenCore-Post-Install/universal/update.html)
+* [Atualizando o OpenCore e o macOS](https://deomkds.github.io/OpenCore-Post-Install/universal/update.html)
 
-If you're unsure what version of OpenCore you're using, you can run the following in terminal:
+Caso não tenha certeza de qual versão do OpenCore está sendo executada, é possível descobrir usando o seguinte comando no Terminal:
 
 ```sh
 nvram 4D1FDA02-38C7-4A6A-9CC6-4BCCA8B30102:opencore-version
 ```
 
-* Note: The about command will require you to include bit `0x2` in `Misc -> Security -> ExposeSensitiveData`, recommended values for ExposeSensitiveData is `0x6` which includes bits `0x2` and `0x4`.
+* Observação: este comando exige que o bit `0x2` seja adicionado na opção `Misc -> Security -> ExposeSensitiveData`. O valor recomendado para a opção `ExposeSensitiveData` é `0x6`, que inclui os bits `0x2` e `0x4`.
 
-#### AMD Note
+#### Observação Sobre AMD
 
-**Reminder for AMD Users**: Don't forget to update your kernel patches with those provided by AMD OS X, otherwise you'll be unable to boot Big Sur:
+**Lembrete para Usuários de AMD**: Não se esqueça de atualizar os patches de *kernel* usando aqueles fornecidos para AMD OS X, ou o macOS 11 Big Sur não iniciará:
 
-* [AMD OSX Patches](https://github.com/AMD-OSX/AMD_Vanilla/)
+* [Patches de AMD](https://github.com/AMD-OSX/AMD_Vanilla/) (em inglês)
 
-#### Intel HEDT Note
+#### Observação Sobre Intel HEDT
 
-For X79, X99 and X299 users, pay close attention to the below. Big Sur has added new requirements for ACPI, so you'll need to grab some new SSDTs:
+Os usuários de X79, X99 e X299 devem prestar muita atenção ao exposto a seguir. O macOS 11 Big Sur adicionou novas exigências para ACPI, então será necessário baixar novas SSDTs:
 
 * X79
   * [SSDT-UNC](https://github.com/acidanthera/OpenCorePkg/tree/master/Docs/AcpiSamples/Source/SSDT-UNC.dsl)
@@ -129,69 +112,69 @@ For X79, X99 and X299 users, pay close attention to the below. Big Sur has added
 * X299
   * [SSDT-RTC0-RANGE](https://github.com/acidanthera/OpenCorePkg/tree/master/Docs/AcpiSamples/Source/SSDT-RTC0-RANGE.dsl)
 
-For those who'd like precompiled files, see here:
+Para os que preferem arquivos pré-compilados, veja:
 
-* [Getting started with ACPI: Prebuilt SSDTs](https://dortania.github.io/Getting-Started-With-ACPI/ssdt-methods/ssdt-prebuilt.html)
+* [Primeiros Passos com a ACPI: SSDTs Pré-compiladas](https://deomkds.github.io/Getting-Started-With-ACPI/ssdt-methods/ssdt-prebuilt.html)
 
-### Known issues
+### Problemas Conhecidos
 
-With Big Sur, quite a bit broke. Mainly the following:
+Muita coisa parou de funcionar com o macOS 11 Big Sur. Principalmente:
 
 * Lilu
-  * Mainly user-space patching has severely broke, meaning certain functionality may have broken
-  * These include:
+  * Os patches de espaço de usuário foram muito afetados. Isso significa que alguns recursos pararam de funcionar:
+  * Incluem:
     * DiskArbitrationFixup
     * MacProMemoryNotificationDisabler
     * SidecarEnabler
     * SystemProfilerMemoryFixup
     * NoTouchID
-    * WhateverGreen's DRM and -cdfon patches
+    * Patches de DRM e `-cdfon` da WhateverGreen
 * AirportBrcmFixup
-  * Forcing a specific driver to load with `brcmfx-driver=` may help
-    * BCM94352Z users for example may need `brcmfx-driver=2` in boot-args to resolve this, other chipsets will need other variables.
-  * Setting MaxKernel to 19.9.9 for AirPortBrcm4360_Injector.kext may help. More information [from the repo](https://github.com/acidanthera/AirportBrcmFixup/blob/master/README.md#please-pay-attention)
-* SATA Support broken
-  * Due to Apple dropping the AppleIntelPchSeriesAHCI class in AppleAHCIPort.kext
-  * To resolve, add [Catalina's patched AppleAHCIPort.kext](https://github.com/dortania/OpenCore-Install-Guide/blob/master/extra-files/CtlnaAHCIPort.kext.zip) with the MinKernel set to 20.0.0
+  * Forçar o carregamento de um driver específico por meio do `brcmfx-driver=` pode ajudar.
+    * Por exemplo, usuários de BCM94352Z talvez precisem de `brcmfx-driver=2` nos arugmentos de inicialização para resolver isso. Outros chipsets precisarão de outras variáveis.
+  * Configurar o `MaxKernel` para 19.9.9 na `AirPortBrcm4360_Injector.kext` pode ajudar. Mais informações [no repositório](https://github.com/acidanthera/AirportBrcmFixup/blob/master/README.md#please-pay-attention) (em inglês).
+* Suporte a SATA quebrado.
+  * Devido à remoção da classe AppleIntelPchSeriesAHCI na `AppleAHCIPort.kext`.
+  * Para resolver isso, instale a [AppleAHCIPort.kext do macOS 10.15 Catalina com Patches](https://github.com/deomkds/OpenCore-Install-Guide/blob/master/extra-files/CtlnaAHCIPort.kext.zip), configurando o `MinKernel` para 20.0.0.
 
-And while not an issue, SIP has now gained a new bit so to properly disable SIP you need to set `csr-active-config` to `FF0F0000`. See here for more info: [Disabling SIP](../../troubleshooting/extended/post-issues.md#disabling-sip)
+E embora não seja um problema, o SIP ganhou um novo bit. Para desativá-lo da maneira correta, será necessário configurar a opção `csr-active-config` para `FF0F0000`. Veja mais detalhes aqui: [Desativando o SIP](../../troubleshooting/extended/post-issues.md#desativando-o-sip).
 
-## Installation
+## Instalação
 
-Guides have been updated to accommodate Big Sur, see the applicable OS environment for you:
+Os guias foram atualizados para acomodar o macOS 11 Big Sur. Veja a página que melhor se aplica a você:
 
-* [macOS users](../../installer-guide/mac-install.md)
-* [Windows users](../../installer-guide/winblows-install.md)
-* [Linux users](../../installer-guide/linux-install.md)
+* [Usuários de macOS](../../installer-guide/mac-install.md)
+* [Usuários de Windows](../../installer-guide/winblows-install.md)
+* [Usuários de Linux](../../installer-guide/linux-install.md)
 
-## Troubleshooting
+## Solução de Problemas
 
-### Stuck at `Forcing CS_RUNTIME for entitlement`
+### Preso em `Forcing CS_RUNTIME for entitlement`
 
-![Credit to Stompy for image](../../images/extras/big-sur/readme/cs-stuck.jpg)
+![Créditos a Stompy pela imagem](../../images/extras/big-sur/readme/cs-stuck.jpg)
 
-This is actually the part at where macOS will seal the system volume, and where it may seem that macOS has gotten stuck. **DO NOT RESTART** thinking you're stuck, this will take quite some time to complete, otherwise you'll break your installation.
+Esta é a parte na qual o macOS sela o volume do sistema, e onde pode parecer que o macOS está travado. **NÃO REINICIE** pensando que travou, pois este processo pode demorar um pouco para terminar e corromperá a instalação caso seja interrompido. 
 
-### Stuck at `PCI Configuration Begins` for Intel's X99 and X299 boards
+### Preso em `PCI Configuration Begins` em Placas Intel X99 e X299
 
 ![](../../images/extras/big-sur/readme/rtc-error.jpg)
 
-As previously mentioned, Intel HEDT motherboards may have some issues revolving around their RTC device in ACPI. To resolve, you'll need to look at your RTC device and see which regions are missing. For more information, see here: [SSDT-RTC0-RANGE.dsl](https://github.com/acidanthera/OpenCorePkg/tree/master/Docs/AcpiSamples/Source/SSDT-RTC0-RANGE.dsl)
+Como mencionado anteriormente, placas-mãe Intel HEDT podem ter alguns problemas relacionados com o dispositivo RTC na ACPI. Para resolver, será preciso verificar o dispositivo RTC e ver quais regiões estão faltando. Para obter mais informaçõe, acesse: [SSDT-RTC0-RANGE.dsl](https://github.com/acidanthera/OpenCorePkg/tree/master/Docs/AcpiSamples/Source/SSDT-RTC0-RANGE.dsl) (em inglês).
 
-### Stuck on `ramrod`(^^^^^^^^^^^^^)
+### Preso em `ramrod`(^^^^^^^^^^^^^)
 
-![Credit to Notiflux for image](../../images/extras/big-sur/readme/ramrod.jpg)
+![Créditos a Notiflux pela imagem](../../images/extras/big-sur/readme/ramrod.jpg)
 
-If you get stuck around the `ramrod` section (specifically, it boots, hits this error, and reboots again back into this, causing a loop), this hints that your SMC emulator is broken. To fix this, you have 2 options:
+Caso fique preso perto da seção `ramrod` (inicia, dá esse erro e reinicia de novo nesse erro, causando um loop), significa que o emulador de SMC está com problemas. Para corrigir, existem duas opções: 
 
-* Ensure you're using the latest builds of VirtualSMC and Lilu, with the `vsmcgen=1` boot-arg
-* Switch over to [Rehabman's FakeSMC](https://bitbucket.org/RehabMan/os-x-fakesmc-kozlek/downloads/) (you can use the `MinKernel`/`MaxKernel` trick mentioned above to restrict FakeSMC to Big Sur and up)
+* Certifique-se de estar usando as *builds* mais recentes da VirtualSMC e da Lilu, com o argumento de inicialização `vsmcgen=1`.
+* Alterne para a [FakeSMC do Rehabman](https://bitbucket.org/RehabMan/os-x-fakesmc-kozlek/downloads/) (pode usar o truque do `MinKernel`/`MaxKernel` mencionado anteriormente para restringir a FakeSMC ao macOS 11 Big Sur e superior).
 
-And when switching kexts, ensure you don't have both FakeSMC and VirtualSMC enabled in your config.plist, as this will cause a conflict.
+E ao trocar de *kexts*, certifique-se de que não ter ambas FakeSMC e VirtualSMC ativadas na `config.plist` para a mesma versão do macOS, já que isso causará conflitos.
 
-### X79 and X99 Kernel Panic on IOPCIFamily
+### Kernel Panic em X79 e X99 na IOPCIFamily
 
-This is due to an unused uncore PCI Bridges being enabled in ACPI, and so IOPCIFamily will kernel panic when probing unknown devices. To resolve, you'll need to add [SSDT-UNC](https://github.com/acidanthera/OpenCorePkg/tree/master/Docs/AcpiSamples/Source/SSDT-UNC.dsl) to your system
+Isso deve-se a presença de Pontes PCI não utilizadas ativadas na ACPI. Dessa forma, quando o IOPCIFamily procura por dispositivos desconhecidos, causa um *kernel panic*. Para resolver, será preciso adicionar a [SSDT-UNC](https://github.com/acidanthera/OpenCorePkg/tree/master/Docs/AcpiSamples/Source/SSDT-UNC.dsl) nas configurações.
 
 ### DeviceProperties injection failing
 
