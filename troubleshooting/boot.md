@@ -1,6 +1,6 @@
 # Entendendo o Processo de Inicialização do macOS
 
-Ao solucionar problemas em um *hackintosh*, pode ser um tanto difícil entender exatametne *onde* o sistema está travando, já que a palavra chave exata pode não retornar nenhum resultado quando procurada no Google. Embora esta página não seja capaz de resolver todos os problemas, pelo menos ela pode ajudar a entender melhor qual parte do processo de inicialização do macOS está travando e, quem sabe, suscitar algumas ideias dos motivos do travamento.
+Ao solucionar problemas em um *hackintosh*, pode ser um tanto difícil entender exatamente *onde* o sistema está travando, já que a palavra chave exata pode não retornar nenhum resultado quando procurada no Google. Embora esta página não seja capaz de resolver todos os problemas, pelo menos ela pode ajudar a entender melhor qual parte do processo de inicialização do macOS está travando e, quem sabe, suscitar algumas ideias dos motivos do travamento.
 
 ## Inicialização do OpenCore
 

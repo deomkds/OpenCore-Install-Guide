@@ -95,7 +95,7 @@ iasl * [insira todos os arquivos da ACPI aqui]
 
 ## Inconsistência de Relógio Entre o macOS e o Windows
 
-Isso se deve ao fato do macOS tratar o horário da BIOS/firmware UEFI como UTC enquanto o Windows o trata como fuso horário local. Será necessário forçar um dos sistemas operacionais a tratar o relógio da BIOS de maneira diferente. É altamente recomendado modifica o Windows pois é muito mais fácil, rápido e seguro:
+Isso se deve ao fato do macOS tratar o horário da BIOS/firmware UEFI como UTC enquanto o Windows o trata como fuso horário local. Será necessário forçar um dos sistemas operacionais a tratar o relógio da BIOS de maneira diferente. É altamente recomendado modificar o Windows pois é muito mais fácil, rápido e seguro:
 
 * [Instale os utilitários do BootCamp](https://deomkds.github.io/OpenCore-Post-Install/multiboot/bootcamp.html)
 * [Modifique o Registro do Windows](https://superuser.com/q/494432) [Download](https://raw.githubusercontent.com/deomkds/OpenCore-Install-Guide/main/extra-files/clockfix.zip)
