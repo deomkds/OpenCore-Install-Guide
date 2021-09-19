@@ -161,7 +161,7 @@ No caso do iStat, será necessário aguardar por uma atualização. Já usuário
 
 ## Erro "Você não pode alterar o disco de inicialização para o disco selecionado"
 
-É comumente causado por uma configuração de partição do Windows irregular. Mais especificamente, signfica que a partição EFI não é a primeira no disco. Para corrigir isso, será necessário ativar a seguinte *quirk*:
+Geralmente, é causado por uma configuração irregular na partição do Windows. Mais especificamente, signfica que a partição EFI não é a primeira no disco. Para corrigir isso, ative a seguinte *quirk*:
 
 * `PlatformInfo -> Generic -> AdviseWindows -> True`
 
@@ -169,94 +169,98 @@ No caso do iStat, será necessário aguardar por uma atualização. Já usuário
 
 ## Seleção de Disco de Inicialização Não Aplica Corretamente
 
-Caso esteja tendo problemas nos quais o painel de configuração Disco de Inicialização não aplica corretamente as novas configurações, muito provavelmente é um problema causado pela falta de um `DevicePathsSupported` no I/O Registry. Para resolver isso, certifique-se de que a opção `PlatformInfo -> Automatic` está ativada.
+Problemas nos quais o painel de configuração Disco de Inicialização não aplica corretamente as alterações são provavelmente causados pela falta de um `DevicePathsSupported` no I/O Registry. Para resolver isso, certifique-se de que a opção `PlatformInfo -> Automatic` está ativada.
 
 Exemplo de `DevicePathsSupported` faltante:
 
 * [Default DevicePath match failure due to different PciRoot #664](https://github.com/acidanthera/bugtracker/issues/664#issuecomment-663873846) (em inglês).
 
-## macOS waking up with the wrong time
+## macOS Retornando da Suspensão com a Hora Errada
 
-An odd quirk some people may notice is that from wake, macOS will have the incorrect time for a bit before self-correcting with network time check. The root cause of this issue is most likely due to your RTC not ticking, and can be resolved with a new CMOS battery(note that Z270 and newer are quite picky with voltage so choose carefully).
+Um problema estranho que algumas pessoas podem notar é que, ao retornar da suspensão, o macOS apresentará a hora errada por um breve momento antes de se autocorrigir por meio de uma sincronização com a rede. A causa raiz deste problema é pode ser o fato do RTC não contar a hora corretamente. Isso pode ser resolvido com trocando a bateria de CMOS (bateria da BIOS). 
 
-To verify whether your RTC is working correctly:
+Observe que placas Z270 e mais novas são bastante enjoadas com a tensão da bateria, então escolha com cuidado. 
 
-* Download [VirtualSMC v1.1.5+](https://github.com/acidanthera/virtualsmc/releases) and run the smcread tool:
+Para verificar se o RTC está funcionando corretamente:
+
+* Baixe a [VirtualSMC v1.1.5+](https://github.com/acidanthera/virtualsmc/releases) e execute a ferramenta `smcread`:
 
 ```bash
-/path/to/smcread -s | grep CLKT
+/diretorio/do/smcread -s | grep CLKT
 ```
 
 ![](../../images/extras/big-sur/readme/rtc-1.png)
 
-This should provide you with a hexadecimal value, and once converted it should equal time elapsed from Midnight relative to Cupertino.
+Isso deve retornar um valor hexadecimal. Uma vez convertido, esse valor deve ser igual ao tempo decorrido entre a meia-noite em Cupertino.
 
-So for this example, we'll grab our value(`00010D13`) then convert it to decimal and finally divide it by 3600. This should result in the approximate time elapsed(in seconds) since midnight relative to Cupertino
+Então, neste exemplo, pegue o valor (`00010D13`) e converta-o para decimal. Então, divida-o por 3600. O resultado deve ser o tempo decorrido aproximado (em segundos) desde a meia-noite, relativo a Cupertino.
 
-* 00010D13 (Convert to HEX)-> 68883 (Divided by 3600 so we get hours)-> 19.13h(so 19:07:48)
+* 00010D13 (converta para HEX)-> 68883 (divida por 3600 para obter as horas)-> 19.13h(então 19:07:48).
 
-Next you'll want to put your hack to sleep for a bit and wake it, then check the CLKT value once more to see whether it deviated more or if it has a set difference. If you find it didn't actually tick much of at all from the elapsed time, you'll need to look into buying a new battery(with proper voltage)
+Depois, coloque o *hackintosh* em modo de suspensão por alguns minutos e ligue-o novamente. Agora, cheque o valor CLKT mais uma vez para ver se houve uma alteração compatível com o tempo em que o computador ficou suspenso. Caso o relógio não tenha contado o tempo correto, busque comprar uma nova bateria (com a tensão correta).
 
-## No Volume/Brightness control on external monitors
+## Sem Controle de Volume ou Brilho Em Monitores Externos
 
-Oddly enough, macOS has locked down digital audio from having control. To bring back some functionality, the app [MonitorControl](https://github.com/the0neyouseek/MonitorControl/releases) has done great work on improving support in macOS
+Estranhamente, o macOS bloqueia os controles de volume em dispositivos de áudio digital. Para trazer de volta parte dessa funcionalidade, use o aplicativo [MonitorControl](https://github.com/the0neyouseek/MonitorControl/releases) (em inglês).
 
-## Time inconsistency between macOS and Windows
+## Inconsistência de Relógio Entre o macOS e o Windows
 
-This is due to macOS using Universal Time while Windows relies on Greenwich time, so you'll need to force one OS to a different way of measuring time. We highly recommend modifying Windows instead as it's far less destructive and painful:
+Isso se deve ao fato do macOS tratar o horário da BIOS/firmware UEFI como UTC enquanto o Windows o trata como fuso horário local. Será necessário forçar um dos sistemas operacionais a tratar o relógio da BIOS de maneira diferente. É altamente recomendado modificar o Windows pois é muito mais fácil, rápido e seguro:
 
-* [Install Bootcamp utilities](https://deomkds.github.io/OpenCore-Post-Install/multiboot/bootcamp.html)
-* [Modify Windows' registry](https://superuser.com/q/494432)
+* [Instale os utilitários do BootCamp](https://deomkds.github.io/OpenCore-Post-Install/multiboot/bootcamp.html)
+* [Modifique o Registro do Windows](https://superuser.com/q/494432) [Download](https://raw.githubusercontent.com/deomkds/OpenCore-Install-Guide/main/extra-files/clockfix.zip)
 
-## Disabling SIP
+## Desativando o SIP
 
-SIP or more properly known as System Integrity Protection, is a security technology that attempts to prevent any malicious software and the end user from damaging the OS. First introduced with OS X El Capitan, SIP has grown over time to control more and more things in macOS, including limiting edits to restricted file locations and 3rd party kext loading with `kextload`(OpenCore is unaffected as kexts are injected at boot). To resolve this, Apple has provided numerous configuration options in the NVRAM variable `csr-active-config` which can either be set in the macOS recovery environment or with OpenCore's NVRAM section(The latter will be discussed below).
+A Proteção da Integridade do Sistema (SIP) é uma tecnologia de segurança que tenta prevenir que softwares maliciosos e o usuário final causem danos ao sistema operacional. Lançado originalmente no OS X 10.11 El Capitan, o SIP evoluiu ao longo do tempo para controlar mais e mais coisas no macOS, incluindo a habidade de limitar a edição em locais de arquivos restritos e o carregamento de `kexts` de terceiros por meio da ferramenta `kextload` (isso não afeta o OpenCore, já que as `kexts` são injetadas na inicialização).
 
-* <span style="color:red">WARNING:</span> Disabling SIP can break OS functionality such as software updates in macOS 11, Big Sur and newer. Please be careful to only disable specific SIP values instead of disabling SIP outright to avoid these issues.
-  * Enabling `CSR_ALLOW_UNAUTHENTICATED_ROOT` and `CSR_ALLOW_APPLE_INTERNAL` are common options that can break OS updates for users
+Para resolver isso, a Apple providenciou inúmeras opções de configuração por meio da variável de NVRAM `csr-active-config`, a qual pode ser alterada tanto pelo ambiente de recuperação do macOS quanto pela seção NVRAM nas configurações do OpenCore (esta última será discutida abaixo).
 
-You can choose different values to enable or disable certain flags of SIP. Some useful tools to help you with these are [CsrDecode](https://github.com/corpnewt/CsrDecode) and [csrstat](https://github.com/JayBrown/csrstat-NG). Common values are as follows (bytes are pre-hex swapped for you, and note that they go under NVRAM -> Add -> 7C436110-AB2A-4BBB-A880-FE41995C9F82 -> csr-active-config):
+* <span style="color:red">ATENÇÃO:</span> Desativar o SIP pode quebrar certas funcionalidades do sistema operacional, como atualizações de software no macOS 11Big Sur ou mais novo. Seja cuidadoso e desabilite somente alguns valores específicos do SIP, em vez de desligá-lo completamente. Assim é possível evitar alguns desses problemas.
+  * As opções `CSR_ALLOW_UNAUTHENTICATED_ROOT` e `CSR_ALLOW_APPLE_INTERNAL` são conhecidas por impedir o download de atualizações no macOS.
 
-* `00000000` - SIP completely enabled (0x0).
-* `03000000` - Disable kext signing (0x1) and filesystem protections (0x2).
-* `FF030000` - Disable all [flags in macOS High Sierra](https://opensource.apple.com/source/xnu/xnu-4570.71.2/bsd/sys/csr.h.auto.html) (0x3ff).
-* `FF070000` - Disable all [flags in macOS Mojave](https://opensource.apple.com/source/xnu/xnu-4903.270.47/bsd/sys/csr.h.auto.html) and in [macOS Catalina](https://opensource.apple.com/source/xnu/xnu-6153.81.5/bsd/sys/csr.h.auto.html) (0x7ff) as Apple introduced a value for executable policy.
-* `FF0F0000` - Disable all flags in macOS Big Sur (0xfff) which has another new [flag for authenticated root](https://eclecticlight.co/2020/06/25/big-surs-signed-system-volume-added-security-protection/).
+É possível escolher valores diferentes para ativar ou desativar certas *flags* do SIP. Algumas ferramentas úteis que podem ajudar com esses valores são o [CsrDecode](https://github.com/corpnewt/CsrDecode) e o [csrstat](https://github.com/JayBrown/csrstat-NG). Valores comuns são apresentados a seguir. Os bytes já foram trocados para sua conveniência. Observe que eles devem ser adiconados na `config.plist`, no caminho `NVRAM -> Add -> 7C436110-AB2A-4BBB-A880-FE41995C9F82 -> csr-active-config`.
 
-**Note**: Disabling SIP with OpenCore is quite a bit different compared to Clover, specifically that NVRAM variables will not be overwritten unless explicitly told so under the `Delete` section. So if you've already set SIP once either via OpenCore or in macOS, you must override the variable:
+* `00000000` - SIP ativado completamente (0x0).
+* `03000000` - Desabilita a verificação de assinaturas de *kexts* (0x1) e as proteções do sistema de arquivos (0x2).
+* `FF030000` - Desabilita todas as [*flags* no macOS 10.13 High Sierra](https://opensource.apple.com/source/xnu/xnu-4570.71.2/bsd/sys/csr.h.auto.html) (em inglês) (0x3ff).
+* `FF070000` - Desabilita todas as [*flags* no macOS 10.14 Mojave](https://opensource.apple.com/source/xnu/xnu-4903.270.47/bsd/sys/csr.h.auto.html) (em inglês) e no [macOS 10.15 Catalina](https://opensource.apple.com/source/xnu/xnu-6153.81.5/bsd/sys/csr.h.auto.html) (em inglês) (0x7ff), visto que a Apple criou um novo valor para a política de execução.
+* `FF0F0000` - Desabilita todas as *flags* no macOS 11 Big Sur (0xfff), que possui uma nova [*flag* para o *root* autenticado](https://eclecticlight.co/2020/06/25/big-surs-signed-system-volume-added-security-protection/) (em inglês).
+
+**Observação**: Desativar o SIP no OpenCore é um pouco diferente se comparado ao Clover. Especificamente, as variáveis NVRAM não serão sobrescritas a não ser que haja uma entrada configurada na seção `Delete`. Então, caso já tenha configurado o SIP alguma vez pelo  OpenCore ou pelo macOS, será necessário sobrescrever a variável:
 
 * `NVRAM -> Delete -> 7C436110-AB2A-4BBB-A880-FE41995C9F82 -> csr-active-config`
   
 ![](../../images/troubleshooting/troubleshooting-md/sip.png)
 
-## Writing to the macOS system partition
+## Escrevendo na Partição do Sistema do macOS
 
-With macOS Catalina and newer, Apple split the OS and user data into 2 volumes where the system volume is read-only by default. To make these drives writable we'll need to do a few things:
+No macOS 10.15 Catalina e mais novos, a Apple dividiu os dados do sistema operaciona e os dados do usuário em dois volumes diferentes. O volume que contém os arquivos do sistema é somente leitura por padrão. Para obter permissões de escrita nesses volumes, será necessário fazer algumas coisas:
 
-* Note: Users of `SecureBootModel` may end up in a RecoveryOS boot loop if the system partition has been modified. To resolve this, Reset NVRAM and set `SecureBootModel` to `Disabled`
+* Observação: usuários da opção `SecureBootModel` podem acabar tendo um *boot loop* na partição de recuperação caso a partição do sistema seja modificada. Para resolver isso, redefina a NVRAM e configure o  `SecureBootModel` para `Disabled`.
 
 **macOS Catalina**
 
-1. [Disable SIP](#disabling-sip)
-2. Mount drive as writable (Run `sudo mount -uw /` in terminal)
+1. [Desative o SIP](#desativando-o-sip)
+2. Monte o volume com permissões de escrita (execute `sudo mount -uw /` no Terminal).
 
 **macOS Big Sur**
 
-1. [Disable SIP](#disabling-sip)
-2. Mount drive as writable (See below link for command)
+1. [Desative o SIP](#desativando-o-sip)
+2. Monte o volume com permissões de escrita (veja o comando abaixo).
 
-* Note: Due to how OS updates work in macOS Big Sur and newer, changing the system volume can in fact break OS updates. Please edit with caution
+* Observação: devido a forma como as atualizações do sistema funcionam no macOS 11 Big Sur e mais novos, alterar o volume do sistema pode quebrar as atualizações. Prossiga com cautela.
 
-Commands based off of Apple's KDK documents:
+Comandos baseados na documentação do KDK da Apple:
 
 ```bash
-# First, create a mount point for your drive
+# Primeiro, crie um ponto de montagem para o volume.
 mkdir ~/livemount
 
-# Next, find your System volume
+# Então, encontre o volume do sistema.
 diskutil list
 
-# From the below list, we can see our System volume is disk5s5
+# A partir da lista abaixo, é possível ver que o volume do sistema corresponde a disk5s5.
 /dev/disk5 (synthesized):
    #:                       TYPE NAME                    SIZE       IDENTIFIER
    0:      APFS Container Scheme -                      +255.7 GB   disk5
@@ -268,36 +272,36 @@ diskutil list
    5:                APFS Volume ⁨Big Sur HD⁩              16.2 GB    disk5s5
    6:              APFS Snapshot ⁨com.apple.os.update-...⁩ 16.2 GB    disk5s5s
 
-# Mount the drive(ie. disk5s5)
+# Monte a unidade (ex.: disk5s5).
 sudo mount -o nobrowse -t apfs  /dev/disk5s5 ~/livemount
 
-# Now you can freely make any edits to the System volume
+# Agora é possível fazer alterações no volume do sistema livremente.
 
-# If you edited either the S*/L*/Kernel, S*/L*/Extensions or L*/Extensions,
-# you will need to rebuild the kernel cache
+# Caso tenha alterado as pastas S*/L*/Kernel, S*/L*/Extensions ou L*/Extensions,
+# será necessário reconstruir o kernel cache.
 sudo kmutil install --volume-root ~/livemount --update-all
 
-# Finally, once done editing the system volume we'll want to create a new snapshot
+# Por fim, ao terminar de alterar o volume do sistema, será preciso criar uma nova snapshot.
 sudo bless --folder ~/livemount/System/Library/CoreServices --bootefi --create-snapshot
 ```
 
-## Rolling back APFS Snapshots
+## Revertendo Snapshots do APFS
 
-With macOS Big Sur, the system volume is now snapshotted allowing you to roll back in case of issues with system updates breaking due to a broken seal. Thanks to new snapshots being created with every OS update, we've got quite a bit to roll back too.
+No macOS 11 Big Sur, o volume do sistema possui uma *snapshot* que permite a reversão para um estado prévio caso atualizações do sistema parem de funcionar devido a um selo violado. Graças ao fato de que novas *snapshots* são criadas a cada atualização do sistema operacional, há várias opções para reversão.
 
-To roll back, you'll first need to reboot into Recovery partition then select "Restore From Time Machine Backup":
+Para reverter a um estado anterior, primeiro será necessário reiniciar o computador e acessar a partição de recuperação. Então selecione a opção "Restaurar de um Backup do Time Machine":
 
 ![](./../../images/troubleshooting/troubleshooting-md/snapshots.jpg)
 
-* [Credit to Lifewire for image](https://www.lifewire.com/roll-back-apfs-snapshots-4154969)
+* [Créditos a Lifewire pela imagem.](https://www.lifewire.com/roll-back-apfs-snapshots-4154969)
 
-## Apple Watch Unlock issues
+## Problemas de Desbloqueio com o Apple Watch
 
-For those with Apple Watch Unlock issues, verify the following:
+Para quem estiver tendo problemas ao desbloquear o computador com o Apple Watch, verifique o seguinte:
 
-* You have a supported Apple Wireless card with Bluetooth Low Energy(4.0+)
-* Your watch and Mac are signed in with the same account
-* iServices working correctly(ie. iMessage)
+* Se possui uma placa de rede sem fio Apple com Bluetooth Low Energy (4.0 ou superior).
+* Se o macOS e o Apple Watch estão usando oo mesmo ID Apple.
+* Se os iServiços estão funcionando corretamente (ex.: iMessage).
 * There's an option to Unlock with Apple Watch under Security and Privacy setting in System Preferences
 
 ![](../../images/troubleshooting/troubleshooting-md/watch-unlock.png)
