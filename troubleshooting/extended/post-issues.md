@@ -177,9 +177,9 @@ Exemplo de `DevicePathsSupported` faltante:
 
 ## macOS Retornando da Suspensão com a Hora Errada
 
-Um problema estranho que algumas pessoas podem notar é que, ao retornar da suspensão, o macOS apresentará a hora errada por um breve momento antes de se autocorrigir por meio de uma sincronização com a rede. A causa raiz deste problema é pode ser o fato do RTC não contar a hora corretamente. Isso pode ser resolvido com trocando a bateria de CMOS (bateria da BIOS). 
+Um problema estranho que algumas pessoas podem notar é que, ao retornar da suspensão, o macOS apresentará a hora errada por um breve momento antes de se autocorrigir por meio de uma sincronização com a rede. A causa raiz deste problema é pode ser o fato do RTC não contar a hora corretamente. Isso pode ser resolvido com trocando a bateria de CMOS (bateria da BIOS).
 
-Observe que placas Z270 e mais novas são bastante enjoadas com a tensão da bateria, então escolha com cuidado. 
+Observe que placas Z270 e mais novas são bastante enjoadas com a tensão da bateria, então escolha com cuidado.
 
 Para verificar se o RTC está funcionando corretamente:
 
