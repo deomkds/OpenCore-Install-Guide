@@ -40,8 +40,8 @@ Além do descrito acima, se o computador não suporta UEFI (geralmente 2011 ou m
 * [OpenUsbKbDxe.efi](https://github.com/acidanthera/OpenCorePkg/releases)
   * Usado pelo seletor do OpenCore em **computadores antigos que usarão o DuetPkg**, [não recomendado e até mesmo perigoso em firmwares UEFI (Ivy Bridge e mais novos)](https://applelife.ru/threads/opencore-obsuzhdenie-i-ustanovka.2944066/page-176#post-856653).
 * [HfsPlusLegacy.efi](https://github.com/acidanthera/OcBinaryData/blob/master/Drivers/HfsPlusLegacy.efi)
-  * É a variante do driver HfsPlus.efi usada em computadores que não possuem suporte à instrução RDRAND. Geralmente visto em computadores que usam CPUs Sandy Bridge ou mais antigos e CPUs Ivy Bridge de entrada (i3 e Celerons).
-  * Não instale esse driver junto com o HfsPlus.efi (o normal). Escolha somente um deles dependendo do hardware.
+  * É a variante do driver `HfsPlus.efi` usada em computadores que não possuem suporte à instrução RDRAND. Geralmente visto em computadores que usam CPUs Sandy Bridge ou mais antigos e CPUs Ivy Bridge de entrada (i3 e Celerons).
+  * Não instale esse driver junto com o `HfsPlus.efi` (o normal). Escolha somente um deles dependendo do hardware.
 * [OpenPartitionDxe](https://github.com/acidanthera/OpenCorePkg/releases)
   * Necessário para iniciar a partição de Recuperação do OS X 10.7 Lion ao OS X 10.9 Mavericks.
     * Este arquivo é distribuído junto com o OpenCorePkg e pode ser encontrado na pasta `EFI/OC/Drivers`.
@@ -61,17 +61,17 @@ Para aqueles que possuem CPUs de 32 bits, será necessário baixar estes drivers
 
 ## Kexts
 
-Uma kext é uma extensão de kernel (**k**ernel **ext**ension). É equivalente do macOS aos drivers de dispositivos encontrados no Windows. Elas deverão ser colocas na pasta Kexts, dentro da sua EFI.
+Uma *kext* é uma extensão de *kernel* (***k**ernel **ext**ension*). É equivalente do macOS aos drivers de dispositivos encontrados no Windows. Elas deverão ser colocas na pasta `Kexts`, dentro da sua EFI.
 
-* **Observação sobre Windows e Linux**: As kexts serão exibidas como pastas normais nesses sistemas operacionais. **Verifique mais de uma vez** se a pasta que está copiando para a EFI possui uma extensão .kext visível (e não adicione uma se estiver faltando).
-  * Se uma kext também incluir um arquivo `.dSYM`, fique à vontade para deletá-lo. Eles só são úteis para o *debugging* pelos desenvolvedores.
+* **Observação sobre Windows e Linux**: As *kexts* serão exibidas como pastas normais nesses sistemas operacionais. **Verifique mais de uma vez** se a pasta que está copiando para a EFI possui uma extensão `.kext` visível (e não adicione uma se estiver faltando).
+  * Se uma *kext* também incluir um arquivo `.dSYM`, fique à vontade para deletá-lo. Eles só são úteis para o *debugging* pelos desenvolvedores.
 * **Observação sobre Local**: Estes arquivos **precisam** ser colocados na pasta `EFI/OC/Kexts/`.
 
-Todas as kexts listadas abaixo podem ser encontradas **pré compiladas** no [repositório de kexts](http://kexts.goldfish64.com/). As kexts de lá são compiladas toda vez em que há um novo *commit*.
+Todas as *kexts* listadas abaixo podem ser encontradas **pré compiladas** no [repositório de *kexts*](http://kexts.goldfish64.com/). As *kexts* de lá são compiladas toda vez em que há um novo *commit*.
 
 ### Necessárias
 
-::: tip Kexts Necessárias
+::: tip *Kexts* Necessárias
 
 Sem as duas abaixo, nenhum *hackintosh* inicia:
 
@@ -80,18 +80,18 @@ Sem as duas abaixo, nenhum *hackintosh* inicia:
   * Uma alternativa é a FakeSMC, que possui suporte inconsistente. É mais utilizada em computadores antigos.
   * Necessita do Mac OS X 10.6 Snow Leopard ou superior.
 * [Lilu](https://github.com/acidanthera/Lilu/releases)(<span style="color:red">Exigida</span>)
-  * Uma kext para corrigir muitos processos, exigida pela AppleALC, WhateverGreen, VirtualSMC e muitas outras kexts. Sem a Lilu, as outras kexts não funcionarão.
+  * Uma *kext* para corrigir muitos processos, exigida pela AppleALC, WhateverGreen, VirtualSMC e muitas outras *kexts*. Sem a Lilu, as outras *kexts* não funcionarão.
   * Observe que a Lilu e seus plugins precisam do OS X 10.8 Mountain Lion ou mais novo para funcionar.
 
-::: details Kexts Antigas Necessárias
+::: details *Kexts* Antigas Necessárias
 
-Para aqueles planejando usar o OS X 10.7 Lion ou versões mais antigas em computadores de 32 bits, será necessário utilizar as kexts abaixo no lugar do VirtualSMC:
+Para aqueles planejando usar o OS X 10.7 Lion ou versões mais antigas em computadores de 32 bits, será necessário utilizar as *kexts* abaixo no lugar do VirtualSMC:
 
 * [FakeSMC-32](https://github.com/khronokernel/Legacy-Kexts/blob/master/32Bit-only/Zip/FakeSMC-32.kext.zip?raw=true)
 
-Lembrete: se não deseja usar esses sistemas antigos, ignore esta kext.
+Lembrete: se não deseja usar esses sistemas antigos, ignore esta *kext*.
 
-* **Observação sobre o Mac OS X 10.4 Tiger e 10.5 Leopard**: Mesmo em CPUs de 64 bits, o espaço do kernel nesses sistemas ainda é em 32 bits. Então é recomendado utilizar o FakeSMC-32 junto com o VirtualSMC. Configure a opção `Arch` do FakeSMC-32 para `i386` e do VirtualSMC para `x86_64`. Isso será abordado melhor em outras partes deste guia.
+* **Observação sobre o Mac OS X 10.4 Tiger e 10.5 Leopard**: Mesmo em CPUs de 64 bits, o espaço do *kernel* nesses sistemas ainda é em 32 bits. Então é recomendado utilizar o FakeSMC-32 junto com o VirtualSMC. Configure a opção `Arch` do FakeSMC-32 para `i386` e do VirtualSMC para `x86_64`. Isso será abordado melhor em outras partes deste guia.
 
 :::
 
@@ -99,55 +99,55 @@ Lembrete: se não deseja usar esses sistemas antigos, ignore esta kext.
 
 Os plugins abaixo não são necessários para iniciar o macOS, somente adicionam funcionalidades extras ao sistema (como monitoramento de hardware). Observe que, enquanto o VirtualSMC suporta o Mac OS X 10.6 Snow Leopard, os plugins talvez exijam OS X 10.8 Mountain Lion:
 
-* SMCProcessor.kext
+* `SMCProcessor.kext`
   * Usada para monitorar a temperatura da CPU, **não funciona em computadores AMD**.
-* SMCSuperIO.kext
+* `SMCSuperIO.kext`
   * Usada para monitorar a velocidade das ventoinhas, **não funciona em computadores AMD**.
-* SMCLightSensor.kext
+* `SMCLightSensor.kext`
   * Usada pelo sensor de luz ambiente em notebooks, **usuários de desktop podem ignorar**.
-  * Não utilize-a caso não possua um sensor de luz ambiente. Ela pode causar problemas.
-* SMCBatteryManager.kext
+  * Não a utilize em computadores que não possuam um sensor de luz ambiente. Ela pode causar problemas.
+* `SMCBatteryManager.kext`
   * Usada para medir os níveis de bateria em notebooks, **usuários de desktop podem ignorar**.
-* SMCDellSensors.kext
-  * Permite um monitoramento e controle mais detalhado das ventoinhas em computadores da Dell que suportam o System Management Mode (SMM).
+* `SMCDellSensors.kext`
+  * Permite um monitoramento e controle mais detalhado das ventoinhas em computadores da Dell, que suportam o *System Management Mode* (SMM).
   * **Não a utilize caso não possua um computador da Dell suportado**. Geralmente, os mais beneficiados são usuário de notebooks Dell.
 
 ### Gráficos
 
 * [WhateverGreen](https://github.com/acidanthera/WhateverGreen/releases)(<span style="color:red">Exigida</span>)
-  * Usada para aplicar patches de DRM, boardID, correções de *framebuffer*, entre outras coisas. Todas as GPUs se beneficiam por usarem essa kext.
-  * Observe que o arquivo SSDT-PNLF.dsl incluído só é necessário para notebooks e computadores do tipo *All in One*. Veja mais inforamaçoes no guia [Primeiros Passos com a ACPI](https://deomkds.github.io/Getting-Started-With-ACPI/).
+  * Usada para aplicar patches de DRM, boardID, correções de *framebuffer*, entre outras coisas. Todas as GPUs se beneficiam por usarem essa *kext*.
+  * Observe que o arquivo `SSDT-PNLF.dsl` incluído só é necessário para notebooks e computadores do tipo *All in One*. Veja mais inforamaçoes no guia [Primeiros Passos com a ACPI](https://deomkds.github.io/Getting-Started-With-ACPI/).
   * Necessita do OS X 10.8 Mountain Lion ou superior.
 
 ### Áudio
 
 * [AppleALC](https://github.com/acidanthera/AppleALC/releases)
-  * Usada para aplicar patches na AppleHDA, permitindo suporte para a maioria dos controladores de áudio integrados.
+  * Usada para aplicar patches na AppleHDA, adicionando suporte para a maioria dos controladores de áudio integrados.
   * Usuários de AMD 15h/16h podem ter problemas com ela, e computadores com Ryzen/Threadripper raramente conseguem suporte ao microfone.
   * Necessita do OS X 10.8 Mountain Lion ou superior.
   
-::: details Kext de Áudio Antiga
+::: details *Kext* de Áudio Antiga
 
-Aqueles que planejam usar o OS X 10.7 Lion ou versões mais antigas talvez queiram optar por usar essas kexts em vez da AppleALC:
+Aqueles que planejam usar o OS X 10.7 Lion ou versões mais antigas talvez queiram optar por usar essas *kexts* em vez da AppleALC:
 
 * [VoodooHDA](https://sourceforge.net/projects/voodoohda/)
   * Necessita do OS X 10.6 Snow Leopard ou superior.
   
 * [VoodooHDA-FAT](https://github.com/khronokernel/Legacy-Kexts/blob/master/FAT/Zip/VoodooHDA.kext.zip)
-  * Similar à de cima, porém suporta kernels (kérneis?) de 32 e 64 bits. É perfeita para usar no Mac OS X 10.4 Tiger e no 10.5 Leopard.
+  * Similar à de cima, porém suporta *kernels* (*kérneis*?) de 32 e 64 bits. É perfeita para usar no Mac OS X 10.4 Tiger e no 10.5 Leopard.
 
 :::
 
 ### Ethernet
 
-Será presumido que o modelo do controlador Ethernet que o seu computador possui é conhecido, mas lembre-se que o manual de usuário ou o site do fabricante também podem fornecer informações a respeito do modelo que seu computador possui.
+Presume-se que você conhece o modelo do controlador Ethernet do seu computador, mas lembre-se que o manual de usuário ou o site do fabricante também podem fornecer informações a respeito do modelo que seu computador possui.
 
 * [IntelMausi](https://github.com/acidanthera/IntelMausi/releases)
-  * Necessária para a maioria dos controladores Intel. Chipsets baseados no I211 precisam da  SmallTreeIntel82576.kext.
+  * Necessária para a maioria dos controladores Intel. Chipsets baseados no I211 precisam da  `SmallTreeIntel82576.kext`.
   * Controladores Intel 82578, 82579, I217, I218 e I219 são oficialmente suportados.
   * Necessitam do OS X 10.9 Mavericks ou superior. Usuários do Mac OS X 10.6 Snow Leopard ao OS X 10.8 Mountain Lion podem usar a IntelSnowMausi, feita para versões mais antigas.
 * [SmallTreeIntel82576](https://github.com/khronokernel/SmallTree-I211-AT-patch/releases)
-  * Necessária para controladores I211. Baseada na kext SmallTree, mas corrigida para suportar o modelo I211.
+  * Necessária para controladores I211. Baseada na *kext* SmallTree, mas corrigida para suportar o modelo I211.
   * Necessária na maioria das placas AMD que usam controladores da Intel.
   * Versões e macOS suportados:
     * Versão 1.0.6: funciona do OS X 10.9 Mavericks ao macOS 10.12 Sierra.
@@ -156,23 +156,23 @@ Será presumido que o modelo do controlador Ethernet que o seu computador possui
 * [AtherosE2200Ethernet](https://github.com/Mieze/AtherosE2200Ethernet/releases)
   * Necessária para todos os controladores da marca Atheros e Killer.
   * Necessita do OS X 10.8 Mountain Lion ou superior.
-  * Observação: modelos Atheros Killer E2500 na verdade são baseados em chipsets Realtek. Para esses controladores, utilize a kext [RealtekRTL8111](https://github.com/Mieze/RTL8111_driver_for_OS_X/releases).
+  * Observação: modelos Atheros Killer E2500 na verdade são baseados em chipsets Realtek. Para esses controladores, utilize a *kext* [RealtekRTL8111](https://github.com/Mieze/RTL8111_driver_for_OS_X/releases).
 * [RealtekRTL8111](https://github.com/Mieze/RTL8111_driver_for_OS_X/releases)
   * Para controladores Realtek Gigabit Ethernet.
   * Versões e macOS suportados:
     * Versão 2.2.0 ou anteriores: a partir do OS X 10.8 Mountain Lion.
     * Versões 2.2.2 até 2.3.0: a partir do macOS 10.12 Sierra.
     * Versão 2.4.0: a partir do macOS 10.14 Mojave.
-  * **Observação:** Às vezes a última versão da kext pode não funcionar com o seu controlador. Caso observe problemas, tente utilizar versões mais antigas.
+  * **Observação:** Às vezes a última versão da *kext* pode não funcionar com o seu controlador. Caso tenha problemas, tente utilizar versões mais antigas.
 * [LucyRTL8125Ethernet](https://www.insanelymac.com/forum/files/file/1004-lucyrtl8125ethernet/)
   * Para controladores Realtek 2.5Gb Ethernet.
   * Necessita do macOS 10.15 Catalina ou superior.
-* Para controladores Intel I225-V, os patches são mencionados na seção de desktops [Comet Lake DeviceProperties](config.plist/comet-lake.md#deviceproperties). Nenhuma kext é requerida.
+* Para controladores Intel I225-V, os patches são mencionados na seção de desktops [Comet Lake DeviceProperties](config.plist/comet-lake.md#deviceproperties). Nenhuma *kext* é necessária.
   * Necessita do macOS 10.15 Catalina ou superior.
-* Para controladores Intel I350, os patches são mencionados na seção HEDT do [Sandy e Ivy Bridge-E DeviceProperties](config-HEDT/ivy-bridge-e.md#deviceproperties). Nenhuma kext é requerida.
+* Para controladores Intel I350, os patches são mencionados na seção HEDT do [Sandy e Ivy Bridge-E DeviceProperties](config-HEDT/ivy-bridge-e.md#deviceproperties). Nenhuma *kext* é necessária.
   * Necessita do OS X 10.10 Yosemite ou superior.
 
-::: details Kexts de Ethernet Antigas
+::: details *Kexts* de Ethernet Antigas
 
 Relevante para instalações de Mac OS X antigas ou hardware de PCs mais velhos.
 
@@ -209,7 +209,7 @@ pci1d6a,c0   = Aquantia AQC113
 pci1d6a,4c0  = Aquantia AQC113
 ```
 
-**Observação**: Devido a alguns firmwares desatualizados distribuidos com muitos controladores Aquantia, talvez seja necessário atualizá-las para o firmware mais novo em um sistema Linux ou Windows para garantir que o controlador seja compatível com o macOS.
+**Observação**: Devido a alguns firmwares desatualizados distribuidos com muitos controladores Aquantia, talvez seja necessário atualizar as placas para o firmware mais novo, usando um sistema Linux ou Windows, para garantir que o controlador seja compatível com o macOS.
 
 #### Série Intel
 
@@ -248,7 +248,7 @@ pci14e4,1686 = Broadcom BCM57766
   * Usada para injetar controladores Intel USB em computadores que não possuem as portas USB definidas na ACPI.
   * Não deve ser necessária em desktops Skylake e mais novos.
     * Placas AsRock são burras e precisam dela.
-    * No entanto, recomenda-se utilizá-la em notebooks Coffee Lake e mais antigos.
+    * No entanto, recomenda-se utilizar em notebooks Coffee Lake e mais antigos.
   * Não funciona em CPUs AMD **de jeito nenhum**.
   * Necessita do OS X 10.11 El Capitan ou superior.
 
@@ -281,7 +281,7 @@ Para ativar o suporte a AirportItlwm com o OpenCore, será necessário fazer uma
 
 * Ativar a Inicialização Segura configurando `Misc -> Security -> SecureBootModel` para `Default` ou algum outro valor válido.
   * Isso será discutido mais tarde neste guia e também no guia de pós-instalação: [Inicialização Segura da Apple](https://deomkds.github.io/OpenCore-Post-Install/universal/security/applesecureboot.html)
-* Se não puder ativar o SecureBootModel, ainda será possível injetar à força a kext IO80211Family (**Altamente desencorajado**).
+* Se não puder ativar a opção `SecureBootModel`, ainda será possível injetar à força a *kext* IO80211Family (**Altamente desencorajado**).
   * Configure `Kernel -> Force` na sua config.plist (será discutido mais tarde neste guia):
   
 ![](./images/ktext-md/force-io80211.png)
@@ -291,12 +291,13 @@ Para ativar o suporte a AirportItlwm com o OpenCore, será necessário fazer uma
 #### Broadcom
 
 * [AirportBrcmFixup](https://github.com/acidanthera/AirportBrcmFixup/releases)
-  * Usado para corrigir placas Wi-Fi Broadcom que não são da Apple ou da Fenvi. **Não funciona em placas Intel, Killer, Realtek, entre outras.**
+  * Usado para corrigir placas Wi-Fi Broadcom que não são da Apple ou da Fenvi.
+    * **Não funciona em placas Intel, Killer, Realtek, entre outras.**
   * Necessita do OS X 10.10 Yosemite ou superior.
   * Usuários do macOS 11 Big Sur, vejam os [problemas conhecidos](./extras/big-sur#known-issues) para entender os passos extras necessários relativos aos drivers da AirPortBrcm4360.
 * [BrcmPatchRAM](https://github.com/acidanthera/BrcmPatchRAM/releases)
   * Usado para fazer o upload do firmware em chipsets de Bluetooth da Broadcom. Necessário para todas as placas que não são Apple AirPort ou Fenvi.
-  * Para ser usado junto com a BrcmFirmwareData.kext:
+  * Para ser usado junto com a `BrcmFirmwareData.kext`:
     * BrcmPatchRAM3 é para macOS 10.15 Catalina ou mais novo (precisa ser usado junto com a BrcmBluetoothInjector).
     * BrcmPatchRAM2 é para OS X 10.11 El Capitan ao macOS 10.14 Mojave.
     * BrcmPatchRAM é para OS X 10.8 Mountain Lion a 10.10 Yosemite.
@@ -325,7 +326,7 @@ No entanto, o ProperTree lidará com isso por conta própria, não precisa se pr
 ### Extras
 
 * [AppleMCEReporterDisabler](https://github.com/acidanthera/bugtracker/files/3703498/AppleMCEReporterDisabler.kext.zip)
-  * Útil a partir do macOS 10.15 Catalina para desativar a kext AppleMCEReporter que pode causar *kernel panics* em computadores com CPUs AMD e em placas-mãe com dois sockets.
+  * Útil a partir do macOS 10.15 Catalina para desativar a *kext* AppleMCEReporter que pode causar *kernel panics* em computadores com CPUs AMD e em placas-mãe com dois sockets.
   * SMBIOS afetadas:
     * MacPro6,1
     * MacPro7,1
@@ -339,11 +340,11 @@ No entanto, o ProperTree lidará com isso por conta própria, não precisa se pr
   * Usado para corrigir o gerenciamento de energia e a inicialização em SSDs NVMe que não são da Apple.
   * Necessita do macOS 10.14 Mojave ou superior.
 * [SATA-Unsupported](https://github.com/khronokernel/Legacy-Kexts/blob/master/Injectors/Zip/SATA-unsupported.kext.zip)
-  * Adiciona suporte para uma grande variedade de controladores SATA. Relevante principalmente em notebooks nos quais o macOS possui problemas em encontrar as unidades SATA. Recomenda-se testar o macOS sem essa kext antes de instalá-la.
-  * Observação sobre o macOS 11 Big Sur: Será necessário usar a kext [CtlnaAHCIPort](https://github.com/dortania/OpenCore-Install-Guide/blob/master/extra-files/CtlnaAHCIPort.kext.zip) no lugar da SATA-Unsupported, devido ao fato de que vários controladores tiveram seu suporte removido dos drivers originais.
+  * Adiciona suporte para uma grande variedade de controladores SATA. Relevante principalmente em notebooks nos quais o macOS possui problemas em encontrar as unidades SATA. Recomenda-se testar o macOS sem essa *kext* antes de instalá-la.
+  * Observação sobre o macOS 11 Big Sur: Será necessário usar a *kext* [CtlnaAHCIPort](https://github.com/dortania/OpenCore-Install-Guide/blob/master/extra-files/CtlnaAHCIPort.kext.zip) no lugar da SATA-Unsupported, devido ao fato de que vários controladores tiveram seu suporte removido dos drivers originais.
     * Não é preciso se preocupar com isso no macOS 10.15 Catalina ou mais antigo.
 
-::: details Kexts de SATA Antigas
+::: details *Kexts* de SATA Antigas
 
 * [AHCIPortInjector](https://github.com/khronokernel/Legacy-Kexts/blob/master/Injectors/Zip/AHCIPortInjector.kext.zip)
   * Injetor antigo de SATA/AHCI. Relevante principalmente em computadores mais antigos da era Penryn.
@@ -387,19 +388,19 @@ Para descobrir que tipo de teclado e *trackpad* seu computador possui, olhe no G
 #### Diversas
 
 * [ECEnabler](https://github.com/1Revenger1/ECEnabler/releases)
-  * Corrige a exibição do status de bateria em vários computadores diferentes, pois permite a leitura dos campos EC que sejam mais longos que 8 bits.
+  * Corrige a exibição do nível de bateria em vários computadores diferentes, pois permite a leitura dos campos EC que sejam mais longos que 8 bits.
 * [BrightnessKeys](https://github.com/acidanthera/BrightnessKeys/releases)
   * Corrige as teclas de brilho automaticamente.
 
-Por favor, leia o arquivo [Kexts.md](https://github.com/acidanthera/OpenCorePkg/blob/master/Docs/Kexts.md) (em inglês) para obter uma lista completa de todas as kexts suportadas.
+Por favor, leia o arquivo [Kexts.md](https://github.com/acidanthera/OpenCorePkg/blob/master/Docs/Kexts.md) (em inglês) para obter uma lista completa de todas as *kexts* suportadas.
 
 ## SSDTs
 
-Então você vê todas aquelas SSDTs na pasta AcpiSamples e imagina se precisa de alguma delas. Neste guia, as SSDTs necessárias serão abordadas **na seção de ACPI específica para a sua config.plist**, pois as SSDTs são específicas de cada plataforma. Algumas até precisam de configuração por parte do usuário e seria muito fácil se perder caso uma lista delas fosse fornecida neste momento.
+Então você vê todas aquelas SSDTs na pasta `AcpiSamples` e imagina se precisa de alguma delas. Neste guia, as SSDTs necessárias serão abordadas **na seção de ACPI específica para a sua `config.plist`**, pois as SSDTs são específicas de cada plataforma. Algumas até precisam de configuração por parte do usuário e seria muito fácil se perder caso uma lista delas fosse fornecida neste momento.
 
 O guia [Primeiros Passos com a ACPI](https://deomkds.github.io/Getting-Started-With-ACPI/) possui uma seção extensa a respeito de SSDTs, incluíndo informações sobre como compilá-las para diferentes plataformas.
 
-A seguir, veja um resumo rápido sobre as SSDTs necessárias. Os links apontam para o código-fonte delas, que precisam ser compiladas em um arquivo .aml antes de serem usadas.
+A seguir, veja um resumo rápido sobre as SSDTs necessárias. Os links apontam para o código-fonte delas, que precisam ser compiladas em um arquivo `.aml` antes de serem usadas.
 
 ### Desktop
 

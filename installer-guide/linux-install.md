@@ -2,7 +2,7 @@
 
 Embora não seja necessário ter uma instalação zerada para usar o OpenCore, alguns usuários preferem ter um sistema limpo ao atualizar seus gerenciadores de boot.
 
-Para começar, tenha em mãos (virtuais?):
+Para começar, tenha em mãos:
 
 * Pendrive de 4GB
 * [macrecovery.py](https://github.com/acidanthera/OpenCorePkg/releases)
@@ -59,7 +59,7 @@ A partir daqui, execute um desses comandos numa janela do Terminal e, quando ter
 
 ![](../images/installer-guide/legacy-mac-install-md/download-done.png)
 
-* **Observação**: dependendo do sistema operacional, o script baixará um arquivo chamado BaseSystem ou um cahamdo RecoveryImage. Ambos agem da mesma forma, então quando este guia fizer referência a BaseSystem, a informação também se aplica ao RecoveryImage.
+* **Observação**: dependendo do sistema operacional, o script baixará um arquivo chamado `BaseSystem` ou um chamado `RecoveryImage`. Ambos agem da mesma forma, então quando este guia fizer referência a `BaseSystem`, a informação também se aplica ao `RecoveryImage`.
 
 * **Observação sobre o macOS 11 Big Sur**: como essa versão é nova, ainda há problemas a serem resolvidos com sertos sistemas. Para mais informações, acesse: [OpenCore e o macOS 11 Big Sur](../extras/big-sur/README.md).
   * Para usuários de primeira viagem, recomenda-se usar o macOS 10.15 Catalina.
@@ -101,8 +101,6 @@ No Terminal:
    1. Monte a partição do pendrive com o `udisksctl` (`udisksctl mount -b /dev/<bloco da partição no dispositivo USB>`, não precisa de sudo na maioria dos casos) ou com o `mount` (`sudo mount /dev/<bloco da partição no dispositivo USB> /onde/você/monta/partições`, o sudo é necessário).
    2. Execute o `cd` para acessar o seu pendrive e crie uma pasta com o `mkdir com.apple.recovery.boot` na raiz da partição FAT32 do pendrive.
    3. Agora use o comando `cp` ou o comando `rsync` para copiar tanto a `BaseSystem.dmg` quanto o arquivo `BaseSystem.chunklist` para dentro da pasta `com.apple.recovery.boot`.
-
-_*Nota do deomkds: acho que este guia poderia ser mais mastigado, porém, se a pessoa se aventura a usar Linux, ela deve saber como usar esses comandos corretamente._
 
 ### Método 2 (caso o primeiro não funcione)
 

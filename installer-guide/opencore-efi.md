@@ -1,12 +1,12 @@
 # Adicionado os Arquivos Base do OpenCore
 
-Para configurar a estrutura da pasta do OpenCore, será necessário baixar a pasta EFI encontrada na página [Lançamentos do OpenCorePkg](https://github.com/acidanthera/OpenCorePkg/releases/). Observe que tudo estará sob a pasta IA32 ou sob a pasta X64, a primeira sendo necessária para firmwares 32 bits e a última para firmwares 64 bits.
+Para configurar a estrutura da pasta do OpenCore, será necessário baixar a pasta EFI encontrada na página [Lançamentos do OpenCorePkg](https://github.com/acidanthera/OpenCorePkg/releases/). Observe que tudo estará dentro da pasta IA32 ou dentro da pasta X64, a primeira sendo necessária para firmwares 32 bits e a última para firmwares 64 bits.
 
 ![](../images/installer-guide/opencore-efi-md/ia32-x64.png)
 
 Sobre as versões DEBUG e RELEASE:
 
-* **DEBUG**: ajuda muito a resolver bugs durante o boot, mas adiciona atrasos notáveis na inicialização (isto é, de 3 a 5 segundos para chegar no seletor). Uma vez instalado, é fácil mudar para a versão RELEASE.
+* **DEBUG**: ajuda muito a resolver bugs, mas adiciona atrasos notáveis na inicialização (isto é, de 3 a 5 segundos para chegar no seletor). Uma vez instalado, é fácil mudar para a versão RELEASE.
 * **RELEASE**: Inicialização muito mais rápida, mas não oferece basicamente nenhuma informação de DEBUG, o que torna a solução de problemas muito mais difícil.
 
 E uma vez baixado, coloque a pasta EFI (do OpenCorePkg) na raiz da partição EFI:
@@ -75,7 +75,7 @@ Uma pasta EFI limpa:
 
 ![EFI Limpa](../images/installer-guide/opencore-efi-md/clean-efi.png)
 
-Agora, adicione os **seus** drivers (.efi) de firmware necessários dentro da pasta _Drivers_ e as Kexts/tabelas ACPI em suas respectivas pastas. Veja [Coletando os Arquivos](../ktext.md) para mais informações sobre quais arquivos é preciso usar.
+Agora, adicione os **seus** drivers (.efi) de firmware necessários dentro da pasta _Drivers_ e as Kexts/tabelas ACPI em suas respectivas pastas. Veja [Juntando os Arquivos](../ktext.md) para mais informações sobre quais arquivos é preciso usar.
 
 * Por favor, observe que os drivers UEFI do Clover não são suportados no OpenCore! EmuVariableUEFI, AptioMemoryFix, OsxAptioFixDrv, entre outros. Por favor, leia o guia [Convertendo os drivers de firmware do Clover](https://github.com/dortania/OpenCore-Install-Guide/blob/master/clover-conversion/clover-efi.md) para mais informações sobre drivers suportados e sobre quais já foram integrados ao OpenCore.
 
