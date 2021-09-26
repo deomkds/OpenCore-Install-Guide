@@ -5,7 +5,7 @@ Antes de pularmos de cabeça na criação de um sistema baseado no OpenCore, pre
 ## Pré-requisitos
 
 1. <span style="color:red">_**[CRUCIAL]**_</span> Tempo e paciência.
-   * Não comece esse tutorial se tiver prazos ou trabalhos importantes a fazer. Hackintoshes não são computadores de trabalho nos quais você deva confiar.
+   * Não comece esse tutorial se tiver prazos ou trabalhos importantes a fazer. *Hackintoshes* não são computadores de trabalho nos quais você deva confiar.
 2. <span style="color:red">_**[CRUCIAL]**_</span> **CONHEÇA SEU HARDWARE**
    * O modelo e a geração do seu processador.
    * A marca e o modelo da sua placa de vídeo.

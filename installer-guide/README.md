@@ -12,7 +12,7 @@ Instaladores offline carregam uma cópia completa do macOS, enquanto instaladore
 
 * Instalador Offline
   * Só pode ser criado no macOS.
-  * O Windows ou o Linux não possuem os drivers APFS/HFS necessários para montar um instalador completo.
+  * O Windows e o Linux não possuem os drivers APFS/HFS necessários para montar um instalador completo.
 * Instalador Online
   * Pode ser criado no macOS, Linux ou Windows.
   * Exige uma conexão funcional com a internet por meio de um adaptador de rede que seja suportado pelo macOS no computador alvo.
@@ -22,13 +22,13 @@ Instaladores offline carregam uma cópia completa do macOS, enquanto instaladore
 Dependendo do sistema operacional a ser usado, acesse a seção correspondente sobre como criar o pendrive.
 
 * [Usuários de macOS](../installer-guide/mac-install.md)
-  * Suporta Mac OS X 10.4 Tiger até o mais recente.
-  * Suporta tanto instalações legadas quanto UEFI.
+  * Suporta desde o Mac OS X 10.4 Tiger até o mais recente.
+  * Suporta instalação em computadores antigos e com UEFI.
 * [Usuários do Windows](../installer-guide/winblows-install.md)
-  * Suporta OS X 10.7 Lion até o mais recente.
+  * Suporta desde o OS X 10.7 Lion até o mais recente.
   * Somente instalador online.
-  * Suporta tanto instalações legadas quanto UEFI.
+  * Suporta instalação em computadores antigos e com UEFI.
 * [Usuários Linux (UEFI)](../installer-guide/linux-install.md)
-  * Suporta OS X 10.7 Lion até o mais recente.
+  * Suporta desde o OS X 10.7 Lion até o mais recente.
   * Somente instalador online.
-  * Criado para computadores que suportam boot UEFI.
+  * Suporta instalação apenas em computadores com UEFI.

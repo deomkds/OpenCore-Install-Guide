@@ -1,10 +1,10 @@
 # Criando o Instalador no Linux
 
-Embora não seja necessário ter uma instalação zerada para usar o OpenCore, alguns usuários preferem ter um sistema limpo ao atualizar seus gerenciadores de boot.
+Embora não seja necessário ter uma instalação zerada para usar o OpenCore, alguns usuários preferem ter um sistema limpo ao atualizar seus gerenciadores de inicialização.
 
 Para começar, tenha em mãos:
 
-* Pendrive de 4GB
+* Um pendrive de 4GB
 * [macrecovery.py](https://github.com/acidanthera/OpenCorePkg/releases)
   
 ## Baixando o macOS

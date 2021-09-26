@@ -71,7 +71,7 @@ Todas as *kexts* listadas abaixo podem ser encontradas **pré compiladas** no [r
 
 ### Necessárias
 
-::: tip *Kexts* Necessárias
+::: tip Kexts Necessárias
 
 Sem as duas abaixo, nenhum *hackintosh* inicia:
 
@@ -83,9 +83,9 @@ Sem as duas abaixo, nenhum *hackintosh* inicia:
   * Uma *kext* para corrigir muitos processos, exigida pela AppleALC, WhateverGreen, VirtualSMC e muitas outras *kexts*. Sem a Lilu, as outras *kexts* não funcionarão.
   * Observe que a Lilu e seus plugins precisam do OS X 10.8 Mountain Lion ou mais novo para funcionar.
 
-::: details *Kexts* Antigas Necessárias
+::: details Kexts Antigas Necessárias
 
-Para aqueles planejando usar o OS X 10.7 Lion ou versões mais antigas em computadores de 32 bits, será necessário utilizar as *kexts* abaixo no lugar do VirtualSMC:
+Para aqueles que planejam usar o OS X 10.7 Lion ou versões mais antigas em computadores de 32 bits, será necessário utilizar as *kexts* abaixo no lugar do VirtualSMC:
 
 * [FakeSMC-32](https://github.com/khronokernel/Legacy-Kexts/blob/master/32Bit-only/Zip/FakeSMC-32.kext.zip?raw=true)
 
@@ -126,7 +126,7 @@ Os plugins abaixo não são necessários para iniciar o macOS, somente adicionam
   * Usuários de AMD 15h/16h podem ter problemas com ela, e computadores com Ryzen/Threadripper raramente conseguem suporte ao microfone.
   * Necessita do OS X 10.8 Mountain Lion ou superior.
   
-::: details *Kext* de Áudio Antiga
+::: details Kext de Áudio Antiga
 
 Aqueles que planejam usar o OS X 10.7 Lion ou versões mais antigas talvez queiram optar por usar essas *kexts* em vez da AppleALC:
 
@@ -172,7 +172,7 @@ Presume-se que você conhece o modelo do controlador Ethernet do seu computador,
 * Para controladores Intel I350, os patches são mencionados na seção HEDT do [Sandy e Ivy Bridge-E DeviceProperties](config-HEDT/ivy-bridge-e.md#deviceproperties). Nenhuma *kext* é necessária.
   * Necessita do OS X 10.10 Yosemite ou superior.
 
-::: details *Kexts* de Ethernet Antigas
+::: details Kexts de Ethernet Antigas
 
 Relevante para instalações de Mac OS X antigas ou hardware de PCs mais velhos.
 
@@ -277,7 +277,7 @@ pci14e4,1686 = Broadcom BCM57766
 
 ::: details Mais informações sobre a ativação da AirportItlwm
 
-Para ativar o suporte a AirportItlwm com o OpenCore, será necessário fazer uma das seguintes ações:
+Para ativar o suporte a AirportItlwm no OpenCore, será necessário fazer uma das seguintes ações:
 
 * Ativar a Inicialização Segura configurando `Misc -> Security -> SecureBootModel` para `Default` ou algum outro valor válido.
   * Isso será discutido mais tarde neste guia e também no guia de pós-instalação: [Inicialização Segura da Apple](https://deomkds.github.io/OpenCore-Post-Install/universal/security/applesecureboot.html)
